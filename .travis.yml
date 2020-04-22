@@ -1,0 +1,64 @@
+language: node_js
+
+node_js: 10
+
+jobs:
+  include:
+
+  - stage: install, check code style and coverage
+    if: tag IS blank
+    services:
+    - mongodb
+    addons:
+      hosts:
+      - localhost
+    before_script:
+    - npm install -g grunt-cli
+    - sleep 10
+    script:
+    - grunt
+    - if [ "$TRAVIS_BRANCH" != "master" ]; then grunt test; fi
+    - if [ "$TRAVIS_BRANCH" = "master" ]; then grunt coverage; fi
+
+  - stage: Publish to npm
+    if: branch =~ /(release)/
+    script:
+    - echo "PUBLISH npm"
+    deploy:
+      skip_cleanup: true
+      provider: npm
+      email: $NPM_EMAIL
+      api_key: $NPM_TOKEN
+      on:
+        all_branches: true
+        condition: $TRAVIS_BRANCH =~ ^(release)*
+
+  - stage: Publish to docker registry
+    if: branch =~ /(release)/
+    script:
+    - echo "PUBLISH docker"
+    - export PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -Fn '{ print $2 }' | sed 's/[n:",]//g' | tr -d '[[:space:]]')
+    - export MAJOR_VERSION=$(echo ${PACKAGE_VERSION} | awk -F. '{ print $1 }')
+    - echo Package version ${PACKAGE_VERSION}
+    - echo Major version ${MAJOR_VERSION}
+
+    - git config --local user.name ${GIT_USER}
+    - git config --local user.email ${GIT_EMAIL}
+    - git tag ${PACKAGE_VERSION}
+
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+    - docker build -t soajsorg/infra .
+
+    - docker images
+
+    - docker tag soajsorg/infra:latest soajsorg/infra:${PACKAGE_VERSION}
+    - docker tag soajsorg/infra:latest soajsorg/infra:${MAJOR_VERSION}.x
+
+    - docker push soajsorg/infra
+    deploy:
+      on:
+        all_branches: true
+      provider: releases
+      api_key: ${GIT_TOKEN}
+      skip_cleanup: true
