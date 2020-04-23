@@ -25,19 +25,20 @@ function run(serviceStartCb) {
 			}
 			
 			//GET methods
-	
 			
 			
 			//DELETE methods
-		
 			
 			
 			//PUT methods
-	
 			
 			
 			//POST methods
-			
+			service.put("/kubernetes/deploy", function (req, res) {
+				bl.kubernetes.createServiceAndDeployment(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			
 			service.start(serviceStartCb);
 		});

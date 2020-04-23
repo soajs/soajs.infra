@@ -8,13 +8,16 @@
 
 'use strict';
 
-
 let BL = {
 	init: init
-	
 };
 
 function init(service, localConfig, cb) {
+	
+	let temp = require("./kubernetes.js");
+	temp.localConfig = localConfig;
+	BL.kubernetes = temp;
+	
 	return cb(null);
 }
 

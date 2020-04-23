@@ -36,12 +36,55 @@ module.exports = {
 	//-------------------------------------
 	"errors": {
 		400: "Business logic required data are missing",
+		
 		500: "Nothing to Update!",
 		501: "Item not found!",
 		502: "Item is locked!",
-		601: "Model not found",
-		602: "Model error: "
+		
+		700: "Driver configuration not found",
+		701: "Driver not found",
+		702: "Driver error: "
 		
 	},
-	"schema": {}
+	"schema": {
+		
+		"post": {
+			
+			"/kubernetes/deploy": {
+				"_apiInfo": {
+					"l": "This API creates the service and the related deployment or daemonset",
+					"group": "Kubernetes"
+				},
+				"namespace": {
+					"source": ['body.namespace'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"service": {
+					"source": ['body.service'],
+					"required": true,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"deployment": {
+					"source": ['body.deployment'],
+					"required": true,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"getIps": {
+					"source": ['body.getIps'],
+					"required": false,
+					"validation": {
+						"type": "boolean"
+					}
+				}
+			}
+			
+		}
+	}
 };

@@ -15,25 +15,25 @@ const wrapper = require('./wrapper.js');
 
 let driver = {
 	
-	"connect": (driverConfig, cb) => {
-		if (!driverConfig.token) {
+	"connect": (config, cb) => {
+		if (!config.token) {
 			return cb(new Error('No valid access token found for the kubernetes cluster'));
 		}
-		if (!driverConfig.url) {
+		if (!config.url) {
 			return cb(new Error('No valid url found for the kubernetes cluster'));
 		}
 		try {
 			let client = new Client({
 				"backend": new Request({
-					"url": driverConfig.url,
+					"url": config.url,
 					"auth": {
-						"bearer": driverConfig.token
+						"bearer": config.token
 					},
 					"insecureSkipTlsVerify": true
 				}),
 				"spec": swagger
 			});
-			return cb(client);
+			return cb(null, client);
 		} catch (e) {
 			return cb(e);
 		}
@@ -41,7 +41,7 @@ let driver = {
 	
 	"getServiceIps": (client, options, cb) => {
 		if (!options || !options.namespace || !options.serviceName) {
-			return cb(new Error("options with namespace, serviceName is required!"));
+			return cb(new Error("options with namespace and serviceName is required!"));
 		}
 		if (!options.replicaCount) {
 			options.replicaCount = 1;
@@ -51,9 +51,9 @@ let driver = {
 			if (!options.podFilter) {
 				return callback(null, ips);
 			}
-			wrapper.pod.get(client, {namespace: options.namespace, qs: options.podFilter}, (err, podList) => {
-				if (err) {
-					return callback(err);
+			wrapper.pod.get(client, {namespace: options.namespace, qs: options.podFilter}, (error, podList) => {
+				if (error) {
+					return callback(error);
 				}
 				if (podList && podList.items && Array.isArray(podList.items)) {
 					podList.items.forEach((onePod) => {
@@ -83,10 +83,7 @@ let driver = {
 		};
 		
 		let getServiceIps = (count, callback) => {
-			wrapper.service.get(client, {
-				namespace: options.namespace,
-				name: options.serviceName
-			}, (err, service) => {
+			wrapper.service.get(client, {namespace: options.namespace, name: options.serviceName}, (error, service) => {
 				if (service && service.spec && service.spec.clusterIP) {
 					if (service.spec.type === "LoadBalancer" && (!service.status || !service.status.loadBalancer || !service.status.loadBalancer.ingress || !Array.isArray(service.status.loadBalancer.ingress))) {
 						setTimeout(() => {
@@ -103,18 +100,18 @@ let driver = {
 						return callback(null, response);
 					}
 				} else {
-					return cb(err, null);
+					return cb(error, null);
 				}
 			});
 		};
 		
-		getPodIps(0, (err, ips) => {
-			if (err) {
-				return cb(err);
+		getPodIps(0, (error, ips) => {
+			if (error) {
+				return cb(error);
 			} else {
-				getServiceIps(0, (err, response) => {
-					if (err) {
-						return cb(err);
+				getServiceIps(0, (error, response) => {
+					if (error) {
+						return cb(error);
 					} else {
 						response.podIps = ips;
 						return cb(null, response);
@@ -122,8 +119,31 @@ let driver = {
 				});
 			}
 		});
-	}
+	},
 	
+	"createService": (client, options, cb) => {
+		if (!options || !options.service || !options.namespace) {
+			return cb(new Error("options with namespace and service configuration is required!"));
+		}
+		return wrapper.service.post(client, {namespace: options.namespace, body: options.service}, cb);
+	},
+	
+	"createDeployment": (client, options, cb) => {
+		if (!options || !options.deployment || !options.namespace) {
+			return cb(new Error("options with namespace and service configuration is required!"));
+		}
+		let deploytype = null;
+		if (options.deployment.kind === "DaemonSet") {
+			deploytype = "daemonset";
+		}
+		else if (options.deployment.kind === "Deployment") {
+			deploytype = "deployment";
+		}
+		if (!deploytype) {
+			return cb(new Error("Unsupported deployment kind [" + deploytype + "]"));
+		}
+		return wrapper[deploytype].post(client, {namespace: options.namespace, body: options.deployment}, cb);
+	}
 	
 };
 
