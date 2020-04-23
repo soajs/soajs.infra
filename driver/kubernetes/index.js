@@ -39,7 +39,7 @@ let driver = {
 		}
 	},
 	
-	"getServiceIPs": (client, options, cb) => {
+	"getServiceIps": (client, options, cb) => {
 		if (!options || !options.namespace || !options.serviceName) {
 			return cb(new Error("options with namespace, serviceName is required!"));
 		}
