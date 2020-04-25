@@ -108,6 +108,7 @@ module.exports = {
 				},
 				"commonFields": ["configuration"]
 			},
+			
 			"/kubernetes/deploy": {
 				"_apiInfo": {
 					"l": "This API creates the service and the related deployment or daemonset",
