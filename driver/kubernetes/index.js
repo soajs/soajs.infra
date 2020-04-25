@@ -48,10 +48,10 @@ let driver = {
 		}
 		let getPodIps = (count, callback) => {
 			let ips = [];
-			if (!options.podFilter) {
+			if (!options.filter) {
 				return callback(null, ips);
 			}
-			wrapper.pod.get(client, {namespace: options.namespace, qs: options.podFilter}, (error, podList) => {
+			wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, podList) => {
 				if (error) {
 					return callback(error);
 				}
@@ -120,29 +120,56 @@ let driver = {
 			}
 		});
 	},
-	
-	"createService": (client, options, cb) => {
-		if (!options || !options.service || !options.namespace) {
-			return cb(new Error("options with namespace and service configuration is required!"));
+	"create": {
+		"service": (client, options, cb) => {
+			if (!options || !options.service || !options.namespace) {
+				return cb(new Error("options with namespace and service configuration is required!"));
+			}
+			return wrapper.service.post(client, {namespace: options.namespace, body: options.service}, cb);
+		},
+		"deployment": (client, options, cb) => {
+			if (!options || !options.deployment || !options.namespace) {
+				return cb(new Error("options with namespace and service configuration is required!"));
+			}
+			let deploytype = null;
+			if (options.deployment.kind === "DaemonSet") {
+				deploytype = "daemonset";
+			}
+			else if (options.deployment.kind === "Deployment") {
+				deploytype = "deployment";
+			}
+			if (!deploytype) {
+				return cb(new Error("Unsupported deployment kind [" + deploytype + "]"));
+			}
+			return wrapper[deploytype].post(client, {namespace: options.namespace, body: options.deployment}, cb);
 		}
-		return wrapper.service.post(client, {namespace: options.namespace, body: options.service}, cb);
 	},
-	
-	"createDeployment": (client, options, cb) => {
-		if (!options || !options.deployment || !options.namespace) {
-			return cb(new Error("options with namespace and service configuration is required!"));
+	"get": {
+		"services": (client, options, cb) => {
+			wrapper.service.get(client, {namespace: options.namespace, qs: options.filter}, (error, list) => {
+				return cb(error, list);
+			});
+		},
+		"deployments": (client, options, cb) => {
+			wrapper.deployment.get(client, {namespace: options.namespace, qs: options.filter}, (error, list) => {
+				return cb(error, list);
+			});
+		},
+		"daemonsets": (client, options, cb) => {
+			wrapper.daemonset.get(client, {namespace: options.namespace, qs: options.filter}, (error, list) => {
+				return cb(error, list);
+			});
+		},
+		"cronjobs": (client, options, cb) => {
+			wrapper.cronjob.get(client, {namespace: options.namespace, qs: options.filter}, (error, list) => {
+				return cb(error, list);
+			});
+		},
+		"nodes": (client, options, cb) => {
+			wrapper.node.get(client, {qs: options.filter}, (error, list) => {
+				return cb(error, list);
+			});
 		}
-		let deploytype = null;
-		if (options.deployment.kind === "DaemonSet") {
-			deploytype = "daemonset";
-		}
-		else if (options.deployment.kind === "Deployment") {
-			deploytype = "deployment";
-		}
-		if (!deploytype) {
-			return cb(new Error("Unsupported deployment kind [" + deploytype + "]"));
-		}
-		return wrapper[deploytype].post(client, {namespace: options.namespace, body: options.deployment}, cb);
 	}
 	
 };

@@ -26,7 +26,6 @@ function run(serviceStartCb) {
 			
 			//GET methods
 			
-			
 			//DELETE methods
 			
 			
@@ -34,8 +33,23 @@ function run(serviceStartCb) {
 			
 			
 			//POST methods
-			service.put("/kubernetes/deploy", function (req, res) {
-				bl.kubernetes.createServiceAndDeployment(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.post("/kubernetes/resources/all", function (req, res) {
+				bl.kubernetes.getResources_all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/resources/catalog/items", function (req, res) {
+				bl.kubernetes.getResources_catalogItems(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/resources/other", function (req, res) {
+				bl.kubernetes.getResources_other(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy", function (req, res) {
+				bl.kubernetes.deploy(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
