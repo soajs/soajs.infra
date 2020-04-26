@@ -8,6 +8,7 @@
 
 'use strict';
 
+const item_service = require("./schemas/service.js");
 
 module.exports = {
 	type: 'service',
@@ -87,6 +88,7 @@ module.exports = {
 			}
 		},
 		"post": {
+			
 			"/kubernetes/resources/catalog/items": {
 				"_apiInfo": {
 					"l": "This API returns all the resources information related o catalog items for a given namespace.",
@@ -109,6 +111,33 @@ module.exports = {
 				"commonFields": ["configuration"]
 			},
 			
+			"/kubernetes/namespace": {
+				"_apiInfo": {
+					"l": "This API create a namespace",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"namespace": {
+					"source": ['body.namespace'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			
+			"/kubernetes/deploy/service": {
+				"_apiInfo": {
+					"l": "This API deploy an item of type service",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"recipe": {
+					"source": ['body.recipe'],
+					"required": true,
+					"validation": item_service
+				}
+			},
 			"/kubernetes/deploy": {
 				"_apiInfo": {
 					"l": "This API creates the service and the related deployment or daemonset",

@@ -10,45 +10,7 @@
 
 const async = require("async");
 const driver = require("../driver/kubernetes/index.js");
-const get = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o);
-
-let getDriverConfiguration = (soajs, configuration, cb) => {
-	if (!configuration) {
-		return cb(new Error("Problem with the provided kubernetes configuration"));
-	}
-	if (configuration.env) {
-		//get env registry
-		let registry = soajs.registry;
-		let depType = get(["deployer", "type"], registry);
-		if (depType === "container") {
-			let depSeleted = get(["deployer", "selected"], registry);
-			if (depSeleted && depSeleted.includes("kubernetes")) {
-				let regConf = get(["deployer"].concat(depSeleted.split(".")), registry);
-				if (regConf) {
-					let protocol = regConf.apiProtocol || "https://";
-					let port = regConf.apiPort ? ":" + regConf.apiPort : "";
-					let config = {
-						"namespace": regConf.namespace.default,
-						"token": regConf.auth.token,
-						"url": protocol + regConf.nodes + port
-					};
-					return cb(null, config);
-				}
-			}
-		}
-		return cb(new Error("Unable to find healthy configuration in registry"));
-	} else {
-		if (configuration.namespace && configuration.token && configuration.url) {
-			let config = {
-				"namespace": configuration.namespace,
-				"token": configuration.token,
-				"url": configuration.url
-			};
-			return cb(null, config);
-		}
-		return cb(new Error("Configuration requires namespace, token, and url"));
-	}
-};
+const lib = require("./lib.js");
 
 let bl = {
 	"localConfig": null,
@@ -63,46 +25,57 @@ let bl = {
 		});
 	},
 	
-	"deploy": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		
-		getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 700, error));
-			} else {
-				driver.connect(config, (error, client) => {
-					if (error) {
-						return cb(bl.handleError(soajs, 702, error));
-					}
-					driver.create.deployment(client, {
-						"deployment": inputmaskData.deployment,
-						"namespace": config.namespace
-					}, (error) => {
+	"create": {
+		"namespace": (soajs, inputmaskData, options, cb) => {
+			if (!inputmaskData) {
+				return cb(bl.handleError(soajs, 400, null));
+			}
+			lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 700, error));
+				} else {
+					driver.connect(config, (error, client) => {
 						if (error) {
 							return cb(bl.handleError(soajs, 702, error));
 						}
-						if (inputmaskData.service) {
-							driver.create.service(client, {
-								"service": inputmaskData.service,
-								"namespace": config.namespace
-							}, (error) => {
-								if (error) {
-									return cb(bl.handleError(soajs, 702, error));
-								}
-								return cb(null, {"created": true});
-								
-							});
-						} else {
+						driver.create.namespace(client, {"namespace": inputmaskData.namespace}, (error) => {
+							if (error) {
+								return cb(bl.handleError(soajs, 702, error));
+							}
 							return cb(null, {"created": true});
-						}
+						});
 					});
-				});
-			}
-		});
+				}
+			});
+		}
 	},
 	
+	"delete": {
+		"namespace": (soajs, inputmaskData, options, cb) => {
+			if (!inputmaskData) {
+				return cb(bl.handleError(soajs, 400, null));
+			}
+			lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 700, error));
+				} else {
+					driver.connect(config, (error, client) => {
+						if (error) {
+							return cb(bl.handleError(soajs, 702, error));
+						}
+						driver.create.namespace(client, {"namespace": inputmaskData.namespace}, (error) => {
+							if (error) {
+								return cb(bl.handleError(soajs, 702, error));
+							}
+							return cb(null, {"created": true});
+						});
+					});
+				}
+			});
+		}
+	},
+	
+	"deploy": {},
 	
 	"getResources_catalogItems": (soajs, inputmaskData, options, cb) => {
 		options = {
@@ -128,7 +101,7 @@ let bl = {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
+		lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
 			if (error) {
 				return cb(bl.handleError(soajs, 700, error));
 			} else {

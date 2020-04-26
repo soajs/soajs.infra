@@ -33,6 +33,7 @@ function run(serviceStartCb) {
 			
 			
 			//POST methods
+			
 			service.post("/kubernetes/resources/all", function (req, res) {
 				bl.kubernetes.getResources_all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -48,8 +49,40 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			
+			service.post("/kubernetes/namespace", function (req, res) {
+				bl.kubernetes.create.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			service.post("/kubernetes/deploy", function (req, res) {
-				bl.kubernetes.deploy(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.deploy.vanilla(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy/service", function (req, res) {
+				bl.kubernetes.deploy.service(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy/daemon", function (req, res) {
+				bl.kubernetes.deploy.daemon(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy/static", function (req, res) {
+				bl.kubernetes.deploy.static(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy/custom", function (req, res) {
+				bl.kubernetes.deploy.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy/resource", function (req, res) {
+				bl.kubernetes.deploy.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

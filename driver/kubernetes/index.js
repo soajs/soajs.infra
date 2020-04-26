@@ -38,7 +38,14 @@ let driver = {
 			return cb(e);
 		}
 	},
-	
+	"delete": {
+		"namespace": (client, options, cb) => {
+			if (!options || !options.namespace) {
+				return cb(new Error("delete namespace options is required with {namespace}"));
+			}
+			wrapper.namespace.delete(client, {name: options.namespace}, cb);
+		}
+	},
 	"create": {
 		"service": (client, options, cb) => {
 			if (!options || !options.service || !options.namespace) {

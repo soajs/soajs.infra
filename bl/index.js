@@ -18,6 +18,11 @@ function init(service, localConfig, cb) {
 	temp.localConfig = localConfig;
 	BL.kubernetes = temp;
 	
+	temp = require("./deploy.js");
+	temp.localConfig = localConfig;
+	temp.handleError = BL.kubernetes.handleError;
+	BL.kubernetes.deploy = temp;
+	
 	return cb(null);
 }
 
