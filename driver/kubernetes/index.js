@@ -44,6 +44,71 @@ let driver = {
 				return cb(new Error("delete namespace options is required with {namespace}"));
 			}
 			wrapper.namespace.delete(client, {name: options.namespace}, cb);
+		},
+		"service": (client, options, cb) => {
+			if (!options || !options.name) {
+				return cb(new Error("delete service options is required with {namespace, name}"));
+			}
+			wrapper.service.delete(client, {namespace: options.namespace, name: options.name}, cb);
+		},
+		"daemonset": (client, options, cb) => {
+			if (!options || !options.name) {
+				return cb(new Error("delete daemonset options is required with {namespace, name}"));
+			}
+			wrapper.daemonset.delete(client, {namespace: options.namespace, name: options.name}, cb);
+		},
+		"deployment": (client, options, cb) => {
+			if (!options || !options.name) {
+				return cb(new Error("delete deployment options is required with {namespace, name}"));
+			}
+			wrapper.deployment.get(client, {namespace: options.namespace, name: options.name}, (error, deployment) => {
+				if (error) {
+					return cb(error);
+				}
+				if (!deployment) {
+					return cb(new Error("Unable to find the deployment [" + options.name + "] to delete."));
+				}
+				deployment.spec.replicas = 0;
+				wrapper.deployment.put(client, {
+					namespace: options.namespace,
+					name: options.name,
+					body: deployment
+				}, (error) => {
+					if (error) {
+						return cb(error);
+					}
+					wrapper.deployment.delete(client, {name: options.name, namespace: options.namespace}, (error) => {
+						if (error) {
+							return cb(error);
+						}
+						wrapper.autoscale.get(client, {
+							name: options.name,
+							namespace: options.namespace
+						}, (error, hpa) => {
+							// No autoscale found
+							if (error && error.code === 404) {
+								return cb(null, true);
+							}
+							if (error) {
+								return cb(error);
+							}
+							if (hpa && Object.keys(hpa).length !== 0) {
+								wrapper.autoscale.delete(client, {
+									name: options.name,
+									namespace: options.namespace
+								}, (error) => {
+									if (error) {
+										return cb(error);
+									}
+									return cb(null, true);
+								});
+							} else {
+								return cb(null, true);
+							}
+						});
+					});
+				});
+			});
 		}
 	},
 	"create": {
@@ -205,6 +270,16 @@ let driver = {
 				}
 			});
 		},
+		
+		"service": (client, options, cb) => {
+			if (!options || !options.namespace || !options.name) {
+				return cb(new Error("get services options is required with {namespace, name}"));
+			}
+			wrapper.service.get(client, {namespace: options.namespace, name: options.name || null}, (error, list) => {
+				return cb(error, list);
+			});
+		},
+		
 		"services": (client, options, cb) => {
 			if (!options || !options.namespace) {
 				return cb(new Error("get services options is required with {namespace}"));

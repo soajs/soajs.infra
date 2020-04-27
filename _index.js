@@ -28,6 +28,22 @@ function run(serviceStartCb) {
 			
 			//DELETE methods
 			
+			service.delete("/kubernetes/namespace", function (req, res) {
+				bl.kubernetes.delete.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/item", function (req, res) {
+				bl.kubernetes.delete.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/service", function (req, res) {
+				bl.kubernetes.delete.service(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			
 			//PUT methods
 			
@@ -56,33 +72,18 @@ function run(serviceStartCb) {
 				});
 			});
 			
-			service.post("/kubernetes/deploy", function (req, res) {
-				bl.kubernetes.deploy.vanilla(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.post("/kubernetes/deploy/native", function (req, res) {
+				bl.kubernetes.deploy.native(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/deploy/service", function (req, res) {
-				bl.kubernetes.deploy.service(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.post("/kubernetes/deploy/item/soajs", function (req, res) {
+				bl.kubernetes.deploy.item_soajs(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/deploy/daemon", function (req, res) {
-				bl.kubernetes.deploy.daemon(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.post("/kubernetes/deploy/static", function (req, res) {
-				bl.kubernetes.deploy.static(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.post("/kubernetes/deploy/custom", function (req, res) {
-				bl.kubernetes.deploy.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.post("/kubernetes/deploy/resource", function (req, res) {
-				bl.kubernetes.deploy.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.post("/kubernetes/deploy/item/native", function (req, res) {
+				bl.kubernetes.deploy.item_native(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

@@ -72,6 +72,29 @@ let config = {
 				"type": "string"
 			}
 		},
+		"mode": {
+			"required": true,
+			"type": "string",
+			"enum": ["Deployment", "DaemonSet"]
+		},
+		"ports": {
+			"type": "array",
+			"required": false,
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"name": {
+						"required": true,
+						"type": "string"
+					},
+					"containerPort": {
+						"required": true,
+						"type": "integer"
+					}
+				}
+			}
+		},
 		"workingDir": {
 			"required": false,
 			"type": "string"
@@ -83,13 +106,6 @@ let config = {
 		"args": {
 			"type": "array",
 			"required": false
-		},
-		"ports": {
-			"type": "array",
-			"required": false,
-			"items": {
-				"type": "object"
-			}
 		},
 		"readinessProbe": {
 			"type": "object",
@@ -144,6 +160,39 @@ let config = {
 			"type": "integer",
 			"required": false,
 			"default": 1
+		},
+		"service": {
+			"required": false,
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"ports": {
+					"type": "array",
+					"required": false,
+					"items": {
+						"type": "object",
+						"additionalProperties": true,
+						"properties": {
+							"name": {
+								"required": true,
+								"type": "string"
+							},
+							"port": {
+								"required": true,
+								"type": "integer"
+							}
+						}
+					}
+				},
+				"type": {
+					"required": false,
+					"type": "string"
+				},
+				"externalTrafficPolicy": {
+					"required": false,
+					"type": "string"
+				}
+			}
 		}
 	}
 };

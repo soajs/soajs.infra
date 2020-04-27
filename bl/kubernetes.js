@@ -38,7 +38,7 @@ let bl = {
 						if (error) {
 							return cb(bl.handleError(soajs, 702, error));
 						}
-						driver.create.namespace(client, {"namespace": inputmaskData.namespace}, (error) => {
+						driver.create.namespace(client, {"namespace": config.namespace}, (error) => {
 							if (error) {
 								return cb(bl.handleError(soajs, 702, error));
 							}
@@ -63,11 +63,82 @@ let bl = {
 						if (error) {
 							return cb(bl.handleError(soajs, 702, error));
 						}
-						driver.create.namespace(client, {"namespace": inputmaskData.namespace}, (error) => {
+						driver.delete.namespace(client, {"namespace": config.namespace}, (error) => {
 							if (error) {
 								return cb(bl.handleError(soajs, 702, error));
 							}
 							return cb(null, {"created": true});
+						});
+					});
+				}
+			});
+		},
+		"item": (soajs, inputmaskData, options, cb) => {
+			if (!inputmaskData) {
+				return cb(bl.handleError(soajs, 400, null));
+			}
+			lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 700, error));
+				} else {
+					driver.connect(config, (error, client) => {
+						if (error) {
+							return cb(bl.handleError(soajs, 702, error));
+						}
+						let mode = inputmaskData.mode.toLowerCase();
+						driver.delete[mode](client, {
+							"namespace": config.namespace,
+							"name": inputmaskData.name
+						}, (error) => {
+							if (error) {
+								return cb(bl.handleError(soajs, 702, error));
+							}
+							driver.get.service(client, {
+								"namespace": config.namespace,
+								"name": inputmaskData.name
+							}, (error) => {
+								if (error && error.code === 404) {
+									return cb(null, {"deleted": true});
+								}
+								if (error) {
+									return cb(bl.handleError(soajs, 702, error));
+								}
+								driver.delete.service(client, {
+									"namespace": config.namespace,
+									"name": inputmaskData.name
+								}, (error) => {
+									if (error) {
+										return cb(bl.handleError(soajs, 702, error));
+									}
+									return cb(null, {"deleted": true});
+								});
+							});
+						});
+					});
+				}
+			});
+		},
+		
+		"service": (soajs, inputmaskData, options, cb) => {
+			if (!inputmaskData) {
+				return cb(bl.handleError(soajs, 400, null));
+			}
+			lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 700, error));
+				} else {
+					driver.connect(config, (error, client) => {
+						if (error) {
+							return cb(bl.handleError(soajs, 702, error));
+						}
+						driver.delete.service(client, {
+							"namespace": config.namespace,
+							"name": inputmaskData.name
+						}, (error) => {
+							if (error) {
+								return cb(bl.handleError(soajs, 702, error));
+							}
+							return cb(null, {"deleted": true});
 						});
 					});
 				}

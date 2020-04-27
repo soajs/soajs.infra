@@ -8,7 +8,8 @@
 
 'use strict';
 
-const item_service = require("./schemas/service.js");
+const item_soajs = require("./schemas/item_soajs.js");
+const item_native = require("./schemas/item_native.js");
 
 module.exports = {
 	type: 'service',
@@ -126,19 +127,31 @@ module.exports = {
 				}
 			},
 			
-			"/kubernetes/deploy/service": {
+			"/kubernetes/deploy/item/soajs": {
 				"_apiInfo": {
-					"l": "This API deploy an item of type service",
+					"l": "This API deploy an item from the catalog using soajs recipe",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
 				"recipe": {
 					"source": ['body.recipe'],
 					"required": true,
-					"validation": item_service
+					"validation": item_soajs
 				}
 			},
-			"/kubernetes/deploy": {
+			"/kubernetes/deploy/item/native": {
+				"_apiInfo": {
+					"l": "This API deploy an item from the catalog using kubernetes native recipe",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"recipe": {
+					"source": ['body.recipe'],
+					"required": true,
+					"validation": item_native
+				}
+			},
+			"/kubernetes/deploy/native": {
 				"_apiInfo": {
 					"l": "This API creates the service and the related deployment or daemonset",
 					"group": "Kubernetes"
@@ -156,6 +169,51 @@ module.exports = {
 					"required": true,
 					"validation": {
 						"type": "object"
+					}
+				}
+			}
+		},
+		"delete": {
+			"/kubernetes/namespace": {
+				"_apiInfo": {
+					"l": "This API deletes a namespace",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"]
+			},
+			"/kubernetes/item": {
+				"_apiInfo": {
+					"l": "This API deletes a namespace",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Deployment", "DaemonSet"]
+					}
+				},
+			},
+			"/kubernetes/service": {
+				"_apiInfo": {
+					"l": "This API deletes a namespace",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['query.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
 					}
 				}
 			}
