@@ -93,9 +93,13 @@ let bl = {
 							if (error) {
 								return cb(bl.handleError(soajs, 702, error));
 							}
+							let serviceName = inputmaskData.name + "-service";
+							if (inputmaskData.serviceName) {
+								serviceName = inputmaskData.serviceName;
+							}
 							driver.get.service(client, {
 								"namespace": config.namespace,
-								"name": inputmaskData.name
+								"name": serviceName
 							}, (error) => {
 								if (error && error.code === 404) {
 									return cb(null, {"deleted": true});
@@ -105,7 +109,7 @@ let bl = {
 								}
 								driver.delete.service(client, {
 									"namespace": config.namespace,
-									"name": inputmaskData.name
+									"name": serviceName
 								}, (error) => {
 									if (error) {
 										return cb(bl.handleError(soajs, 702, error));

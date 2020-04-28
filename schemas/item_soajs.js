@@ -14,7 +14,7 @@ let config = {
 	"properties": {
 		"labels": {
 			"type": "object",
-			"required": false,
+			"required": false
 		},
 		"catalog": {
 			"required": true,
@@ -63,13 +63,40 @@ let config = {
 			}
 		},
 		"image": {
-			"name": {
-				"required": true,
-				"type": "string"
-			},
-			"imagePullPolicy": {
-				"required": true,
-				"type": "string"
+			"required": true,
+			"type": "object",
+			"properties": {
+				"name": {
+					"required": true,
+					"type": "string"
+				},
+				"imagePullPolicy": {
+					"required": true,
+					"type": "string"
+				}
+			}
+		},
+		"src": {
+			"required": false,
+			"type": "object",
+			"properties": {
+				"branch": {
+					"required": true,
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+				},
+				"repo": {
+					"required": true,
+					"type": "string"
+				},
+				"owner": {
+					"required": true,
+					"type": "string"
+				},
+				"commit": {
+					"required": true,
+					"type": "string"
+				}
 			}
 		},
 		"mode": {
@@ -136,18 +163,20 @@ let config = {
 			"required": false,
 			"type": "object",
 			"additionalProperties": false,
-			"volumeMounts": {
-				"type": "array",
-				"required": false,
-				"items": {
-					"type": "object"
-				}
-			},
-			"volumes": {
-				"type": "array",
-				"required": false,
-				"items": {
-					"type": "object"
+			"properties": {
+				"volumeMounts": {
+					"type": "array",
+					"required": false,
+					"items": {
+						"type": "object"
+					}
+				},
+				"volumes": {
+					"type": "array",
+					"required": false,
+					"items": {
+						"type": "object"
+					}
 				}
 			}
 		},

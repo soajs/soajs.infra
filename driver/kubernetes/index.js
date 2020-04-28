@@ -49,13 +49,39 @@ let driver = {
 			if (!options || !options.name) {
 				return cb(new Error("delete service options is required with {namespace, name}"));
 			}
-			wrapper.service.delete(client, {namespace: options.namespace, name: options.name}, cb);
+			wrapper.service.get(client, {namespace: options.namespace, name: options.name}, (error, service) => {
+				if (error) {
+					return cb(error);
+				}
+				if (!service) {
+					return cb(new Error("Unable to find the service [" + options.name + "] to delete."));
+				}
+				wrapper.service.delete(client, {namespace: options.namespace, name: options.name}, (error) => {
+					if (error) {
+						return cb(error);
+					}
+					return cb(null, service);
+				});
+			});
 		},
 		"daemonset": (client, options, cb) => {
 			if (!options || !options.name) {
 				return cb(new Error("delete daemonset options is required with {namespace, name}"));
 			}
-			wrapper.daemonset.delete(client, {namespace: options.namespace, name: options.name}, cb);
+			wrapper.daemonset.get(client, {namespace: options.namespace, name: options.name}, (error, daemonset) => {
+				if (error) {
+					return cb(error);
+				}
+				if (!daemonset) {
+					return cb(new Error("Unable to find the daemonset [" + options.name + "] to delete."));
+				}
+				wrapper.daemonset.delete(client, {namespace: options.namespace, name: options.name}, (error) => {
+					if (error) {
+						return cb(error);
+					}
+					return cb(null, daemonset);
+				});
+			});
 		},
 		"deployment": (client, options, cb) => {
 			if (!options || !options.name) {
@@ -87,7 +113,7 @@ let driver = {
 						}, (error, hpa) => {
 							// No autoscale found
 							if (error && error.code === 404) {
-								return cb(null, true);
+								return cb(null, deployment);
 							}
 							if (error) {
 								return cb(error);
@@ -100,10 +126,10 @@ let driver = {
 									if (error) {
 										return cb(error);
 									}
-									return cb(null, true);
+									return cb(null, deployment);
 								});
 							} else {
-								return cb(null, true);
+								return cb(null, deployment);
 							}
 						});
 					});

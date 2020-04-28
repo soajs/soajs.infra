@@ -58,6 +58,29 @@ let config = {
 				}
 			}
 		},
+		"src": {
+			"required": false,
+			"type": "object",
+			"properties": {
+				"branch": {
+					"required": true,
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+				},
+				"repo": {
+					"required": true,
+					"type": "string"
+				},
+				"owner": {
+					"required": true,
+					"type": "string"
+				},
+				"commit": {
+					"required": true,
+					"type": "string"
+				}
+			}
+		},
 		
 		"deployment": {
 			"required": true,

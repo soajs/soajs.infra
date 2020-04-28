@@ -11,6 +11,7 @@
 
 const driver = require("../driver/kubernetes/index.js");
 const lib = require("./lib.js");
+const soajsCoreLibs = require("soajs.core.libs");
 
 let bl = {
 	"localConfig": null,
@@ -22,8 +23,11 @@ let bl = {
 		}
 		
 		let config = inputmaskData.recipe;
+		
+		let sanytized_version = soajsCoreLibs.version.sanitize(config.item.version);
 		let label = config.item.env + "-" + config.item.name + "-v" + config.item.version;
-		let label_sanytized = label.split(".").join("-dot-");
+		let label_sanytized = config.item.env + "-" + config.item.name + "-v" + sanytized_version;
+		
 		if (!config.labels) {
 			config.labels = {};
 		}
@@ -37,8 +41,15 @@ let bl = {
 		config.labels["soajs.service.type"] = config.item.type;
 		config.labels["soajs.service.subtype"] = config.item.subtype;
 		config.labels["soajs.service.version"] = config.item.version;
-		config.labels["soajs.service.label"] = label_sanytized;
+		config.labels["soajs.service.label"] = label;
 		config.labels["soajs.service.mode"] = config.mode.toLowerCase();
+		
+		if (config.src) {
+			config.labels["service.branch"] = config.src.branch;
+			config.labels["service.owner"] = config.src.owner;
+			config.labels["service.repo"] = config.src.repo;
+			config.labels["service.commit"] = config.src.commit;
+		}
 		
 		let service = null;
 		if (config.service && config.service.ports) {
@@ -46,12 +57,12 @@ let bl = {
 				"apiVersion": "v1",
 				"kind": "Service",
 				"metadata": {
-					"name": label_sanytized,
+					"name": label_sanytized + "-service",
 					"labels": config.labels
 				},
 				"spec": {
 					"selector": {
-						"soajs.service.label": label_sanytized
+						"soajs.service.label": label
 					}
 				}
 			};
@@ -76,7 +87,7 @@ let bl = {
 				"replicas": config.replicas,
 				"selector": {
 					"matchLabels": {
-						"soajs.service.label": label_sanytized
+						"soajs.service.label": label
 					}
 				},
 				"updateStrategy": {
@@ -140,8 +151,11 @@ let bl = {
 		}
 		
 		let config = {"catalog": inputmaskData.catalog, "item": inputmaskData.item};
+		
+		let sanytized_version = soajsCoreLibs.version.sanitize(config.item.version);
 		let label = config.item.env + "-" + config.item.name + "-v" + config.item.version;
-		let label_sanytized = label.split(".").join("-dot-");
+		let label_sanytized = config.item.env + "-" + config.item.name + "-v" + sanytized_version;
+		
 		let deployment = inputmaskData.deployment;
 		let service = inputmaskData.service || null;
 		
@@ -156,9 +170,16 @@ let bl = {
 			"soajs.service.type": config.item.type,
 			"soajs.service.subtype": config.item.subtype,
 			"soajs.service.version": config.item.version,
-			"soajs.service.label": label_sanytized,
+			"soajs.service.label": label,
 			"soajs.service.mode": deployment.kind.toLowerCase()
 		};
+		
+		if (config.src) {
+			labels["service.branch"] = config.src.branch;
+			labels["service.owner"] = config.src.owner;
+			labels["service.repo"] = config.src.repo;
+			labels["service.commit"] = config.src.commit;
+		}
 		
 		if (!deployment.metadata.labels) {
 			deployment.metadata.labels = {};
@@ -177,6 +198,7 @@ let bl = {
 				deployment.spec.template.metadata.labels[l] = labels[l];
 				if (service) {
 					service.metadata.labels = labels[l];
+					service.metadata.name = label_sanytized + "-service";
 				}
 			}
 		}

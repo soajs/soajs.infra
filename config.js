@@ -194,6 +194,13 @@ module.exports = {
 						"type": "string"
 					}
 				},
+				"serviceName": {
+					"source": ['body.serviceName'],
+					"required": false,
+					"validation": {
+						"type": "string"
+					}
+				},
 				"mode": {
 					"source": ['body.mode'],
 					"required": true,
