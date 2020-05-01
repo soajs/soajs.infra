@@ -15,6 +15,7 @@ const swagger = require('./swagger/swagger.json');
 const wrapper = require('./wrapper.js');
 
 const _secret_opaque = require("./secret_opaque.js");
+const _secret_dockercfg = require("./secret_dockercfg.js");
 const _secret = require("./secret.js");
 const _autoscale = require("./autoscale.js");
 const _namespace = require("./namespace.js");
@@ -75,7 +76,8 @@ let driver = {
 		"deployment": _deployment.create,
 		"daemonset": _daemonset.create,
 		"cronjob": _cronjob.create,
-		"secret_opaque": _secret_opaque.create
+		"secret_opaque": _secret_opaque.create,
+		"secret_dockercfg": _secret_dockercfg.create
 	},
 	
 	"get": {

@@ -33,6 +33,16 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.delete("/kubernetes/autoscale", function (req, res) {
+				bl.kubernetes.delete.autoscale(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/secret", function (req, res) {
+				bl.kubernetes.delete.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.delete("/kubernetes/item", function (req, res) {
 				bl.kubernetes.delete.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -43,17 +53,23 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.delete("/kubernetes/secret", function (req, res) {
-				bl.kubernetes.delete.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
 			
 			
 			//PUT methods
 			
 			
 			//POST methods
+			
+			service.post("/kubernetes/secret", function (req, res) {
+				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/secret/registry", function (req, res) {
+				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, {"type":"dockercfg"}, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			
 			service.post("/kubernetes/resources/all", function (req, res) {
 				bl.kubernetes.getResources_all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {

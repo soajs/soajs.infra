@@ -89,7 +89,6 @@ module.exports = {
 			}
 		},
 		"post": {
-			
 			"/kubernetes/resources/catalog/items": {
 				"_apiInfo": {
 					"l": "This API returns all the resources information related o catalog items for a given namespace.",
@@ -161,6 +160,45 @@ module.exports = {
 					}
 				}
 			},
+			"/kubernetes/secret/registry": {
+				"_apiInfo": {
+					"l": "This API creates a secret for private registry",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"content": {
+					"source": ['body.content'],
+					"required": true,
+					"validation": {
+						"type": "object",
+						"properties": {
+							"username": {
+								"required": true,
+								"type": "string"
+							},
+							"password": {
+								"required": true,
+								"type": "string"
+							},
+							"email": {
+								"required": true,
+								"type": "string"
+							},
+							"server": {
+								"required": true,
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
 			
 			"/kubernetes/deploy/item/soajs": {
 				"_apiInfo": {
@@ -213,6 +251,20 @@ module.exports = {
 			"/kubernetes/namespace": {
 				"_apiInfo": {
 					"l": "This API deletes a namespace",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/autoscale": {
+				"_apiInfo": {
+					"l": "This API deletes an autoscale",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],

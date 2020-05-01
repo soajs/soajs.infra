@@ -21,7 +21,7 @@ let bl = {
 		let recipe = {
 			kind: 'Secret',
 			apiVersion: 'v1',
-			type: 'Opaque',
+			type: 'kubernetes.io/dockercfg',
 			metadata: {
 				name: options.name,
 				labels: {
@@ -30,18 +30,19 @@ let bl = {
 			},
 			stringData: null
 		};
-		for (let i = 0; i < options.content.length; i++) {
-			let c = options.content[i];
-			if (c.name && c.content) {
-				if (!recipe.stringData) {
-					recipe.stringData = {};
-				}
-				recipe.stringData[c.name] = c.content;
+		let auth = new Buffer(`${options.content.username}:${options.content.password}`);
+		let data = {
+			[options.content.server]: {
+				username: options.content.username,
+				password: options.content.password,
+				email: options.content.email,
+				auth: auth.toString("base64"),
 			}
-		}
+		};
+		recipe.stringData = {[".dockercfg"]: JSON.stringify(data)};
 		
 		if (!recipe.stringData) {
-			return cb(new Error("secret cannot be created, unable to find any item with name and content."));
+			return cb(new Error("secret cannot be created, unable to build the needed content."));
 		}
 		
 		wrapper.secret.post(client, {namespace: options.namespace, body: recipe}, cb);

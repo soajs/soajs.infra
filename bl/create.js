@@ -40,17 +40,30 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.create.secret_opaque(client, {
-				"namespace": config.namespace,
-				"name": inputmaskData.name,
-				"content": inputmaskData.content
-			}, (error) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, {"created": true});
-			});
+			if (options.type === "dockercfg") {
+				driver.create.secret_dockercfg(client, {
+					"namespace": config.namespace,
+					"name": inputmaskData.name,
+					"content": inputmaskData.content
+				}, (error) => {
+					if (error) {
+						return cb(bl.handleError(soajs, 702, error));
+					}
+					return cb(null, {"created": true});
+				});
+			} else {
+				driver.create.secret_opaque(client, {
+					"namespace": config.namespace,
+					"name": inputmaskData.name,
+					"content": inputmaskData.content
+				}, (error) => {
+					if (error) {
+						return cb(bl.handleError(soajs, 702, error));
+					}
+					return cb(null, {"created": true});
+				});
+			}
 		});
-	}
+	},
 };
 module.exports = bl;
