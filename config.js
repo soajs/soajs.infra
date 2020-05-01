@@ -114,15 +114,50 @@ module.exports = {
 			
 			"/kubernetes/namespace": {
 				"_apiInfo": {
-					"l": "This API create a namespace",
+					"l": "This API creates a namespace",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"namespace": {
-					"source": ['body.namespace'],
+				"name": {
+					"source": ['body.name'],
 					"required": true,
 					"validation": {
 						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/secret": {
+				"_apiInfo": {
+					"l": "This API creates a secret",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"content": {
+					"source": ['body.content'],
+					"required": true,
+					"validation": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"required": true,
+									"type": "string"
+								},
+								"content": {
+									"required": true,
+									"type": "string"
+								}
+							}
+						}
 					}
 				}
 			},
@@ -173,17 +208,39 @@ module.exports = {
 				}
 			}
 		},
+		
 		"delete": {
 			"/kubernetes/namespace": {
 				"_apiInfo": {
 					"l": "This API deletes a namespace",
 					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"]
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/secret": {
+				"_apiInfo": {
+					"l": "This API deletes a secret",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				}
 			},
 			"/kubernetes/item": {
 				"_apiInfo": {
-					"l": "This API deletes a namespace",
+					"l": "This API deletes an item including (service, deployment or deamonset and the related auto scaling)",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -206,9 +263,16 @@ module.exports = {
 					"required": true,
 					"validation": {
 						"type": "string",
-						"enum": ["Deployment", "DaemonSet"]
+						"enum": ["Deployment", "DaemonSet", "CronJob"]
 					}
 				},
+				"cleanup": {
+					"source": ['body.cleanup'],
+					"required": false,
+					"validation": {
+						"type": "boolean"
+					}
+				}
 			},
 			"/kubernetes/service": {
 				"_apiInfo": {

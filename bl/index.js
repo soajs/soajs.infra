@@ -23,6 +23,11 @@ function init(service, localConfig, cb) {
 	temp.handleError = BL.kubernetes.handleError;
 	BL.kubernetes.deploy = temp;
 	
+	temp = require("./delete.js");
+	temp.localConfig = localConfig;
+	temp.handleError = BL.kubernetes.handleError;
+	BL.kubernetes.delete = temp;
+	
 	return cb(null);
 }
 

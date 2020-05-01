@@ -87,22 +87,25 @@ let config = {
 				},
 				"repo": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
 				},
 				"owner": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
 				},
 				"commit": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
 				}
 			}
 		},
 		"mode": {
 			"required": true,
 			"type": "string",
-			"enum": ["Deployment", "DaemonSet"]
+			"enum": ["Deployment", "DaemonSet", "CronJob"]
 		},
 		"ports": {
 			"type": "array",

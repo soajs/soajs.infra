@@ -239,7 +239,7 @@ let bl = {
 						return cb(bl.handleError(soajs, 702, error));
 					}
 					driver.create.deployment(client, {
-						"deployment": inputmaskData.deployment,
+						"body": inputmaskData.deployment,
 						"namespace": config.namespace
 					}, (error) => {
 						if (error) {
@@ -247,7 +247,7 @@ let bl = {
 						}
 						if (inputmaskData.service) {
 							driver.create.service(client, {
-								"service": inputmaskData.service,
+								"body": inputmaskData.service,
 								"namespace": config.namespace
 							}, (error) => {
 								if (error) {
