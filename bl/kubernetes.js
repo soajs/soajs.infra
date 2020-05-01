@@ -25,56 +25,19 @@ let bl = {
 		});
 	},
 	
-	"create": {
-		"namespace": (soajs, inputmaskData, options, cb) => {
-			if (!inputmaskData) {
-				return cb(bl.handleError(soajs, 400, null));
+	"handleConnect": (soajs, configuration, cb) => {
+		lib.getDriverConfiguration(soajs, configuration, (error, config) => {
+			if (error) {
+				return cb(error);
+			} else {
+				driver.connect(config, (error, client) => {
+					return cb(error, client, config);
+				});
 			}
-			lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 700, error));
-				} else {
-					driver.connect(config, (error, client) => {
-						if (error) {
-							return cb(bl.handleError(soajs, 702, error));
-						}
-						driver.create.namespace(client, {"name": inputmaskData.name}, (error) => {
-							if (error) {
-								return cb(bl.handleError(soajs, 702, error));
-							}
-							return cb(null, {"created": true});
-						});
-					});
-				}
-			});
-		},
-		"secret": (soajs, inputmaskData, options, cb) => {
-			if (!inputmaskData) {
-				return cb(bl.handleError(soajs, 400, null));
-			}
-			lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 700, error));
-				} else {
-					driver.connect(config, (error, client) => {
-						if (error) {
-							return cb(bl.handleError(soajs, 702, error));
-						}
-						driver.create.secret_opaque(client, {
-							"namespace": config.namespace,
-							"name": inputmaskData.name,
-							"content": inputmaskData.content
-						}, (error) => {
-							if (error) {
-								return cb(bl.handleError(soajs, 702, error));
-							}
-							return cb(null, {"created": true});
-						});
-					});
-				}
-			});
-		}
+		});
 	},
+	
+	"create": {},
 	
 	"delete": {},
 	
@@ -104,84 +67,78 @@ let bl = {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 			if (error) {
-				return cb(bl.handleError(soajs, 700, error));
-			} else {
-				driver.connect(config, (error, client) => {
-					if (error) {
-						return cb(bl.handleError(soajs, 702, error));
-					}
-					if (!options) {
-						options = {};
-					}
-					async.parallel({
-						services: function (callback) {
-							driver.get.services(client, {
-								"namespace": config.namespace,
-								"filter": options.services || null
-							}, (error, list) => {
-								if (error) {
-									callback(null, error.message);
-								} else {
-									callback(null, list);
-								}
-							});
-						},
-						deployments: function (callback) {
-							driver.get.deployments(client, {
-								"namespace": config.namespace,
-								"filter": options.deployments || null
-							}, (error, list) => {
-								if (error) {
-									callback(null, error.message);
-								} else {
-									callback(null, list);
-								}
-							});
-						},
-						daemonsets: function (callback) {
-							driver.get.daemonsets(client, {
-								"namespace": config.namespace,
-								"filter": options.daemonsets || null
-							}, (error, list) => {
-								if (error) {
-									callback(null, error.message);
-								} else {
-									callback(null, list);
-								}
-							});
-						},
-						cronjobs: function (callback) {
-							driver.get.cronjobs(client, {
-								"namespace": config.namespace,
-								"filter": options.cronjobs || null
-							}, (error, list) => {
-								if (error) {
-									callback(null, error.message);
-								} else {
-									callback(null, list);
-								}
-							});
-						},
-						nodes: function (callback) {
-							driver.get.nodes(client, {"filter": null}, (error, list) => {
-								if (error) {
-									callback(null, error.message);
-								} else {
-									callback(null, list);
-								}
-							});
-						}
-					}, function (error, results) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			if (!options) {
+				options = {};
+			}
+			async.parallel({
+				services: function (callback) {
+					driver.get.services(client, {
+						"namespace": config.namespace,
+						"filter": options.services || null
+					}, (error, list) => {
 						if (error) {
-							return cb(bl.handleError(soajs, 702, error));
+							callback(null, error.message);
 						} else {
-							return cb(null, results);
+							callback(null, list);
 						}
 					});
-				});
-			}
+				},
+				deployments: function (callback) {
+					driver.get.deployments(client, {
+						"namespace": config.namespace,
+						"filter": options.deployments || null
+					}, (error, list) => {
+						if (error) {
+							callback(null, error.message);
+						} else {
+							callback(null, list);
+						}
+					});
+				},
+				daemonsets: function (callback) {
+					driver.get.daemonsets(client, {
+						"namespace": config.namespace,
+						"filter": options.daemonsets || null
+					}, (error, list) => {
+						if (error) {
+							callback(null, error.message);
+						} else {
+							callback(null, list);
+						}
+					});
+				},
+				cronjobs: function (callback) {
+					driver.get.cronjobs(client, {
+						"namespace": config.namespace,
+						"filter": options.cronjobs || null
+					}, (error, list) => {
+						if (error) {
+							callback(null, error.message);
+						} else {
+							callback(null, list);
+						}
+					});
+				},
+				nodes: function (callback) {
+					driver.get.nodes(client, {"filter": null}, (error, list) => {
+						if (error) {
+							callback(null, error.message);
+						} else {
+							callback(null, list);
+						}
+					});
+				}
+			}, function (error, results) {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				} else {
+					return cb(null, results);
+				}
+			});
 		});
 	}
 };

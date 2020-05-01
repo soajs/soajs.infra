@@ -10,12 +10,12 @@
 
 
 const driver = require("../driver/kubernetes/index.js");
-const lib = require("./lib.js");
 const soajsCoreLibs = require("soajs.core.libs");
 
 let bl = {
 	"localConfig": null,
 	"handleError": null,
+	"handleConnect": null,
 	
 	"item_soajs": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData || !inputmaskData.recipe) {
@@ -214,7 +214,6 @@ let bl = {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		
 		let deployment = inputmaskData.deployment;
 		let service = inputmaskData.service || null;
 		
@@ -229,39 +228,32 @@ let bl = {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		
-		lib.getDriverConfiguration(soajs, inputmaskData.configuration, (error, config) => {
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 			if (error) {
-				return cb(bl.handleError(soajs, 700, error));
-			} else {
-				driver.connect(config, (error, client) => {
-					if (error) {
-						return cb(bl.handleError(soajs, 702, error));
-					}
-					driver.create.deployment(client, {
-						"body": inputmaskData.deployment,
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			driver.create.deployment(client, {
+				"body": inputmaskData.deployment,
+				"namespace": config.namespace
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				if (inputmaskData.service) {
+					driver.create.service(client, {
+						"body": inputmaskData.service,
 						"namespace": config.namespace
 					}, (error) => {
 						if (error) {
 							return cb(bl.handleError(soajs, 702, error));
 						}
-						if (inputmaskData.service) {
-							driver.create.service(client, {
-								"body": inputmaskData.service,
-								"namespace": config.namespace
-							}, (error) => {
-								if (error) {
-									return cb(bl.handleError(soajs, 702, error));
-								}
-								return cb(null, {"created": true});
-								
-							});
-						} else {
-							return cb(null, {"created": true});
-						}
+						return cb(null, {"created": true});
+						
 					});
-				});
-			}
+				} else {
+					return cb(null, {"created": true});
+				}
+			});
 		});
 	}
 };
