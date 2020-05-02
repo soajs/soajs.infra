@@ -100,6 +100,10 @@ let driver = {
 		"serviceIps": _service.getIps,
 		"podIps": _pod.getIps
 		
+	},
+	
+	"exec": {
+		"pod": _pod.exec
 	}
 };
 

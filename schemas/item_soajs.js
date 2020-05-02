@@ -28,6 +28,10 @@ let config = {
 				"version": {
 					"required": true,
 					"type": "string"
+				},
+				"shell": {
+					"required": true,
+					"type": "string"
 				}
 			}
 		},
