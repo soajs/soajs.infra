@@ -15,18 +15,18 @@ let bl = {
 		if (!options || !options.name || !options.namespace) {
 			return cb(new Error("delete secret options is required with {name, and namespace}"));
 		}
-		wrapper.secret.get(client, {namespace: options.namespace, name: options.name}, (error, secret) => {
+		wrapper.secret.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			if (error) {
 				return cb(error);
 			}
-			if (!secret) {
+			if (!item) {
 				return cb(new Error("Unable to find the secret [" + options.name + "] to delete."));
 			}
 			wrapper.secret.delete(client, {namespace: options.namespace, name: options.name}, (error) => {
 				if (error) {
 					return cb(error);
 				}
-				return cb(null, secret);
+				return cb(null, item);
 			});
 		});
 	},

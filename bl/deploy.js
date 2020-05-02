@@ -232,7 +232,12 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.create.deployment(client, {
+			
+			let kind = inputmaskData.deployment.kind.toLowerCase();
+			if (!driver.create[kind]) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			driver.create[kind](client, {
 				"body": inputmaskData.deployment,
 				"namespace": config.namespace
 			}, (error) => {

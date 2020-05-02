@@ -43,6 +43,7 @@ module.exports = {
 		501: "Item not found!",
 		502: "Item is locked!",
 		503: "Error while getting all resources",
+		504: "Unsupported kind only (Deployment, DaemonSet, CronJob) are supported",
 		
 		700: "Driver configuration not found",
 		701: "Driver not found",
@@ -162,7 +163,7 @@ module.exports = {
 			},
 			"/kubernetes/secret/registry": {
 				"_apiInfo": {
-					"l": "This API creates a secret for private registry",
+					"l": "This API creates a secret for private image registry",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -202,7 +203,7 @@ module.exports = {
 			
 			"/kubernetes/deploy/item/soajs": {
 				"_apiInfo": {
-					"l": "This API deploy an item from the catalog using soajs recipe",
+					"l": "This API deploys an item from the catalog using soajs recipe",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -214,7 +215,7 @@ module.exports = {
 			},
 			"/kubernetes/deploy/item/native": {
 				"_apiInfo": {
-					"l": "This API deploy an item from the catalog using kubernetes native recipe",
+					"l": "This API deploys an item from the catalog using kubernetes native recipe",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -226,7 +227,7 @@ module.exports = {
 			},
 			"/kubernetes/deploy/native": {
 				"_apiInfo": {
-					"l": "This API creates the service and the related deployment or daemonset",
+					"l": "This API creates the service and the related deployment, daemonset or cronjob",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -241,7 +242,14 @@ module.exports = {
 					"source": ['body.deployment'],
 					"required": true,
 					"validation": {
-						"type": "object"
+						"type": "object",
+						"properties": {
+							"kind": {
+								"required": true,
+								"type": "string",
+								"enum": ["Deployment", "DaemonSet", "CronJob"]
+							}
+						}
 					}
 				}
 			}
