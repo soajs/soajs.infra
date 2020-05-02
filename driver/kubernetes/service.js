@@ -59,5 +59,25 @@ let bl = {
 			return cb(error, items);
 		});
 	},
+	"getIps": (client, options, cb) => {
+		if (!options || !options.namespace || !options.name) {
+			return cb(new Error("getIps service options is required with {namespace, name}"));
+		}
+		wrapper.service.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
+			if (item && item.spec && item.spec.clusterIP) {
+				let response = {
+					"ip": item.spec.clusterIP,
+					"ports": item.spec.ports
+				};
+				if (item.spec.type === "LoadBalancer") {
+					response.extIp = item.status.loadBalancer.ingress[0].ip;
+				}
+				return cb(null, response);
+				
+			} else {
+				return cb(error, null);
+			}
+		});
+	}
 };
 module.exports = bl;

@@ -12,8 +12,6 @@ const Client = require('kubernetes-client').Client;
 const Request = require('kubernetes-client/backends/request');
 const swagger = require('./swagger/swagger.json');
 
-const wrapper = require('./wrapper.js');
-
 const _secret_opaque = require("./secret_opaque.js");
 const _secret_dockercfg = require("./secret_dockercfg.js");
 const _secret = require("./secret.js");
@@ -24,6 +22,7 @@ const _deployment = require("./deployment.js");
 const _daemonset = require("./daemonset.js");
 const _cronjob = require("./cronjob.js");
 const _node = require("./node.js");
+const _pod = require("./pod.js");
 
 let driver = {
 	"connect": (config, cb) => {
@@ -98,90 +97,9 @@ let driver = {
 		"cronjob": _cronjob.getOne,
 		"secret": _secret.getOne,
 		
-		"serviceIps": (client, options, cb) => {
-			if (!options || !options.namespace || !options.serviceName) {
-				return cb(new Error("get service IPs options is required with {service, and serviceName}"));
-			}
-			if (!options.replicaCount) {
-				options.replicaCount = 1;
-			}
-			let getPodIps = (count, callback) => {
-				let ips = [];
-				if (!options.filter) {
-					return callback(null, ips);
-				}
-				wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, podList) => {
-					if (error) {
-						return callback(error);
-					}
-					if (podList && podList.items && Array.isArray(podList.items)) {
-						podList.items.forEach((onePod) => {
-							if (onePod.status.phase === 'Running' && onePod.metadata.namespace === options.namespace && onePod.status.conditions && Array.isArray(onePod.status.conditions)) {
-								for (let i = 0; i < onePod.status.conditions.length; i++) {
-									let oneCond = onePod.status.conditions[i];
-									if (oneCond.type === 'Ready' && oneCond.status === 'True') {
-										ips.push({
-											name: onePod.metadata.name,
-											ip: onePod.status.podIP
-										});
-										break;
-									}
-								}
-							}
-						});
-					}
-					if (ips.length < options.replicaCount && count < 5) {
-						//pod containers may not be ready yet
-						setTimeout(() => {
-							getPodIps(++count, callback);
-						}, 10000);
-					} else {
-						return callback(null, ips);
-					}
-				});
-			};
-			
-			let getServiceIps = (count, callback) => {
-				wrapper.service.get(client, {
-					namespace: options.namespace,
-					name: options.serviceName
-				}, (error, service) => {
-					if (service && service.spec && service.spec.clusterIP) {
-						if (service.spec.type === "LoadBalancer" && (!service.status || !service.status.loadBalancer || !service.status.loadBalancer.ingress || !Array.isArray(service.status.loadBalancer.ingress))) {
-							setTimeout(() => {
-								getServiceIps(++count, callback);
-							}, 10000);
-						} else {
-							let response = {
-								"ip": service.spec.clusterIP,
-								"ports": service.spec.ports
-							};
-							if (service.spec.type === "LoadBalancer") {
-								response.extIp = service.status.loadBalancer.ingress[0].ip;
-							}
-							return callback(null, response);
-						}
-					} else {
-						return cb(error, null);
-					}
-				});
-			};
-			
-			getPodIps(0, (error, ips) => {
-				if (error) {
-					return cb(error);
-				} else {
-					getServiceIps(0, (error, response) => {
-						if (error) {
-							return cb(error);
-						} else {
-							response.podIps = ips;
-							return cb(null, response);
-						}
-					});
-				}
-			});
-		}
+		"serviceIps": _service.getIps,
+		"podIps": _pod.getIps
+		
 	}
 };
 

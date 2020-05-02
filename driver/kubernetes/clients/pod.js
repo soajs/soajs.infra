@@ -7,8 +7,8 @@ const pods = {
 	 */
 	get(deployer, opts, cb) {
 		async function main() {
-			if (opts.pod) {
-				return await deployer.api.v1.namespaces(opts.namespace).pods(opts.pod).get({qs: opts.qs});
+			if (opts.name) {
+				return await deployer.api.v1.namespaces(opts.namespace).pods(opts.name).get({qs: opts.qs});
 			} else {
 				return await deployer.api.v1.namespaces(opts.namespace).pods.get({qs: opts.qs});
 			}
@@ -22,11 +22,11 @@ const pods = {
 	},
 	getLogs(deployer, opts, cb) {
 		async function main() {
-			if (opts.qs && opts.qs.follow){
-				return await deployer.api.v1.namespaces(opts.namespace).pods(opts.pod).log.getByteStream({qs: opts.qs});
+			if (opts.qs && opts.qs.follow) {
+				return await deployer.api.v1.namespaces(opts.namespace).pods(opts.name).log.getByteStream({qs: opts.qs});
 			}
 			else {
-				return await deployer.api.v1.namespaces(opts.namespace).pods(opts.pod).log.get({qs: opts.qs});
+				return await deployer.api.v1.namespaces(opts.namespace).pods(opts.name).log.get({qs: opts.qs});
 			}
 		}
 		
@@ -38,7 +38,7 @@ const pods = {
 	},
 	podExec(deployer, opts, cb) {
 		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).pods(opts.pod).exec.get({qs: opts.qs});
+			return await deployer.api.v1.namespaces(opts.namespace).pods(opts.name).exec.get({qs: opts.qs});
 		}
 		
 		main().then((result) => {
