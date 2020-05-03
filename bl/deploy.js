@@ -37,7 +37,7 @@ let bl = {
 		config.labels["soajs.catalog.id"] = config.catalog.id;
 		config.labels["soajs.catalog.v"] = config.catalog.version;
 		config.labels["soajs.content"] = "true";
-		config.labels["soajs.env.code"] = config.item.env;
+		config.labels["soajs.env.code"] = config.item.env.toLowerCase();
 		config.labels["soajs.service.name"] = config.item.name;
 		config.labels["soajs.service.group"] = config.item.group;
 		config.labels["soajs.service.type"] = config.item.type;
@@ -170,7 +170,7 @@ let bl = {
 			"soajs.catalog.id": config.catalog.id,
 			"soajs.catalog.v": config.catalog.version,
 			"soajs.content": "true",
-			"soajs.env.code": config.item.env,
+			"soajs.env.code": config.item.env.toLowerCase(),
 			"soajs.service.name": config.item.name,
 			"soajs.service.group": config.item.group,
 			"soajs.service.type": config.item.type,

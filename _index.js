@@ -25,6 +25,12 @@ function run(serviceStartCb) {
 			}
 			
 			//GET methods
+			
+			service.get("/kubernetes/item/latestVersion", function (req, res) {
+				bl.kubernetes.getResource_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.get("/kubernetes/pod/log", function (req, res) {
 				bl.kubernetes.getLog(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					if (error) {

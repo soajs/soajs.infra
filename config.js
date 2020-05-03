@@ -44,6 +44,7 @@ module.exports = {
 		502: "Item is locked!",
 		503: "Error while getting all resources",
 		504: "Unsupported kind only (Deployment, DaemonSet, CronJob) are supported",
+		505: "Unable to get latest version!",
 		
 		700: "Driver configuration not found",
 		701: "Driver not found",
@@ -53,7 +54,7 @@ module.exports = {
 	"schema": {
 		"commonFields": {
 			"configuration": {
-				"source": ['body.configuration'],
+				"source": ['body.configuration', 'query.configuration'],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -90,11 +91,33 @@ module.exports = {
 			}
 		},
 		"get": {
-			"/kubernetes/pod/log": {
+			"/kubernetes/item/latestVersion": {
 				"_apiInfo": {
-					"l": "Get container Logs",
+					"l": "This API fetches the latest version deployed of an item.",
 					"group": "Kubernetes"
 				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['query.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"env": {
+					"source": ['query.env'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/pod/log": {
+				"_apiInfo": {
+					"l": "This API fetches the container Logs and capable to follow the log if set to true.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
 				"name": {
 					"source": ['query.name'],
 					"required": true,
