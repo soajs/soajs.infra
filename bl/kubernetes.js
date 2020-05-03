@@ -49,16 +49,14 @@ let bl = {
 				return cb(bl.handleError(soajs, 400, null));
 			}
 			let label = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + inputmaskData.item.version;
-			let filter = {
-				labelSelector: 'soajs.service.label=' + label
-			};
+			let filter = {labelSelector: 'soajs.service.label=' + label};
 			bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
 				//remove all / from the beginning of a string
 				while (inputmaskData.operation.route.charAt(0) === '/') {
-					inputmaskData.operation = options.operation.route.substr(1);
+					inputmaskData.operation = inputmaskData.operation.route.substr(1);
 				}
 				let commands = [`curl -s -X GET http://localhost:${inputmaskData.item.maintenancePort}/${inputmaskData.operation.route}`];
 				driver.exec.pod(client, {

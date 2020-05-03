@@ -60,13 +60,19 @@ function run(serviceStartCb) {
 			
 			//POST methods
 			
+			service.post("/kubernetes/item/maintenance", function (req, res) {
+				bl.kubernetes.exec.maintenance(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			service.post("/kubernetes/secret", function (req, res) {
 				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.post("/kubernetes/secret/registry", function (req, res) {
-				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, {"type":"dockercfg"}, (error, data) => {
+				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, {"type": "dockercfg"}, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

@@ -252,6 +252,59 @@ module.exports = {
 						}
 					}
 				}
+			},
+			
+			"/kubernetes/item/maintenance": {
+				"_apiInfo": {
+					"l": "This API trigger maintenance operation on a deployed item",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"item": {
+					"source": ['body.item'],
+					"required": true,
+					"validation": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"env": {
+								"required": true,
+								"type": "string"
+							},
+							"name": {
+								"required": true,
+								"type": "string"
+							},
+							"version": {
+								"required": true,
+								"type": "string"
+							},
+							"maintenancePort": {
+								"required": true,
+								"type": "integer"
+							}
+						}
+					}
+				},
+				"operation": {
+					"source": ['body.operation'],
+					"required": true,
+					"validation": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"route": {
+								"required": true,
+								"type": "string"
+							},
+							"qs": {
+								"required": false,
+								"type": "string"
+							}
+						}
+					}
+					
+				}
 			}
 		},
 		
