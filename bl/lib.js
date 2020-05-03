@@ -47,6 +47,18 @@ let lib = {
 			}
 			return cb(new Error("Configuration requires namespace, token, and url"));
 		}
+	},
+	"cleanLabel": (label) => {
+		if (!label) {
+			return '';
+		}
+		return label.replace(/\//g, "__slash__");
+	},
+	"clearLabel": (label) => {
+		if (!label) {
+			return '';
+		}
+		return label.replace(/__slash__/g, "/");
 	}
 };
 

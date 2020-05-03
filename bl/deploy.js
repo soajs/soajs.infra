@@ -12,6 +12,8 @@
 const driver = require("../driver/kubernetes/index.js");
 const soajsCoreLibs = require("soajs.core.libs");
 
+const lib = require("./lib.js");
+
 let bl = {
 	"localConfig": null,
 	"handleError": null,
@@ -43,6 +45,10 @@ let bl = {
 		config.labels["soajs.service.version"] = config.item.version;
 		config.labels["soajs.service.label"] = label;
 		config.labels["soajs.service.mode"] = config.mode.toLowerCase();
+		
+		if (config.catalog.shell) {
+			config.labels["soajs.shell"] = lib.cleanLabel(config.catalog.shell);
+		}
 		
 		if (config.src) {
 			config.labels["service.branch"] = config.src.branch;
@@ -173,6 +179,10 @@ let bl = {
 			"soajs.service.label": label,
 			"soajs.service.mode": deployment.kind.toLowerCase()
 		};
+		
+		if (config.catalog.shell) {
+			config.labels["soajs.shell"] = lib.cleanLabel(config.catalog.shell);
+		}
 		
 		if (config.src) {
 			labels["service.branch"] = config.src.branch;

@@ -14,6 +14,8 @@ const parse = require('parse-large-json');
 const maxChunkSize = 100e3;
 const wrapper = require('./wrapper.js');
 
+const lib = require("../../bl/lib.js");
+
 let bl = {
 	
 	"getOne": (client, options, cb) => {
@@ -113,7 +115,8 @@ let bl = {
 				let iteratee = (onePod, callback) => {
 					let shell = '/bin/bash';
 					if (onePod.metadata.labels['soajs.shell']) {
-						shell = onePod.metadata.labels['soajs.shell'].substr(5).replace(/__slash__/g, "/");
+						shell = onePod.metadata.labels['soajs.shell'].substr(5);
+						shell = lib.clearLabel(shell);
 					}
 					
 					let uri = "";

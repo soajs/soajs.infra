@@ -27,7 +27,8 @@ let config = {
 				},
 				"shell":{
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(shell\/)([A-Za-z0-9\/_.]*)$/
 				}
 			}
 		},
