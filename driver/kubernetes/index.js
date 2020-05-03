@@ -102,8 +102,9 @@ let driver = {
 		
 	},
 	
-	"exec": {
-		"pod": _pod.exec
+	"pod": {
+		"exec": _pod.exec,
+		"log": _pod.getLog
 	}
 };
 

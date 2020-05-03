@@ -89,6 +89,40 @@ module.exports = {
 				}
 			}
 		},
+		"get": {
+			"/kubernetes/pod/log": {
+				"_apiInfo": {
+					"l": "Get container Logs",
+					"group": "Kubernetes"
+				},
+				"name": {
+					"source": ['query.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"follow": {
+					"source": ['query.follow'],
+					"required": false,
+					"validation": {
+						"type": "boolean",
+						"default": false
+					}
+				},
+				"lines": {
+					"source": ['query.lines'],
+					"required": false,
+					"validation": {
+						"type": "integer",
+						"default": 400,
+						"minimum": 400,
+						"maximum": 2000
+					}
+				}
+			}
+		},
+		
 		"post": {
 			"/kubernetes/resources/catalog/items": {
 				"_apiInfo": {
@@ -383,7 +417,8 @@ module.exports = {
 					"source": ['body.cleanup'],
 					"required": false,
 					"validation": {
-						"type": "boolean"
+						"type": "boolean",
+						"default": false
 					}
 				}
 			},

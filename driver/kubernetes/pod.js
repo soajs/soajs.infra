@@ -83,7 +83,7 @@ let bl = {
 				return cb(new Error("Unable to find the pod [" + options.name + "] to get the log."));
 			}
 			let params = {
-				tailLines: options.tail || 400,
+				tailLines: options.lines || 400,
 				follow: options.follow || false
 			};
 			wrapper.pod.getLogs(client, {

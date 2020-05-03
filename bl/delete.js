@@ -81,7 +81,8 @@ let bl = {
 			let mode = inputmaskData.mode.toLowerCase();
 			driver.delete[mode](client, {
 				"namespace": config.namespace,
-				"name": inputmaskData.name
+				"name": inputmaskData.name,
+				"cleanup": inputmaskData.cleanup || false
 			}, (error) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));

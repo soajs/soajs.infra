@@ -59,7 +59,7 @@ let bl = {
 					inputmaskData.operation = inputmaskData.operation.route.substr(1);
 				}
 				let commands = [`curl -s -X GET http://localhost:${inputmaskData.item.maintenancePort}/${inputmaskData.operation.route}`];
-				driver.exec.pod(client, {
+				driver.pod.exec(client, {
 					"namespace": config.namespace,
 					"filter": filter,
 					"commands": commands
@@ -79,7 +79,7 @@ let bl = {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				driver.exec.pod(client, {
+				driver.pod.exec(client, {
 					"namespace": config.namespace,
 					"filter": inputmaskData.filter,
 					"commands": inputmaskData.commands
@@ -91,6 +91,28 @@ let bl = {
 				});
 			});
 		}
+	},
+	
+	"getLog": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			driver.pod.log(client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name,
+				"follow": inputmaskData.follow,
+				"lines": inputmaskData.lines
+			}, (error, response) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, response);
+			});
+		});
 	},
 	
 	"getResources_catalogItems": (soajs, inputmaskData, options, cb) => {
