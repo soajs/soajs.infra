@@ -25,7 +25,6 @@ function run(serviceStartCb) {
 			}
 			
 			//GET methods
-			
 			service.get("/kubernetes/item/latestVersion", function (req, res) {
 				bl.kubernetes.getResource_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -115,7 +114,6 @@ function run(serviceStartCb) {
 			});
 			
 			//DELETE methods
-			
 			service.delete("/kubernetes/namespace", function (req, res) {
 				bl.kubernetes.delete.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -142,9 +140,12 @@ function run(serviceStartCb) {
 				});
 			});
 			
-			
 			//PUT methods
-			
+			service.get("/kubernetes/resources/scale", function (req, res) {
+				bl.kubernetes.scale(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			
 			//POST methods
 			service.post("/kubernetes/item/maintenance", function (req, res) {

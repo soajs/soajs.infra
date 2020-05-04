@@ -146,6 +146,17 @@ module.exports = {
 			}
 		},
 		
+		"put": {
+			"/kubernetes/resources/scale": {
+				"_apiInfo": {
+					"l": "This API scales a resource",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"]
+			}
+			
+		},
+		
 		"post": {
 			"/kubernetes/resources/catalog/items": {
 				"_apiInfo": {
