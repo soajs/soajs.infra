@@ -43,27 +43,39 @@ let config = {
 			"properties": {
 				"env": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"name": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"group": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"type": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"subtype": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"version": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				}
 			}
 		},
@@ -88,22 +100,26 @@ let config = {
 				"branch": {
 					"required": true,
 					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"repo": {
 					"required": true,
 					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"owner": {
 					"required": true,
 					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				},
 				"commit": {
 					"required": true,
 					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"minLength": 1
 				}
 			}
 		},
