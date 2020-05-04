@@ -33,6 +33,14 @@ let config = {
 					"required": true,
 					"type": "string",
 					"pattern": /^(shell\/)([A-Za-z0-9\/_.]*)$/
+				},
+				"schedule": {
+					"required": true,
+					"type": "string"
+				},
+				"concurrencyPolicy": {
+					"required": true,
+					"type": "string"
 				}
 			}
 		},

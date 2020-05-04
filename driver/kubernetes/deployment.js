@@ -11,6 +11,16 @@
 const wrapper = require('./wrapper.js');
 
 let bl = {
+	"patch": (client, options, cb) => {
+		if (!options || !options.name || !options.body || !options.namespace) {
+			return cb(new Error("patch deployment options is required with {name, body, and namespace}"));
+		}
+		return wrapper.deployment.patch(client, {
+			name: options.name,
+			namespace: options.namespace,
+			body: options.body
+		}, cb);
+	},
 	"update": (client, options, cb) => {
 		if (!options || !options.name || !options.body || !options.namespace) {
 			return cb(new Error("update deployment options is required with {name, body, and namespace}"));

@@ -10,6 +10,8 @@
 
 const item_soajs = require("./schemas/item_soajs.js");
 const item_native = require("./schemas/item_native.js");
+const item_soajs_cronjob = require("./schemas/item_soajs_cronjob.js");
+const item_native_cronjob = require("./schemas/item_native_cronjob.js");
 
 module.exports = {
 	type: 'service',
@@ -271,7 +273,7 @@ module.exports = {
 			
 			"/kubernetes/deploy/item/soajs": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using soajs recipe",
+					"l": "This API deploys an item from the catalog using soajs recipe of type deployment",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -279,6 +281,18 @@ module.exports = {
 					"source": ['body.recipe'],
 					"required": true,
 					"validation": item_soajs
+				}
+			},
+			"/kubernetes/deploy/item/soajs/conjob": {
+				"_apiInfo": {
+					"l": "This API deploys an item from the catalog using soajs recipe of type daemonset",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"recipe": {
+					"source": ['body.recipe'],
+					"required": true,
+					"validation": item_soajs_cronjob
 				}
 			},
 			"/kubernetes/deploy/item/native": {
@@ -291,6 +305,18 @@ module.exports = {
 					"source": ['body.recipe'],
 					"required": true,
 					"validation": item_native
+				}
+			},
+			"/kubernetes/deploy/item/native/cronjob": {
+				"_apiInfo": {
+					"l": "This API deploys an item from the catalog using kubernetes native recipe",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"recipe": {
+					"source": ['body.recipe'],
+					"required": true,
+					"validation": item_native_cronjob
 				}
 			},
 			"/kubernetes/deploy/native": {

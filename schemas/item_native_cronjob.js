@@ -12,10 +12,6 @@ let config = {
 	"type": "object",
 	"required": true,
 	"properties": {
-		"labels": {
-			"type": "object",
-			"required": false
-		},
 		"catalog": {
 			"required": true,
 			"type": "object",
@@ -79,20 +75,6 @@ let config = {
 				}
 			}
 		},
-		"image": {
-			"required": true,
-			"type": "object",
-			"properties": {
-				"name": {
-					"required": true,
-					"type": "string"
-				},
-				"imagePullPolicy": {
-					"required": true,
-					"type": "string"
-				}
-			}
-		},
 		"src": {
 			"required": false,
 			"type": "object",
@@ -123,131 +105,83 @@ let config = {
 				}
 			}
 		},
-		"mode": {
+		
+		"deployment": {
 			"required": true,
-			"type": "string",
-			"enum": ["Deployment", "DaemonSet"]
-		},
-		"ports": {
-			"type": "array",
-			"required": false,
-			"items": {
-				"type": "object",
-				"additionalProperties": false,
-				"properties": {
-					"name": {
-						"required": true,
-						"type": "string"
-					},
-					"containerPort": {
-						"required": true,
-						"type": "integer"
-					}
-				}
-			}
-		},
-		"workingDir": {
-			"required": false,
-			"type": "string"
-		},
-		"command": {
-			"type": "array",
-			"required": false
-		},
-		"args": {
-			"type": "array",
-			"required": false
-		},
-		"readinessProbe": {
 			"type": "object",
-			"required": true
-		},
-		"livenessProbe": {
-			"type": "object",
-			"required": false
-		},
-		"env": {
-			"type": "array",
-			"required": false,
-			"items": {
-				"type": "object",
-				"properties": {
-					"name": {
-						"required": true,
-						"type": "string"
-					},
-					"value": {
-						"required": true,
-						"type": "string"
-					}
-				}
-			}
-		},
-		"volume": {
-			"required": false,
-			"type": "object",
-			"additionalProperties": false,
 			"properties": {
-				"volumeMounts": {
-					"type": "array",
-					"required": false,
-					"items": {
-						"type": "object"
-					}
+				"apiVersion": {
+					"required": true,
+					"type": "string"
 				},
-				"volumes": {
-					"type": "array",
-					"required": false,
-					"items": {
-						"type": "object"
+				"kind": {
+					"required": true,
+					"type": "string",
+					"enum": ["CronJob"]
+				},
+				"metadata": {
+					"required": true,
+					"type": "object"
+				},
+				"spec": {
+					"required": true,
+					"type": "object",
+					"properties": {
+						"schedule": {
+							"required": true,
+							"type": "string"
+						},
+						"jobTemplate": {
+							"required": true,
+							"type": "object",
+							"properties": {
+								"spec": {
+									"required": true,
+									"type": "object",
+									"properties": {
+										"template": {
+											"required": true,
+											"type": "object",
+											"properties": {
+												"metadata": {
+													"required": true,
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
-		},
-		"replicas": {
-			"type": "integer",
-			"required": false,
-			"default": 1
-		},
-		"revisionHistoryLimit": {
-			"type": "integer",
-			"required": false,
-			"default": 1
-		},
-		"restartPolicy": {
-			"type": "string",
-			"required": false
 		},
 		"service": {
 			"required": false,
 			"type": "object",
-			"additionalProperties": false,
 			"properties": {
-				"ports": {
-					"type": "array",
-					"required": false,
-					"items": {
-						"type": "object",
-						"additionalProperties": true,
-						"properties": {
-							"name": {
-								"required": true,
-								"type": "string"
-							},
-							"port": {
-								"required": true,
-								"type": "integer"
-							}
+				"apiVersion": {
+					"required": true,
+					"type": "string"
+				},
+				"kind": {
+					"required": true,
+					"type": "string"
+				},
+				"metadata": {
+					"required": true,
+					"type": "object"
+				},
+				"spec": {
+					"required": true,
+					"type": "object",
+					"properties": {
+						"selector": {
+							"required": true,
+							"type": "object"
 						}
 					}
-				},
-				"type": {
-					"required": false,
-					"type": "string"
-				},
-				"externalTrafficPolicy": {
-					"required": false,
-					"type": "string"
 				}
 			}
 		}

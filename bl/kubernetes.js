@@ -102,8 +102,31 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			
-			
+			driver.get.deployment(client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name
+			}, (error, item) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				if (!item) {
+					return cb(bl.handleError(soajs, 501, null));
+				}
+				driver.deployment.patch(client, {
+					"namespace": config.namespace,
+					"name": inputmaskData.name,
+					"body": {
+						spec: {
+							replicas: inputmaskData.scale
+						}
+					}
+				}, (error) => {
+					if (error) {
+						return cb(bl.handleError(soajs, 702, error));
+					}
+					return cb(null, {"scale": true});
+				});
+			});
 		});
 	},
 	

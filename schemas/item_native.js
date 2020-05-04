@@ -25,7 +25,7 @@ let config = {
 					"required": true,
 					"type": "string"
 				},
-				"shell":{
+				"shell": {
 					"required": true,
 					"type": "string",
 					"pattern": /^(shell\/)([A-Za-z0-9\/_.]*)$/
@@ -117,7 +117,7 @@ let config = {
 				"kind": {
 					"required": true,
 					"type": "string",
-					"enum": ["Deployment", "DaemonSet", "CronJob"]
+					"enum": ["Deployment", "DaemonSet"]
 				},
 				"metadata": {
 					"required": true,
@@ -127,10 +127,6 @@ let config = {
 					"required": true,
 					"type": "object",
 					"properties": {
-						"selector": {
-							"required": true,
-							"type": "object"
-						},
 						"template": {
 							"required": true,
 							"type": "object",

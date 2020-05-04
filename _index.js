@@ -193,12 +193,22 @@ function run(serviceStartCb) {
 				});
 			});
 			service.post("/kubernetes/deploy/item/soajs", function (req, res) {
-				bl.kubernetes.deploy.item_soajs(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.deploy.item_soajs_deployment_or_daemonset(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.post("/kubernetes/deploy/item/native", function (req, res) {
-				bl.kubernetes.deploy.item_native(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.deploy.item_native_deployment_or_daemonset(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy/item/soajs/cronjob", function (req, res) {
+				bl.kubernetes.deploy.item_soajs_conjob(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/deploy/item/native/cronjob", function (req, res) {
+				bl.kubernetes.deploy.item_native_cronjob(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

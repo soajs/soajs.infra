@@ -51,7 +51,6 @@ let driver = {
 	
 	"update": {
 		"autoscale": _autoscale.update,
-		"namespace": _namespace.update,
 		"service": _service.update,
 		"deployment": _deployment.update,
 		"daemonset": _daemonset.update,
@@ -105,6 +104,10 @@ let driver = {
 	"pod": {
 		"exec": _pod.exec,
 		"log": _pod.getLog
+	},
+	
+	"deployment": {
+		"patch": _deployment.patch
 	}
 };
 
