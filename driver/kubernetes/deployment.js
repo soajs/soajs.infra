@@ -13,7 +13,7 @@ const wrapper = require('./wrapper.js');
 let bl = {
 	"patch": (client, options, cb) => {
 		if (!options || !options.name || !options.body || !options.namespace) {
-			return cb(new Error("patch deployment options is required with {name, body, and namespace}"));
+			return cb(new Error("deployment patch: options is required with {name, body, and namespace}"));
 		}
 		return wrapper.deployment.patch(client, {
 			name: options.name,
@@ -23,19 +23,28 @@ let bl = {
 	},
 	"update": (client, options, cb) => {
 		if (!options || !options.name || !options.body || !options.namespace) {
-			return cb(new Error("update deployment options is required with {name, body, and namespace}"));
+			return cb(new Error("deployment update: options is required with {name, body, and namespace}"));
 		}
-		
+		wrapper.deployment.put(client, {
+			namespace: options.namespace,
+			body: options.body,
+			name: options.name
+		}, (error, item) => {
+			if (error) {
+				return cb(error);
+			}
+			return cb(null, item);
+		});
 	},
 	"create": (client, options, cb) => {
 		if (!options || !options.body || !options.namespace) {
-			return cb(new Error("create deployment options is required with {body, and namespace}"));
+			return cb(new Error("deployment create: options is required with {body, and namespace}"));
 		}
 		return wrapper.deployment.post(client, {namespace: options.namespace, body: options.body}, cb);
 	},
 	"delete": (client, options, cb) => {
 		if (!options || !options.name) {
-			return cb(new Error("delete deployment options is required with {namespace, name}"));
+			return cb(new Error("deployment delete: options is required with {namespace, and name}"));
 		}
 		wrapper.deployment.get(client, {namespace: options.namespace, name: options.name}, (error, deployment) => {
 			if (error) {
@@ -97,7 +106,7 @@ let bl = {
 	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("getOne deployment options is required with {name, namespace}"));
+			return cb(new Error("deploymentgetOne: options is required with {name, and namespace}"));
 		}
 		wrapper.deployment.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			return cb(error, item);
@@ -105,7 +114,7 @@ let bl = {
 	},
 	"get": (client, options, cb) => {
 		if (!options || !options.namespace) {
-			return cb(new Error("get deployments options is required with {namespace}"));
+			return cb(new Error("deployment get: options is required with {namespace}"));
 		}
 		wrapper.deployment.get(client, {
 			namespace: options.namespace,

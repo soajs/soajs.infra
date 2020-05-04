@@ -13,13 +13,13 @@ const wrapper = require('./wrapper.js');
 let bl = {
 	"update": (client, options, cb) => {
 		if (!options || !options.name || !options.body) {
-			return cb(new Error("update node options is required with {name, body}"));
+			return cb(new Error("node update: options is required with {name, and body}"));
 		}
 		
 	},
 	"delete": (client, options, cb) => {
 		if (!options || !options.name) {
-			return cb(new Error("delete node options is required with {name}"));
+			return cb(new Error("node delete: options is required with {name}"));
 		}
 		wrapper.node.get(client, {name: options.name}, (error, item) => {
 			if (error) {
@@ -35,7 +35,7 @@ let bl = {
 	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name) {
-			return cb(new Error("getOne node options is required with {name}"));
+			return cb(new Error("node getOne: options is required with {name}"));
 		}
 		wrapper.node.get(client, {name: options.name}, (error, item) => {
 			return cb(error, item);

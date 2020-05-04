@@ -13,7 +13,7 @@ const wrapper = require('./wrapper.js');
 let bl = {
 	"delete": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("delete secret options is required with {name, and namespace}"));
+			return cb(new Error("secret delete: options is required with {name, and namespace}"));
 		}
 		wrapper.secret.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			if (error) {
@@ -32,7 +32,7 @@ let bl = {
 	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("getOne secret options is required with {name, namespace}"));
+			return cb(new Error("secret getOne: options is required with {name, and namespace}"));
 		}
 		wrapper.secret.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			return cb(error, item);
@@ -40,7 +40,7 @@ let bl = {
 	},
 	"get": (client, options, cb) => {
 		if (!options || !options.namespace) {
-			return cb(new Error("get secrets options is required with {namespace}"));
+			return cb(new Error("secret get: options is required with {namespace}"));
 		}
 		wrapper.secret.get(client, {namespace: options.namespace, qs: options.filter || null}, (error, items) => {
 			return cb(error, items);

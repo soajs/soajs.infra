@@ -13,19 +13,28 @@ const wrapper = require('./wrapper.js');
 let bl = {
 	"update": (client, options, cb) => {
 		if (!options || !options.name || !options.body || !options.namespace) {
-			return cb(new Error("update service options is required with {name, body, and namespace}"));
+			return cb(new Error("service update: options is required with {name, body, and namespace}"));
 		}
-		
+		wrapper.service.put(client, {
+			namespace: options.namespace,
+			body: options.body,
+			name: options.name
+		}, (error, item) => {
+			if (error) {
+				return cb(error);
+			}
+			return cb(null, item);
+		});
 	},
 	"create": (client, options, cb) => {
 		if (!options || !options.body || !options.namespace) {
-			return cb(new Error("create service options is required with {body, and namespace}"));
+			return cb(new Error("service create: options is required with {body, and namespace}"));
 		}
 		return wrapper.service.post(client, {namespace: options.namespace, body: options.body}, cb);
 	},
 	"delete": (client, options, cb) => {
 		if (!options || !options.name) {
-			return cb(new Error("delete service options is required with {namespace, name}"));
+			return cb(new Error("service delete: options is required with {namespace, and name}"));
 		}
 		wrapper.service.get(client, {namespace: options.namespace, name: options.name}, (error, service) => {
 			if (error) {
@@ -44,7 +53,7 @@ let bl = {
 	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.namespace || !options.name) {
-			return cb(new Error("getOne service options is required with {namespace, name}"));
+			return cb(new Error("service getOne: options is required with {namespace, and name}"));
 		}
 		wrapper.service.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			return cb(error, item);
@@ -53,7 +62,7 @@ let bl = {
 	
 	"get": (client, options, cb) => {
 		if (!options || !options.namespace) {
-			return cb(new Error("get services options is required with {namespace}"));
+			return cb(new Error("service get: options is required with {namespace}"));
 		}
 		wrapper.service.get(client, {namespace: options.namespace, qs: options.filter || null}, (error, items) => {
 			return cb(error, items);
@@ -61,7 +70,7 @@ let bl = {
 	},
 	"getIps": (client, options, cb) => {
 		if (!options || !options.namespace || !options.name) {
-			return cb(new Error("getIps service options is required with {namespace, name}"));
+			return cb(new Error("service getIps: options is required with {namespace, and name}"));
 		}
 		wrapper.service.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			if (item && item.spec && item.spec.clusterIP) {

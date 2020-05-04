@@ -20,7 +20,7 @@ let bl = {
 	
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("pod getOne: options is required with {name, namespace}"));
+			return cb(new Error("pod getOne: options is required with {name, and namespace}"));
 		}
 		wrapper.pod.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			return cb(error, item);
@@ -37,7 +37,7 @@ let bl = {
 	
 	"getIps": (client, options, cb) => {
 		if (!options || !options.namespace || !options.filter) {
-			return cb(new Error("pod getIps: options is required with {namespace, filter}"));
+			return cb(new Error("pod getIps: options is required with {namespace, and filter}"));
 		}
 		let ips = [];
 		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, podList) => {
@@ -75,7 +75,7 @@ let bl = {
 	
 	"getLog": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("pod getLog: options is required with {name, namespace}"));
+			return cb(new Error("pod getLog: options is required with {name, and namespace}"));
 		}
 		wrapper.pod.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			if (error) {
@@ -100,7 +100,7 @@ let bl = {
 	
 	"exec": (client, options, cb) => {
 		if (!options || !options.namespace || !options.filter || !options.commands || !Array.isArray(options.commands)) {
-			return cb(new Error("pod getIps: options is required with {namespace, filter, commands[as Array]}"));
+			return cb(new Error("pod getIps: options is required with {namespace, filter, and commands[as Array]}"));
 		}
 		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, podList) => {
 			if (error) {

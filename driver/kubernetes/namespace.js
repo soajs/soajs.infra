@@ -13,7 +13,7 @@ const wrapper = require('./wrapper.js');
 let bl = {
 	"create": (client, options, cb) => {
 		if (!options || !options.name) {
-			return cb(new Error("create namespace options is required with {name}"));
+			return cb(new Error("namespace create: options is required with {name}"));
 		}
 		let recipe = {
 			kind: 'Namespace',
@@ -29,13 +29,13 @@ let bl = {
 	},
 	"delete": (client, options, cb) => {
 		if (!options || !options.name) {
-			return cb(new Error("delete namespace options is required with {name}"));
+			return cb(new Error("namespace delete: options is required with {name}"));
 		}
 		wrapper.namespace.delete(client, {name: options.name}, cb);
 	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name) {
-			return cb(new Error("getOne namespace options is required with {name}"));
+			return cb(new Error("namespace getOne: options is required with {name}"));
 		}
 		wrapper.namespace.get(client, {name: options.name}, (error, item) => {
 			return cb(error, item);
