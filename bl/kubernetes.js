@@ -57,11 +57,12 @@ let bl = {
 				}
 				//remove all / from the beginning of a string
 				while (inputmaskData.operation.route.charAt(0) === '/') {
-					inputmaskData.operation = inputmaskData.operation.route.substr(1);
+					inputmaskData.operation.route = inputmaskData.operation.route.substr(1);
 				}
 				let commands = [`curl -s -X GET http://localhost:${inputmaskData.item.maintenancePort}/${inputmaskData.operation.route}`];
 				driver.pod.exec(client, {
 					"namespace": config.namespace,
+					"config": config,
 					"filter": filter,
 					"commands": commands
 				}, (error, response) => {

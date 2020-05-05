@@ -120,21 +120,20 @@ let bl = {
 					}
 					
 					let uri = "";
-					if (client.config && client.config.url) {
-						uri = `wss://${client.config.url.split('//')[1]}`;
+					if (options.config && options.config.url) {
+						uri = `wss://${options.config.url.split('//')[1]}`;
 					}
 					uri += `/api/v1/namespaces/${options.namespace}/pods/${onePod.metadata.name}/exec?`;
 					uri += 'stdout=1&stdin=1&stderr=1';
-					
 					let cmd = [shell, '-c'];
-					cmd.concat(options.commands);
+					cmd = cmd.concat(options.commands);
 					cmd.forEach(subCmd => uri += `&command=${encodeURIComponent(subCmd)}`);
 					
 					let wsOptions = {};
 					wsOptions.payload = 1024;
-					if (client.config && client.config.auth && client.config.auth.bearer) {
+					if (options.config && options.config.token) {
 						wsOptions.headers = {
-							'Authorization': `Bearer ${client.config.auth.bearer}`
+							'Authorization': `Bearer ${options.config.token}`
 						};
 					}
 					let response = '';
@@ -155,7 +154,7 @@ let bl = {
 						});
 						ws.on('close', () => {
 							if (wsError) {
-								operationResponse.response = 'An error occurred: ' + wsError;
+								operationResponse.response = 'A ws error occurred: ' + wsError;
 								return callback(null, operationResponse);
 							}
 							if (response.indexOf('{') !== -1 && response.lastIndexOf('}') !== -1) {
@@ -181,7 +180,7 @@ let bl = {
 							}
 						});
 					} catch (e) {
-						operationResponse.response = 'An error occurred: ' + e.message;
+						operationResponse.response = 'An exec error occurred: ' + e.message;
 						return callback(null, operationResponse);
 					}
 				};
