@@ -140,7 +140,7 @@ let bl = {
 			}
 			driver.pod.log(client, {
 				"namespace": config.namespace,
-				"name": inputmaskData.name,
+				"name": inputmaskData.podName,
 				"follow": inputmaskData.follow,
 				"lines": inputmaskData.lines
 			}, (error, response) => {
@@ -162,7 +162,7 @@ let bl = {
 			}
 			
 			let filter = {
-				labelSelector: 'soajs.env.code=' + inputmaskData.env.toLowerCase() + ', soajs.service.name=' + inputmaskData.name
+				labelSelector: 'soajs.env.code=' + inputmaskData.env.toLowerCase() + ', soajs.service.name=' + inputmaskData.itemName
 			};
 			
 			async.parallel({

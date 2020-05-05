@@ -94,12 +94,28 @@ module.exports = {
 		},
 		
 		"put": {
-			"/kubernetes/resources/scale": {
+			"/kubernetes/deployment/scale": {
 				"_apiInfo": {
-					"l": "This API scales a resource",
+					"l": "This API scales a resource of type deployment only",
 					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"]
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"scale": {
+					"source": ['body.scale'],
+					"required": true,
+					"validation": {
+						"type": "integer",
+						"minimum": 1
+						
+					}
+				}
 			},
 			"/kubernetes/redeploy/item/soajs": {
 				"_apiInfo": {
@@ -139,8 +155,8 @@ module.exports = {
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"name": {
-					"source": ['body.name'],
+				"itemName": {
+					"source": ['body.itemName'],
 					"required": true,
 					"validation": {
 						"type": "string"
@@ -160,8 +176,8 @@ module.exports = {
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"name": {
-					"source": ['body.name'],
+				"podName": {
+					"source": ['body.podName'],
 					"required": true,
 					"validation": {
 						"type": "string"

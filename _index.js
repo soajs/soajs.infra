@@ -157,7 +157,7 @@ function run(serviceStartCb) {
 			});
 			
 			//PUT methods
-			service.get("/kubernetes/resources/scale", function (req, res) {
+			service.put("/kubernetes/deployment/scale", function (req, res) {
 				bl.kubernetes.scale(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
