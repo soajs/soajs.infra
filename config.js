@@ -56,7 +56,7 @@ module.exports = {
 	"schema": {
 		"commonFields": {
 			"configuration": {
-				"source": ['body.configuration', 'query.configuration'],
+				"source": ['body.configuration'],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -92,7 +92,47 @@ module.exports = {
 				}
 			}
 		},
-		"get": {
+		
+		"put": {
+			"/kubernetes/resources/scale": {
+				"_apiInfo": {
+					"l": "This API scales a resource",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"]
+			},
+			"/kubernetes/redeploy/item/soajs": {
+				"_apiInfo": {
+					"l": "This API redeploys an item.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"]
+			},
+			"/kubernetes/redeploy/item/native": {
+				"_apiInfo": {
+					"l": "This API redeploys an item.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"]
+			},
+			"/kubernetes/redeploy/native": {
+				"_apiInfo": {
+					"l": "This API redeploys an item.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"]
+			},
+			"/kubernetes/restart/item": {
+				"_apiInfo": {
+					"l": "This API restarts an item.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"]
+			}
+		},
+		
+		"post": {
+			
 			"/kubernetes/item/latestVersion": {
 				"_apiInfo": {
 					"l": "This API fetches the latest version deployed of an item.",
@@ -100,14 +140,14 @@ module.exports = {
 				},
 				"commonFields": ["configuration"],
 				"name": {
-					"source": ['query.name'],
+					"source": ['body.name'],
 					"required": true,
 					"validation": {
 						"type": "string"
 					}
 				},
 				"env": {
-					"source": ['query.env'],
+					"source": ['body.env'],
 					"required": true,
 					"validation": {
 						"type": "string"
@@ -121,14 +161,14 @@ module.exports = {
 				},
 				"commonFields": ["configuration"],
 				"name": {
-					"source": ['query.name'],
+					"source": ['body.name'],
 					"required": true,
 					"validation": {
 						"type": "string"
 					}
 				},
 				"follow": {
-					"source": ['query.follow'],
+					"source": ['body.follow'],
 					"required": false,
 					"validation": {
 						"type": "boolean",
@@ -136,7 +176,7 @@ module.exports = {
 					}
 				},
 				"lines": {
-					"source": ['query.lines'],
+					"source": ['body.lines'],
 					"required": false,
 					"validation": {
 						"type": "integer",
@@ -145,21 +185,8 @@ module.exports = {
 						"maximum": 2000
 					}
 				}
-			}
-		},
-		
-		"put": {
-			"/kubernetes/resources/scale": {
-				"_apiInfo": {
-					"l": "This API scales a resource",
-					"group": "Kubernetes"
-				},
-				"commonFields": ["configuration"]
-			}
+			},
 			
-		},
-		
-		"post": {
 			"/kubernetes/resources/catalog/items": {
 				"_apiInfo": {
 					"l": "This API returns all the resources information related o catalog items for a given namespace.",

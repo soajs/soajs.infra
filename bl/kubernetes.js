@@ -179,7 +179,7 @@ let bl = {
 					});
 				},
 				daemonset: function (callback) {
-					driver.get.daemonset(client, {
+					driver.get.daemonsets(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -191,7 +191,7 @@ let bl = {
 					});
 				},
 				cronjob: function (callback) {
-					driver.get.cronjob(client, {
+					driver.get.cronjobs(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -208,13 +208,13 @@ let bl = {
 				}
 				let items = [];
 				if (results.deployment && results.deployment.items) {
-					items.concat(results.deployment.items);
+					items = items.concat(results.deployment.items);
 				}
 				if (results.daemonset && results.daemonset.items) {
-					items.concat(results.daemonset.items);
+					items = items.concat(results.daemonset.items);
 				}
 				if (results.cronjob && results.cronjob.items) {
-					items.concat(results.cronjob.items);
+					items = items.concat(results.cronjob.items);
 				}
 				
 				let latestVersion = null;

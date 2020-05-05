@@ -25,15 +25,16 @@ function run(serviceStartCb) {
 			}
 			
 			//GET methods
-			service.get("/kubernetes/item/latestVersion", function (req, res) {
+			service.post("/kubernetes/item/latestVersion", function (req, res) {
 				bl.kubernetes.getResource_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.get("/kubernetes/pod/log", function (req, res) {
+			service.post("/kubernetes/pod/log", function (req, res) {
 				bl.kubernetes.getLog(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					if (error) {
-						return res.json(req.soajs.buildResponse(error, data));
+						console.log(error)
+						return res.json(req.soajs.buildResponse(error, null));
 					} else {
 						if (req.soajs.inputmaskData.follow) {
 							let headObj = {
@@ -112,6 +113,21 @@ function run(serviceStartCb) {
 					}
 				});
 			});
+			service.post("/kubernetes/resources/all", function (req, res) {
+				bl.kubernetes.getResources_all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/resources/catalog/items", function (req, res) {
+				bl.kubernetes.getResources_catalogItems(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/resources/other", function (req, res) {
+				bl.kubernetes.getResources_other(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			
 			//DELETE methods
 			service.delete("/kubernetes/namespace", function (req, res) {
@@ -161,22 +177,6 @@ function run(serviceStartCb) {
 			});
 			service.post("/kubernetes/secret/registry", function (req, res) {
 				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, {"type": "dockercfg"}, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			
-			service.post("/kubernetes/resources/all", function (req, res) {
-				bl.kubernetes.getResources_all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.post("/kubernetes/resources/catalog/items", function (req, res) {
-				bl.kubernetes.getResources_catalogItems(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.post("/kubernetes/resources/other", function (req, res) {
-				bl.kubernetes.getResources_other(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

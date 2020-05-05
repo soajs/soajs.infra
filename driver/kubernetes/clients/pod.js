@@ -31,7 +31,7 @@ const pods = {
 		}
 		
 		main().then((result) => {
-			return cb(null, result.body);
+			return opts.qs && opts.qs.follow ? cb(null, result) : cb(null, result.body);
 		}).catch((err) => {
 			return cb(err);
 		});
