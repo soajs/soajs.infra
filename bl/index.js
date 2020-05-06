@@ -36,6 +36,12 @@ function init(service, localConfig, cb) {
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.create = temp;
 	
+	temp = require("./exec.js");
+	temp.localConfig = localConfig;
+	temp.handleError = BL.kubernetes.handleError;
+	temp.handleConnect = BL.kubernetes.handleConnect;
+	BL.kubernetes.exec = temp;
+	
 	return cb(null);
 }
 

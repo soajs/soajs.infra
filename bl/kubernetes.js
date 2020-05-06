@@ -44,56 +44,7 @@ let bl = {
 	
 	"deploy": {},
 	
-	"exec": {
-		"maintenance": (soajs, inputmaskData, options, cb) => {
-			if (!inputmaskData || !inputmaskData.item || !inputmaskData.operation) {
-				return cb(bl.handleError(soajs, 400, null));
-			}
-			let label = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + inputmaskData.item.version;
-			let filter = {labelSelector: 'soajs.service.label=' + label};
-			bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				//remove all / from the beginning of a string
-				while (inputmaskData.operation.route.charAt(0) === '/') {
-					inputmaskData.operation.route = inputmaskData.operation.route.substr(1);
-				}
-				let commands = [`curl -s -X GET http://localhost:${inputmaskData.item.maintenancePort}/${inputmaskData.operation.route}`];
-				driver.pod.exec(client, {
-					"namespace": config.namespace,
-					"config": config,
-					"filter": filter,
-					"commands": commands
-				}, (error, response) => {
-					if (error) {
-						return cb(bl.handleError(soajs, 702, error));
-					}
-					return cb(null, response);
-				});
-			});
-		},
-		"custom": (soajs, inputmaskData, options, cb) => {
-			if (!inputmaskData) {
-				return cb(bl.handleError(soajs, 400, null));
-			}
-			bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				driver.pod.exec(client, {
-					"namespace": config.namespace,
-					"filter": inputmaskData.filter,
-					"commands": inputmaskData.commands
-				}, (error, response) => {
-					if (error) {
-						return cb(bl.handleError(soajs, 702, error));
-					}
-					return cb(null, response);
-				});
-			});
-		}
-	},
+	"exec": {},
 	
 	"scale": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {

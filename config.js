@@ -118,7 +118,7 @@ module.exports = {
 				}
 			},
 			
-			"/kubernetes/redeploy/item/soajs": {
+			"/kubernetes/item/redeploy/soajs": {
 				"_apiInfo": {
 					"l": "This API redeploys an item.",
 					"group": "Kubernetes"
@@ -442,6 +442,31 @@ module.exports = {
 						}
 					}
 					
+				}
+			},
+			"/kubernetes/pods/exec": {
+				"_apiInfo": {
+					"l": "This API trigger maintenance operation on a deployed item",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"filter": {
+					"source": ['body.filter'],
+					"required": true,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"commands": {
+					"source": ['body.commands'],
+					"required": true,
+					"validation": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "string"
+						}
+					}
 				}
 			}
 		},

@@ -99,8 +99,8 @@ let bl = {
 	},
 	
 	"exec": (client, options, cb) => {
-		if (!options || !options.namespace || !options.filter || !options.commands || !Array.isArray(options.commands)) {
-			return cb(new Error("pod getIps: options is required with {namespace, filter, and commands[as Array]}"));
+		if (!options || !options.namespace || !options.config || !options.filter || !options.commands || !Array.isArray(options.commands)) {
+			return cb(new Error("pod getIps: options is required with {namespace, config, filter, and commands[as Array]}"));
 		}
 		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, podList) => {
 			if (error) {
