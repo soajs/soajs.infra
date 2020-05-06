@@ -117,6 +117,7 @@ module.exports = {
 					}
 				}
 			},
+			
 			"/kubernetes/redeploy/item/soajs": {
 				"_apiInfo": {
 					"l": "This API redeploys an item.",
