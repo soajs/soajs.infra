@@ -203,16 +203,16 @@ module.exports = {
 				}
 			},
 			
-			"/kubernetes/resources/catalog/items": {
+			"/kubernetes/resources/item": {
 				"_apiInfo": {
-					"l": "This API returns all the resources information related o catalog items for a given namespace.",
+					"l": "This API returns all the resources information of type deployed in given namespace.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"]
 			},
 			"/kubernetes/resources/other": {
 				"_apiInfo": {
-					"l": "This API returns all the resources information related o catalog items for a given namespace.",
+					"l": "This API returns all the resources information not of type item deployed in a given namespace.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"]
@@ -314,9 +314,9 @@ module.exports = {
 				}
 			},
 			
-			"/kubernetes/deploy/item/soajs": {
+			"/kubernetes/item/deploy/soajs": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using soajs recipe of type deployment",
+					"l": "This API deploys an item from the catalog using soajs recipe of type deployment or daemonset",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -326,9 +326,9 @@ module.exports = {
 					"validation": item_soajs
 				}
 			},
-			"/kubernetes/deploy/item/soajs/conjob": {
+			"/kubernetes/item/deploy/soajs/conjob": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using soajs recipe of type daemonset",
+					"l": "This API deploys an item from the catalog using soajs recipe of type cronjob",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -338,7 +338,7 @@ module.exports = {
 					"validation": item_soajs_cronjob
 				}
 			},
-			"/kubernetes/deploy/item/native": {
+			"/kubernetes/item/deploy/native": {
 				"_apiInfo": {
 					"l": "This API deploys an item from the catalog using kubernetes native recipe",
 					"group": "Kubernetes"
@@ -350,9 +350,9 @@ module.exports = {
 					"validation": item_native
 				}
 			},
-			"/kubernetes/deploy/item/native/cronjob": {
+			"/kubernetes/item/deploy/native/cronjob": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using kubernetes native recipe",
+					"l": "This API deploys an item from the catalog using kubernetes native recipe of type cronjob",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -490,15 +490,30 @@ module.exports = {
 			},
 			"/kubernetes/item": {
 				"_apiInfo": {
-					"l": "This API deletes an item including (service, deployment or deamonset and the related auto scaling)",
+					"l": "This API deletes an item deployment, cronjob  or deamonset as well as the related auto scaling including the related service",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"name": {
-					"source": ['body.name'],
+				"item": {
+					"source": ['body.item'],
 					"required": true,
 					"validation": {
-						"type": "string"
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"env": {
+								"required": true,
+								"type": "string"
+							},
+							"name": {
+								"required": true,
+								"type": "string"
+							},
+							"version": {
+								"required": true,
+								"type": "string"
+							}
+						}
 					}
 				},
 				"serviceName": {
@@ -533,6 +548,20 @@ module.exports = {
 				"commonFields": ["configuration"],
 				"name": {
 					"source": ['query.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/resource": {
+				"_apiInfo": {
+					"l": "This API deletes a resource of type deployment, cronjob  or deamonset as well as the related auto scaling",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
 					"required": true,
 					"validation": {
 						"type": "string"

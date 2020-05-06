@@ -33,7 +33,6 @@ function run(serviceStartCb) {
 			service.post("/kubernetes/pod/log", function (req, res) {
 				bl.kubernetes.getLog(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					if (error) {
-						console.log(error)
 						return res.json(req.soajs.buildResponse(error, null));
 					} else {
 						if (req.soajs.inputmaskData.follow) {
@@ -118,7 +117,7 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/resources/catalog/items", function (req, res) {
+			service.post("/kubernetes/resources/item", function (req, res) {
 				bl.kubernetes.getResources_catalogItems(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
@@ -192,22 +191,22 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/deploy/item/soajs", function (req, res) {
+			service.post("/kubernetes/item/deploy/soajs", function (req, res) {
 				bl.kubernetes.deploy.item_soajs_deployment_or_daemonset(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/deploy/item/native", function (req, res) {
+			service.post("/kubernetes/item/deploy/native", function (req, res) {
 				bl.kubernetes.deploy.item_native_deployment_or_daemonset(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/deploy/item/soajs/cronjob", function (req, res) {
+			service.post("/kubernetes/item/deploy/soajs/cronjob", function (req, res) {
 				bl.kubernetes.deploy.item_soajs_conjob(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/deploy/item/native/cronjob", function (req, res) {
+			service.post("/kubernetes/item/deploy/native/cronjob", function (req, res) {
 				bl.kubernetes.deploy.item_native_cronjob(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});

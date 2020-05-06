@@ -9,6 +9,7 @@
  */
 
 
+const soajsCoreLibs = require("soajs.core.libs");
 const driver = require("../driver/kubernetes/index.js");
 
 let bl = {
@@ -71,23 +72,27 @@ let bl = {
 		});
 	},
 	"item": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
+		if (!inputmaskData || !inputmaskData.item) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
+			
 			let mode = inputmaskData.mode.toLowerCase();
+			let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
+			let label_sanytized = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
+			
 			driver.delete[mode](client, {
 				"namespace": config.namespace,
-				"name": inputmaskData.name,
+				"name": label_sanytized,
 				"cleanup": inputmaskData.cleanup || false
 			}, (error) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				let serviceName = inputmaskData.name + "-service";
+				let serviceName = label_sanytized + "-service";
 				if (inputmaskData.serviceName) {
 					serviceName = inputmaskData.serviceName;
 				}
