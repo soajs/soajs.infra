@@ -201,7 +201,7 @@ module.exports = {
 			},
 			"/kubernetes/resource/restart": {
 				"_apiInfo": {
-					"l": "This API restarts an item.",
+					"l": "This API restarts a resource of type (Deployment, DaemonSet, or CronJob) and all its pod .",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -244,8 +244,8 @@ module.exports = {
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"podName": {
-					"source": ['body.podName'],
+				"name": {
+					"source": ['body.name'],
 					"required": true,
 					"validation": {
 						"type": "string"
@@ -596,7 +596,7 @@ module.exports = {
 			},
 			"/kubernetes/item": {
 				"_apiInfo": {
-					"l": "This API deletes an item deployment, cronjob  or deamonset as well as the related auto scaling including the related service",
+					"l": "This API deletes an item of type (deployment, cronjob  or deamonset) as well as the related auto scaling including the related service",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],

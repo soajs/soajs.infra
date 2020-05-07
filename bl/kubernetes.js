@@ -162,7 +162,7 @@ let bl = {
 			}
 			driver.pod.log(client, {
 				"namespace": config.namespace,
-				"name": inputmaskData.podName,
+				"name": inputmaskData.name,
 				"follow": inputmaskData.follow,
 				"lines": inputmaskData.lines
 			}, (error, response) => {
