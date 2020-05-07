@@ -8,8 +8,6 @@
  * found in the LICENSE file at the root of this repository
  */
 
-
-const soajsCoreLibs = require("soajs.core.libs");
 const driver = require("../driver/kubernetes/index.js");
 
 let bl = {
@@ -81,18 +79,23 @@ let bl = {
 			}
 			
 			let mode = inputmaskData.mode.toLowerCase();
-			let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
-			let label_sanytized = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
+			if (!driver.delete[mode]) {
+				return cb(bl.handleError(soajs, 504, null));
+			}
 			
 			driver.delete[mode](client, {
 				"namespace": config.namespace,
-				"name": label_sanytized,
+				"name": inputmaskData.name,
 				"cleanup": inputmaskData.cleanup || false
-			}, (error) => {
+			}, (error, item) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				let serviceName = label_sanytized + "-service";
+				if (!item) {
+					return cb(bl.handleError(soajs, 501, null));
+				}
+				
+				let serviceName = inputmaskData.name + "-service";
 				if (inputmaskData.serviceName) {
 					serviceName = inputmaskData.serviceName;
 				}

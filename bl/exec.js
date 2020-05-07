@@ -16,11 +16,10 @@ let bl = {
 	"handleConnect": null,
 	
 	"maintenance": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData || !inputmaskData.item || !inputmaskData.operation) {
+		if (!inputmaskData || !inputmaskData.operation) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		let label = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + inputmaskData.item.version;
-		let filter = {labelSelector: 'soajs.service.label=' + label};
+		let filter = {labelSelector: 'soajs.service.label=' + inputmaskData.name};
 		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
@@ -29,7 +28,7 @@ let bl = {
 			while (inputmaskData.operation.route.charAt(0) === '/') {
 				inputmaskData.operation.route = inputmaskData.operation.route.substr(1);
 			}
-			let commands = [`curl -s -X GET http://localhost:${inputmaskData.item.maintenancePort}/${inputmaskData.operation.route}`];
+			let commands = [`curl -s -X GET http://localhost:${inputmaskData.maintenancePort}/${inputmaskData.operation.route}`];
 			driver.pod.exec(client, {
 				"namespace": config.namespace,
 				"config": config,
@@ -54,7 +53,8 @@ let bl = {
 			driver.pod.exec(client, {
 				"namespace": config.namespace,
 				"config": config,
-				"filter": inputmaskData.filter,
+				"filter": inputmaskData.filter || null,
+				"name": inputmaskData.name || null,
 				"commands": inputmaskData.commands
 			}, (error, response) => {
 				if (error) {

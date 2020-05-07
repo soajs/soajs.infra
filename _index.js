@@ -57,8 +57,13 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.put("/kubernetes/item/redeploy/soajs", function (req, res) {
-				bl.kubernetes.scale(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.put("/kubernetes/item/redeploy", function (req, res) {
+				bl.kubernetes.redeploy.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.put("/kubernetes/resource/restart", function (req, res) {
+				bl.kubernetes.resource_restart(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
@@ -175,6 +180,11 @@ function run(serviceStartCb) {
 				});
 			});
 			service.post("/kubernetes/pods/exec", function (req, res) {
+				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/pod/exec", function (req, res) {
 				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});

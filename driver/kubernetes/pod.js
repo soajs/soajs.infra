@@ -99,19 +99,23 @@ let bl = {
 	},
 	
 	"exec": (client, options, cb) => {
-		if (!options || !options.namespace || !options.config || !options.filter || !options.commands || !Array.isArray(options.commands)) {
-			return cb(new Error("pod getIps: options is required with {namespace, config, filter, and commands[as Array]}"));
+		if (!options || !options.namespace || !options.config || !(options.filter || options.name) || !options.commands || !Array.isArray(options.commands)) {
+			return cb(new Error("pod getIps: options is required with {namespace, config, (filter or name), and commands[as Array]}"));
 		}
-		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, podList) => {
+		let args = {};
+		if (options.filter) {
+			args = {namespace: options.namespace, qs: options.filter};
+		} else {
+			args = {namespace: options.namespace, name: options.name};
+		}
+		wrapper.pod.get(client, args, (error, podList) => {
 			if (error) {
 				return cb(error);
 			}
 			
-			if (podList && podList.items && Array.isArray(podList.items)) {
-				
+			if (podList) {
 				// turn off node TLS
 				process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-				
 				let iteratee = (onePod, callback) => {
 					let shell = '/bin/bash';
 					if (onePod.metadata.labels['soajs.shell']) {
@@ -173,8 +177,7 @@ let bl = {
 									operationResponse.response = "Maintenance operation failed.";
 									return callback(null, operationResponse);
 								}
-							}
-							else {
+							} else {
 								operationResponse.response = response;
 								return callback(null, operationResponse);
 							}
@@ -184,11 +187,18 @@ let bl = {
 						return callback(null, operationResponse);
 					}
 				};
-				async.map(podList.items, iteratee, (err, results) => {
-					return cb(err, results);
-				});
+				
+				if (podList.items && Array.isArray(podList.items)) {
+					async.map(podList.items, iteratee, (err, results) => {
+						return cb(err, results);
+					});
+				} else {
+					iteratee(podList, (err, results) => {
+						return cb(err, results);
+					});
+				}
 			} else {
-				return cb(new error("Unable to find any matching container to run the maintenance cmd"));
+				return cb(new Error("Unable to find any matching container to run the maintenance cmd"));
 			}
 		});
 	}

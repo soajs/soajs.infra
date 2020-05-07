@@ -13,6 +13,23 @@ const driver = require("../driver/kubernetes/index.js");
 const lib = require("./lib.js");
 const soajsCoreLibs = require("soajs.core.libs");
 
+
+function setRestartEnv(envArray) {
+	if (envArray && Array.isArray(envArray)) {
+		let found_in_array = false;
+		for (let i = 0; i < envArray.length; i++) {
+			if (envArray[i].name === "soa_restart") {
+				envArray[i].value = new Date().getTime().toString();
+				found_in_array = true;
+			}
+		}
+		if (!found_in_array) {
+			envArray.push({"name": "soa_restart", "value": new Date().getTime().toString()});
+		}
+	}
+	return envArray;
+}
+
 let bl = {
 	"localConfig": null,
 	
@@ -44,7 +61,60 @@ let bl = {
 	
 	"deploy": {},
 	
+	"redeploy": {},
+	
 	"exec": {},
+	
+	"resource_restart": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, kubeConfig) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			let mode = inputmaskData.mode.toLowerCase();
+			if (!driver.delete[mode]) {
+				return cb(bl.handleError(soajs, 504, null));
+			}
+			driver.get[mode](client, {
+				"namespace": kubeConfig.namespace,
+				"name": inputmaskData.name
+			}, (error, item) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				if (!item) {
+					return cb(bl.handleError(soajs, 501, null));
+				}
+				//check if deployment or daemonset and set restart env
+				if (item.spec && item.spec.template && item.spec.template.spec && item.spec.template.spec.containers) {
+					if (Array.isArray(item.spec.template.spec.containers) && item.spec.template.spec.containers.length > 0) {
+						item.spec.template.spec.containers[0].env = setRestartEnv(item.spec.template.spec.containers[0].env);
+					}
+				}
+				//check if cronjob and set restart env
+				if (item.spec && item.spec.jobTemplate && item.spec.jobTemplate.spec.template && item.spec.jobTemplate.spec.template.spec && item.spec.jobTemplate.spec.template.spec.containers) {
+					if (Array.isArray(item.spec.jobTemplate.spec.template.spec.containers) && item.spec.jobTemplate.spec.template.spec.containers.length > 0) {
+						item.spec.jobTemplate.spec.template.spec.containers[0].env = setRestartEnv(item.spec.jobTemplate.spec.template.spec.containers[0].env);
+					}
+				}
+				if (!driver.update[mode]) {
+					return cb(bl.handleError(soajs, 504, null));
+				}
+				driver.update[mode](client, {
+					"namespace": kubeConfig.namespace,
+					"name": inputmaskData.name,
+					"body": item
+				}, (error) => {
+					if (error) {
+						return cb(bl.handleError(soajs, 702, error));
+					}
+					return cb(null, {"restarted": true});
+				});
+			});
+		});
+	},
 	
 	"scale": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
@@ -114,7 +184,7 @@ let bl = {
 			}
 			
 			let filter = {
-				labelSelector: 'soajs.env.code=' + inputmaskData.env.toLowerCase() + ', soajs.service.name=' + inputmaskData.itemName
+				labelSelector: 'soajs.service.name=' + inputmaskData.itemName
 			};
 			
 			async.parallel({

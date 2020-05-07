@@ -105,11 +105,35 @@ let config = {
 			"required": false,
 			"type": "object",
 			"properties": {
-				"branch": {
+				"from": {
 					"required": true,
-					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-					"minLength": 1
+					"type": "object",
+					"properties": {
+						"oneOf": [
+							{
+								"tag": {
+									"required": true,
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								}
+							},
+							{
+								"branch": {
+									"required": true,
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								},
+								"commit": {
+									"required": true,
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								}
+							}
+						]
+					}
 				},
 				"repo": {
 					"required": true,
@@ -118,12 +142,6 @@ let config = {
 					"minLength": 1
 				},
 				"owner": {
-					"required": true,
-					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-					"minLength": 1
-				},
-				"commit": {
 					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,

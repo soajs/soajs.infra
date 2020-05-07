@@ -118,38 +118,112 @@ module.exports = {
 				}
 			},
 			
-			"/kubernetes/item/redeploy/soajs": {
+			"/kubernetes/item/redeploy": {
 				"_apiInfo": {
 					"l": "This API redeploys an item.",
 					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"]
-			},
-			"/kubernetes/redeploy/item/native": {
-				"_apiInfo": {
-					"l": "This API redeploys an item.",
-					"group": "Kubernetes"
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
 				},
-				"commonFields": ["configuration"]
-			},
-			"/kubernetes/redeploy/native": {
-				"_apiInfo": {
-					"l": "This API redeploys an item.",
-					"group": "Kubernetes"
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Deployment", "DaemonSet", "CronJob"]
+					}
 				},
-				"commonFields": ["configuration"]
+				"serviceName": {
+					"source": ['body.serviceName'],
+					"required": false,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"image": {
+					"source": ['body.image'],
+					"required": false,
+					"validation": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"required": true,
+								"type": "string"
+							}
+						}
+					}
+				},
+				"src": {
+					"source": ['body.src'],
+					"required": false,
+					"validation": {
+						"type": "object",
+						"properties": {
+							"from": {
+								"required": true,
+								"type": "object",
+								"properties": {
+									"oneOf": [
+										{
+											"tag": {
+												"required": true,
+												"type": "string",
+												"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+												"minLength": 1
+											}
+										},
+										{
+											"branch": {
+												"required": true,
+												"type": "string",
+												"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+												"minLength": 1
+											},
+											"commit": {
+												"required": true,
+												"type": "string",
+												"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+												"minLength": 1
+											}
+										}
+									]
+								}
+							}
+						}
+					}
+				}
 			},
-			"/kubernetes/restart/item": {
+			"/kubernetes/resource/restart": {
 				"_apiInfo": {
 					"l": "This API restarts an item.",
 					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"]
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Deployment", "DaemonSet", "CronJob"]
+					}
+				}
 			}
 		},
 		
 		"post": {
-			
 			"/kubernetes/item/latestVersion": {
 				"_apiInfo": {
 					"l": "This API fetches the latest version deployed of an item.",
@@ -158,13 +232,6 @@ module.exports = {
 				"commonFields": ["configuration"],
 				"itemName": {
 					"source": ['body.itemName'],
-					"required": true,
-					"validation": {
-						"type": "string"
-					}
-				},
-				"env": {
-					"source": ['body.env'],
 					"required": true,
 					"validation": {
 						"type": "string"
@@ -398,30 +465,18 @@ module.exports = {
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"item": {
-					"source": ['body.item'],
+				"name": {
+					"source": ['body.name'],
 					"required": true,
 					"validation": {
-						"type": "object",
-						"additionalProperties": false,
-						"properties": {
-							"env": {
-								"required": true,
-								"type": "string"
-							},
-							"name": {
-								"required": true,
-								"type": "string"
-							},
-							"version": {
-								"required": true,
-								"type": "string"
-							},
-							"maintenancePort": {
-								"required": true,
-								"type": "integer"
-							}
-						}
+						"type": "string"
+					}
+				},
+				"maintenancePort": {
+					"source": ['body.maintenancePort'],
+					"required": true,
+					"validation": {
+						"type": "string"
 					}
 				},
 				"operation": {
@@ -446,7 +501,7 @@ module.exports = {
 			},
 			"/kubernetes/pods/exec": {
 				"_apiInfo": {
-					"l": "This API trigger maintenance operation on a deployed item",
+					"l": "This API trigger maintenance operation in all the pods",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -455,6 +510,31 @@ module.exports = {
 					"required": true,
 					"validation": {
 						"type": "object"
+					}
+				},
+				"commands": {
+					"source": ['body.commands'],
+					"required": true,
+					"validation": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"/kubernetes/pod/exec": {
+				"_apiInfo": {
+					"l": "This API trigger maintenance operation in a pod",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
 					}
 				},
 				"commands": {
@@ -520,31 +600,9 @@ module.exports = {
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"item": {
-					"source": ['body.item'],
+				"name": {
+					"source": ['body.name'],
 					"required": true,
-					"validation": {
-						"type": "object",
-						"additionalProperties": false,
-						"properties": {
-							"env": {
-								"required": true,
-								"type": "string"
-							},
-							"name": {
-								"required": true,
-								"type": "string"
-							},
-							"version": {
-								"required": true,
-								"type": "string"
-							}
-						}
-					}
-				},
-				"serviceName": {
-					"source": ['body.serviceName'],
-					"required": false,
 					"validation": {
 						"type": "string"
 					}
@@ -555,6 +613,13 @@ module.exports = {
 					"validation": {
 						"type": "string",
 						"enum": ["Deployment", "DaemonSet", "CronJob"]
+					}
+				},
+				"serviceName": {
+					"source": ['body.serviceName'],
+					"required": false,
+					"validation": {
+						"type": "string"
 					}
 				},
 				"cleanup": {

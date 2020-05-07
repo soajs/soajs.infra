@@ -40,10 +40,16 @@ function buildLabels(config) {
 	}
 	
 	if (config.src) {
-		config.labels["service.branch"] = config.src.branch;
 		config.labels["service.owner"] = config.src.owner;
 		config.labels["service.repo"] = config.src.repo;
-		config.labels["service.commit"] = config.src.commit;
+		if (config.src.from) {
+			if (config.src.from.branch) {
+				config.labels["service.branch"] = config.src.from.branch;
+				config.labels["service.commit"] = config.src.from.commit;
+			} else {
+				config.labels["service.tag"] = config.src.from.tag;
+			}
+		}
 	}
 	return ({label, label_sanytized});
 }
@@ -369,7 +375,7 @@ let bl = {
 			
 			let kind = inputmaskData.deployment.kind.toLowerCase();
 			if (!driver.create[kind]) {
-				return cb(bl.handleError(soajs, 702, error));
+				return cb(bl.handleError(soajs, 504, null));
 			}
 			driver.create[kind](client, {
 				"body": inputmaskData.deployment,

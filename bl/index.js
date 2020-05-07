@@ -42,6 +42,12 @@ function init(service, localConfig, cb) {
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.exec = temp;
 	
+	temp = require("./redeploy.js");
+	temp.localConfig = localConfig;
+	temp.handleError = BL.kubernetes.handleError;
+	temp.handleConnect = BL.kubernetes.handleConnect;
+	BL.kubernetes.redeploy = temp;
+	
 	return cb(null);
 }
 
