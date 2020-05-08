@@ -56,7 +56,7 @@ module.exports = {
 	"schema": {
 		"commonFields": {
 			"configuration": {
-				"source": ['body.configuration'],
+				"source": ['body.configuration', 'query.configuration'],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -88,6 +88,205 @@ module.exports = {
 								}
 							}
 						]
+					}
+				}
+			}
+		},
+		
+		"get": {
+			"/kubernetes/item/latestVersion": {
+				"_apiInfo": {
+					"l": "This API fetches the latest version deployed of an item.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"itemName": {
+					"source": ['query.itemName'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/pod/log": {
+				"_apiInfo": {
+					"l": "This API fetches the container Logs and capable to follow the log if set to true.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['query.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"follow": {
+					"source": ['query.follow'],
+					"required": false,
+					"validation": {
+						"type": "boolean",
+						"default": false
+					}
+				},
+				"lines": {
+					"source": ['query.lines'],
+					"required": false,
+					"validation": {
+						"type": "integer",
+						"default": 400,
+						"minimum": 400,
+						"maximum": 2000
+					}
+				}
+			},
+			
+			"/kubernetes/item/inspect": {
+				"_apiInfo": {
+					"l": "This API returns the item inspect information meshed (service, deployment, cronjob, daemonset, and pod).",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"item": {
+					"source": ['query.item'],
+					"required": true,
+					"validation": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"env": {
+								"required": true,
+								"type": "string",
+								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+								"minLength": 1
+							},
+							"name": {
+								"required": true,
+								"type": "string",
+								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+								"minLength": 1
+							},
+							"version": {
+								"required": true,
+								"type": "string",
+								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+								"minLength": 1
+							}
+						}
+					}
+				}
+			},
+			"/kubernetes/resources/item": {
+				"_apiInfo": {
+					"l": "This API returns the items resource information (services, deployments, cronjobs, daemonsets, or pod).",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"mode": {
+					"source": ['query.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
+					}
+				},
+				"filter": {
+					"source": ['query.filter'],
+					"required": false,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"limit": {
+					"source": ['query.limit'],
+					"required": true,
+					"validation": {
+						"type": "integer",
+						"minimum": 100,
+						"maximum": 500
+					}
+				},
+				"continue": {
+					"source": ['query.continue'],
+					"required": false,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/resources/other": {
+				"_apiInfo": {
+					"l": "This API returns the resources information (services, deployments, cronjobs, daemonsets, or pods) excluding deployed items.",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"mode": {
+					"source": ['query.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
+					}
+				},
+				"filter": {
+					"source": ['query.filter'],
+					"required": false,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"limit": {
+					"source": ['query.limit'],
+					"required": true,
+					"validation": {
+						"type": "integer",
+						"minimum": 100,
+						"maximum": 500
+					}
+				},
+				"continue": {
+					"source": ['query.continue'],
+					"required": false,
+					"validation": {
+						"type": "string"
+					}
+				}
+			},
+			"/kubernetes/resources": {
+				"_apiInfo": {
+					"l": "This API returns the resources information (nodes, services, deployments, cronjobs, daemonsets, or pods).",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"mode": {
+					"source": ['query.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Nodes", "Pods"]
+					}
+				},
+				"filter": {
+					"source": ['query.filter'],
+					"required": false,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"limit": {
+					"source": ['query.limit'],
+					"required": true,
+					"validation": {
+						"type": "integer",
+						"minimum": 100,
+						"maximum": 500
+					}
+				},
+				"continue": {
+					"source": ['query.continue'],
+					"required": false,
+					"validation": {
+						"type": "string"
 					}
 				}
 			}
@@ -220,27 +419,11 @@ module.exports = {
 						"enum": ["Deployment", "DaemonSet", "CronJob"]
 					}
 				}
-			}
-		},
-		
-		"post": {
-			"/kubernetes/item/latestVersion": {
-				"_apiInfo": {
-					"l": "This API fetches the latest version deployed of an item.",
-					"group": "Kubernetes"
-				},
-				"commonFields": ["configuration"],
-				"itemName": {
-					"source": ['body.itemName'],
-					"required": true,
-					"validation": {
-						"type": "string"
-					}
-				}
 			},
-			"/kubernetes/pod/log": {
+			
+			"/kubernetes/item/maintenance": {
 				"_apiInfo": {
-					"l": "This API fetches the container Logs and capable to follow the log if set to true.",
+					"l": "This API trigger maintenance operation on a deployed item",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -251,176 +434,86 @@ module.exports = {
 						"type": "string"
 					}
 				},
-				"follow": {
-					"source": ['body.follow'],
-					"required": false,
+				"maintenancePort": {
+					"source": ['body.maintenancePort'],
+					"required": true,
 					"validation": {
-						"type": "boolean",
-						"default": false
+						"type": "string"
 					}
 				},
-				"lines": {
-					"source": ['body.lines'],
-					"required": false,
-					"validation": {
-						"type": "integer",
-						"default": 400,
-						"minimum": 400,
-						"maximum": 2000
-					}
-				}
-			},
-			
-			"/kubernetes/item/inspect": {
-				"_apiInfo": {
-					"l": "This API returns the item inspect information meshed (service, deployment, cronjob, daemonset, and pod).",
-					"group": "Kubernetes"
-				},
-				"commonFields": ["configuration"],
-				"item": {
-					"source": ['body.item'],
+				"operation": {
+					"source": ['body.operation'],
 					"required": true,
 					"validation": {
 						"type": "object",
 						"additionalProperties": false,
 						"properties": {
-							"env": {
+							"route": {
 								"required": true,
-								"type": "string",
-								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-								"minLength": 1
+								"type": "string"
 							},
-							"name": {
-								"required": true,
-								"type": "string",
-								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-								"minLength": 1
-							},
-							"version": {
-								"required": true,
-								"type": "string",
-								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-								"minLength": 1
+							"qs": {
+								"required": false,
+								"type": "string"
 							}
+						}
+					}
+					
+				}
+			},
+			"/kubernetes/pods/exec": {
+				"_apiInfo": {
+					"l": "This API trigger maintenance operation in all the pods",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"filter": {
+					"source": ['body.filter'],
+					"required": true,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"commands": {
+					"source": ['body.commands'],
+					"required": true,
+					"validation": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "string"
 						}
 					}
 				}
 			},
-			"/kubernetes/resources/item": {
+			"/kubernetes/pod/exec": {
 				"_apiInfo": {
-					"l": "This API returns the items resource information (services, deployments, cronjobs, daemonsets, or pod).",
+					"l": "This API trigger maintenance operation in a pod",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"mode": {
-					"source": ['body.mode'],
+				"name": {
+					"source": ['body.name'],
 					"required": true,
-					"validation": {
-						"type": "string",
-						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
-					}
-				},
-				"filter": {
-					"source": ['body.filter'],
-					"required": false,
-					"validation": {
-						"type": "object"
-					}
-				},
-				"limit": {
-					"source": ['body.limit'],
-					"required": true,
-					"validation": {
-						"type": "integer",
-						"minimum": 100,
-						"maximum": 500
-					}
-				},
-				"continue": {
-					"source": ['body.continue'],
-					"required": false,
 					"validation": {
 						"type": "string"
 					}
-				}
-			},
-			"/kubernetes/resources/other": {
-				"_apiInfo": {
-					"l": "This API returns the resources information (services, deployments, cronjobs, daemonsets, or pods) excluding deployed items.",
-					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"],
-				"mode": {
-					"source": ['body.mode'],
+				"commands": {
+					"source": ['body.commands'],
 					"required": true,
 					"validation": {
-						"type": "string",
-						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
-					}
-				},
-				"filter": {
-					"source": ['body.filter'],
-					"required": false,
-					"validation": {
-						"type": "object"
-					}
-				},
-				"limit": {
-					"source": ['body.limit'],
-					"required": true,
-					"validation": {
-						"type": "integer",
-						"minimum": 100,
-						"maximum": 500
-					}
-				},
-				"continue": {
-					"source": ['body.continue'],
-					"required": false,
-					"validation": {
-						"type": "string"
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"type": "string"
+						}
 					}
 				}
-			},
-			"/kubernetes/resources": {
-				"_apiInfo": {
-					"l": "This API returns the resources information (nodes, services, deployments, cronjobs, daemonsets, or pods).",
-					"group": "Kubernetes"
-				},
-				"commonFields": ["configuration"],
-				"mode": {
-					"source": ['body.mode'],
-					"required": true,
-					"validation": {
-						"type": "string",
-						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Nodes", "Pods"]
-					}
-				},
-				"filter": {
-					"source": ['body.filter'],
-					"required": false,
-					"validation": {
-						"type": "object"
-					}
-				},
-				"limit": {
-					"source": ['body.limit'],
-					"required": true,
-					"validation": {
-						"type": "integer",
-						"minimum": 100,
-						"maximum": 500
-					}
-				},
-				"continue": {
-					"source": ['body.continue'],
-					"required": false,
-					"validation": {
-						"type": "string"
-					}
-				}
-			},
-			
+			}
+		},
+		
+		"post": {
 			"/kubernetes/namespace": {
 				"_apiInfo": {
 					"l": "This API creates a namespace",
@@ -582,97 +675,6 @@ module.exports = {
 								"type": "string",
 								"enum": ["Deployment", "DaemonSet", "CronJob"]
 							}
-						}
-					}
-				}
-			},
-			
-			"/kubernetes/item/maintenance": {
-				"_apiInfo": {
-					"l": "This API trigger maintenance operation on a deployed item",
-					"group": "Kubernetes"
-				},
-				"commonFields": ["configuration"],
-				"name": {
-					"source": ['body.name'],
-					"required": true,
-					"validation": {
-						"type": "string"
-					}
-				},
-				"maintenancePort": {
-					"source": ['body.maintenancePort'],
-					"required": true,
-					"validation": {
-						"type": "string"
-					}
-				},
-				"operation": {
-					"source": ['body.operation'],
-					"required": true,
-					"validation": {
-						"type": "object",
-						"additionalProperties": false,
-						"properties": {
-							"route": {
-								"required": true,
-								"type": "string"
-							},
-							"qs": {
-								"required": false,
-								"type": "string"
-							}
-						}
-					}
-					
-				}
-			},
-			"/kubernetes/pods/exec": {
-				"_apiInfo": {
-					"l": "This API trigger maintenance operation in all the pods",
-					"group": "Kubernetes"
-				},
-				"commonFields": ["configuration"],
-				"filter": {
-					"source": ['body.filter'],
-					"required": true,
-					"validation": {
-						"type": "object"
-					}
-				},
-				"commands": {
-					"source": ['body.commands'],
-					"required": true,
-					"validation": {
-						"type": "array",
-						"minItems": 1,
-						"items": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"/kubernetes/pod/exec": {
-				"_apiInfo": {
-					"l": "This API trigger maintenance operation in a pod",
-					"group": "Kubernetes"
-				},
-				"commonFields": ["configuration"],
-				"name": {
-					"source": ['body.name'],
-					"required": true,
-					"validation": {
-						"type": "string"
-					}
-				},
-				"commands": {
-					"source": ['body.commands'],
-					"required": true,
-					"validation": {
-						"type": "array",
-						"minItems": 1,
-						"items": {
-							"type": "string"
 						}
 					}
 				}

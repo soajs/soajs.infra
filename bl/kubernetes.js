@@ -183,9 +183,7 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			
-			let filter = {
-				labelSelector: 'soajs.service.name=' + inputmaskData.itemName
-			};
+			let filter = {"labelSelector": 'soajs.service.name=' + inputmaskData.itemName};
 			
 			async.parallel({
 				deployment: function (callback) {
@@ -194,7 +192,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -206,7 +204,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -218,7 +216,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -278,7 +276,7 @@ let bl = {
 			}
 			let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
 			let label_sanytized = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
-			let filter = {"labelSelector": "soajs.service.label = " + label_sanytized};
+			let filter = {"labelSelector": "soajs.service.label=" + label_sanytized};
 			
 			async.parallel({
 				services: function (callback) {
@@ -287,7 +285,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -299,7 +297,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -311,7 +309,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -323,7 +321,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -335,7 +333,7 @@ let bl = {
 						"filter": filter
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -432,7 +430,7 @@ let bl = {
 						"filter": options.services || null
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -444,7 +442,7 @@ let bl = {
 						"filter": options.deployments || null
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -456,7 +454,7 @@ let bl = {
 						"filter": options.daemonsets || null
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -468,7 +466,7 @@ let bl = {
 						"filter": options.cronjobs || null
 					}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}
@@ -477,7 +475,7 @@ let bl = {
 				nodes: function (callback) {
 					driver.get.nodes(client, {"filter": null}, (error, list) => {
 						if (error) {
-							callback(null, error.message);
+							callback(error);
 						} else {
 							callback(null, list);
 						}

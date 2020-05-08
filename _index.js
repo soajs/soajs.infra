@@ -67,15 +67,30 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.put("/kubernetes/item/maintenance", function (req, res) {
+				bl.kubernetes.exec.maintenance(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.put("/kubernetes/pods/exec", function (req, res) {
+				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.put("/kubernetes/pod/exec", function (req, res) {
+				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			
 			
-			//GET but using POST methods
-			service.post("/kubernetes/item/latestVersion", function (req, res) {
+			//GET methods
+			service.get("/kubernetes/item/latestVersion", function (req, res) {
 				bl.kubernetes.getResource_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/pod/log", function (req, res) {
+			service.get("/kubernetes/pod/log", function (req, res) {
 				bl.kubernetes.getLog(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					if (error) {
 						return res.json(req.soajs.buildResponse(error, null));
@@ -157,44 +172,28 @@ function run(serviceStartCb) {
 					}
 				});
 			});
-			service.post("/kubernetes/item/inspect", function (req, res) {
+			service.get("/kubernetes/item/inspect", function (req, res) {
 				bl.kubernetes.item_inspect(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/resources/item", function (req, res) {
+			service.get("/kubernetes/resources/item", function (req, res) {
 				bl.kubernetes.getResources_item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/resources/other", function (req, res) {
+			service.get("/kubernetes/resources/other", function (req, res) {
 				bl.kubernetes.getResources_other(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/resources", function (req, res) {
+			service.get("/kubernetes/resources", function (req, res) {
 				bl.kubernetes.getResources(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			
 			//POST methods
-			service.post("/kubernetes/item/maintenance", function (req, res) {
-				bl.kubernetes.exec.maintenance(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.post("/kubernetes/pods/exec", function (req, res) {
-				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.post("/kubernetes/pod/exec", function (req, res) {
-				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			
 			service.post("/kubernetes/secret", function (req, res) {
 				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -205,13 +204,11 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			
 			service.post("/kubernetes/namespace", function (req, res) {
 				bl.kubernetes.create.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			
 			service.post("/kubernetes/deploy/native", function (req, res) {
 				bl.kubernetes.deploy.native(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
