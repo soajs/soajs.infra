@@ -87,6 +87,7 @@ let driver = {
 		"cronjobs": _cronjob.get,
 		"secrets": _secret.get,
 		"nodes": _node.get,
+		"pods": _pod.get,
 		
 		"autoscale": _autoscale.getOne,
 		"namespace": _namespace.getOne,
@@ -95,6 +96,7 @@ let driver = {
 		"daemonset": _daemonset.getOne,
 		"cronjob": _cronjob.getOne,
 		"secret": _secret.getOne,
+		"pod": _pod.get,
 		
 		"serviceIps": _service.getIps,
 		"podIps": _pod.getIps

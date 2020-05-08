@@ -271,26 +271,154 @@ module.exports = {
 				}
 			},
 			
-			"/kubernetes/resources/item": {
+			"/kubernetes/item/inspect": {
 				"_apiInfo": {
-					"l": "This API returns all the resources information of type deployed in given namespace.",
+					"l": "This API returns the item inspect information meshed (service, deployment, cronjob, daemonset, and pod).",
 					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"]
+				"commonFields": ["configuration"],
+				"item": {
+					"source": ['body.item'],
+					"required": true,
+					"validation": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"env": {
+								"required": true,
+								"type": "string",
+								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+								"minLength": 1
+							},
+							"name": {
+								"required": true,
+								"type": "string",
+								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+								"minLength": 1
+							},
+							"version": {
+								"required": true,
+								"type": "string",
+								"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+								"minLength": 1
+							}
+						}
+					}
+				}
+			},
+			"/kubernetes/resources/item": {
+				"_apiInfo": {
+					"l": "This API returns the items resource information (services, deployments, cronjobs, daemonsets, or pod).",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
+					}
+				},
+				"filter": {
+					"source": ['body.filter'],
+					"required": false,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"limit": {
+					"source": ['body.limit'],
+					"required": true,
+					"validation": {
+						"type": "integer",
+						"minimum": 100,
+						"maximum": 500
+					}
+				},
+				"continue": {
+					"source": ['body.continue'],
+					"required": false,
+					"validation": {
+						"type": "string"
+					}
+				}
 			},
 			"/kubernetes/resources/other": {
 				"_apiInfo": {
-					"l": "This API returns all the resources information not of type item deployed in a given namespace.",
+					"l": "This API returns the resources information (services, deployments, cronjobs, daemonsets, or pods) excluding deployed items.",
 					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"]
+				"commonFields": ["configuration"],
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
+					}
+				},
+				"filter": {
+					"source": ['body.filter'],
+					"required": false,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"limit": {
+					"source": ['body.limit'],
+					"required": true,
+					"validation": {
+						"type": "integer",
+						"minimum": 100,
+						"maximum": 500
+					}
+				},
+				"continue": {
+					"source": ['body.continue'],
+					"required": false,
+					"validation": {
+						"type": "string"
+					}
+				}
 			},
-			"/kubernetes/resources/all": {
+			"/kubernetes/resources": {
 				"_apiInfo": {
-					"l": "This API returns all the resources information for a given namespace.",
+					"l": "This API returns the resources information (nodes, services, deployments, cronjobs, daemonsets, or pods).",
 					"group": "Kubernetes"
 				},
-				"commonFields": ["configuration"]
+				"commonFields": ["configuration"],
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Nodes", "Pods"]
+					}
+				},
+				"filter": {
+					"source": ['body.filter'],
+					"required": false,
+					"validation": {
+						"type": "object"
+					}
+				},
+				"limit": {
+					"source": ['body.limit'],
+					"required": true,
+					"validation": {
+						"type": "integer",
+						"minimum": 100,
+						"maximum": 500
+					}
+				},
+				"continue": {
+					"source": ['body.continue'],
+					"required": false,
+					"validation": {
+						"type": "string"
+					}
+				}
 			},
 			
 			"/kubernetes/namespace": {

@@ -157,18 +157,23 @@ function run(serviceStartCb) {
 					}
 				});
 			});
-			service.post("/kubernetes/resources/all", function (req, res) {
-				bl.kubernetes.getResources_all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.post("/kubernetes/item/inspect", function (req, res) {
+				bl.kubernetes.item_inspect(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.post("/kubernetes/resources/item", function (req, res) {
-				bl.kubernetes.getResources_catalogItems(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.getResources_item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.post("/kubernetes/resources/other", function (req, res) {
 				bl.kubernetes.getResources_other(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/resources", function (req, res) {
+				bl.kubernetes.getResources(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
