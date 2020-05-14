@@ -194,7 +194,19 @@ module.exports = {
 					"source": ['query.filter'],
 					"required": false,
 					"validation": {
-						"type": "object"
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"fieldSelector": {
+								"type": "string"
+							},
+							"includeUninitialized": {
+								"type": "boolean"
+							},
+							"labelSelector": {
+								"type": "string"
+							}
+						}
 					}
 				},
 				"limit": {
@@ -232,7 +244,19 @@ module.exports = {
 					"source": ['query.filter'],
 					"required": false,
 					"validation": {
-						"type": "object"
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"fieldSelector": {
+								"type": "string"
+							},
+							"includeUninitialized": {
+								"type": "boolean"
+							},
+							"labelSelector": {
+								"type": "string"
+							}
+						}
 					}
 				},
 				"limit": {
@@ -270,7 +294,19 @@ module.exports = {
 					"source": ['query.filter'],
 					"required": false,
 					"validation": {
-						"type": "object"
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"fieldSelector": {
+								"type": "string"
+							},
+							"includeUninitialized": {
+								"type": "boolean"
+							},
+							"labelSelector": {
+								"type": "string"
+							}
+						}
 					}
 				},
 				"limit": {
@@ -525,6 +561,130 @@ module.exports = {
 					"required": true,
 					"validation": {
 						"type": "string"
+					}
+				}
+			},
+			
+			"/kubernetes/autoscale": {
+				"_apiInfo": {
+					"l": "This API creates a autoscale",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"replica": {
+					"source": ['body.replica'],
+					"required": true,
+					"validation": {
+						"type": "object",
+						"properties": {
+							"min": {
+								"required": true,
+								"type": "integer",
+								"minimum": 1
+								
+							},
+							"max": {
+								"required": true,
+								"type": "integer",
+								"minimum": 1
+							}
+						}
+					}
+				},
+				"metrics": {
+					"source": ['body.metrics'],
+					"required": true,
+					"validation": {
+						"type": "array",
+						"minItems": 1,
+						"items": {
+							"anyOf": [
+								{
+									"type": "object",
+									"additionalProperties": false,
+									"properties": {
+										"type": {
+											"required": true,
+											"type": "string",
+											"enum": ["Resource"]
+										},
+										"name": {
+											"required": true,
+											"type": "string",
+											"enum": ["cpu", "memory"]
+										},
+										"target": {
+											"required": true,
+											"type": "string",
+											"enum": ["AverageValue", "Utilization"]
+										},
+										"percentage": {
+											"required": true,
+											"type": "integer",
+											"minimum": 1,
+											"maximum": 100
+										}
+									}
+								},
+								{
+									"type": "object",
+									"additionalProperties": false,
+									"properties": {
+										"type": {
+											"required": true,
+											"type": "string",
+											"enum": ["Pods"]
+										},
+										"name": {
+											"required": true,
+											"type": "string",
+											"enum": ["packets-per-second"]
+										},
+										"target": {
+											"required": true,
+											"type": "string",
+											"enum": ["AverageValue"]
+										},
+										"value": {
+											"required": true,
+											"type": "string"
+										}
+									}
+								},
+								{
+									"type": "object",
+									"additionalProperties": false,
+									"properties": {
+										"type": {
+											"required": true,
+											"type": "string",
+											"enum": ["Object"]
+										},
+										"name": {
+											"required": true,
+											"type": "string",
+											"enum": ["requests-per-second"]
+										},
+										"target": {
+											"required": true,
+											"type": "string",
+											"enum": ["AverageValue", "Value"]
+										},
+										"value": {
+											"required": true,
+											"type": "string"
+										}
+									}
+								}
+							]
+						}
 					}
 				}
 			},

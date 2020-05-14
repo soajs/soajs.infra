@@ -32,6 +32,27 @@ let bl = {
 			});
 		});
 	},
+	"autoscale": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			driver.create.autoscale(client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name,
+				"replica": inputmaskData.replica,
+				"metrics": inputmaskData.metrics
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"created": true});
+			});
+		});
+	},
 	"secret": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));

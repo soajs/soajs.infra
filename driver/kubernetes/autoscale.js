@@ -27,10 +27,88 @@ let bl = {
 		});
 	},
 	"create": (client, options, cb) => {
-		if (!options || !options.body || !options.namespace) {
-			return cb(new Error("autoscale create: options is required with {body, and namespace}"));
+		if (!options || !options.name || !options.replica || !options.metrics || !options.namespace) {
+			return cb(new Error("autoscale create: options is required with {name, replica, metrics(array) and namespace}"));
 		}
-		return wrapper.autoscale.post(client, {body: options.body, namespace: options.namespace}, cb);
+		//The name of Deployment will be the same name of autoscaling
+		let recipe = {
+			"apiVersion": "autoscaling/v2beta2",
+			"kind": "HorizontalPodAutoscaler",
+			"metadata": {
+				"name": options.name
+			},
+			"spec": {
+				"minReplicas": options.replica.min,
+				"maxReplicas": options.replica.max,
+				"scaleTargetRef": {
+					"apiVersion": "apps/v1",
+					"kind": "Deployment",
+					"name": options.name
+				},
+				"metrics": []
+			}
+		};
+		
+		for (let i = 0; i < options.metrics.length; i++) {
+			let m = options.metrics[i];
+			
+			if (m.type === "Resource") {
+				let t = "averageUtilization";
+				if (m.target === "AverageValue") {
+					t = "averageValue";
+				}
+				let metricObj = {
+					"type": "Resource",
+					"resource": {
+						"name": m.name,
+						"target": {
+							"type": m.target,
+							[t]: m.percentage
+						}
+					}
+				};
+				recipe.spec.metrics.push(metricObj);
+			}
+			
+			if (m.type === "Pods") {
+				let metricObj = {
+					"type": "Pods",
+					"pods": {
+						"name": m.name,
+						"target": {
+							"type": m.target,
+							"averageValue": m.value
+						}
+					}
+				};
+				recipe.spec.metrics.push(metricObj);
+			}
+			
+			if (m.type === "Object") {
+				let t = "value";
+				if (m.target === "AverageValue") {
+					t = "averageValue";
+				}
+				let metricObj = {
+					"type": "Object",
+					"object": {
+						"name": m.name,
+						"describedObject": {
+							"apiVersion": "networking.k8s.io/v1beta1",
+							"kind": "Ingress",
+							"name": "main-route"
+						},
+						"target": {
+							"type": m.target,
+							[t]: m.value
+						}
+					}
+				};
+				recipe.spec.metrics.push(metricObj);
+			}
+		}
+		
+		return wrapper.autoscale.post(client, {body: recipe, namespace: options.namespace}, cb);
 	},
 	"delete": (client, options, cb) => {
 		if (!options || !options.name) {
