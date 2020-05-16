@@ -140,7 +140,28 @@ module.exports = {
 					}
 				}
 			},
-			
+			"/kubernetes/resource": {
+				"_apiInfo": {
+					"l": "This API returns the inspect information of a resource of type (service, deployment, cronjob, daemonset, and pod).",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "Pod"]
+					}
+				}
+			},
 			"/kubernetes/item/inspect": {
 				"_apiInfo": {
 					"l": "This API returns the item inspect information meshed (service, deployment, cronjob, daemonset, and pod).",
@@ -546,6 +567,43 @@ module.exports = {
 						}
 					}
 				}
+			},
+			
+			"/kubernetes/resource": {
+				"_apiInfo": {
+					"l": "This API update a resource of type (service, deployment, cronjob, daemonset).",
+					"group": "Kubernetes"
+				},
+				"commonFields": ["configuration"],
+				"name": {
+					"source": ['body.name'],
+					"required": true,
+					"validation": {
+						"type": "string"
+					}
+				},
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
+					}
+				},
+				"body": {
+					"source": ['body.body'],
+					"required": true,
+					"validation": {
+						"type": "object",
+						"properties": {
+							"kind": {
+								"required": true,
+								"type": "string",
+								"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
+							}
+						}
+					}
+				}
 			}
 		},
 		
@@ -921,23 +979,36 @@ module.exports = {
 					}
 				}
 			},
-			"/kubernetes/service": {
+			
+			"/kubernetes/pods": {
 				"_apiInfo": {
-					"l": "This API deletes a namespace",
+					"l": "This API deletes pods",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
-				"name": {
-					"source": ['query.name'],
+				"filter": {
+					"source": ['body.filter'],
 					"required": true,
 					"validation": {
-						"type": "string"
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"fieldSelector": {
+								"type": "string"
+							},
+							"includeUninitialized": {
+								"type": "boolean"
+							},
+							"labelSelector": {
+								"type": "string"
+							}
+						}
 					}
 				}
 			},
 			"/kubernetes/resource": {
 				"_apiInfo": {
-					"l": "This API deletes a resource of type deployment, cronjob  or deamonset as well as the related auto scaling",
+					"l": "This API deletes a resource of type (service, deployment, cronjob, daemonset) as well as the related auto scaling of a deployment",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -946,6 +1017,14 @@ module.exports = {
 					"required": true,
 					"validation": {
 						"type": "string"
+					}
+				},
+				"mode": {
+					"source": ['body.mode'],
+					"required": true,
+					"validation": {
+						"type": "string",
+						"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
 					}
 				}
 			}

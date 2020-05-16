@@ -34,6 +34,25 @@ let bl = {
 			return cb(error, items);
 		});
 	},
+	"delete": (client, options, cb) => {
+		if (!options || !options.filter) {
+			return cb(new Error("pods delete: options is required with {namespace, and filter}"));
+		}
+		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, pods) => {
+			if (error) {
+				return cb(error);
+			}
+			if (!pods || !Array.isArray(pods.items) || pods.items.length <= 0) {
+				return cb(new Error("Unable to find the any pod to delete."));
+			}
+			wrapper.pod.delete(client, {namespace: options.namespace, qs: options.filter}, (error) => {
+				if (error) {
+					return cb(error);
+				}
+				return cb(null, pods);
+			});
+		});
+	},
 	
 	"getIps": (client, options, cb) => {
 		if (!options || !options.namespace || !options.filter) {

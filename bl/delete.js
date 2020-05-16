@@ -122,7 +122,8 @@ let bl = {
 			});
 		});
 	},
-	"service": (soajs, inputmaskData, options, cb) => {
+	
+	"pods": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
@@ -130,7 +131,31 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.delete.service(client, {
+			driver.delete.pods(client, {
+				"namespace": config.namespace,
+				"filter": inputmaskData.filter
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"deleted": true});
+			});
+		});
+	},
+	"resource": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			
+			let mode = inputmaskData.mode.toLowerCase();
+			if (!driver.delete[mode]) {
+				return cb(bl.handleError(soajs, 504, null));
+			}
+			driver.delete[mode](client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {

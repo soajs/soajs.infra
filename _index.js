@@ -45,8 +45,13 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.delete("/kubernetes/service", function (req, res) {
-				bl.kubernetes.delete.service(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.delete("/kubernetes/pods", function (req, res) {
+				bl.kubernetes.delete.pods(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/resource", function (req, res) {
+				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
@@ -79,6 +84,11 @@ function run(serviceStartCb) {
 			});
 			service.put("/kubernetes/pod/exec", function (req, res) {
 				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.put("/kubernetes/resource", function (req, res) {
+				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

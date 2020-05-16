@@ -65,6 +65,32 @@ let bl = {
 	
 	"exec": {},
 	
+	"resource_update": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			
+			let mode = inputmaskData.mode.toLowerCase();
+			if (!driver.update[mode]) {
+				return cb(bl.handleError(soajs, 504, null));
+			}
+			driver.update[mode](client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name,
+				"body": inputmaskData.body
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"updated": true});
+			});
+		});
+	},
+	
 	"resource_restart": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));

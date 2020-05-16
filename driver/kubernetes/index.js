@@ -51,6 +51,7 @@ let driver = {
 	
 	"update": {
 		"autoscale": _autoscale.update,
+		
 		"service": _service.update,
 		"deployment": _deployment.update,
 		"daemonset": _daemonset.update,
@@ -60,11 +61,14 @@ let driver = {
 	"delete": {
 		"autoscale": _autoscale.delete,
 		"namespace": _namespace.delete,
+		"secret": _secret.delete,
+		
 		"service": _service.delete,
 		"deployment": _deployment.delete,
 		"daemonset": _daemonset.delete,
 		"cronjob": _cronjob.delete,
-		"secret": _secret.delete
+		
+		"pods": _pod.delete
 	},
 	
 	"create": {
