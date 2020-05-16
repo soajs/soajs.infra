@@ -110,7 +110,7 @@ module.exports = {
 			},
 			"/kubernetes/pod/log": {
 				"_apiInfo": {
-					"l": "This API fetches the container Logs and capable to follow the log if set to true.",
+					"l": "This API fetches the container Logs and capable to tail the log if follow is set to true.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -199,7 +199,7 @@ module.exports = {
 			},
 			"/kubernetes/resources/item": {
 				"_apiInfo": {
-					"l": "This API returns the items resource information (services, deployments, cronjobs, daemonsets, or pod).",
+					"l": "This API returns the resource information of items of type (services, deployments, cronjobs, daemonsets, or pod).",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -249,7 +249,7 @@ module.exports = {
 			},
 			"/kubernetes/resources/other": {
 				"_apiInfo": {
-					"l": "This API returns the resources information (services, deployments, cronjobs, daemonsets, or pods) excluding deployed items.",
+					"l": "This API returns the resources information of type (services, deployments, cronjobs, daemonsets, or pods) excluding deployed items.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -299,7 +299,7 @@ module.exports = {
 			},
 			"/kubernetes/resources": {
 				"_apiInfo": {
-					"l": "This API returns the resources information (nodes, services, deployments, cronjobs, daemonsets, or pods).",
+					"l": "This API returns the resources information of type (nodes, services, deployments, cronjobs, daemonsets, or pods).",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -352,7 +352,7 @@ module.exports = {
 		"put": {
 			"/kubernetes/deployment/scale": {
 				"_apiInfo": {
-					"l": "This API scales a resource of type deployment only",
+					"l": "This API scales a resource of type deployment only.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -457,7 +457,7 @@ module.exports = {
 			},
 			"/kubernetes/resource/restart": {
 				"_apiInfo": {
-					"l": "This API restarts a resource of type (Deployment, DaemonSet, or CronJob) and all its pod .",
+					"l": "This API restarts a resource of type (Deployment, DaemonSet, or CronJob) and all its pod.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -480,7 +480,7 @@ module.exports = {
 			
 			"/kubernetes/item/maintenance": {
 				"_apiInfo": {
-					"l": "This API trigger maintenance operation on a deployed item",
+					"l": "This API trigger maintenance operation on a deployed item.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -520,7 +520,7 @@ module.exports = {
 			},
 			"/kubernetes/pods/exec": {
 				"_apiInfo": {
-					"l": "This API trigger maintenance operation in all the pods",
+					"l": "This API triggers maintenance operation in all the pods.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -545,7 +545,7 @@ module.exports = {
 			},
 			"/kubernetes/pod/exec": {
 				"_apiInfo": {
-					"l": "This API trigger maintenance operation in a pod",
+					"l": "This API triggers maintenance operation in a pod.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -571,7 +571,7 @@ module.exports = {
 			
 			"/kubernetes/resource": {
 				"_apiInfo": {
-					"l": "This API update a resource of type (service, deployment, cronjob, daemonset).",
+					"l": "This API updates a resource of type (service, deployment, cronjob, daemonset).",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -610,7 +610,7 @@ module.exports = {
 		"post": {
 			"/kubernetes/namespace": {
 				"_apiInfo": {
-					"l": "This API creates a namespace",
+					"l": "This API creates a namespace.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -625,7 +625,7 @@ module.exports = {
 			
 			"/kubernetes/autoscale": {
 				"_apiInfo": {
-					"l": "This API creates a autoscale",
+					"l": "This API creates a autoscale.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -748,7 +748,7 @@ module.exports = {
 			},
 			"/kubernetes/secret": {
 				"_apiInfo": {
-					"l": "This API creates a secret",
+					"l": "This API creates a secret.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -783,7 +783,7 @@ module.exports = {
 			},
 			"/kubernetes/secret/registry": {
 				"_apiInfo": {
-					"l": "This API creates a secret for private image registry",
+					"l": "This API creates a secret for private image registry.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -823,7 +823,7 @@ module.exports = {
 			
 			"/kubernetes/item/deploy/soajs": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using soajs recipe of type deployment or daemonset",
+					"l": "This API deploys an item from the catalog using soajs recipe of type deployment or daemonset.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -835,7 +835,7 @@ module.exports = {
 			},
 			"/kubernetes/item/deploy/soajs/conjob": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using soajs recipe of type cronjob",
+					"l": "This API deploys an item from the catalog using soajs recipe of type cronjob.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -847,7 +847,7 @@ module.exports = {
 			},
 			"/kubernetes/item/deploy/native": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using kubernetes native recipe",
+					"l": "This API deploys an item from the catalog using kubernetes native recipe.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -859,7 +859,7 @@ module.exports = {
 			},
 			"/kubernetes/item/deploy/native/cronjob": {
 				"_apiInfo": {
-					"l": "This API deploys an item from the catalog using kubernetes native recipe of type cronjob",
+					"l": "This API deploys an item from the catalog using kubernetes native recipe of type cronjob.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -871,7 +871,7 @@ module.exports = {
 			},
 			"/kubernetes/deploy/native": {
 				"_apiInfo": {
-					"l": "This API creates the service and the related deployment, daemonset or cronjob",
+					"l": "This API creates the service and the related deployment, daemonset or cronjob.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -902,7 +902,7 @@ module.exports = {
 		"delete": {
 			"/kubernetes/namespace": {
 				"_apiInfo": {
-					"l": "This API deletes a namespace",
+					"l": "This API deletes a namespace.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -916,7 +916,7 @@ module.exports = {
 			},
 			"/kubernetes/autoscale": {
 				"_apiInfo": {
-					"l": "This API deletes an autoscale",
+					"l": "This API deletes an autoscale.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -930,7 +930,7 @@ module.exports = {
 			},
 			"/kubernetes/secret": {
 				"_apiInfo": {
-					"l": "This API deletes a secret",
+					"l": "This API deletes a secret.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -944,7 +944,7 @@ module.exports = {
 			},
 			"/kubernetes/item": {
 				"_apiInfo": {
-					"l": "This API deletes an item of type (deployment, cronjob  or deamonset) as well as the related auto scaling including the related service",
+					"l": "This API deletes an item of type (deployment, cronjob  or deamonset) as well as the related auto scaling including the related service.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -982,7 +982,7 @@ module.exports = {
 			
 			"/kubernetes/pods": {
 				"_apiInfo": {
-					"l": "This API deletes pods",
+					"l": "This API deletes pods.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
@@ -1008,7 +1008,7 @@ module.exports = {
 			},
 			"/kubernetes/resource": {
 				"_apiInfo": {
-					"l": "This API deletes a resource of type (service, deployment, cronjob, daemonset) as well as the related auto scaling of a deployment",
+					"l": "This API deletes a resource of type (service, deployment, cronjob, daemonset) as well as the related auto scaling of a deployment.",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
