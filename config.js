@@ -140,21 +140,21 @@ module.exports = {
 					}
 				}
 			},
-			"/kubernetes/resource": {
+			"/kubernetes/resource/inspect": {
 				"_apiInfo": {
-					"l": "This API returns the inspect information of a resource of type (service, deployment, cronjob, daemonset, and pod).",
+					"l": "This API returns the information of a resource of type (service, deployment, cronjob, daemonset, and pod).",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
 				"name": {
-					"source": ['body.name'],
+					"source": ['query.name'],
 					"required": true,
 					"validation": {
 						"type": "string"
 					}
 				},
 				"mode": {
-					"source": ['body.mode'],
+					"source": ['query.mode'],
 					"required": true,
 					"validation": {
 						"type": "string",
@@ -164,7 +164,7 @@ module.exports = {
 			},
 			"/kubernetes/item/inspect": {
 				"_apiInfo": {
-					"l": "This API returns the item inspect information meshed (service, deployment, cronjob, daemonset, and pod).",
+					"l": "This API returns the item information meshed (service, deployment, cronjob, daemonset, and pod).",
 					"group": "Kubernetes"
 				},
 				"commonFields": ["configuration"],
