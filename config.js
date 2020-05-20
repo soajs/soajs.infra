@@ -27,7 +27,7 @@ let localConfig = {
 	"requestTimeoutRenewal": 5,
 	"oauth": true,
 	"extKeyRequired": true,
-	
+	"urac": true,
 	"maintenance": {
 		"readiness": "/heartbeat",
 		"port": {"type": "maintenance"},
@@ -107,7 +107,7 @@ localConfig.schema = {
 				"group": "Token"
 			},
 			"token": {
-				"source": ['query.name'],
+				"source": ['query.token'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -382,7 +382,7 @@ localConfig.schema = {
 				"group": "Token"
 			},
 			"token": {
-				"source": ['body.name'],
+				"source": ['body.token'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -954,7 +954,7 @@ localConfig.schema = {
 				"group": "Token"
 			},
 			"token": {
-				"source": ['body.name'],
+				"source": ['query.token'],
 				"required": true,
 				"validation": {
 					"type": "string"

@@ -48,7 +48,7 @@ function Cdtoken(service, options, mongoCore) {
 Cdtoken.prototype.add = function (data, cb) {
 	let __self = this;
 	if (!data || !data.token || !data.status || !data.urac) {
-		let error = new Error("cdToken: token, urac  and status are required.");
+		let error = new Error("cdToken: token, urac and status are required.");
 		return cb(error, null);
 	}
 	
@@ -70,7 +70,8 @@ Cdtoken.prototype.count = function (data, cb) {
 	let condition = {
 		type: "cdtoken"
 	};
-	__self.mongoCore.count(colName, condition, (err, count) => {
+	let options = {};
+	__self.mongoCore.countDocuments(colName, condition, options, (err, count) => {
 		return cb(err, count);
 	});
 };

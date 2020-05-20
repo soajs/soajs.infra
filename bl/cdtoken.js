@@ -62,18 +62,18 @@ let bl = {
 				return cb(bl.handleError(soajs, 602, err));
 			}
 			if (count > bl.localConfig.maxAllowed) {
-				return cb(bl.handleError(soajs, 404, null));
+				return cb(bl.handleError(soajs, 540, null));
 			}
 			//add URAC
 			if (soajs && soajs.urac) {
 				inputmaskData.urac = {
-					"id": soajs.urac.id,
+					"id": soajs.urac._id,
 					"username": soajs.urac.username
 				};
 			}
 			// generate token
 			inputmaskData.token = crypto.randomBytes(64).toString('hex');
-			
+			inputmaskData.status = "active";
 			modelObj.add(inputmaskData, (err, response) => {
 				bl.mp.closeModel(modelObj);
 				if (err) {
@@ -93,7 +93,13 @@ let bl = {
 			if (err) {
 				return cb(bl.handleError(soajs, 602, err));
 			}
-			return cb(null, response);
+			let result = {};
+			if (response) {
+				result.n = response.result.n;
+				result.ok = response.result.ok;
+				result.deletedCount = response.deletedCount
+			}
+			return cb(null, result);
 		});
 	},
 	"update_token_status": (soajs, inputmaskData, options, cb) => {

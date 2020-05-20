@@ -202,7 +202,6 @@ function run(serviceStartCb) {
 					}
 				});
 			});
-			
 			service.get("/kubernetes/resource/inspect", function (req, res) {
 				bl.kubernetes.resource_inspect(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
