@@ -8,13 +8,25 @@
 
 'use strict';
 
+let model = process.env.SOAJS_SERVICE_MODEL || "mongo";
 let BL = {
 	init: init
 };
 
 function init(service, localConfig, cb) {
 	
-	let temp = require("./kubernetes.js");
+	// Load cdtoken BL
+	let typeModel = __dirname + `/../model/${model}/cdtoken.js`;
+	let temp = require(`./cdtoken.js`);
+	temp.model = require(typeModel);
+	temp.modelObj = new temp.model(service, null, null);
+	temp.soajs_service = service;
+	temp.localConfig = localConfig;
+	BL.cdtoken = temp;
+	
+	
+	// Load all Kubernetes BL
+	temp = require("./kubernetes.js");
 	temp.localConfig = localConfig;
 	BL.kubernetes = temp;
 	

@@ -25,6 +25,11 @@ function run(serviceStartCb) {
 			}
 			
 			//DELETE methods
+			service.delete("/cd/token", function (req, res) {
+				bl.cdtoken.delete_token(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.delete("/kubernetes/namespace", function (req, res) {
 				bl.kubernetes.delete.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -57,6 +62,11 @@ function run(serviceStartCb) {
 			});
 			
 			//PUT methods
+			service.put("/cd/token/status", function (req, res) {
+				bl.cdtoken.update_token_status(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.put("/kubernetes/deployment/scale", function (req, res) {
 				bl.kubernetes.scale(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -95,6 +105,16 @@ function run(serviceStartCb) {
 			
 			
 			//GET methods
+			service.get("/cd/token", function (req, res) {
+				bl.cdtoken.get_token(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/cd/tokens", function (req, res) {
+				bl.cdtoken.get_tokens(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.get("/kubernetes/item/latestVersion", function (req, res) {
 				bl.kubernetes.getResource_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -210,6 +230,11 @@ function run(serviceStartCb) {
 			});
 			
 			//POST methods
+			service.post("/cd/token", function (req, res) {
+				bl.cdtoken.add_token(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.post("/kubernetes/secret", function (req, res) {
 				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
