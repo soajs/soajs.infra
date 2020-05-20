@@ -968,7 +968,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ['query.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -982,7 +982,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ['query.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -996,7 +996,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ['query.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1010,14 +1010,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ['query.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['body.mode'],
+				"source": ['query.mode'],
 				"required": true,
 				"validation": {
 					"type": "string",
@@ -1025,14 +1025,14 @@ localConfig.schema = {
 				}
 			},
 			"serviceName": {
-				"source": ['body.serviceName'],
+				"source": ['query.serviceName'],
 				"required": false,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"cleanup": {
-				"source": ['body.cleanup'],
+				"source": ['query.cleanup'],
 				"required": false,
 				"validation": {
 					"type": "boolean",
@@ -1047,7 +1047,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"filter": {
-				"source": ['body.filter'],
+				"source": ['query.filter'],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -1073,14 +1073,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ['query.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['body.mode'],
+				"source": ['query.mode'],
 				"required": true,
 				"validation": {
 					"type": "string",
