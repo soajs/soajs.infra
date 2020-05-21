@@ -120,6 +120,174 @@ localConfig.schema = {
 				"group": "Token"
 			}
 		},
+		"/kubernetes/secret": {
+			"_apiInfo": {
+				"l": "This API returns a secret.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ['query.filter'],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ['query.limit'],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ['query.continue'],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/secrets": {
+			"_apiInfo": {
+				"l": "This API returns all the secrets.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ['query.filter'],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ['query.limit'],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ['query.continue'],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/pvc": {
+			"_apiInfo": {
+				"l": "This API returns a PVC.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ['query.filter'],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ['query.limit'],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ['query.continue'],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/pvcs": {
+			"_apiInfo": {
+				"l": "This API returns all the PVCs",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ['query.filter'],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ['query.limit'],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ['query.continue'],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
 		"/kubernetes/item/latestVersion": {
 			"_apiInfo": {
 				"l": "This API fetches the latest version deployed of an item.",
@@ -829,6 +997,49 @@ localConfig.schema = {
 					}
 				}
 			}
+		},"/kubernetes/pvc": {
+			"_apiInfo": {
+				"l": "This API creates a PVC.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ['body.name'],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"accessModes": {
+				"source": ['body.accessModes'],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"storage": {
+				"source": ['body.storage'],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+				}
+			},
+			"storageClassName": {
+				"source": ['body.storageClassName'],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"volumeMode": {
+				"source": ['body.volumeMode'],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"enum": ["Filesystem", "Block"]
+				}
+			}
 		},
 		"/kubernetes/secret/registry": {
 			"_apiInfo": {
@@ -992,6 +1203,20 @@ localConfig.schema = {
 		"/kubernetes/secret": {
 			"_apiInfo": {
 				"l": "This API deletes a secret.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ['query.name'],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/pvc": {
+			"_apiInfo": {
+				"l": "This API deletes a PVC.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],

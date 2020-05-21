@@ -86,5 +86,28 @@ let bl = {
 			}
 		});
 	},
+	"pvc": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			driver.create.pvc(client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name,
+				"accessModes": inputmaskData.accessModes,
+				"storage": inputmaskData.storage,
+				"storageClassName": inputmaskData.storageClassName || null,
+				"volumeMode": inputmaskData.volumeMode || null
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"created": true});
+			});
+		});
+	}
 };
 module.exports = bl;

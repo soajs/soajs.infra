@@ -45,6 +45,11 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.delete("/kubernetes/pvc", function (req, res) {
+				bl.kubernetes.delete.pvc(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.delete("/kubernetes/item", function (req, res) {
 				bl.kubernetes.delete.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -115,13 +120,35 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			
+			service.get("/kubernetes/secret", function (req, res) {
+				bl.kubernetes.get.secretOne(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/secrets", function (req, res) {
+				bl.kubernetes.get.secretAll(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/pvc", function (req, res) {
+				bl.kubernetes.get.pvcOne(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/pvcs", function (req, res) {
+				bl.kubernetes.get.pvcAll(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			service.get("/kubernetes/item/latestVersion", function (req, res) {
 				bl.kubernetes.getResource_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.get("/kubernetes/pod/log", function (req, res) {
-				bl.kubernetes.getLog(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.get.log(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					if (error) {
 						return res.json(req.soajs.buildResponse(error, null));
 					} else {
@@ -236,6 +263,11 @@ function run(serviceStartCb) {
 			});
 			service.post("/kubernetes/secret", function (req, res) {
 				bl.kubernetes.create.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/pvc", function (req, res) {
+				bl.kubernetes.create.pvc(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

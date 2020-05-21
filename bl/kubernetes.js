@@ -410,6 +410,12 @@ let bl = {
 		} else {
 			inputmaskData.filter.labelSelector = "soajs.content=true";
 		}
+		if (inputmaskData.limit) {
+			inputmaskData.filter.limit = inputmaskData.limit;
+		}
+		if (inputmaskData.continue) {
+			inputmaskData.filter.continue = inputmaskData.continue;
+		}
 		bl.getResources(soajs, inputmaskData, options, cb);
 	},
 	
@@ -424,6 +430,12 @@ let bl = {
 			inputmaskData.filter.labelSelector += ", soajs.content!=true";
 		} else {
 			inputmaskData.filter.labelSelector = "soajs.content!=true";
+		}
+		if (inputmaskData.limit) {
+			inputmaskData.filter.limit = inputmaskData.limit;
+		}
+		if (inputmaskData.continue) {
+			inputmaskData.filter.continue = inputmaskData.continue;
 		}
 		bl.getResources(soajs, inputmaskData, options, cb);
 	},
@@ -462,6 +474,7 @@ let bl = {
 			});
 		});
 	},
+	// Not used for noe
 	"getResources_all": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));

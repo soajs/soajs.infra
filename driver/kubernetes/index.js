@@ -23,6 +23,7 @@ const _daemonset = require("./daemonset.js");
 const _cronjob = require("./cronjob.js");
 const _node = require("./node.js");
 const _pod = require("./pod.js");
+const _pvc = require("./pvc.js");
 
 let driver = {
 	"connect": (config, cb) => {
@@ -62,6 +63,7 @@ let driver = {
 		"autoscale": _autoscale.delete,
 		"namespace": _namespace.delete,
 		"secret": _secret.delete,
+		"pvc": _pvc.delete,
 		
 		"service": _service.delete,
 		"deployment": _deployment.delete,
@@ -75,6 +77,7 @@ let driver = {
 		"autoscale": _autoscale.create,
 		"namespace": _namespace.create,
 		"service": _service.create,
+		"pvc": _pvc.create,
 		"deployment": _deployment.create,
 		"daemonset": _daemonset.create,
 		"cronjob": _cronjob.create,
@@ -90,6 +93,7 @@ let driver = {
 		"daemonsets": _daemonset.get,
 		"cronjobs": _cronjob.get,
 		"secrets": _secret.get,
+		"pvcs": _pvc.get,
 		"nodes": _node.get,
 		"pods": _pod.get,
 		
@@ -100,6 +104,7 @@ let driver = {
 		"daemonset": _daemonset.getOne,
 		"cronjob": _cronjob.getOne,
 		"secret": _secret.getOne,
+		"pvc": _pvc.getOne,
 		"pod": _pod.get,
 		
 		"serviceIps": _service.getIps,

@@ -27,7 +27,7 @@ let bl = {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				return cb(null, {"created": true});
+				return cb(null, {"deleted": true});
 			});
 		});
 	},
@@ -46,7 +46,7 @@ let bl = {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				return cb(null, {"created": true});
+				return cb(null, {"deleted": true});
 			});
 		});
 	},
@@ -65,7 +65,26 @@ let bl = {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				return cb(null, {"created": true});
+				return cb(null, {"deleted": true});
+			});
+		});
+	},
+	"pvc": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			driver.delete.pvc(client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"deleted": true});
 			});
 		});
 	},

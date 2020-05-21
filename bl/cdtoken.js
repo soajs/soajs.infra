@@ -97,7 +97,7 @@ let bl = {
 			if (response) {
 				result.n = response.result.n;
 				result.ok = response.result.ok;
-				result.deletedCount = response.deletedCount
+				result.deletedCount = response.deletedCount;
 			}
 			return cb(null, result);
 		});
