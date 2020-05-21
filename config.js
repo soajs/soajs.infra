@@ -1054,15 +1054,15 @@ localConfig.schema = {
 				"source": ['body.accessModes'],
 				"required": true,
 				"validation": {
-					"type": "string"
+					"type": "string",
+					"enum": ["ReadWriteMany", "ReadOnlyMany", "ReadWriteOnce"]
 				}
 			},
 			"storage": {
 				"source": ['body.storage'],
 				"required": false,
 				"validation": {
-					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/
+					"type": "string"
 				}
 			},
 			"storageClassName": {
