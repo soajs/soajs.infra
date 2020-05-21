@@ -143,7 +143,7 @@ function run(serviceStartCb) {
 			});
 			
 			service.get("/kubernetes/item/latestVersion", function (req, res) {
-				bl.kubernetes.getResource_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.get.item_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
@@ -240,17 +240,17 @@ function run(serviceStartCb) {
 				});
 			});
 			service.get("/kubernetes/resources/item", function (req, res) {
-				bl.kubernetes.getResources_item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.get.resources_item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.get("/kubernetes/resources/other", function (req, res) {
-				bl.kubernetes.getResources_other(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.get.resources_other(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.get("/kubernetes/resources", function (req, res) {
-				bl.kubernetes.getResources(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.get.resources(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

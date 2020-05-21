@@ -1165,7 +1165,7 @@ localConfig.schema = {
 				"group": "Token"
 			},
 			"token": {
-				"source": ['query.token'],
+				"source": ['body.token'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1179,7 +1179,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['query.name'],
+				"source": ['body.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1193,7 +1193,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['query.name'],
+				"source": ['body.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1207,7 +1207,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['query.name'],
+				"source": ['body.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1221,7 +1221,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['query.name'],
+				"source": ['body.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1235,14 +1235,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['query.name'],
+				"source": ['body.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['query.mode'],
+				"source": ['body.mode'],
 				"required": true,
 				"validation": {
 					"type": "string",
@@ -1250,14 +1250,14 @@ localConfig.schema = {
 				}
 			},
 			"serviceName": {
-				"source": ['query.serviceName'],
+				"source": ['body.serviceName'],
 				"required": false,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"cleanup": {
-				"source": ['query.cleanup'],
+				"source": ['body.cleanup'],
 				"required": false,
 				"validation": {
 					"type": "boolean",
@@ -1272,7 +1272,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"filter": {
-				"source": ['query.filter'],
+				"source": ['body.filter'],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -1298,14 +1298,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['query.name'],
+				"source": ['body.name'],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['query.mode'],
+				"source": ['body.mode'],
 				"required": true,
 				"validation": {
 					"type": "string",
