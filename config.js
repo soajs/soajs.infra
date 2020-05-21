@@ -248,7 +248,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/pvcs": {
 			"_apiInfo": {
-				"l": "This API returns all the PVCs",
+				"l": "This API returns all the PVCs.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -997,7 +997,47 @@ localConfig.schema = {
 					}
 				}
 			}
-		},"/kubernetes/pvc": {
+		},
+		"/kubernetes/secret/registry": {
+			"_apiInfo": {
+				"l": "This API creates a secret for private image registry.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ['body.name'],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"content": {
+				"source": ['body.content'],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"username": {
+							"required": true,
+							"type": "string"
+						},
+						"password": {
+							"required": true,
+							"type": "string"
+						},
+						"email": {
+							"required": true,
+							"type": "string"
+						},
+						"server": {
+							"required": true,
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/pvc": {
 			"_apiInfo": {
 				"l": "This API creates a PVC.",
 				"group": "Kubernetes"
@@ -1038,45 +1078,6 @@ localConfig.schema = {
 				"validation": {
 					"type": "string",
 					"enum": ["Filesystem", "Block"]
-				}
-			}
-		},
-		"/kubernetes/secret/registry": {
-			"_apiInfo": {
-				"l": "This API creates a secret for private image registry.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ['body.name'],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			},
-			"content": {
-				"source": ['body.content'],
-				"required": true,
-				"validation": {
-					"type": "object",
-					"properties": {
-						"username": {
-							"required": true,
-							"type": "string"
-						},
-						"password": {
-							"required": true,
-							"type": "string"
-						},
-						"email": {
-							"required": true,
-							"type": "string"
-						},
-						"server": {
-							"required": true,
-							"type": "string"
-						}
-					}
 				}
 			}
 		},
