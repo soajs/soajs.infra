@@ -624,7 +624,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/hpa": {
 			"_apiInfo": {
-				"l": "This API creates a HPA.",
+				"l": "This API creates an HPA.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -1098,7 +1098,6 @@ localConfig.schema = {
 				}
 			}
 		}
-		
 	}
 };
 
