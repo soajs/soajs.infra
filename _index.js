@@ -124,13 +124,13 @@ function run(serviceStartCb) {
 				});
 			});
 			
-			service.get("/kubernetes/:mode", function (req, res) {
-				bl.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.get("/kubernetes/resource/:mode", function (req, res) {
+				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.get("/kubernetes/all/:mode", function (req, res) {
-				bl.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.get("/kubernetes/resources/:mode", function (req, res) {
+				bl.kubernetes.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

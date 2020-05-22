@@ -121,7 +121,7 @@ localConfig.schema = {
 			}
 		},
 		
-		"/kubernetes/:mode": {
+		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
 				"l": "This API returns the information of a resource of mode (Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC).",
 				"group": "Kubernetes"
@@ -143,7 +143,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/all/:mode": {
+		"/kubernetes/resources/:mode": {
 			"_apiInfo": {
 				"l": "This API returns the information of all the resources of mode (Node Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC).",
 				"group": "Kubernetes"
@@ -197,7 +197,6 @@ localConfig.schema = {
 				"required": false,
 				"validation": {
 					"type": "string",
-					"default": "All",
 					"enum": ["Item", "Other", "All"]
 				}
 			}

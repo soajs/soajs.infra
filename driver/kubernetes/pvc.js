@@ -45,7 +45,7 @@ let bl = {
 		if (!options || !options.namespace) {
 			return cb(new Error("PVC get: options is required with {namespace}"));
 		}
-		wrapper.persistentvolumeclaim.get(client, {
+		wrapper.pvc.get(client, {
 			namespace: options.namespace,
 			qs: options.filter || null
 		}, (error, items) => {

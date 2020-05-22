@@ -65,6 +65,8 @@ let bl = {
 	
 	"exec": {},
 	
+	"get": {},
+	
 	"apply": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));

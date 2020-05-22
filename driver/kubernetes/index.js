@@ -72,7 +72,7 @@ let driver = {
 		"pods": _pod.delete
 	},
 	
-	"apply":{
+	"apply": {
 		"service": _service.create,
 		"deployment": _deployment.create,
 		"daemonset": _daemonset.create,
