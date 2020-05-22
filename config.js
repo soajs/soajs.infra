@@ -69,12 +69,13 @@ localConfig.schema = {
 			"validation": {
 				"type": "object",
 				"properties": {
-					"oneOf": [{
-						"env": {
-							"type": "string",
-							"required": true
-						}
-					},
+					"oneOf": [
+						{
+							"env": {
+								"type": "string",
+								"required": true
+							}
+						},
 						{
 							"namespace": {
 								"type": "string",

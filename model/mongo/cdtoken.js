@@ -31,7 +31,9 @@ function Cdtoken(service, options, mongoCore) {
 			__self.mongoCore = new Mongo(options.dbConfig);
 		} else {
 			let registry = service.registry.get();
-			__self.mongoCore = new Mongo(registry.coreDB.provision);
+			if (registry && registry.coreDB && registry.coreDB.provision) {
+				__self.mongoCore = new Mongo(registry.coreDB.provision);
+			}
 		}
 	}
 	let index = "default";

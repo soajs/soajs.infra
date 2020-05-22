@@ -31,7 +31,7 @@ function run(serviceStartCb) {
 				});
 			});
 			
-			service.delete("/kubernetes/:mode", function (req, res) {
+			service.delete("/kubernetes/resource/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
@@ -235,7 +235,7 @@ function run(serviceStartCb) {
 				});
 			});
 			
-			service.post("/kubernetes/:mode", function (req, res) {
+			service.post("/kubernetes/resource/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
