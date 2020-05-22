@@ -570,7 +570,7 @@ localConfig.schema = {
 			}
 		},
 		
-		"/kubernetes/:mode": {
+		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
 				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC).",
 				"group": "Kubernetes"
@@ -954,7 +954,7 @@ localConfig.schema = {
 			}
 		},
 		
-		"/kubernetes/:mode": {
+		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
 				"l": "This API deletes a resource of type (Service, Deployment, DaemonSet, CronJob) as well as the related HPA of a deployment.",
 				"group": "Kubernetes"
