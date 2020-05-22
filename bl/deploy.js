@@ -290,7 +290,6 @@ let bl = {
 			"service": service
 		}, options, cb);
 	},
-	
 	"item_soajs_deployment_or_daemonset": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData || !inputmaskData.recipe) {
 			return cb(bl.handleError(soajs, 400, null));
@@ -349,7 +348,6 @@ let bl = {
 			"service": service
 		}, options, cb);
 	},
-	
 	"native": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));

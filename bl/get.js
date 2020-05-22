@@ -17,6 +17,75 @@ let bl = {
 	"handleError": null,
 	"handleConnect": null,
 	
+	"one": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			let mode = inputmaskData.mode.toLowerCase();
+			if (!driver.get.one[mode]) {
+				return cb(bl.handleError(soajs, 504, null));
+			}
+			driver.get.once[mode](client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name
+			}, (error, response) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, response);
+			});
+		});
+	},
+	"all": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			let mode = inputmaskData.mode.toLowerCase();
+			if (!driver.get.all[mode]) {
+				return cb(bl.handleError(soajs, 504, null));
+			}
+			if (!inputmaskData.filter) {
+				inputmaskData.filter = {};
+			}
+			if (inputmaskData.limit) {
+				inputmaskData.filter.limit = inputmaskData.limit;
+			}
+			if (inputmaskData.continue) {
+				inputmaskData.filter.continue = inputmaskData.continue;
+			}
+			if (inputmaskData.type === "Item") {
+				if (inputmaskData.filter.labelSelector) {
+					inputmaskData.filter.labelSelector += ", soajs.content=true";
+				} else {
+					inputmaskData.filter.labelSelector = "soajs.content=true";
+				}
+			} else if (inputmaskData.type === "Other") {
+				if (inputmaskData.filter.labelSelector) {
+					inputmaskData.filter.labelSelector += ", soajs.content!=true";
+				} else {
+					inputmaskData.filter.labelSelector = "soajs.content!=true";
+				}
+			}
+			driver.get.all[mode](client, {
+				"namespace": config.namespace,
+				"filter": inputmaskData.filter
+			}, (error, response) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, response);
+			});
+		});
+	},
+	
 	"log": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
@@ -30,102 +99,6 @@ let bl = {
 				"name": inputmaskData.name,
 				"follow": inputmaskData.follow,
 				"lines": inputmaskData.lines
-			}, (error, response) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, response);
-			});
-		});
-	},
-	
-	"pvcOne": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			driver.get.pvc(client, {
-				"namespace": config.namespace,
-				"name": inputmaskData.name
-			}, (error, response) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, response);
-			});
-		});
-	},
-	"pvcAll": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			if (!inputmaskData.filter) {
-				inputmaskData.filter = {};
-			}
-			if (inputmaskData.limit) {
-				inputmaskData.filter.limit = inputmaskData.limit;
-			}
-			if (inputmaskData.continue) {
-				inputmaskData.filter.continue = inputmaskData.continue;
-			}
-			driver.get.pvcs(client, {
-				"namespace": config.namespace,
-				"filter": inputmaskData.filter
-			}, (error, response) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, response);
-			});
-		});
-	},
-	
-	"secretOne": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			driver.get.secret(client, {
-				"namespace": config.namespace,
-				"name": inputmaskData.name
-			}, (error, response) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, response);
-			});
-		});
-	},
-	"secretAll": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			if (!inputmaskData.filter) {
-				inputmaskData.filter = {};
-			}
-			if (inputmaskData.limit) {
-				inputmaskData.filter.limit = inputmaskData.limit;
-			}
-			if (inputmaskData.continue) {
-				inputmaskData.filter.continue = inputmaskData.continue;
-			}
-			driver.get.secrets(client, {
-				"namespace": config.namespace,
-				"filter": inputmaskData.filter
 			}, (error, response) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
@@ -225,150 +198,7 @@ let bl = {
 				}
 			});
 		});
-	},
-	
-	"resources_item": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		if (!inputmaskData.filter) {
-			inputmaskData.filter = {};
-		}
-		if (inputmaskData.filter.labelSelector) {
-			inputmaskData.filter.labelSelector += ", soajs.content=true";
-		} else {
-			inputmaskData.filter.labelSelector = "soajs.content=true";
-		}
-		bl.getResources(soajs, inputmaskData, options, cb);
-	},
-	
-	"resources_other": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		if (!inputmaskData.filter) {
-			inputmaskData.filter = {};
-		}
-		if (inputmaskData.filter.labelSelector) {
-			inputmaskData.filter.labelSelector += ", soajs.content!=true";
-		} else {
-			inputmaskData.filter.labelSelector = "soajs.content!=true";
-		}
-		bl.getResources(soajs, inputmaskData, options, cb);
-	},
-	
-	"resources": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.get[mode]) {
-				return cb(bl.handleError(soajs, 504, null));
-			}
-			if (!inputmaskData.filter) {
-				inputmaskData.filter = {};
-			}
-			let filter = inputmaskData.filter;
-			if (inputmaskData.limit) {
-				filter.limit = inputmaskData.limit;
-			}
-			if (inputmaskData.continue) {
-				filter.continue = inputmaskData.continue;
-			}
-			driver.get[mode](client, {
-				"namespace": config.namespace,
-				"filter": filter
-			}, (error, list) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				} else {
-					return cb(null, list);
-				}
-			});
-		});
-	},
-	// Not used for noe
-	"resources_all": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			if (!options) {
-				options = {};
-			}
-			async.parallel({
-				services: function (callback) {
-					driver.get.services(client, {
-						"namespace": config.namespace,
-						"filter": options.services || null
-					}, (error, list) => {
-						if (error) {
-							callback(error);
-						} else {
-							callback(null, list);
-						}
-					});
-				},
-				deployments: function (callback) {
-					driver.get.deployments(client, {
-						"namespace": config.namespace,
-						"filter": options.deployments || null
-					}, (error, list) => {
-						if (error) {
-							callback(error);
-						} else {
-							callback(null, list);
-						}
-					});
-				},
-				daemonsets: function (callback) {
-					driver.get.daemonsets(client, {
-						"namespace": config.namespace,
-						"filter": options.daemonsets || null
-					}, (error, list) => {
-						if (error) {
-							callback(error);
-						} else {
-							callback(null, list);
-						}
-					});
-				},
-				cronjobs: function (callback) {
-					driver.get.cronjobs(client, {
-						"namespace": config.namespace,
-						"filter": options.cronjobs || null
-					}, (error, list) => {
-						if (error) {
-							callback(error);
-						} else {
-							callback(null, list);
-						}
-					});
-				},
-				nodes: function (callback) {
-					driver.get.nodes(client, {"filter": null}, (error, list) => {
-						if (error) {
-							callback(error);
-						} else {
-							callback(null, list);
-						}
-					});
-				}
-			}, function (error, results) {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				} else {
-					return cb(null, results);
-				}
-			});
-		});
 	}
+	
 };
 module.exports = bl;

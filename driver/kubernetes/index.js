@@ -15,7 +15,7 @@ const swagger = require('./swagger/swagger.json');
 const _secret_opaque = require("./secret_opaque.js");
 const _secret_dockercfg = require("./secret_dockercfg.js");
 const _secret = require("./secret.js");
-const _autoscale = require("./autoscale.js");
+const _hpa = require("./hpa.js");
 const _namespace = require("./namespace.js");
 const _service = require("./service.js");
 const _deployment = require("./deployment.js");
@@ -51,65 +51,77 @@ let driver = {
 	},
 	
 	"update": {
-		"autoscale": _autoscale.update,
-		
 		"service": _service.update,
 		"deployment": _deployment.update,
 		"daemonset": _daemonset.update,
-		"cronjob": _cronjob.update
+		"cronjob": _cronjob.update,
+		"hpa": _hpa.update
 	},
 	
 	"delete": {
-		"autoscale": _autoscale.delete,
-		"namespace": _namespace.delete,
-		"secret": _secret.delete,
-		"pvc": _pvc.delete,
-		
 		"service": _service.delete,
 		"deployment": _deployment.delete,
 		"daemonset": _daemonset.delete,
 		"cronjob": _cronjob.delete,
 		
+		"hpa": _hpa.delete,
+		"namespace": _namespace.delete,
+		"secret": _secret.delete,
+		"pvc": _pvc.delete,
+		
 		"pods": _pod.delete
 	},
 	
-	"create": {
-		"autoscale": _autoscale.create,
-		"namespace": _namespace.create,
+	"apply":{
 		"service": _service.create,
-		"pvc": _pvc.create,
 		"deployment": _deployment.create,
 		"daemonset": _daemonset.create,
 		"cronjob": _cronjob.create,
+		"hpa": _hpa.apply,
+		"pvc": _pvc.apply
+	},
+	
+	"create": {
+		"namespace": _namespace.create,
+		"hpa": _hpa.create,
 		"secret_opaque": _secret_opaque.create,
-		"secret_dockercfg": _secret_dockercfg.create
+		"secret_dockercfg": _secret_dockercfg.create,
+		"pvc": _pvc.create,
+		
+		"service": _service.create,
+		"deployment": _deployment.create,
+		"daemonset": _daemonset.create,
+		"cronjob": _cronjob.create
 	},
 	
 	"get": {
-		"autoscales": _autoscale.get,
-		"namespaces": _namespace.get,
-		"services": _service.get,
-		"deployments": _deployment.get,
-		"daemonsets": _daemonset.get,
-		"cronjobs": _cronjob.get,
-		"secrets": _secret.get,
-		"pvcs": _pvc.get,
-		"nodes": _node.get,
-		"pods": _pod.get,
-		
-		"autoscale": _autoscale.getOne,
-		"namespace": _namespace.getOne,
-		"service": _service.getOne,
-		"deployment": _deployment.getOne,
-		"daemonset": _daemonset.getOne,
-		"cronjob": _cronjob.getOne,
-		"secret": _secret.getOne,
-		"pvc": _pvc.getOne,
-		"pod": _pod.get,
-		
+		"all": {
+			"node": _node.get,
+			"service": _service.get,
+			"deployment": _deployment.get,
+			"daemonset": _daemonset.get,
+			"cronjob": _cronjob.get,
+			"pod": _pod.get,
+			"secret": _secret.get,
+			"pvc": _pvc.get,
+			"hpa": _hpa.get,
+			
+			"namespace": _namespace.get
+		},
+		"one": {
+			"service": _service.getOne,
+			"deployment": _deployment.getOne,
+			"daemonset": _daemonset.getOne,
+			"cronjob": _cronjob.getOne,
+			"pod": _pod.getOne,
+			"secret": _secret.getOne,
+			"pvc": _pvc.getOne,
+			"hpa": _hpa.getOne,
+			
+			"namespace": _namespace.getOne
+		},
 		"serviceIps": _service.getIps,
 		"podIps": _pod.getIps
-		
 	},
 	
 	"pod": {

@@ -47,7 +47,7 @@ localConfig.errors = {
 	501: "Item not found!",
 	502: "Item is locked!",
 	503: "Error while getting all resources",
-	504: "Unsupported kind only (Deployment, DaemonSet, CronJob) are supported",
+	504: "Unsupported Mode.",
 	505: "Unable to get latest version!",
 	533: "No changes to update",
 	540: "You can no longer add cd Token, the max allowed is: " + localConfig.maxAllowed,
@@ -60,21 +60,21 @@ localConfig.errors = {
 	702: "Driver error: "
 	
 };
+
 localConfig.schema = {
 	"commonFields": {
 		"configuration": {
-			"source": ['body.configuration', 'query.configuration'],
+			"source": ["body.configuration", "query.configuration"],
 			"required": true,
 			"validation": {
 				"type": "object",
 				"properties": {
-					"oneOf": [
-						{
-							"env": {
-								"type": "string",
-								"required": true
-							}
-						},
+					"oneOf": [{
+						"env": {
+							"type": "string",
+							"required": true
+						}
+					},
 						{
 							"namespace": {
 								"type": "string",
@@ -107,7 +107,7 @@ localConfig.schema = {
 				"group": "Token"
 			},
 			"token": {
-				"source": ['query.token'],
+				"source": ["query.token"],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -120,14 +120,37 @@ localConfig.schema = {
 				"group": "Token"
 			}
 		},
-		"/kubernetes/secret": {
+		
+		"/kubernetes/:mode": {
 			"_apiInfo": {
-				"l": "This API returns a secret.",
+				"l": "This API returns the information of a resource of mode (Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC).",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC"]
+				}
+			}
+		},
+		"/kubernetes/all/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the information of all the resources of mode (Node Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"filter": {
-				"source": ['query.filter'],
+				"source": ["query.filter"],
 				"required": false,
 				"validation": {
 					"type": "object",
@@ -146,7 +169,7 @@ localConfig.schema = {
 				}
 			},
 			"limit": {
-				"source": ['query.limit'],
+				"source": ["query.limit"],
 				"required": true,
 				"validation": {
 					"type": "integer",
@@ -155,139 +178,31 @@ localConfig.schema = {
 				}
 			},
 			"continue": {
-				"source": ['query.continue'],
+				"source": ["query.continue"],
 				"required": false,
 				"validation": {
 					"type": "string"
 				}
-			}
-		},
-		"/kubernetes/secrets": {
-			"_apiInfo": {
-				"l": "This API returns all the secrets.",
-				"group": "Kubernetes"
 			},
-			"commonFields": ["configuration"],
-			"filter": {
-				"source": ['query.filter'],
-				"required": false,
-				"validation": {
-					"type": "object",
-					"additionalProperties": false,
-					"properties": {
-						"fieldSelector": {
-							"type": "string"
-						},
-						"includeUninitialized": {
-							"type": "boolean"
-						},
-						"labelSelector": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"limit": {
-				"source": ['query.limit'],
+			"mode": {
+				"source": ["params.mode"],
 				"required": true,
 				"validation": {
-					"type": "integer",
-					"minimum": 100,
-					"maximum": 500
+					"type": "string",
+					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC"]
 				}
 			},
-			"continue": {
-				"source": ['query.continue'],
+			"type": {
+				"source": ["query.type"],
 				"required": false,
 				"validation": {
-					"type": "string"
+					"type": "string",
+					"default": "All",
+					"enum": ["Item", "Other", "All"]
 				}
 			}
 		},
-		"/kubernetes/pvc": {
-			"_apiInfo": {
-				"l": "This API returns a PVC.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"filter": {
-				"source": ['query.filter'],
-				"required": false,
-				"validation": {
-					"type": "object",
-					"additionalProperties": false,
-					"properties": {
-						"fieldSelector": {
-							"type": "string"
-						},
-						"includeUninitialized": {
-							"type": "boolean"
-						},
-						"labelSelector": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"limit": {
-				"source": ['query.limit'],
-				"required": true,
-				"validation": {
-					"type": "integer",
-					"minimum": 100,
-					"maximum": 500
-				}
-			},
-			"continue": {
-				"source": ['query.continue'],
-				"required": false,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/pvcs": {
-			"_apiInfo": {
-				"l": "This API returns all the PVCs.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"filter": {
-				"source": ['query.filter'],
-				"required": false,
-				"validation": {
-					"type": "object",
-					"additionalProperties": false,
-					"properties": {
-						"fieldSelector": {
-							"type": "string"
-						},
-						"includeUninitialized": {
-							"type": "boolean"
-						},
-						"labelSelector": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"limit": {
-				"source": ['query.limit'],
-				"required": true,
-				"validation": {
-					"type": "integer",
-					"minimum": 100,
-					"maximum": 500
-				}
-			},
-			"continue": {
-				"source": ['query.continue'],
-				"required": false,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
+		
 		"/kubernetes/item/latestVersion": {
 			"_apiInfo": {
 				"l": "This API fetches the latest version deployed of an item.",
@@ -295,7 +210,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"itemName": {
-				"source": ['query.itemName'],
+				"source": ["query.itemName"],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -309,14 +224,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['query.name'],
+				"source": ["query.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"follow": {
-				"source": ['query.follow'],
+				"source": ["query.follow"],
 				"required": false,
 				"validation": {
 					"type": "boolean",
@@ -324,7 +239,7 @@ localConfig.schema = {
 				}
 			},
 			"lines": {
-				"source": ['query.lines'],
+				"source": ["query.lines"],
 				"required": false,
 				"validation": {
 					"type": "integer",
@@ -334,36 +249,14 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/resource/inspect": {
-			"_apiInfo": {
-				"l": "This API returns the information of a resource of type (service, deployment, cronjob, daemonset, and pod).",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ['query.name'],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			},
-			"mode": {
-				"source": ['query.mode'],
-				"required": true,
-				"validation": {
-					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "Pod"]
-				}
-			}
-		},
 		"/kubernetes/item/inspect": {
 			"_apiInfo": {
-				"l": "This API returns the item information meshed (service, deployment, cronjob, daemonset, and pod).",
+				"l": "This API returns the item information meshed (Service, Deployment, DaemonSet, CronJob, and Pod).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"item": {
-				"source": ['query.item'],
+				"source": ["query.item"],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -390,156 +283,6 @@ localConfig.schema = {
 					}
 				}
 			}
-		},
-		"/kubernetes/resources/item": {
-			"_apiInfo": {
-				"l": "This API returns the resource information of items of type (services, deployments, cronjobs, daemonsets, or pod).",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"mode": {
-				"source": ['query.mode'],
-				"required": true,
-				"validation": {
-					"type": "string",
-					"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
-				}
-			},
-			"filter": {
-				"source": ['query.filter'],
-				"required": false,
-				"validation": {
-					"type": "object",
-					"additionalProperties": false,
-					"properties": {
-						"fieldSelector": {
-							"type": "string"
-						},
-						"includeUninitialized": {
-							"type": "boolean"
-						},
-						"labelSelector": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"limit": {
-				"source": ['query.limit'],
-				"required": true,
-				"validation": {
-					"type": "integer",
-					"minimum": 100,
-					"maximum": 500
-				}
-			},
-			"continue": {
-				"source": ['query.continue'],
-				"required": false,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/resources/other": {
-			"_apiInfo": {
-				"l": "This API returns the resources information of type (services, deployments, cronjobs, daemonsets, or pods) excluding deployed items.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"mode": {
-				"source": ['query.mode'],
-				"required": true,
-				"validation": {
-					"type": "string",
-					"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Pods"]
-				}
-			},
-			"filter": {
-				"source": ['query.filter'],
-				"required": false,
-				"validation": {
-					"type": "object",
-					"additionalProperties": false,
-					"properties": {
-						"fieldSelector": {
-							"type": "string"
-						},
-						"includeUninitialized": {
-							"type": "boolean"
-						},
-						"labelSelector": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"limit": {
-				"source": ['query.limit'],
-				"required": true,
-				"validation": {
-					"type": "integer",
-					"minimum": 100,
-					"maximum": 500
-				}
-			},
-			"continue": {
-				"source": ['query.continue'],
-				"required": false,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/resources": {
-			"_apiInfo": {
-				"l": "This API returns the resources information of type (nodes, services, deployments, cronjobs, daemonsets, or pods).",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"mode": {
-				"source": ['query.mode'],
-				"required": true,
-				"validation": {
-					"type": "string",
-					"enum": ["Services", "Deployments", "DaemonSets", "CronJobs", "Nodes", "Pods"]
-				}
-			},
-			"filter": {
-				"source": ['query.filter'],
-				"required": false,
-				"validation": {
-					"type": "object",
-					"additionalProperties": false,
-					"properties": {
-						"fieldSelector": {
-							"type": "string"
-						},
-						"includeUninitialized": {
-							"type": "boolean"
-						},
-						"labelSelector": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"limit": {
-				"source": ['query.limit'],
-				"required": true,
-				"validation": {
-					"type": "integer",
-					"minimum": 100,
-					"maximum": 500
-				}
-			},
-			"continue": {
-				"source": ['query.continue'],
-				"required": false,
-				"validation": {
-					"type": "string"
-				}
-			}
 		}
 	},
 	
@@ -550,14 +293,14 @@ localConfig.schema = {
 				"group": "Token"
 			},
 			"token": {
-				"source": ['body.token'],
+				"source": ["body.token"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"status": {
-				"source": ['body.status'],
+				"source": ["body.status"],
 				"required": true,
 				"validation": {
 					"type": "string",
@@ -565,6 +308,7 @@ localConfig.schema = {
 				}
 			}
 		},
+		
 		"/kubernetes/deployment/scale": {
 			"_apiInfo": {
 				"l": "This API scales a resource of type deployment only.",
@@ -572,14 +316,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"scale": {
-				"source": ['body.scale'],
+				"source": ["body.scale"],
 				"required": true,
 				"validation": {
 					"type": "integer",
@@ -595,14 +339,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['body.mode'],
+				"source": ["body.mode"],
 				"required": true,
 				"validation": {
 					"type": "string",
@@ -610,14 +354,14 @@ localConfig.schema = {
 				}
 			},
 			"serviceName": {
-				"source": ['body.serviceName'],
+				"source": ["body.serviceName"],
 				"required": false,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"image": {
-				"source": ['body.image'],
+				"source": ["body.image"],
 				"required": false,
 				"validation": {
 					"type": "object",
@@ -630,7 +374,7 @@ localConfig.schema = {
 				}
 			},
 			"src": {
-				"source": ['body.src'],
+				"source": ["body.src"],
 				"required": false,
 				"validation": {
 					"type": "object",
@@ -676,14 +420,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['body.mode'],
+				"source": ["body.mode"],
 				"required": true,
 				"validation": {
 					"type": "string",
@@ -698,21 +442,21 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"maintenancePort": {
-				"source": ['body.maintenancePort'],
+				"source": ["body.maintenancePort"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"operation": {
-				"source": ['body.operation'],
+				"source": ["body.operation"],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -738,14 +482,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"filter": {
-				"source": ['body.filter'],
+				"source": ["body.filter"],
 				"required": true,
 				"validation": {
 					"type": "object"
 				}
 			},
 			"commands": {
-				"source": ['body.commands'],
+				"source": ["body.commands"],
 				"required": true,
 				"validation": {
 					"type": "array",
@@ -763,14 +507,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"commands": {
-				"source": ['body.commands'],
+				"source": ["body.commands"],
 				"required": true,
 				"validation": {
 					"type": "array",
@@ -781,29 +525,29 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/resource": {
+		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API updates a resource of type (service, deployment, cronjob, daemonset).",
+				"l": "This API updates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['body.mode'],
+				"source": ["params.mode"],
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA"]
 				}
 			},
 			"body": {
-				"source": ['body.body'],
+				"source": ["body.body"],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -811,7 +555,7 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
+							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
 						}
 					}
 				}
@@ -826,6 +570,44 @@ localConfig.schema = {
 				"group": "Token"
 			}
 		},
+		
+		"/kubernetes/:mode": {
+			"_apiInfo": {
+				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC).",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC"]
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"required": true,
+							"type": "string",
+							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim"]
+						}
+					}
+				}
+			}
+		},
+		
 		"/kubernetes/namespace": {
 			"_apiInfo": {
 				"l": "This API creates a namespace.",
@@ -833,28 +615,28 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			}
 		},
-		"/kubernetes/autoscale": {
+		"/kubernetes/hpa": {
 			"_apiInfo": {
-				"l": "This API creates a autoscale.",
+				"l": "This API creates a HPA.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"replica": {
-				"source": ['body.replica'],
+				"source": ["body.replica"],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -874,40 +656,39 @@ localConfig.schema = {
 				}
 			},
 			"metrics": {
-				"source": ['body.metrics'],
+				"source": ["body.metrics"],
 				"required": true,
 				"validation": {
 					"type": "array",
 					"minItems": 1,
 					"items": {
-						"anyOf": [
-							{
-								"type": "object",
-								"additionalProperties": false,
-								"properties": {
-									"type": {
-										"required": true,
-										"type": "string",
-										"enum": ["Resource"]
-									},
-									"name": {
-										"required": true,
-										"type": "string",
-										"enum": ["cpu", "memory"]
-									},
-									"target": {
-										"required": true,
-										"type": "string",
-										"enum": ["AverageValue", "Utilization"]
-									},
-									"percentage": {
-										"required": true,
-										"type": "integer",
-										"minimum": 1,
-										"maximum": 100
-									}
+						"anyOf": [{
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"type": {
+									"required": true,
+									"type": "string",
+									"enum": ["Resource"]
+								},
+								"name": {
+									"required": true,
+									"type": "string",
+									"enum": ["cpu", "memory"]
+								},
+								"target": {
+									"required": true,
+									"type": "string",
+									"enum": ["AverageValue", "Utilization"]
+								},
+								"percentage": {
+									"required": true,
+									"type": "integer",
+									"minimum": 1,
+									"maximum": 100
 								}
-							},
+							}
+						},
 							{
 								"type": "object",
 								"additionalProperties": false,
@@ -970,14 +751,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"content": {
-				"source": ['body.content'],
+				"source": ["body.content"],
 				"required": true,
 				"validation": {
 					"type": "array",
@@ -1005,14 +786,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"content": {
-				"source": ['body.content'],
+				"source": ["body.content"],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -1044,14 +825,14 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"accessModes": {
-				"source": ['body.accessModes'],
+				"source": ["body.accessModes"],
 				"required": true,
 				"validation": {
 					"type": "string",
@@ -1059,21 +840,21 @@ localConfig.schema = {
 				}
 			},
 			"storage": {
-				"source": ['body.storage'],
+				"source": ["body.storage"],
 				"required": false,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"storageClassName": {
-				"source": ['body.storageClassName'],
+				"source": ["body.storageClassName"],
 				"required": false,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"volumeMode": {
-				"source": ['body.volumeMode'],
+				"source": ["body.volumeMode"],
 				"required": false,
 				"validation": {
 					"type": "string",
@@ -1083,67 +864,67 @@ localConfig.schema = {
 		},
 		"/kubernetes/item/deploy/soajs": {
 			"_apiInfo": {
-				"l": "This API deploys an item from the catalog using soajs recipe of type deployment or daemonset.",
+				"l": "This API deploys an item from the catalog using soajs recipe of type Deployment or DaemonSet.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
-				"source": ['body.recipe'],
+				"source": ["body.recipe"],
 				"required": true,
 				"validation": item_soajs
 			}
 		},
 		"/kubernetes/item/deploy/soajs/conjob": {
 			"_apiInfo": {
-				"l": "This API deploys an item from the catalog using soajs recipe of type cronjob.",
+				"l": "This API deploys an item from the catalog using soajs recipe of type CronJob.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
-				"source": ['body.recipe'],
+				"source": ["body.recipe"],
 				"required": true,
 				"validation": item_soajs_cronjob
 			}
 		},
 		"/kubernetes/item/deploy/native": {
 			"_apiInfo": {
-				"l": "This API deploys an item from the catalog using kubernetes native recipe.",
+				"l": "This API deploys an item from the catalog using kubernetes native recipe of type Deployment or DaemonSet.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
-				"source": ['body.recipe'],
+				"source": ["body.recipe"],
 				"required": true,
 				"validation": item_native
 			}
 		},
 		"/kubernetes/item/deploy/native/cronjob": {
 			"_apiInfo": {
-				"l": "This API deploys an item from the catalog using kubernetes native recipe of type cronjob.",
+				"l": "This API deploys an item from the catalog using kubernetes native recipe of type CronJob.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
-				"source": ['body.recipe'],
+				"source": ["body.recipe"],
 				"required": true,
 				"validation": item_native_cronjob
 			}
 		},
 		"/kubernetes/deploy/native": {
 			"_apiInfo": {
-				"l": "This API creates the service and the related deployment, daemonset or cronjob.",
+				"l": "This API creates the service and the related Deployment, DaemonSet or CronJob.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"service": {
-				"source": ['body.service'],
+				"source": ["body.service"],
 				"required": false,
 				"validation": {
 					"type": "object"
 				}
 			},
 			"deployment": {
-				"source": ['body.deployment'],
+				"source": ["body.deployment"],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -1166,106 +947,37 @@ localConfig.schema = {
 				"group": "Token"
 			},
 			"token": {
-				"source": ['body.token'],
+				"source": ["body.token"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			}
 		},
-		"/kubernetes/namespace": {
+		
+		"/kubernetes/:mode": {
 			"_apiInfo": {
-				"l": "This API deletes a namespace.",
+				"l": "This API deletes a resource of type (Service, Deployment, DaemonSet, CronJob) as well as the related HPA of a deployment.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/autoscale": {
-			"_apiInfo": {
-				"l": "This API deletes an autoscale.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ['body.name'],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/secret": {
-			"_apiInfo": {
-				"l": "This API deletes a secret.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ['body.name'],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/pvc": {
-			"_apiInfo": {
-				"l": "This API deletes a PVC.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ['body.name'],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/item": {
-			"_apiInfo": {
-				"l": "This API deletes an item of type (deployment, cronjob  or deamonset) as well as the related auto scaling including the related service.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['body.mode'],
+				"source": ["params.mode"],
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Deployment", "DaemonSet", "CronJob"]
-				}
-			},
-			"serviceName": {
-				"source": ['body.serviceName'],
-				"required": false,
-				"validation": {
-					"type": "string"
-				}
-			},
-			"cleanup": {
-				"source": ['body.cleanup'],
-				"required": false,
-				"validation": {
-					"type": "boolean",
-					"default": false
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
 				}
 			}
 		},
+		
 		"/kubernetes/pods": {
 			"_apiInfo": {
 				"l": "This API deletes pods.",
@@ -1273,7 +985,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"filter": {
-				"source": ['body.filter'],
+				"source": ["body.filter"],
 				"required": true,
 				"validation": {
 					"type": "object",
@@ -1292,28 +1004,101 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/resource": {
+		
+		"/kubernetes/hpa": {
 			"_apiInfo": {
-				"l": "This API deletes a resource of type (service, deployment, cronjob, daemonset) as well as the related auto scaling of a deployment.",
+				"l": "This API deletes an HPA.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ['body.name'],
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/namespace": {
+			"_apiInfo": {
+				"l": "This API deletes a namespace.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/secret": {
+			"_apiInfo": {
+				"l": "This API deletes a secret.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/pvc": {
+			"_apiInfo": {
+				"l": "This API deletes a PVC.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/item": {
+			"_apiInfo": {
+				"l": "This API deletes an item of type (Deployment, DaemonSet  or CronJob) as well as the related HPA with the related service.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["body.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
 				}
 			},
 			"mode": {
-				"source": ['body.mode'],
+				"source": ["body.mode"],
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
+					"enum": ["Deployment", "DaemonSet", "CronJob"]
+				}
+			},
+			"serviceName": {
+				"source": ["body.serviceName"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"cleanup": {
+				"source": ["body.cleanup"],
+				"required": false,
+				"validation": {
+					"type": "boolean",
+					"default": false
 				}
 			}
 		}
+		
 	}
 };
 

@@ -65,6 +65,30 @@ let bl = {
 	
 	"exec": {},
 	
+	"apply": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			let mode = inputmaskData.mode.toLowerCase();
+			if (!driver.apply[mode]) {
+				return cb(bl.handleError(soajs, 504, null));
+			}
+			driver.apply[mode](client, {
+				"namespace": config.namespace,
+				"body": inputmaskData.body
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"applied": true});
+			});
+		});
+	},
+	
 	"resource_update": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
@@ -178,29 +202,6 @@ let bl = {
 		});
 	},
 	
-	"resource_inspect": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData || !inputmaskData.item) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.delete[mode]) {
-				return cb(bl.handleError(soajs, 504, null));
-			}
-			driver.get[mode](client, {
-				"namespace": config.namespace,
-				"name": inputmaskData.name
-			}, (error, resource) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, resource);
-			});
-		});
-	},
 	"item_inspect": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData || !inputmaskData.item) {
 			return cb(bl.handleError(soajs, 400, null));

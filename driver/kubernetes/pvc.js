@@ -13,14 +13,14 @@ const wrapper = require('./wrapper.js');
 let bl = {
 	"delete": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("pvc delete: options is required with {name, and namespace}"));
+			return cb(new Error("PVC delete: options is required with {name, and namespace}"));
 		}
 		wrapper.persistentvolumeclaim.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			if (error) {
 				return cb(error);
 			}
 			if (!item) {
-				return cb(new Error("Unable to find the pvc [" + options.name + "] to delete."));
+				return cb(new Error("Unable to find the PVC [" + options.name + "] to delete."));
 			}
 			wrapper.persistentvolumeclaim.delete(client, {
 				namespace: options.namespace,
@@ -35,7 +35,7 @@ let bl = {
 	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("pvc getOne: options is required with {name, and namespace}"));
+			return cb(new Error("PVC getOne: options is required with {name, and namespace}"));
 		}
 		wrapper.persistentvolumeclaim.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			return cb(error, item);
@@ -43,7 +43,7 @@ let bl = {
 	},
 	"get": (client, options, cb) => {
 		if (!options || !options.namespace) {
-			return cb(new Error("pvc get: options is required with {namespace}"));
+			return cb(new Error("PVC get: options is required with {namespace}"));
 		}
 		wrapper.persistentvolumeclaim.get(client, {
 			namespace: options.namespace,
@@ -52,12 +52,18 @@ let bl = {
 			return cb(error, items);
 		});
 	},
+	"apply": (client, options, cb) => {
+		if (!options || !options.body || !options.namespace) {
+			return cb(new Error("PVC apply: options is required with {body, and namespace}"));
+		}
+		return wrapper.persistentvolumeclaim.post(client, {namespace: options.namespace, body: options.body}, cb);
+	},
 	"create": (client, options, cb) => {
 		if (!options || !options.accessModes || !options.name || !options.namespace) {
-			return cb(new Error("pvc create: options is required with {accessModes, name, and namespace}"));
+			return cb(new Error("PVC create: options is required with {accessModes, name, and namespace}"));
 		}
 		if (!Array.isArray(options.content) || options.content.length === 0) {
-			return cb(new Error("pvc content must be an array with at least one item."));
+			return cb(new Error("PVC content must be an array with at least one item."));
 		}
 		let recipe = {
 			"kind": 'PersistentVolumeClaim',

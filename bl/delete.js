@@ -31,7 +31,7 @@ let bl = {
 			});
 		});
 	},
-	"autoscale": (soajs, inputmaskData, options, cb) => {
+	"hpa": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
@@ -39,7 +39,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.delete.autoscale(client, {
+			driver.delete.hpa(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {
@@ -161,6 +161,7 @@ let bl = {
 			});
 		});
 	},
+	
 	"resource": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
