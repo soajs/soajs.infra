@@ -89,7 +89,7 @@ let bl = {
 		});
 	},
 	"item": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData || !inputmaskData.item) {
+		if (!inputmaskData || !inputmaskData.name) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
@@ -118,7 +118,7 @@ let bl = {
 				if (inputmaskData.serviceName) {
 					serviceName = inputmaskData.serviceName;
 				}
-				driver.get.service(client, {
+				driver.get.one.service(client, {
 					"namespace": config.namespace,
 					"name": serviceName
 				}, (error) => {

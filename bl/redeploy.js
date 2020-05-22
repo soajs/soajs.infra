@@ -41,7 +41,7 @@ let bl = {
 				return cb(bl.handleError(soajs, 504, null));
 			}
 			
-			driver.get[mode](client, {
+			driver.get.one[mode](client, {
 				"namespace": kubeConfig.namespace,
 				"name": inputmaskData.name
 			}, (error, item) => {
@@ -115,7 +115,7 @@ let bl = {
 					if (inputmaskData.serviceName) {
 						serviceName = inputmaskData.serviceName;
 					}
-					driver.get.service(client, {
+					driver.get.one.service(client, {
 						"namespace": kubeConfig.namespace,
 						"name": serviceName
 					}, (error, item) => {

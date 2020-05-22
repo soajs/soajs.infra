@@ -29,7 +29,7 @@ let bl = {
 			if (!driver.get.one[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.get.once[mode](client, {
+			driver.get.one[mode](client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error, response) => {
@@ -121,7 +121,7 @@ let bl = {
 			
 			async.parallel({
 				deployment: function (callback) {
-					driver.get.deployments(client, {
+					driver.get.all.deployment(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -133,7 +133,7 @@ let bl = {
 					});
 				},
 				daemonset: function (callback) {
-					driver.get.daemonsets(client, {
+					driver.get.all.daemonset(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -145,7 +145,7 @@ let bl = {
 					});
 				},
 				cronjob: function (callback) {
-					driver.get.cronjobs(client, {
+					driver.get.all.cronjob(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {

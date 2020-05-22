@@ -129,7 +129,7 @@ let bl = {
 			if (!driver.delete[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.get[mode](client, {
+			driver.get.one[mode](client, {
 				"namespace": kubeConfig.namespace,
 				"name": inputmaskData.name
 			}, (error, item) => {
@@ -176,7 +176,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.get.deployment(client, {
+			driver.get.one.deployment(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error, item) => {
@@ -218,7 +218,7 @@ let bl = {
 			
 			async.parallel({
 				services: function (callback) {
-					driver.get.services(client, {
+					driver.get.all.service(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -230,7 +230,7 @@ let bl = {
 					});
 				},
 				deployments: function (callback) {
-					driver.get.deployments(client, {
+					driver.get.all.deployment(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -242,7 +242,7 @@ let bl = {
 					});
 				},
 				daemonsets: function (callback) {
-					driver.get.daemonsets(client, {
+					driver.get.all.daemonset(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -254,7 +254,7 @@ let bl = {
 					});
 				},
 				cronjobs: function (callback) {
-					driver.get.cronjobs(client, {
+					driver.get.all.cronjob(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -266,7 +266,7 @@ let bl = {
 					});
 				},
 				pods: function (callback) {
-					driver.get.pods(client, {
+					driver.get.all.pod(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
