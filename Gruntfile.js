@@ -139,11 +139,10 @@ module.exports = (grunt) => {
 				files: [
 					{expand: true, src: ['package.json'], dest: 'test/coverage/instrument/', filter: 'isFile'},
 					{
-						expand: true,
-						cwd: 'driver/kubernetes/',
-						src: ['swagger.json'],
-						dest: 'test/coverage/instrument/driver/kubernetes/',
-						filter: 'isFile'
+						cwd: 'driver/kubernetes/swagger/',
+						src: '**/*',
+						dest: 'test/coverage/instrument/driver/kubernetes/swagger/',
+						expand: true
 					},
 					{
 						cwd: 'schemas/',  // set working folder / root to copy
