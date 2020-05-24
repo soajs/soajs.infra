@@ -40,7 +40,6 @@ describe("Unit test for: BL - kubernetes exec ...", () => {
 		
 		DRIVER.pod = {
 			exec: (client, options, cb) => {
-				console.log(options.filter)
 				if (options && options.filter && options.filter.labelSelector === 'soajs.service.label=error') {
 					let error = new Error("DRIVER error ...");
 					return cb(error, null);

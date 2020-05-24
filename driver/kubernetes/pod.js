@@ -14,7 +14,7 @@ const parse = require('parse-large-json');
 const maxChunkSize = 100e3;
 const wrapper = require('./wrapper.js');
 
-const lib = require("../../bl/lib.js");
+const lib = require("../../bl/kubernetes/lib.js");
 
 let bl = {
 	
