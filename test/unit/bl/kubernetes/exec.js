@@ -1,6 +1,6 @@
 "use strict";
 
-const helper = require("../../helper.js");
+const helper = require("../../../helper.js");
 const BL = helper.requireModule('bl/kubernetes/exec.js');
 const assert = require('assert');
 

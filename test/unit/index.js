@@ -25,9 +25,10 @@ describe("Starting Unit test", () => {
 	});
 	
 	it("Unit test for BL", (done) => {
-		require("./bl/create.js");
-		require("./bl/delete.js");
-		require("./bl/exec.js");
+		require("./bl/kubernetes/create.js");
+		require("./bl/kubernetes/delete.js");
+		require("./bl/kubernetes/exec.js");
+		require("./bl/kubernetes/deploy.js");
 		done();
 	});
 	
