@@ -5,7 +5,7 @@ const BL = helper.requireModule('bl/create.js');
 const assert = require('assert');
 
 
-describe("Unit test for: BL - create ...", () => {
+describe("Unit test for: BL - kubernetes create ...", () => {
 	let soajs = {
 		"log": {
 			"error": (msg) => {
