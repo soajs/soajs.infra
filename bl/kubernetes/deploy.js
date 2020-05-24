@@ -254,7 +254,12 @@ let bl = {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		
-		let config = {"catalog": inputmaskData.catalog, "item": inputmaskData.item, "labels": {}};
+		let config = {
+			"catalog": inputmaskData.catalog,
+			"item": inputmaskData.item,
+			"labels": {},
+			"mode": inputmaskData.deployment.kind
+		};
 		
 		let labels = buildLabels(config);
 		
@@ -264,7 +269,7 @@ let bl = {
 		if (!deployment.metadata.labels) {
 			deployment.metadata.labels = {};
 		}
-		if (deployment.spec.jobTemplate.spec.template.metadata.labels) {
+		if (!deployment.spec.jobTemplate.spec.template.metadata.labels) {
 			deployment.spec.jobTemplate.spec.template.metadata.labels = {};
 		}
 		if (service) {
@@ -312,7 +317,12 @@ let bl = {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		
-		let config = {"catalog": inputmaskData.catalog, "item": inputmaskData.item, "labels": {}};
+		let config = {
+			"catalog": inputmaskData.catalog,
+			"item": inputmaskData.item,
+			"labels": {},
+			"mode": inputmaskData.deployment.kind
+		};
 		
 		let labels = buildLabels(config);
 		
@@ -322,7 +332,7 @@ let bl = {
 		if (!deployment.metadata.labels) {
 			deployment.metadata.labels = {};
 		}
-		if (deployment.spec.template.metadata.labels) {
+		if (!deployment.spec.template.metadata.labels) {
 			deployment.spec.template.metadata.labels = {};
 		}
 		if (service) {

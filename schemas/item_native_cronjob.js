@@ -185,7 +185,8 @@ let config = {
 				},
 				"kind": {
 					"required": true,
-					"type": "string"
+					"type": "string",
+					"enum": ["Service"]
 				},
 				"metadata": {
 					"required": true,

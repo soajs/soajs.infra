@@ -152,7 +152,7 @@ let config = {
 		"mode": {
 			"required": true,
 			"type": "string",
-			"enum": ["Deployment", "DaemonSet"]
+			"enum": ["CronJob"]
 		},
 		"ports": {
 			"type": "array",
