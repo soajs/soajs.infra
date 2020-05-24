@@ -9,7 +9,7 @@
 'use strict';
 
 const async = require("async");
-const lib = require("./lib.js");
+const lib = require("./kubernetes/lib.js");
 const soajsCoreLibs = require("soajs.core.libs");
 
 function setRestartEnv(envArray) {

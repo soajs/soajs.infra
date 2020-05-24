@@ -1,7 +1,7 @@
 "use strict";
 
 const helper = require("../../helper.js");
-const BL = helper.requireModule('bl/create.js');
+const BL = helper.requireModule('bl/kubernetes/create.js');
 const assert = require('assert');
 
 

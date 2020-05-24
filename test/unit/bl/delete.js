@@ -1,7 +1,7 @@
 "use strict";
 
 const helper = require("../../helper.js");
-const BL = helper.requireModule('bl/delete.js');
+const BL = helper.requireModule('bl/kubernetes/delete.js');
 const assert = require('assert');
 
 

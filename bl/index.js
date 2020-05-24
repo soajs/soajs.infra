@@ -25,35 +25,35 @@ function init(service, localConfig, cb) {
 	BL.cdtoken = temp;
 	
 	
-	const driver = require("../driver/kubernetes/index.js");
 	// Load all Kubernetes BL
+	const driver = require("../driver/kubernetes/index.js");
 	temp = require("./kubernetes.js");
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	BL.kubernetes = temp;
 	
-	temp = require("./deploy.js");
+	temp = require("./kubernetes/deploy.js");
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	temp.handleError = BL.kubernetes.handleError;
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.deploy = temp;
 	
-	temp = require("./delete.js");
+	temp = require("./kubernetes/delete.js");
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	temp.handleError = BL.kubernetes.handleError;
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.delete = temp;
 	
-	temp = require("./create.js");
+	temp = require("./kubernetes/create.js");
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	temp.handleError = BL.kubernetes.handleError;
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.create = temp;
 	
-	temp = require("./exec.js");
+	temp = require("./kubernetes/exec.js");
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	temp.handleError = BL.kubernetes.handleError;
@@ -61,14 +61,14 @@ function init(service, localConfig, cb) {
 	BL.kubernetes.exec = temp;
 	BL.driver = driver;
 	
-	temp = require("./redeploy.js");
+	temp = require("./kubernetes/redeploy.js");
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	temp.handleError = BL.kubernetes.handleError;
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.redeploy = temp;
 	
-	temp = require("./get.js");
+	temp = require("./kubernetes/get.js");
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	temp.handleError = BL.kubernetes.handleError;
