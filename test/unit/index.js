@@ -25,6 +25,7 @@ describe("Starting Unit test", () => {
 	});
 	
 	it("Unit test for BL", (done) => {
+		require("./bl/create.js");
 		done();
 	});
 	

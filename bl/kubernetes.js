@@ -9,10 +9,8 @@
 'use strict';
 
 const async = require("async");
-const driver = require("../driver/kubernetes/index.js");
 const lib = require("./lib.js");
 const soajsCoreLibs = require("soajs.core.libs");
-
 
 function setRestartEnv(envArray) {
 	if (envArray && Array.isArray(envArray)) {
@@ -32,6 +30,7 @@ function setRestartEnv(envArray) {
 
 let bl = {
 	"localConfig": null,
+	"driver": null,
 	
 	"handleError": (soajs, errCode, err) => {
 		if (err) {
@@ -48,7 +47,7 @@ let bl = {
 			if (error) {
 				return cb(error);
 			} else {
-				driver.connect(config, (error, client) => {
+				bl.driver.connect(config, (error, client) => {
 					return cb(error, client, config);
 				});
 			}
@@ -76,10 +75,10 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.apply[mode]) {
+			if (!bl.driver.apply[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.apply[mode](client, {
+			bl.driver.apply[mode](client, {
 				"namespace": config.namespace,
 				"body": inputmaskData.body
 			}, (error) => {
@@ -101,10 +100,10 @@ let bl = {
 			}
 			
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.update[mode]) {
+			if (!bl.driver.update[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.update[mode](client, {
+			bl.driver.update[mode](client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name,
 				"body": inputmaskData.body
@@ -126,10 +125,10 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.delete[mode]) {
+			if (!bl.driver.delete[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.get.one[mode](client, {
+			bl.driver.get.one[mode](client, {
 				"namespace": kubeConfig.namespace,
 				"name": inputmaskData.name
 			}, (error, item) => {
@@ -151,10 +150,10 @@ let bl = {
 						item.spec.jobTemplate.spec.template.spec.containers[0].env = setRestartEnv(item.spec.jobTemplate.spec.template.spec.containers[0].env);
 					}
 				}
-				if (!driver.update[mode]) {
+				if (!bl.driver.update[mode]) {
 					return cb(bl.handleError(soajs, 504, null));
 				}
-				driver.update[mode](client, {
+				bl.driver.update[mode](client, {
 					"namespace": kubeConfig.namespace,
 					"name": inputmaskData.name,
 					"body": item
@@ -176,7 +175,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.get.one.deployment(client, {
+			bl.driver.get.one.deployment(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error, item) => {
@@ -186,7 +185,7 @@ let bl = {
 				if (!item) {
 					return cb(bl.handleError(soajs, 501, null));
 				}
-				driver.deployment.patch(client, {
+				bl.driver.deployment.patch(client, {
 					"namespace": config.namespace,
 					"name": inputmaskData.name,
 					"body": {
@@ -218,7 +217,7 @@ let bl = {
 			
 			async.parallel({
 				services: function (callback) {
-					driver.get.all.service(client, {
+					bl.driver.get.all.service(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -230,7 +229,7 @@ let bl = {
 					});
 				},
 				deployments: function (callback) {
-					driver.get.all.deployment(client, {
+					bl.driver.get.all.deployment(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -242,7 +241,7 @@ let bl = {
 					});
 				},
 				daemonsets: function (callback) {
-					driver.get.all.daemonset(client, {
+					bl.driver.get.all.daemonset(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -254,7 +253,7 @@ let bl = {
 					});
 				},
 				cronjobs: function (callback) {
-					driver.get.all.cronjob(client, {
+					bl.driver.get.all.cronjob(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -266,7 +265,7 @@ let bl = {
 					});
 				},
 				pods: function (callback) {
-					driver.get.all.pod(client, {
+					bl.driver.get.all.pod(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {

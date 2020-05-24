@@ -8,12 +8,11 @@
  * found in the LICENSE file at the root of this repository
  */
 
-const driver = require("../driver/kubernetes/index.js");
-
 let bl = {
 	"localConfig": null,
 	"handleError": null,
 	"handleConnect": null,
+	"driver": null,
 	
 	"namespace": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
@@ -23,7 +22,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.delete.namespace(client, {"name": inputmaskData.name}, (error) => {
+			bl.driver.delete.namespace(client, {"name": inputmaskData.name}, (error) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
@@ -39,7 +38,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.delete.hpa(client, {
+			bl.driver.delete.hpa(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {
@@ -58,7 +57,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.delete.secret_opaque(client, {
+			bl.driver.delete.secret_opaque(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {
@@ -77,7 +76,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.delete.pvc(client, {
+			bl.driver.delete.pvc(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {
@@ -98,11 +97,11 @@ let bl = {
 			}
 			
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.delete[mode]) {
+			if (!bl.driver.delete[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
 			
-			driver.delete[mode](client, {
+			bl.driver.delete[mode](client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name,
 				"cleanup": inputmaskData.cleanup || false
@@ -118,7 +117,7 @@ let bl = {
 				if (inputmaskData.serviceName) {
 					serviceName = inputmaskData.serviceName;
 				}
-				driver.get.one.service(client, {
+				bl.driver.get.one.service(client, {
 					"namespace": config.namespace,
 					"name": serviceName
 				}, (error) => {
@@ -128,7 +127,7 @@ let bl = {
 					if (error) {
 						return cb(bl.handleError(soajs, 702, error));
 					}
-					driver.delete.service(client, {
+					bl.driver.delete.service(client, {
 						"namespace": config.namespace,
 						"name": serviceName
 					}, (error) => {
@@ -150,7 +149,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.delete.pods(client, {
+			bl.driver.delete.pods(client, {
 				"namespace": config.namespace,
 				"filter": inputmaskData.filter
 			}, (error) => {
@@ -172,10 +171,10 @@ let bl = {
 			}
 			
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.delete[mode]) {
+			if (!bl.driver.delete[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.delete[mode](client, {
+			bl.driver.delete[mode](client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {

@@ -8,8 +8,6 @@
  * found in the LICENSE file at the root of this repository
  */
 
-const driver = require("../driver/kubernetes/index.js");
-
 function buildLabels(config) {
 	config.labels["service.image.ts"] = new Date().getTime().toString();
 	if (config.src && config.src.from) {
@@ -26,6 +24,7 @@ let bl = {
 	"localConfig": null,
 	"handleError": null,
 	"handleConnect": null,
+	"driver": null,
 	
 	"item": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
@@ -37,11 +36,11 @@ let bl = {
 			}
 			
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.delete[mode]) {
+			if (!bl.driver.delete[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
 			
-			driver.get.one[mode](client, {
+			bl.driver.get.one[mode](client, {
 				"namespace": kubeConfig.namespace,
 				"name": inputmaskData.name
 			}, (error, item) => {
@@ -100,10 +99,10 @@ let bl = {
 						}
 					}
 				}
-				if (!driver.update[mode]) {
+				if (!bl.driver.update[mode]) {
 					return cb(bl.handleError(soajs, 504, null));
 				}
-				driver.update[mode](client, {
+				bl.driver.update[mode](client, {
 					"namespace": kubeConfig.namespace,
 					"name": inputmaskData.name,
 					"body": item
@@ -115,7 +114,7 @@ let bl = {
 					if (inputmaskData.serviceName) {
 						serviceName = inputmaskData.serviceName;
 					}
-					driver.get.one.service(client, {
+					bl.driver.get.one.service(client, {
 						"namespace": kubeConfig.namespace,
 						"name": serviceName
 					}, (error, item) => {
@@ -135,7 +134,7 @@ let bl = {
 								}
 							}
 						}
-						driver.update.service(client, {
+						bl.driver.update.service(client, {
 							"namespace": kubeConfig.namespace,
 							"name": serviceName,
 							"body": item

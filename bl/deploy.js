@@ -8,8 +8,6 @@
  * found in the LICENSE file at the root of this repository
  */
 
-
-const driver = require("../driver/kubernetes/index.js");
 const soajsCoreLibs = require("soajs.core.libs");
 
 const lib = require("./lib.js");
@@ -231,6 +229,7 @@ let bl = {
 	"localConfig": null,
 	"handleError": null,
 	"handleConnect": null,
+	"driver": null,
 	
 	"item_soajs_conjob": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData || !inputmaskData.recipe) {
@@ -372,10 +371,10 @@ let bl = {
 			}
 			
 			let kind = inputmaskData.deployment.kind.toLowerCase();
-			if (!driver.create[kind]) {
+			if (!bl.driver.create[kind]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.create[kind](client, {
+			bl.driver.create[kind](client, {
 				"body": inputmaskData.deployment,
 				"namespace": config.namespace
 			}, (error) => {
@@ -383,7 +382,7 @@ let bl = {
 					return cb(bl.handleError(soajs, 702, error));
 				}
 				if (inputmaskData.service) {
-					driver.create.service(client, {
+					bl.driver.create.service(client, {
 						"body": inputmaskData.service,
 						"namespace": config.namespace
 					}, (error) => {

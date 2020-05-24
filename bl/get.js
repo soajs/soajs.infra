@@ -10,12 +10,12 @@
 
 const async = require("async");
 const soajsCoreLibs = require("soajs.core.libs");
-const driver = require("../driver/kubernetes/index.js");
 
 let bl = {
 	"localConfig": null,
 	"handleError": null,
 	"handleConnect": null,
+	"driver": null,
 	
 	"one": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
@@ -26,10 +26,10 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.get.one[mode]) {
+			if (!bl.driver.get.one[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			driver.get.one[mode](client, {
+			bl.driver.get.one[mode](client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error, response) => {
@@ -49,7 +49,7 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			let mode = inputmaskData.mode.toLowerCase();
-			if (!driver.get.all[mode]) {
+			if (!bl.driver.get.all[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
 			if (!inputmaskData.filter) {
@@ -74,7 +74,7 @@ let bl = {
 					inputmaskData.filter.labelSelector = "soajs.content!=true";
 				}
 			}
-			driver.get.all[mode](client, {
+			bl.driver.get.all[mode](client, {
 				"namespace": config.namespace,
 				"filter": inputmaskData.filter
 			}, (error, response) => {
@@ -94,7 +94,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.pod.log(client, {
+			bl.driver.pod.log(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name,
 				"follow": inputmaskData.follow,
@@ -121,7 +121,7 @@ let bl = {
 			
 			async.parallel({
 				deployment: function (callback) {
-					driver.get.all.deployment(client, {
+					bl.driver.get.all.deployment(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -133,7 +133,7 @@ let bl = {
 					});
 				},
 				daemonset: function (callback) {
-					driver.get.all.daemonset(client, {
+					bl.driver.get.all.daemonset(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {
@@ -145,7 +145,7 @@ let bl = {
 					});
 				},
 				cronjob: function (callback) {
-					driver.get.all.cronjob(client, {
+					bl.driver.get.all.cronjob(client, {
 						"namespace": config.namespace,
 						"filter": filter
 					}, (error, list) => {

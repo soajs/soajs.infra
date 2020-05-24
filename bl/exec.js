@@ -8,12 +8,11 @@
  * found in the LICENSE file at the root of this repository
  */
 
-const driver = require("../driver/kubernetes/index.js");
-
 let bl = {
 	"localConfig": null,
 	"handleError": null,
 	"handleConnect": null,
+	"driver": null,
 	
 	"maintenance": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData || !inputmaskData.operation) {
@@ -29,7 +28,7 @@ let bl = {
 				inputmaskData.operation.route = inputmaskData.operation.route.substr(1);
 			}
 			let commands = [`curl -s -X GET http://localhost:${inputmaskData.maintenancePort}/${inputmaskData.operation.route}`];
-			driver.pod.exec(client, {
+			bl.driver.pod.exec(client, {
 				"namespace": config.namespace,
 				"config": config,
 				"filter": filter,
@@ -50,7 +49,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.pod.exec(client, {
+			bl.driver.pod.exec(client, {
 				"namespace": config.namespace,
 				"config": config,
 				"filter": inputmaskData.filter || null,

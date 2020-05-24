@@ -8,13 +8,11 @@
  * found in the LICENSE file at the root of this repository
  */
 
-
-const driver = require("../driver/kubernetes/index.js");
-
 let bl = {
 	"localConfig": null,
 	"handleError": null,
 	"handleConnect": null,
+	"driver": null,
 	
 	"namespace": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
@@ -24,7 +22,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.create.namespace(client, {"name": inputmaskData.name}, (error) => {
+			bl.driver.create.namespace(client, {"name": inputmaskData.name}, (error) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
@@ -40,7 +38,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.create.hpa(client, {
+			bl.driver.create.hpa(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name,
 				"replica": inputmaskData.replica,
@@ -62,7 +60,7 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			if (options.type === "dockercfg") {
-				driver.create.secret_dockercfg(client, {
+				bl.driver.create.secret_dockercfg(client, {
 					"namespace": config.namespace,
 					"name": inputmaskData.name,
 					"content": inputmaskData.content
@@ -73,7 +71,7 @@ let bl = {
 					return cb(null, {"created": true});
 				});
 			} else {
-				driver.create.secret_opaque(client, {
+				bl.driver.create.secret_opaque(client, {
 					"namespace": config.namespace,
 					"name": inputmaskData.name,
 					"content": inputmaskData.content
@@ -94,7 +92,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			driver.create.pvc(client, {
+			bl.driver.create.pvc(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name,
 				"accessModes": inputmaskData.accessModes,
