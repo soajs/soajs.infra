@@ -29,6 +29,8 @@ describe("Starting Unit test", () => {
 		require("./bl/kubernetes/delete.js");
 		require("./bl/kubernetes/exec.js");
 		require("./bl/kubernetes/deploy.js");
+		
+		require("./bl/cdtoken.js");
 		done();
 	});
 	
