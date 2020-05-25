@@ -1,0 +1,1050 @@
+{
+	"info": {
+		"_postman_id": "512d8935-7970-4c9c-878c-1f648b9d4c88",
+		"name": "soa_infra_kube",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Items",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/resources/Deployment?configuration={{tokenQS}}&type=Item&limit=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"resources",
+						"Deployment"
+					],
+					"query": [
+						{
+							"key": "configuration",
+							"value": "{{tokenQS}}"
+						},
+						{
+							"key": "type",
+							"value": "Item"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Resources",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/resources/PVC?configuration={{tokenQS}}&type=Other&limit=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"resources",
+						"PVC"
+					],
+					"query": [
+						{
+							"key": "configuration",
+							"value": "{{tokenQS}}"
+						},
+						{
+							"key": "type",
+							"value": "Other"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD ns",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"soajs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/namespace",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"namespace"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD nginx",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"recipe\": {\n        \"mode\": \"DaemonSet\",\n        \"catalog\": {\n            \"id\": \"5df3ec10fa3912534948f00c\",\n            \"version\": \"1\",\n            \"shell\": \"shell/bin/bash\"\n        },\n        \"item\": {\n            \"env\": \"dev\",\n            \"name\": \"tony\",\n            \"group\": \"testing\",\n            \"type\": \"service\",\n            \"subtype\": \"ecom\",\n            \"version\": \"1.1\"\n        },\n        \"image\": {\n            \"name\": \"soajsorg/fe:3.x\",\n            \"imagePullPolicy\": \"Always\"\n        },\n        \"src\": {\n            \"from\": {\n                \"branch\": \"feature_v3.2\",\n                \"commit\": \"94c585b5804892eb346aea996156db48afc78edd\"\n            },\n            \"repo\": \"soajs.dashboard\",\n            \"owner\": \"soajsorg\"\n        },\n        \"ports\": [\n            {\n                \"name\": \"http\",\n                \"containerPort\": 80\n            }\n        ],\n        \"workingDir\": \"/opt/soajs/soajs.deployer/deployer/\",\n        \"command\": [\n            \"bash\"\n        ],\n        \"args\": [\n            \"-c\",\n            \"node index.js -T nginx -S install && /opt/soajs/soajs.deployer/deployer/bin/nginx.sh\"\n        ],\n        \"readinessProbe\": {\n            \"httpGet\": {\n                \"path\": \"/\",\n                \"port\": \"http\"\n            },\n            \"initialDelaySeconds\": 5,\n            \"timeoutSeconds\": 2,\n            \"periodSeconds\": 5,\n            \"successThreshold\": 1,\n            \"failureThreshold\": 3\n        },\n        \"env\": [\n            {\n                \"name\": \"SOAJS_ENV\",\n                \"value\": \"dashboard\"\n            },\n            {\n                \"name\": \"SOAJS_NX_DOMAIN\",\n                \"value\": \"test.soajs.org\"\n            }\n        ],\n        \"service\": {\n            \"type\": \"NodePort\",\n            \"externalTrafficPolicy\": \"Local\",\n            \"ports\": [\n                {\n                    \"name\": \"http\",\n                    \"protocol\": \"TCP\",\n                    \"port\": 80,\n                    \"targetPort\": 80,\n                    \"nodePort\": 30080\n                }\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/deploy/soajs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"deploy",
+						"soajs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL nginx",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-tony-v1x1\",\n    \"mode\": \"DaemonSet\",\n    \"cleanup\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD urac",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"recipe\": {\n        \"mode\": \"Deployment\",\n        \"catalog\": {\n            \"id\": \"5df3ec10fa3912534948f00c\",\n            \"version\": \"1\",\n            \"shell\": \"shell/bin/bash\"\n        },\n        \"item\": {\n            \"env\": \"dev\",\n            \"name\": \"urac\",\n            \"group\": \"testing\",\n            \"type\": \"service\",\n            \"subtype\": \"ecom\",\n            \"version\": \"3\"\n        },\n        \"image\": {\n            \"name\": \"soajsorg/urac:3.x\",\n            \"imagePullPolicy\": \"Always\"\n        },\n        \"src\": {\n            \"from\": {\n                \"branch\": \"feature_v3.2\",\n                \"commit\": \"94c585b5804892eb346aea996156db48afc78edd\"\n            },\n            \"repo\": \"soajs.dashboard\",\n            \"owner\": \"soajsorg\"\n        },\n        \"ports\": [\n            {\n                \"name\": \"service\",\n                \"containerPort\": 8001\n            },\n            {\n                \"name\": \"maintenance\",\n                \"containerPort\": 9001\n            }\n        ],\n        \"workingDir\": \"/opt/soajs/soajs.urac/\",\n        \"command\": [\n            \"bash\"\n        ],\n        \"args\": [\n            \"-c\",\n            \"node .\"\n        ],\n        \"readinessProbe\": {\n            \"httpGet\": {\n                \"path\": \"/heartbeat\",\n                \"port\": \"maintenance\"\n            },\n            \"initialDelaySeconds\": 5,\n            \"timeoutSeconds\": 2,\n            \"periodSeconds\": 5,\n            \"successThreshold\": 1,\n            \"failureThreshold\": 3\n        },\n        \"env\": [\n            {\n                \"name\": \"SOAJS_ENV\",\n                \"value\": \"dev\"\n            },\n            {\n                \"name\": \"SOAJS_SOLO\",\n                \"value\": \"true\"\n            }\n        ],\n        \"service\": {\n            \"ports\": [\n                {\n                    \"name\": \"service-port\",\n                    \"protocol\": \"TCP\",\n                    \"port\": 8001,\n                    \"targetPort\": 8001\n                },\n                {\n                    \"name\": \"maintenance-port\",\n                    \"protocol\": \"TCP\",\n                    \"port\": 9001,\n                    \"targetPort\": 9001\n                }\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/deploy/soajs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"deploy",
+						"soajs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL urac",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-urac-v3\",\n    \"mode\": \"Deployment\",\n    \"cleanup\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/pod/log?name=dev-urac-v3-7d4db844f9-zjc4p&follow=false&configuration={{tokenQS}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"pod",
+						"log"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-urac-v3-7d4db844f9-zjc4p"
+						},
+						{
+							"key": "follow",
+							"value": "false"
+						},
+						{
+							"key": "configuration",
+							"value": "{{tokenQS}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Latestversion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/plain",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/latestVersion?itemName=urac&configuration={{tokenQS}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"latestVersion"
+					],
+					"query": [
+						{
+							"key": "itemName",
+							"value": "urac"
+						},
+						{
+							"key": "configuration",
+							"value": "{{tokenQS}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scale",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-urac-v3\",\n    \"scale\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/deployment/scale",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"deployment",
+						"scale"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maintenance urac",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-urac-v3\",\n    \"maintenancePort\": \"9001\",\n    \"operation\":{\n    \t\"route\": \"/heartbeat\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/maintenance?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"maintenance"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exec",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"filter\":  {\"labelSelector\": \"soajs.service.label=dev-urac-v3\"},\n    \"commands\":[\"cat package.json\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/pods/exec?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"pods",
+						"exec"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "redeploy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-urac-v3\",\n    \"mode\": \"Deployment\",\n    \"src\": {\n        \"from\": {\n            \"branch\": \"feature_v3.2\",\n            \"commit\": \"eeeeeeeeeeeee\"\n        }\n    },\n    \"image\": {\n        \"name\": \"soajsorg/urac:latest\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/redeploy?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"redeploy"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exec one",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-urac-v3-76dd4784f4-szcj9\",\n    \"commands\":[\"cat package.json\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/pod/exec?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"pod",
+						"exec"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restart",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-urac-v3\",\n    \"mode\": \"Deployment\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/resource/restart?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"resource",
+						"restart"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inspect Item",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/inspect?configuration={{tokenQS}}&item=%7B%22env%22%3A%22dev%22%2C%22name%22%3A%22urac%22%2C%22version%22%3A%223%22%7D",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"inspect"
+					],
+					"query": [
+						{
+							"key": "configuration",
+							"value": "{{tokenQS}}"
+						},
+						{
+							"key": "item",
+							"value": "%7B%22env%22%3A%22dev%22%2C%22name%22%3A%22urac%22%2C%22version%22%3A%223%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD cdToken",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/infra/cd/token?access_token=7e529e71d1256e3a37785b13650655ab4801700a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"cd",
+						"token"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "7e529e71d1256e3a37785b13650655ab4801700a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD cdToken Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/infra/cd/token?access_token=7e529e71d1256e3a37785b13650655ab4801700a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"cd",
+						"token"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "7e529e71d1256e3a37785b13650655ab4801700a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL cdToken Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"token\":\"bce28033d0c4f71693bcf2cfea0d3d458d6d930f655867b97d64fe5d0927532c66650cf987f2e44bb058e3260aaf24fb7d5d4b8a566b334df2a0e457c8497c1d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/infra/cd/token?access_token=8874e29c0879c42e85635530a956875a8467e102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"cd",
+						"token"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "8874e29c0879c42e85635530a956875a8467e102"
+						},
+						{
+							"key": "token",
+							"value": "e711325cf26ced43701f60fd647481dc4e2fa193fcbf1ca2a632a66ada32a5978287e85015ba824d8b2d0a5e9c1b1d3f5e470f0d47695548c7c9d14652063a10",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET cdToken",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/infra/cd/token?access_token=7e529e71d1256e3a37785b13650655ab4801700a&token=bce28033d0c4f71693bcf2cfea0d3d458d6d930f655867b97d64fe5d0927532c66650cf987f2e44bb058e3260aaf24fb7d5d4b8a566b334df2a0e457c8497c1d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"cd",
+						"token"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "7e529e71d1256e3a37785b13650655ab4801700a"
+						},
+						{
+							"key": "token",
+							"value": "bce28033d0c4f71693bcf2cfea0d3d458d6d930f655867b97d64fe5d0927532c66650cf987f2e44bb058e3260aaf24fb7d5d4b8a566b334df2a0e457c8497c1d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE cdToken",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"status\": \"inactive\",\n\t\"token\":\"bce28033d0c4f71693bcf2cfea0d3d458d6d930f655867b97d64fe5d0927532c66650cf987f2e44bb058e3260aaf24fb7d5d4b8a566b334df2a0e457c8497c1d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/infra/cd/token/status?access_token=7e529e71d1256e3a37785b13650655ab4801700a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"cd",
+						"token",
+						"status"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "7e529e71d1256e3a37785b13650655ab4801700a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET cdTokens",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/infra/cd/tokens?access_token=7e529e71d1256e3a37785b13650655ab4801700a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"cd",
+						"tokens"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "7e529e71d1256e3a37785b13650655ab4801700a"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL resource",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-tony-v1x1-service\",\n    \"mode\": \"DaemonSet\",\n    \"cleanup\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/resource/Service?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"resource",
+						"Service"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
