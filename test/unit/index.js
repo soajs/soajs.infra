@@ -33,7 +33,7 @@ describe("Starting Unit test", () => {
 	});
 	
 	it("Unit test for Model", (done) => {
-		
+		require("./model/mongo/cdtoken.js");
 		done();
 	});
 	
