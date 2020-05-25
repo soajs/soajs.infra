@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "512d8935-7970-4c9c-878c-1f648b9d4c88",
+		"name": "soa_infra_kube",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ITEMS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/resources/item",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"resources",
+						"item"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD ns",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"name\": \"soajs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/namespace",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"namespace"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD nginx",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"recipe\": {\n        \"mode\": \"DaemonSet\",\n        \"catalog\": {\n            \"id\": \"5df3ec10fa3912534948f00c\",\n            \"version\": \"1\",\n            \"shell\": \"shell/bin/bash\"\n        },\n        \"item\": {\n            \"env\": \"dev\",\n            \"name\": \"tony\",\n            \"group\": \"testing\",\n            \"type\": \"service\",\n            \"subtype\": \"ecom\",\n            \"version\": \"1.1\"\n        },\n        \"image\": {\n            \"name\": \"soajsorg/fe:3.x\",\n            \"imagePullPolicy\": \"Always\"\n        },\n        \"src\": {\n            \"from\": {\n                \"branch\": \"feature_v3.2\",\n                \"commit\": \"94c585b5804892eb346aea996156db48afc78edd\"\n            },\n            \"repo\": \"soajs.dashboard\",\n            \"owner\": \"soajsorg\"\n        },\n        \"ports\": [\n            {\n                \"name\": \"http\",\n                \"containerPort\": 80\n            }\n        ],\n        \"workingDir\": \"/opt/soajs/soajs.deployer/deployer/\",\n        \"command\": [\n            \"bash\"\n        ],\n        \"args\": [\n            \"-c\",\n            \"node index.js -T nginx -S install && /opt/soajs/soajs.deployer/deployer/bin/nginx.sh\"\n        ],\n        \"readinessProbe\": {\n            \"httpGet\": {\n                \"path\": \"/\",\n                \"port\": \"http\"\n            },\n            \"initialDelaySeconds\": 5,\n            \"timeoutSeconds\": 2,\n            \"periodSeconds\": 5,\n            \"successThreshold\": 1,\n            \"failureThreshold\": 3\n        },\n        \"env\": [\n            {\n                \"name\": \"SOAJS_ENV\",\n                \"value\": \"dashboard\"\n            },\n            {\n                \"name\": \"SOAJS_NX_DOMAIN\",\n                \"value\": \"test.soajs.org\"\n            }\n        ],\n        \"service\": {\n            \"type\": \"NodePort\",\n            \"externalTrafficPolicy\": \"Local\",\n            \"ports\": [\n                {\n                    \"name\": \"http\",\n                    \"protocol\": \"TCP\",\n                    \"port\": 80,\n                    \"targetPort\": 80,\n                    \"nodePort\": 30080\n                }\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/deploy/soajs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"deploy",
+						"soajs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL nginx",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"item\": {\n        \"env\": \"dev\",\n        \"name\": \"tony\",\n        \"version\": \"1.1\"\n    },\n    \"mode\": \"DaemonSet\",\n    \"cleanup\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD urac",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"recipe\": {\n        \"mode\": \"Deployment\",\n        \"catalog\": {\n            \"id\": \"5df3ec10fa3912534948f00c\",\n            \"version\": \"1\",\n            \"shell\": \"shell/bin/bash\"\n        },\n        \"item\": {\n            \"env\": \"dev\",\n            \"name\": \"urac\",\n            \"group\": \"testing\",\n            \"type\": \"service\",\n            \"subtype\": \"ecom\",\n            \"version\": \"3\"\n        },\n        \"image\": {\n            \"name\": \"soajsorg/urac:3.x\",\n            \"imagePullPolicy\": \"Always\"\n        },\n        \"src\": {\n            \"from\": {\n                \"branch\": \"feature_v3.2\",\n                \"commit\": \"94c585b5804892eb346aea996156db48afc78edd\"\n            },\n            \"repo\": \"soajs.dashboard\",\n            \"owner\": \"soajsorg\"\n        },\n        \"ports\": [\n            {\n                \"name\": \"service\",\n                \"containerPort\": 8001\n            },\n            {\n                \"name\": \"maintenance\",\n                \"containerPort\": 9001\n            }\n        ],\n        \"workingDir\": \"/opt/soajs/soajs.urac/\",\n        \"command\": [\n            \"bash\"\n        ],\n        \"args\": [\n            \"-c\",\n            \"node .\"\n        ],\n        \"readinessProbe\": {\n            \"httpGet\": {\n                \"path\": \"/heartbeat\",\n                \"port\": \"maintenance\"\n            },\n            \"initialDelaySeconds\": 5,\n            \"timeoutSeconds\": 2,\n            \"periodSeconds\": 5,\n            \"successThreshold\": 1,\n            \"failureThreshold\": 3\n        },\n        \"env\": [\n            {\n                \"name\": \"SOAJS_ENV\",\n                \"value\": \"dev\"\n            },\n            {\n                \"name\": \"SOAJS_SOLO\",\n                \"value\": \"true\"\n            }\n        ],\n        \"service\": {\n            \"ports\": [\n                {\n                    \"name\": \"service-port\",\n                    \"protocol\": \"TCP\",\n                    \"port\": 8001,\n                    \"targetPort\": 8001\n                },\n                {\n                    \"name\": \"maintenance-port\",\n                    \"protocol\": \"TCP\",\n                    \"port\": 9001,\n                    \"targetPort\": 9001\n                }\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/deploy/soajs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"deploy",
+						"soajs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL urac",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"item\": {\n        \"env\": \"dev\",\n        \"name\": \"urac\",\n        \"version\": \"3\"\n    },\n    \"mode\": \"Deployment\",\n    \"cleanup\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"podName\": \"dev-tony-v1x1-fccfq\",\n    \"follow\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/pod/log",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"pod",
+						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Latestversion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"itemName\": \"urac\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/latestVersion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"latestVersion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scale",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"name\": \"dev-urac-v3\",\n    \"scale\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/deployment/scale",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"deployment",
+						"scale"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maintenance urac",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"item\": {\n    \t\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/maintenance?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"maintenance"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maintenance urac",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"item\": {\n        \"env\": \"dev\",\n        \"name\": \"urac\",\n        \"maintenancePort\": 9001,\n        \"version\": \"3\"\n    },\n    \"operation\":{\n    \t\"route\": \"/heartbeat\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/maintenance?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"maintenance"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exec",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"filter\":  {\"labelSelector\": \"soajs.service.label=dev-urac-v3\"},\n    \"commands\":[\"cat package.json\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/pods/exec?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"pods",
+						"exec"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "redeploy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IkV4WnRRb1l3Qi1sc2ZMNHEtWWdkWGh1bVkzZmVnQVVEWWZaR3FNWnd5OUkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4temh2NWIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjBmZmIxOWY1LWJhMmUtNDk3OC04NDZhLTk3YWE5YjZkMzIyMCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.mMeqa9RTTbgS-gDEbOBzkVi0-3ORf_JbhZnfr8XZcf1uFjZA9bhNujXjGnabE2JdzOAMV46Mw2lalSfBrtwqkpW4eQhGI40qW1OaIxVByG92FEZr33avt_T_tOzV282pVHyh6WyIkCBnlbWEjoaSmA02QkfEK-uMrGQtAKbi1wxjdCefawlpL0ZSgCcBS8m2PglbBknGfkLw3gqx8UCu24J2Hd2A_2-QaX50tLXKJZoWgsSMgAmsCB-LOX9d6JzfF0FsCN3RZlGRTCJPgzQe3a6hiZBq2jVT8zDleMYpt1zy0ZLvCLQFDx1cnbuxJYzZjXfns2VRnw0CxNvAhSrjwQ\"\n    },\n    \"itemName\": \"urac\",\n    \"src\":{\n    \t\"from\":{\n    \t\t\"branch\": \"feature_v3.2\",\n            \"commit\": \"eeeeeeeeeeeee\"\n    \t}\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4008/kubernetes/item/redeploy?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4008",
+					"path": [
+						"kubernetes",
+						"item",
+						"redeploy"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "dev-tony-v1-dot-1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
