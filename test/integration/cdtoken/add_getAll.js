@@ -16,14 +16,22 @@ describe("Testing add, and getAll cdtoken", () => {
 	
 	
 	it("Success - add getAll", (done) => {
-		let params = {};
+		let params = {
+			body: {
+				"label": "antoine"
+			}
+		};
 		requester('/cd/token', 'post', params, (error, body) => {
 			assert.ifError(error);
 			assert.ok(body);
 			assert.ok(body.data);
 			assert.ok(body.data[0].hasOwnProperty('token'));
 			
-			let params = {};
+			let params = {
+				body: {
+					"label": "antoine"
+				}
+			};
 			requester('/cd/token', 'post', params, (error, body) => {
 				assert.ifError(error);
 				assert.ok(body);

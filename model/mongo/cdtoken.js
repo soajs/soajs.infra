@@ -49,14 +49,15 @@ function Cdtoken(service, options, mongoCore) {
 
 Cdtoken.prototype.add = function (data, cb) {
 	let __self = this;
-	if (!data || !data.token || !data.status || !data.urac) {
-		let error = new Error("cdToken: token, urac and status are required.");
+	if (!data || !data.token || !data.label || !data.status || !data.urac) {
+		let error = new Error("cdToken: token, label, urac and status are required.");
 		return cb(error, null);
 	}
 	
 	let options = {};
 	let doc = {
 		type: "cdtoken",
+		label: data.label,
 		token: data.token,
 		status: data.status,
 		ts: new Date().getTime(),

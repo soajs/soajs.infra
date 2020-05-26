@@ -61,6 +61,7 @@ describe("Unit test for: model - user", function () {
 	it("add cdtoken", function (done) {
 		let data = {
 			"token": token,
+			"label": "antoine",
 			"status": "active",
 			"urac": {
 				"id": "1111111111",
@@ -69,7 +70,7 @@ describe("Unit test for: model - user", function () {
 		};
 		modelObj.add({}, (err) => {
 			assert.ok(err);
-			assert.deepEqual(err.message, "cdToken: token, urac and status are required.");
+			assert.deepEqual(err.message, "cdToken: token, label, urac and status are required.");
 			
 			modelObj.add(data, (err, response) => {
 				assert.ok(response);
@@ -123,6 +124,7 @@ describe("Unit test for: model - user", function () {
 		let data = {
 			"token": token1,
 			"status": "active",
+			"label": "antoine",
 			"urac": {
 				"id": "1111111111",
 				"username": "antoinehage"
@@ -135,6 +137,7 @@ describe("Unit test for: model - user", function () {
 			let data = {
 				"token": token2,
 				"status": "active",
+				"label": "antoine",
 				"urac": {
 					"id": "2222222222",
 					"username": "antoinehage"
@@ -147,6 +150,7 @@ describe("Unit test for: model - user", function () {
 				let data = {
 					"token": token3,
 					"status": "active",
+					"label": "antoine",
 					"urac": {
 						"id": "3333333333",
 						"username": "antoinehage"

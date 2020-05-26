@@ -568,6 +568,13 @@ localConfig.schema = {
 			"_apiInfo": {
 				"l": "This API adds a deployment auth token.",
 				"group": "Token"
+			},
+			"label": {
+				"source": ["body.label"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
 			}
 		},
 		

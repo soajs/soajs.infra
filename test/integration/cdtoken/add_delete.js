@@ -16,7 +16,11 @@ describe("Testing add & delete cdtoken", () => {
 	
 	
 	it("Success - add delete", (done) => {
-		let params = {};
+		let params = {
+			body: {
+				"label": "antoine"
+			}
+		};
 		requester('/cd/token', 'post', params, (error, body) => {
 			assert.ifError(error);
 			assert.ok(body);
