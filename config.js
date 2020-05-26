@@ -21,7 +21,7 @@ let localConfig = {
 	},
 	"serviceVersion": 1,
 	"serviceName": "infra",
-	"serviceGroup": "SOAJS Core Services",
+	"serviceGroup": "Console",
 	"servicePort": 4008,
 	"requestTimeout": 30,
 	"requestTimeoutRenewal": 5,

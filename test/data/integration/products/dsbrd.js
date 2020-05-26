@@ -9,7 +9,7 @@ let prod = {
 	scope: {
 		acl: {
 			dashboard: {
-				marketplace: {
+				infra: {
 					"1": {
 						access: true
 					}
@@ -25,8 +25,7 @@ let prod = {
 			description: "This package is used to provide anyone access to login and forgot password. Once logged in the package linked to the user tenant will take over thus providing the right access to the logged in user.",
 			acl: {
 				dashboard: {
-					
-					marketplace: [
+					infra: [
 						{
 							version: "1"
 						}
@@ -42,7 +41,7 @@ let prod = {
 			locked: true,
 			acl: {
 				dashboard: {
-					marketplace: [
+					infra: [
 						{
 							version: "1"
 						}
