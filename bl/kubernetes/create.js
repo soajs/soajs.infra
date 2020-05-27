@@ -59,7 +59,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			if (options.type === "dockercfg") {
+			if (options && options.type === "dockercfg") {
 				bl.driver.create.secret_dockercfg(client, {
 					"namespace": config.namespace,
 					"name": inputmaskData.name,

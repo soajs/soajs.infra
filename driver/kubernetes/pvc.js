@@ -15,14 +15,14 @@ let bl = {
 		if (!options || !options.name || !options.namespace) {
 			return cb(new Error("PVC delete: options is required with {name, and namespace}"));
 		}
-		wrapper.persistentvolumeclaim.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
+		wrapper.pvc.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			if (error) {
 				return cb(error);
 			}
 			if (!item) {
 				return cb(new Error("Unable to find the PVC [" + options.name + "] to delete."));
 			}
-			wrapper.persistentvolumeclaim.delete(client, {
+			wrapper.pvc.delete(client, {
 				namespace: options.namespace,
 				name: options.name
 			}, (error) => {
@@ -37,7 +37,7 @@ let bl = {
 		if (!options || !options.name || !options.namespace) {
 			return cb(new Error("PVC getOne: options is required with {name, and namespace}"));
 		}
-		wrapper.persistentvolumeclaim.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
+		wrapper.pvc.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			return cb(error, item);
 		});
 	},
@@ -56,15 +56,13 @@ let bl = {
 		if (!options || !options.body || !options.namespace) {
 			return cb(new Error("PVC apply: options is required with {body, and namespace}"));
 		}
-		return wrapper.persistentvolumeclaim.post(client, {namespace: options.namespace, body: options.body}, cb);
+		return wrapper.pvc.post(client, {namespace: options.namespace, body: options.body}, cb);
 	},
 	"create": (client, options, cb) => {
 		if (!options || !options.accessModes || !options.name || !options.namespace) {
 			return cb(new Error("PVC create: options is required with {accessModes, name, and namespace}"));
 		}
-		if (!Array.isArray(options.content) || options.content.length === 0) {
-			return cb(new Error("PVC content must be an array with at least one item."));
-		}
+		
 		let recipe = {
 			"kind": 'PersistentVolumeClaim',
 			"apiVersion": 'v1',
@@ -85,8 +83,7 @@ let bl = {
 				"volumeMode": options.volumeMode || "Filesystem"
 			}
 		};
-		
-		wrapper.persistentvolumeclaim.post(client, {namespace: options.namespace, body: recipe}, cb);
+		wrapper.pvc.post(client, {namespace: options.namespace, body: recipe}, cb);
 	}
 };
 module.exports = bl;

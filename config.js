@@ -842,8 +842,13 @@ localConfig.schema = {
 				"source": ["body.accessModes"],
 				"required": true,
 				"validation": {
-					"type": "string",
-					"enum": ["ReadWriteMany", "ReadOnlyMany", "ReadWriteOnce"]
+					"type": "array",
+					"minItems": 1,
+					"uniqueItems": true,
+					'items': {
+						'type': "string",
+						'enum': ["ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany"]
+					}
 				}
 			},
 			"storage": {
@@ -1047,7 +1052,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ["body.name"],
+				"source": ["query.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1061,7 +1066,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ["body.name"],
+				"source": ["query.name"],
 				"required": true,
 				"validation": {
 					"type": "string"

@@ -15,9 +15,6 @@ let bl = {
 		if (!options || !options.content || !options.name || !options.namespace) {
 			return cb(new Error("secret_dockercfg create: options is required with {content, name, and namespace}"));
 		}
-		if (!Array.isArray(options.content) || options.content.length === 0) {
-			return cb(new Error("secret content must be an array with at least one item."));
-		}
 		let recipe = {
 			kind: 'Secret',
 			apiVersion: 'v1',

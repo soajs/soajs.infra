@@ -1,7 +1,7 @@
 'use strict';
 
 
-const secret = {
+const pvc = {
 	/**
 	 * Secret Wrapper
 	 */
@@ -44,4 +44,4 @@ const secret = {
 	}
 };
 
-module.exports = secret;
+module.exports = pvc;

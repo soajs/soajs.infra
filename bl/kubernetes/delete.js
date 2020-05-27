@@ -57,7 +57,7 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			bl.driver.delete.secret_opaque(client, {
+			bl.driver.delete.secret(client, {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {
