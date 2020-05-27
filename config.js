@@ -49,6 +49,7 @@ localConfig.errors = {
 	503: "Error while getting all resources",
 	504: "Unsupported Mode.",
 	505: "Unable to get latest version!",
+	506: "The resource kind must match the specified mode.",
 	533: "No changes to update",
 	540: "You can no longer add cd Token, the max allowed is: " + localConfig.maxAllowed,
 	
