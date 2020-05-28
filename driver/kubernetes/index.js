@@ -23,6 +23,7 @@ const _daemonset = require("./daemonset.js");
 const _cronjob = require("./cronjob.js");
 const _node = require("./node.js");
 const _pod = require("./pod.js");
+const _pvc = require("./pvc.js");
 const _pv = require("./pv.js");
 const _storageclass = require("./storageclass.js");
 
