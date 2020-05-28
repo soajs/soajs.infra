@@ -155,15 +155,7 @@ describe("Unit test for: BL - kubernetes delete ...", () => {
 		}
 		
 		DRIVER.delete = {
-			secret_dockercfg: (client, options, cb) => {
-				if (options && options.name && options.name === "error") {
-					let error = new Error("DRIVER error ...");
-					return cb(error, null);
-				} else {
-					return cb(null, options);
-				}
-			},
-			secret_opaque: (client, options, cb) => {
+			secret: (client, options, cb) => {
 				if (options && options.name && options.name === "error") {
 					let error = new Error("DRIVER error ...");
 					return cb(error, null);
