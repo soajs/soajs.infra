@@ -585,13 +585,6 @@ localConfig.schema = {
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
-			"name": {
-				"source": ["body.name"],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			},
 			"mode": {
 				"source": ["params.mode"],
 				"required": true,
