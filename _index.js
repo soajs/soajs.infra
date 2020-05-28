@@ -41,8 +41,13 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.delete("/kubernetes/hpa", function (req, res) {
-				bl.kubernetes.delete.hpa(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.delete("/kubernetes/pv", function (req, res) {
+				bl.kubernetes.delete.pv(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/storageclass", function (req, res) {
+				bl.kubernetes.delete.storageclass(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

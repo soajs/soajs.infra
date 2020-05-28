@@ -125,7 +125,7 @@ localConfig.schema = {
 		
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the information of a resource of mode (Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC).",
+				"l": "This API returns the information of a resource of mode (Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -141,13 +141,13 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass"]
 				}
 			}
 		},
 		"/kubernetes/resources/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the information of all the resources of mode (Node Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC).",
+				"l": "This API returns the information of all the resources of mode (Node Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -191,7 +191,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC"]
+					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass"]
 				}
 			},
 			"type": {
@@ -528,7 +528,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API updates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA).",
+				"l": "This API updates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PV, StorageClass).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -544,7 +544,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PV", "StorageClass"]
 				}
 			},
 			"body": {
@@ -556,7 +556,7 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
+							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolume", "StorageClass"]
 						}
 					}
 				}
@@ -581,7 +581,7 @@ localConfig.schema = {
 		
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC, Secret).",
+				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC, Secret, PV, StorageClass).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -590,7 +590,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC", "Secret"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC", "Secret", "PV", "StorageClass"]
 				}
 			},
 			"body": {
@@ -602,7 +602,7 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim", "Secret"]
+							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim", "Secret", "PersistentVolume", "StorageClass"]
 						}
 					}
 				}
@@ -963,7 +963,7 @@ localConfig.schema = {
 		
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API deletes a resource of type (Service, Deployment, DaemonSet, CronJob) as well as the related HPA of a deployment.",
+				"l": "This API deletes a resource of type (Service, Deployment, DaemonSet, CronJob, HPA) as well as the related HPA of a deployment.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -979,7 +979,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
 				}
 			}
 		},
@@ -1011,9 +1011,23 @@ localConfig.schema = {
 			}
 		},
 		
-		"/kubernetes/hpa": {
+		"/kubernetes/pv": {
 			"_apiInfo": {
-				"l": "This API deletes an HPA.",
+				"l": "This API deletes a PV.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/storageclass": {
+			"_apiInfo": {
+				"l": "This API deletes a StorageClass.",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],

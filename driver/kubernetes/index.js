@@ -23,7 +23,8 @@ const _daemonset = require("./daemonset.js");
 const _cronjob = require("./cronjob.js");
 const _node = require("./node.js");
 const _pod = require("./pod.js");
-const _pvc = require("./pvc.js");
+const _pv = require("./pv.js");
+const _storageclass = require("./storageclass.js");
 
 let driver = {
 	"connect": (config, cb) => {
@@ -55,7 +56,9 @@ let driver = {
 		"deployment": _deployment.update,
 		"daemonset": _daemonset.update,
 		"cronjob": _cronjob.update,
-		"hpa": _hpa.update
+		"hpa": _hpa.update,
+		"pv": _pv.update,
+		"storageclass": _storageclass.update
 	},
 	
 	"delete": {
@@ -63,6 +66,8 @@ let driver = {
 		"deployment": _deployment.delete,
 		"daemonset": _daemonset.delete,
 		"cronjob": _cronjob.delete,
+		"pv": _pv.delete,
+		"storageclass": _storageclass.delete,
 		
 		"hpa": _hpa.delete,
 		"namespace": _namespace.delete,
@@ -79,7 +84,9 @@ let driver = {
 		"cronjob": _cronjob.create,
 		"hpa": _hpa.apply,
 		"secret": _secret.apply,
-		"pvc": _pvc.apply
+		"pvc": _pvc.apply,
+		"pv": _pv.apply,
+		"storageclass": _storageclass.apply
 	},
 	
 	"create": {
@@ -106,6 +113,8 @@ let driver = {
 			"secret": _secret.get,
 			"pvc": _pvc.get,
 			"hpa": _hpa.get,
+			"pv": _pv.get,
+			"storageclass": _storageclass.get,
 			
 			"namespace": _namespace.get
 		},
@@ -118,6 +127,8 @@ let driver = {
 			"secret": _secret.getOne,
 			"pvc": _pvc.getOne,
 			"hpa": _hpa.getOne,
+			"pv": _pv.getOne,
+			"storageclass": _storageclass.getOne,
 			
 			"namespace": _namespace.getOne
 		},

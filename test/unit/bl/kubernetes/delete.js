@@ -95,60 +95,6 @@ describe("Unit test for: BL - kubernetes delete ...", () => {
 		});
 	});
 	
-	it("Delete HPA", function (done) {
-		function DRIVER() {
-			console.log("Kubernetes driver");
-		}
-		
-		DRIVER.delete = {
-			hpa: (client, options, cb) => {
-				if (options && options.name && options.name === "error") {
-					let error = new Error("DRIVER error ...");
-					return cb(error, null);
-				} else {
-					return cb(null, options);
-				}
-			}
-		};
-		BL.driver = DRIVER;
-		
-		BL.hpa(soajs, null, null, (error) => {
-			assert.ok(error);
-			assert.deepEqual(error.code, 400);
-			
-			BL.hpa(soajs, {"configuration": {}}, null, (error) => {
-				assert.ok(error);
-				assert.deepEqual(error.code, 702);
-				
-				BL.hpa(soajs, {
-					"configuration": {
-						"type": "secret",
-						"namespace": "soajs",
-						"url": "https://kubernetes.docker.internal:6443",
-						"token": "TOKEN"
-					}, "name": "error"
-				}, null, (error) => {
-					assert.ok(error);
-					assert.deepEqual(error.code, 702);
-					
-					BL.hpa(soajs, {
-						"configuration": {
-							"type": "secret",
-							"namespace": "soajs",
-							"url": "https://kubernetes.docker.internal:6443",
-							"token": "TOKEN"
-						}, "name": "anyname"
-					}, null, (error, response) => {
-						assert.ok(response);
-						assert.deepEqual(response, {deleted: true});
-						done();
-					});
-				});
-			});
-			
-		});
-	});
-	
 	it("Delete secret", function (done) {
 		function DRIVER() {
 			console.log("Kubernetes driver");
@@ -437,6 +383,114 @@ describe("Unit test for: BL - kubernetes delete ...", () => {
 							"url": "https://kubernetes.docker.internal:6443",
 							"token": "TOKEN"
 						}, "filter": "anyname"
+					}, null, (error, response) => {
+						assert.ok(response);
+						assert.deepEqual(response, {deleted: true});
+						done();
+					});
+				});
+			});
+			
+		});
+	});
+	
+	it("Delete PV", function (done) {
+		function DRIVER() {
+			console.log("Kubernetes driver");
+		}
+		
+		DRIVER.delete = {
+			pv: (client, options, cb) => {
+				if (options && options.name && options.name === "error") {
+					let error = new Error("DRIVER error ...");
+					return cb(error, null);
+				} else {
+					return cb(null, options);
+				}
+			}
+		};
+		BL.driver = DRIVER;
+		
+		BL.pv(soajs, null, null, (error) => {
+			assert.ok(error);
+			assert.deepEqual(error.code, 400);
+			
+			BL.pv(soajs, {"configuration": {}}, null, (error) => {
+				assert.ok(error);
+				assert.deepEqual(error.code, 702);
+				
+				BL.pv(soajs, {
+					"configuration": {
+						"type": "secret",
+						"namespace": "soajs",
+						"url": "https://kubernetes.docker.internal:6443",
+						"token": "TOKEN"
+					}, "name": "error"
+				}, null, (error) => {
+					assert.ok(error);
+					assert.deepEqual(error.code, 702);
+					
+					BL.pv(soajs, {
+						"configuration": {
+							"type": "secret",
+							"namespace": "soajs",
+							"url": "https://kubernetes.docker.internal:6443",
+							"token": "TOKEN"
+						}, "name": "anyname"
+					}, null, (error, response) => {
+						assert.ok(response);
+						assert.deepEqual(response, {deleted: true});
+						done();
+					});
+				});
+			});
+			
+		});
+	});
+	
+	it("Delete StorageClass", function (done) {
+		function DRIVER() {
+			console.log("Kubernetes driver");
+		}
+		
+		DRIVER.delete = {
+			storageclass: (client, options, cb) => {
+				if (options && options.name && options.name === "error") {
+					let error = new Error("DRIVER error ...");
+					return cb(error, null);
+				} else {
+					return cb(null, options);
+				}
+			}
+		};
+		BL.driver = DRIVER;
+		
+		BL.storageclass(soajs, null, null, (error) => {
+			assert.ok(error);
+			assert.deepEqual(error.code, 400);
+			
+			BL.storageclass(soajs, {"configuration": {}}, null, (error) => {
+				assert.ok(error);
+				assert.deepEqual(error.code, 702);
+				
+				BL.storageclass(soajs, {
+					"configuration": {
+						"type": "secret",
+						"namespace": "soajs",
+						"url": "https://kubernetes.docker.internal:6443",
+						"token": "TOKEN"
+					}, "name": "error"
+				}, null, (error) => {
+					assert.ok(error);
+					assert.deepEqual(error.code, 702);
+					
+					BL.storageclass(soajs, {
+						"configuration": {
+							"type": "secret",
+							"namespace": "soajs",
+							"url": "https://kubernetes.docker.internal:6443",
+							"token": "TOKEN"
+						}, "name": "anyname"
 					}, null, (error, response) => {
 						assert.ok(response);
 						assert.deepEqual(response, {deleted: true});

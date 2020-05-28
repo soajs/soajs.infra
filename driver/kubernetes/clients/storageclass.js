@@ -9,7 +9,7 @@
 'use strict';
 
 
-const storageclasses = {
+const storageclass = {
 	
 	post(deployer, opts, cb) {
 		async function main() {
@@ -64,4 +64,4 @@ const storageclasses = {
 	}
 };
 
-module.exports = storageclasses;
+module.exports = storageclass;

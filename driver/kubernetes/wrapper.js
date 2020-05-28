@@ -26,6 +26,8 @@ const apiService = require('./clients/apiservice.js');
 const metrics = require('./clients/metrics.js');
 const cronjob = require('./clients/cronjob.js');
 const persistentvolumeclaim = require('./clients/persistentvolumeclaim.js');
+const persistentvolume = require('./clients/persistentvolume.js');
+const storageclass = require('./clients/storageclass.js');
 
 const wrapper = {
 	/**
@@ -117,6 +119,16 @@ const wrapper = {
 	 * persistent volume claim Wrapper
 	 */
 	pvc: persistentvolumeclaim,
+	
+	/**
+	 * persistent volumes Wrapper
+	 */
+	pv: persistentvolume,
+	
+	/**
+	 * storage classes Wrapper
+	 */
+	storageclass: storageclass,
 };
 
 module.exports = wrapper;
