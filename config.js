@@ -581,7 +581,7 @@ localConfig.schema = {
 		
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC).",
+				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC, Secret).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -597,7 +597,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC", "Secret"]
 				}
 			},
 			"body": {
@@ -609,7 +609,7 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim"]
+							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim", "Secret"]
 						}
 					}
 				}

@@ -45,6 +45,12 @@ let bl = {
 		wrapper.secret.get(client, {namespace: options.namespace, qs: options.filter || null}, (error, items) => {
 			return cb(error, items);
 		});
-	}
+	},
+	"apply": (client, options, cb) => {
+		if (!options || !options.body || !options.namespace) {
+			return cb(new Error("secret apply: options is required with {body, and namespace}"));
+		}
+		return wrapper.secret.post(client, {namespace: options.namespace, body: options.body}, cb);
+	},
 };
 module.exports = bl;

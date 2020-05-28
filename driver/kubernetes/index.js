@@ -78,6 +78,7 @@ let driver = {
 		"daemonset": _daemonset.create,
 		"cronjob": _cronjob.create,
 		"hpa": _hpa.apply,
+		"secret": _secret.apply,
 		"pvc": _pvc.apply
 	},
 	

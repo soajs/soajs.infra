@@ -9,11 +9,11 @@
 'use strict';
 
 
-const storageclasses = {
+const persistentvolume = {
 	
 	post(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses.post({body: opts.body});
+			return await deployer.api.v1.persistentvolumes.post({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -25,7 +25,7 @@ const storageclasses = {
 	
 	put(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses(opts.name).put({body: opts.body});
+			return await deployer.api.v1.persistentvolumes(opts.name).put({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -38,9 +38,9 @@ const storageclasses = {
 	get(deployer, opts, cb) {
 		async function main() {
 			if (opts.name) {
-				return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses(opts.name).get({qs: opts.qs});
+				return await deployer.api.v1.persistentvolumes(opts.name).get({qs: opts.qs});
 			} else {
-				return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses.get({qs: opts.qs});
+				return await deployer.api.v1.persistentvolumes.get({qs: opts.qs});
 			}
 		}
 		
@@ -53,7 +53,7 @@ const storageclasses = {
 	
 	delete(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses(opts.name).delete({qs: opts.qs});
+			return await deployer.api.v1.persistentvolumes(opts.name).delete({qs: opts.qs});
 		}
 		
 		main().then((result) => {
@@ -64,4 +64,4 @@ const storageclasses = {
 	}
 };
 
-module.exports = storageclasses;
+module.exports = persistentvolume;

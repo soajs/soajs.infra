@@ -78,13 +78,14 @@ let bl = {
 			if (!bl.driver.apply[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			if (inputmaskData.body && inputmaskData.body.kind){
+			/*
+			if (inputmaskData.body && inputmaskData.body.kind) {
 				let kind = inputmaskData.body.kind.toLowerCase();
-				if (kind !== mode){
+				if (kind !== mode) {
 					return cb(bl.handleError(soajs, 506, null));
 				}
 			}
-			
+			*/
 			bl.driver.apply[mode](client, {
 				"namespace": config.namespace,
 				"body": inputmaskData.body
