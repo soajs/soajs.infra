@@ -532,13 +532,6 @@ localConfig.schema = {
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
-			"name": {
-				"source": ["body.name"],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			},
 			"mode": {
 				"source": ["params.mode"],
 				"required": true,
@@ -557,6 +550,16 @@ localConfig.schema = {
 							"required": true,
 							"type": "string",
 							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolume", "StorageClass"]
+						},
+						"metadata": {
+							"required": true,
+							"type": "object",
+							"properties": {
+								"name": {
+									"required": true,
+									"type": "object"
+								}
+							}
 						}
 					}
 				}
