@@ -557,7 +557,7 @@ localConfig.schema = {
 							"properties": {
 								"name": {
 									"required": true,
-									"type": "object"
+									"type": "string"
 								}
 							}
 						}
