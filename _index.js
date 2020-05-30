@@ -110,7 +110,7 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.put("/kubernetes/resource", function (req, res) {
+			service.put("/kubernetes/resource/:mode", function (req, res) {
 				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});

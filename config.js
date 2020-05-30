@@ -971,7 +971,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ["body.name"],
+				"source": ["query.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -982,7 +982,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA"]
 				}
 			}
 		},
@@ -1021,7 +1021,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"name": {
-				"source": ["body.name"],
+				"source": ["query.name"],
 				"required": true,
 				"validation": {
 					"type": "string"

@@ -1,0 +1,41 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "DaemonSet",
+  "metadata": {
+    "name": "daemonset",
+    "labels": {
+      "k8s-app": "daemonset"
+    }
+  },
+  "spec": {
+    "selector": {
+      "matchLabels": {
+        "name": "daemonset"
+      }
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "name": "daemonset"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "daemonset",
+            "image": "soajsorg/node:3.x",
+            "resources": {
+              "limits": {
+                "memory": "200Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "200Mi"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
