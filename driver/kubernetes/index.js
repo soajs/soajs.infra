@@ -120,6 +120,7 @@ let driver = {
 			"namespace": _namespace.get
 		},
 		"one": {
+			"node": _node.getOne,
 			"service": _service.getOne,
 			"deployment": _deployment.getOne,
 			"daemonset": _daemonset.getOne,
