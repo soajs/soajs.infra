@@ -3,8 +3,14 @@ let client = require("../client").client;
 //
 // Fetch all the pods
 async function main() {
-	return await client.apis["metrics.k8s.io"].v1beta1.pods.get();
-	//return await client.apis["metrics.k8s.io"].v1beta1.namespaces("soajs").pods("dev-urac-v3-86d66b758c-lhcz8").get();
+	
+	//return await client.apis["metrics.k8s.io"].v1beta1.nodes.get();
+	//return await client.apis["metrics.k8s.io"].v1beta1.nodes("docker-desktop").get();
+	
+	//return await client.apis["metrics.k8s.io"].v1beta1.pods.get();
+	
+	return await client.apis["metrics.k8s.io"].v1beta1.namespaces("soajs").pods.get();
+	return await client.apis["metrics.k8s.io"].v1beta1.namespaces("soajs").pods("dev-urac-v3-86d66b758c-lhcz8").get();
 }
 //get namespaces
 main().then((service) => {

@@ -3,7 +3,7 @@ let client = require("../client").client;
 //
 // Fetch all the pods
 async function main() {
-	return await client.api["v1"].namespaces("soajs").pods("dev-urac-v3-86d66b758c-lhcz8").get();
+	return await client.apis["rbac.authorization.k8s.io"].v1.clusterroles("system:aggregated-metrics-reader").get();
 }
 //get namespaces
 main().then((service) => {
