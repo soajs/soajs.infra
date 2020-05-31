@@ -13,20 +13,13 @@ const metrics = {
 	/**
 	 * metrics Wrapper
 	 */
-	getPod(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis["metrics.k8s.io"].v1beta1.namespaces(opts.namespace).pods(opts.name).get();
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
-	},
 	getPods(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["metrics.k8s.io"].v1beta1.pods.get();
+			if (opts.name) {
+				return await deployer.apis["metrics.k8s.io"].v1beta1.namespace(opts.namespace).pods(opts.name).get();
+			} else {
+				return await deployer.apis["metrics.k8s.io"].v1beta1.pods.get();
+			}
 		}
 		
 		main().then((result) => {
@@ -37,8 +30,13 @@ const metrics = {
 	},
 	getNodes(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["metrics.k8s.io"].v1beta1.nodes.get();
+			if (opts.name) {
+				return await deployer.apis["metrics.k8s.io"].v1beta1.nodes(opts.name).get();
+			} else {
+				return await deployer.apis["metrics.k8s.io"].v1beta1.nodes.get();
+			}
 		}
+		
 		main().then((result) => {
 			return cb(null, result.body);
 		}).catch((err) => {

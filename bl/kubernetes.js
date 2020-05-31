@@ -120,9 +120,6 @@ let bl = {
 							if (oneResource.metadata && oneResource.metadata.name) {
 								opts.name = oneResource.metadata.name;
 							}
-							if (!bl.driver[options.action]) {
-								return callback(new Error("action [" + options.action + "] not supported."));
-							}
 							
 							let mode = oneResource.kind.toLowerCase();
 							if (mode === "horizontalpodautoscaler") {
@@ -133,14 +130,18 @@ let bl = {
 								mode = "pv";
 							}
 							let exec = bl.driver;
-							if (options.action === "get.one") {
+							let action = options.action;
+							if (action === "get.one") {
 								exec = bl.driver.get;
-								options.action = "one";
+								action = "one";
 							}
-							if (!exec[options.action][mode]) {
+							if (!exec[action]) {
+								return callback(new Error("action [" + options.action + "] not supported."));
+							}
+							if (!exec[action][mode]) {
 								return callback(new Error("resource [" + mode + "] not supported."));
 							}
-							exec[options.action][mode](client, opts, (error, item) => {
+							exec[action][mode](client, opts, (error, item) => {
 								let msg = "done";
 								if (error) {
 									if (options.action === "delete" && error.code === 404) {
