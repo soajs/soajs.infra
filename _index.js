@@ -31,6 +31,11 @@ function run(serviceStartCb) {
 				});
 			});
 			
+			service.delete("/kubernetes/plugin", function (req, res) {
+				bl.kubernetes.plugin.delete(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.delete("/kubernetes/resource/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -129,6 +134,11 @@ function run(serviceStartCb) {
 				});
 			});
 			
+			service.get("/kubernetes/plugin", function (req, res) {
+				bl.kubernetes.plugin.get(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.get("/kubernetes/resource/:mode", function (req, res) {
 				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -240,6 +250,11 @@ function run(serviceStartCb) {
 				});
 			});
 			
+			service.post("/kubernetes/plugin", function (req, res) {
+				bl.kubernetes.plugin.deploy(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.post("/kubernetes/resource/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));

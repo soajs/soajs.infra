@@ -13,6 +13,17 @@ const metrics = {
 	/**
 	 * metrics Wrapper
 	 */
+	getPod(deployer, opts, cb) {
+		async function main() {
+			return await deployer.apis["metrics.k8s.io"].v1beta1.namespaces(opts.namespace).pods(opts.name).get();
+		}
+		
+		main().then((result) => {
+			return cb(null, result.body);
+		}).catch((err) => {
+			return cb(err);
+		});
+	},
 	getPods(deployer, opts, cb) {
 		async function main() {
 			return await deployer.apis["metrics.k8s.io"].v1beta1.pods.get();

@@ -26,7 +26,11 @@ const serviceAccount = {
 	},
 	get(deployer, opts, cb) {
 		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).serviceaccounts(opts.name).get({qs: opts.qs});
+			if (opts.name) {
+				return await deployer.api.v1.namespaces(opts.namespace).serviceaccounts(opts.name).get({qs: opts.qs});
+			} else {
+				return await deployer.api.v1.namespaces(opts.namespace).serviceaccounts.get({qs: opts.qs});
+			}
 		}
 		
 		main().then((result) => {

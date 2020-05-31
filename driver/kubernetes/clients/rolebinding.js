@@ -15,7 +15,7 @@ const rolebinding = {
 	 */
 	post(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["rbac.authorization.k8s.io"].v1alpha1.namespaces(opts.namespace).rolebindings.post({body: opts.body});
+			return await deployer.apis["rbac.authorization.k8s.io"].v1.namespaces(opts.namespace).rolebindings.post({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -26,7 +26,11 @@ const rolebinding = {
 	},
 	get(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["rbac.authorization.k8s.io"].v1alpha1.namespaces(opts.namespace).rolebindings(opts.name).get({qs: opts.qs});
+			if (opts.name) {
+				return await deployer.apis["rbac.authorization.k8s.io"].v1.namespaces(opts.namespace).rolebindings(opts.name).get({qs: opts.qs});
+			} else {
+				return await deployer.apis["rbac.authorization.k8s.io"].v1.namespaces(opts.namespace).rolebindings.get({qs: opts.qs});
+			}
 		}
 		
 		main().then((result) => {
@@ -37,7 +41,7 @@ const rolebinding = {
 	},
 	delete(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["rbac.authorization.k8s.io"].v1alpha1.namespaces(opts.namespace).rolebindings(opts.name).delete();
+			return await deployer.apis["rbac.authorization.k8s.io"].v1.namespaces(opts.namespace).rolebindings(opts.name).delete();
 		}
 		
 		main().then((result) => {

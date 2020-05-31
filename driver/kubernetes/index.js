@@ -27,6 +27,12 @@ const _pvc = require("./pvc.js");
 const _pv = require("./pv.js");
 const _storageclass = require("./storageclass.js");
 
+const _clusterrole = require("./clusterrole.js");
+const _clusterrolebinding = require("./clusterrolebinding.js");
+const _rolebinding = require("./rolebinding.js");
+const _apiservice = require("./apiservice.js");
+const _serviceaccount = require("./serviceaccount.js");
+
 let driver = {
 	"connect": (config, cb) => {
 		if (!config.token) {
@@ -75,7 +81,13 @@ let driver = {
 		"secret": _secret.delete,
 		"pvc": _pvc.delete,
 		
-		"pods": _pod.delete
+		"pods": _pod.delete,
+		
+		"clusterrole": _clusterrole.delete,
+		"clusterrolebinding": _clusterrolebinding.delete,
+		"rolebinding": _rolebinding.delete,
+		"apiservice": _apiservice.delete,
+		"serviceaccount": _serviceaccount.delete
 	},
 	
 	"apply": {
@@ -87,7 +99,13 @@ let driver = {
 		"secret": _secret.apply,
 		"pvc": _pvc.apply,
 		"pv": _pv.apply,
-		"storageclass": _storageclass.apply
+		"storageclass": _storageclass.apply,
+		
+		"clusterrole": _clusterrole.apply,
+		"clusterrolebinding": _clusterrolebinding.apply,
+		"rolebinding": _rolebinding.apply,
+		"apiservice": _apiservice.apply,
+		"serviceaccount": _serviceaccount.apply
 	},
 	
 	"create": {
@@ -117,7 +135,13 @@ let driver = {
 			"pv": _pv.get,
 			"storageclass": _storageclass.get,
 			
-			"namespace": _namespace.get
+			"namespace": _namespace.get,
+			
+			"clusterrole": _clusterrole.get,
+			"clusterrolebinding": _clusterrolebinding.get,
+			"rolebinding": _rolebinding.get,
+			"apiservice": _apiservice.get,
+			"serviceaccount": _serviceaccount.get
 		},
 		"one": {
 			"node": _node.getOne,
@@ -132,7 +156,13 @@ let driver = {
 			"pv": _pv.getOne,
 			"storageclass": _storageclass.getOne,
 			
-			"namespace": _namespace.getOne
+			"namespace": _namespace.getOne,
+			
+			"clusterrole": _clusterrole.getOne,
+			"clusterrolebinding": _clusterrolebinding.getOne,
+			"rolebinding": _rolebinding.getOne,
+			"apiservice": _apiservice.getOne,
+			"serviceaccount": _serviceaccount.getOne
 		},
 		"serviceIps": _service.getIps,
 		"podIps": _pod.getIps

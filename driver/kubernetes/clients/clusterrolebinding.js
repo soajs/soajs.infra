@@ -15,7 +15,7 @@ const clusterrolebindings = {
 	 */
 	post(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["rbac.authorization.k8s.io"].v1alpha1.clusterrolebindings.post({body: opts.body});
+			return await deployer.apis["rbac.authorization.k8s.io"].v1.clusterrolebindings.post({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -26,7 +26,11 @@ const clusterrolebindings = {
 	},
 	get(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["rbac.authorization.k8s.io"].v1alpha1.clusterrolebindings(opts.name).get({qs: opts.qs});
+			if (opts.name) {
+				return await deployer.apis["rbac.authorization.k8s.io"].v1.clusterrolebindings(opts.name).get({qs: opts.qs});
+			} else {
+				return await deployer.apis["rbac.authorization.k8s.io"].v1.clusterrolebindings.get({qs: opts.qs});
+			}
 		}
 		
 		main().then((result) => {
@@ -37,7 +41,7 @@ const clusterrolebindings = {
 	},
 	delete(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["rbac.authorization.k8s.io"].v1alpha1.clusterrolebindings(opts.name).delete();
+			return await deployer.apis["rbac.authorization.k8s.io"].v1.clusterrolebindings(opts.name).delete();
 		}
 		
 		main().then((result) => {

@@ -14,7 +14,9 @@ const item_soajs_cronjob = require("./schemas/item_soajs_cronjob.js");
 const item_native_cronjob = require("./schemas/item_native_cronjob.js");
 
 let localConfig = {
-	type: 'service',
+	"type": 'service',
+	'subType': 'soajs',
+	"description": "This service handles everything related to soajs multi cloud Api and more",
 	prerequisites: {
 		cpu: '',
 		memory: ''
@@ -50,6 +52,9 @@ localConfig.errors = {
 	504: "Unsupported Mode.",
 	505: "Unable to get latest version!",
 	506: "The resource kind must match the specified mode.",
+	507: "Unable to find plugin.",
+	508: "Plugin is empty.",
+	509: "Error executing plugin.",
 	533: "No changes to update",
 	540: "You can no longer add cd Token, the max allowed is: " + localConfig.maxAllowed,
 	
@@ -123,9 +128,24 @@ localConfig.schema = {
 			}
 		},
 		
+		"/kubernetes/plugin": {
+			"_apiInfo": {
+				"l": "This API fetches the information of a plugin along with all its resources.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"plugin": {
+				"source": ["query.plugin"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["metric-server"]
+				}
+			}
+		},
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the information of a resource of mode (Node, Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass).",
+				"l": "This API returns the information of a resource of mode (Node, Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass, ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -141,13 +161,13 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass"]
+					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 				}
 			}
 		},
 		"/kubernetes/resources/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the information of all the resources of mode (Node, Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass).",
+				"l": "This API returns the information of all the resources of mode (Node, Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass, ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -191,7 +211,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass"]
+					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 				}
 			},
 			"type": {
@@ -581,7 +601,21 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+		"/kubernetes/plugin": {
+			"_apiInfo": {
+				"l": "This API deploys a plugin along with all its resources.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"plugin": {
+				"source": ["body.plugin"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["metric-server"]
+				}
+			}
+		},
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
 				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC, Secret, PV, StorageClass).",
@@ -963,7 +997,21 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+		"/kubernetes/plugin": {
+			"_apiInfo": {
+				"l": "This API deletes a plugin along with all its resources.",
+				"group": "Kubernetes"
+			},
+			"commonFields": ["configuration"],
+			"plugin": {
+				"source": ["query.plugin"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["metric-server"]
+				}
+			}
+		},
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
 				"l": "This API deletes a resource of type (Service, Deployment, DaemonSet, CronJob, HPA) as well as the related HPA of a deployment.",

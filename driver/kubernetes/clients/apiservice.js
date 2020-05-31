@@ -26,7 +26,11 @@ const autoscale = {
 	},
 	get(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["apiregistration.k8s.io"].v1.apiservices(opts.name).get({qs: opts.qs});
+			if (opts.name) {
+				return await deployer.apis["apiregistration.k8s.io"].v1.apiservices(opts.name).get({qs: opts.qs});
+			} else {
+				return await deployer.apis["apiregistration.k8s.io"].v1.apiservices.get({qs: opts.qs});
+			}
 		}
 		
 		main().then((result) => {
