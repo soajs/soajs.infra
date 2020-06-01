@@ -131,7 +131,7 @@ localConfig.schema = {
 		"/kubernetes/plugin": {
 			"_apiInfo": {
 				"l": "This API fetches the information of a plugin along with all its resources.",
-				"group": "Kubernetes"
+				"group": "Kubernetes plugin"
 			},
 			"commonFields": ["configuration"],
 			"plugin": {
@@ -143,10 +143,11 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/resource/:mode": {
+		
+		"/kubernetes/cluster/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the information of a resource of mode (Node, Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass, ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
-				"group": "Kubernetes"
+				"l": "This API returns the cluster information of a resource of mode (Node).",
+				"group": "Kubernetes cluster"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -161,14 +162,125 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
+					"enum": ["Node"]
 				}
 			}
 		},
-		"/kubernetes/resources/:mode": {
+		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the information of all the resources of mode (Node, Service, Deployment, DaemonSet, CronJob, Pod, Secret, PVC, HPA, PV, StorageClass, ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
-				"group": "Kubernetes"
+				"l": "This API returns the workloads information of a resource of mode (Deployment, DaemonSet, CronJob, Pod, HPA).",
+				"group": "Kubernetes workloads"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Deployment", "DaemonSet", "CronJob", "Pod", "HPA"]
+				}
+			}
+		},
+		"/kubernetes/service/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the services information of a resource of mode (Service).",
+				"group": "Kubernetes services"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Service"]
+				}
+			}
+		},
+		"/kubernetes/storage/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the storage information of a resource of mode (PVC, PV, StorageClass).",
+				"group": "Kubernetes storage"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["PVC", "PV", "StorageClass"]
+				}
+			}
+		},
+		"/kubernetes/configuration/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the storage information of a resource of mode (Secret).",
+				"group": "Kubernetes configuration"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Secret"]
+				}
+			}
+		},
+		"/kubernetes/rbac/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the rbac information of a resource of mode (ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
+				"group": "Kubernetes RBAC"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
+				}
+			}
+		},
+		
+		"/kubernetes/clusters/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the cluster information of all resources of mode (Node).",
+				"group": "Kubernetes cluster"
 			},
 			"commonFields": ["configuration"],
 			"filter": {
@@ -211,7 +323,297 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Node", "Service", "Deployment", "DaemonSet", "CronJob", "Pod", "Secret", "PVC", "HPA", "PV", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
+					"enum": ["Node"]
+				}
+			},
+			"type": {
+				"source": ["query.type"],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"enum": ["Item", "Other", "All"]
+				}
+			}
+		},
+		"/kubernetes/workloads/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the workloads information of all resources of mode (Deployment, DaemonSet, CronJob, Pod, HPA).",
+				"group": "Kubernetes workloads"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ["query.filter"],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ["query.limit"],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ["query.continue"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Deployment", "DaemonSet", "CronJob", "Pod", "HPA"]
+				}
+			},
+			"type": {
+				"source": ["query.type"],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"enum": ["Item", "Other", "All"]
+				}
+			}
+		},
+		"/kubernetes/services/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the services information of all resources of mode (Service).",
+				"group": "Kubernetes services"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ["query.filter"],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ["query.limit"],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ["query.continue"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Service"]
+				}
+			},
+			"type": {
+				"source": ["query.type"],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"enum": ["Item", "Other", "All"]
+				}
+			}
+		},
+		"/kubernetes/storages/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the storage information of all resources of mode (PVC, PV, StorageClass).",
+				"group": "Kubernetes storage"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ["query.filter"],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ["query.limit"],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ["query.continue"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["PVC", "PV", "StorageClass"]
+				}
+			},
+			"type": {
+				"source": ["query.type"],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"enum": ["Item", "Other", "All"]
+				}
+			}
+		},
+		"/kubernetes/configurations/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the storage information of all resources of mode (Secret).",
+				"group": "Kubernetes configuration"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ["query.filter"],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ["query.limit"],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ["query.continue"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Secret"]
+				}
+			},
+			"type": {
+				"source": ["query.type"],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"enum": ["Item", "Other", "All"]
+				}
+			}
+		},
+		"/kubernetes/rbacs/:mode": {
+			"_apiInfo": {
+				"l": "This API returns the rbac information of all resources of mode (ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
+				"group": "Kubernetes RBAC"
+			},
+			"commonFields": ["configuration"],
+			"filter": {
+				"source": ["query.filter"],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"fieldSelector": {
+							"type": "string"
+						},
+						"includeUninitialized": {
+							"type": "boolean"
+						},
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"limit": {
+				"source": ["query.limit"],
+				"required": true,
+				"validation": {
+					"type": "integer",
+					"minimum": 100,
+					"maximum": 500
+				}
+			},
+			"continue": {
+				"source": ["query.continue"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 				}
 			},
 			"type": {
@@ -227,7 +629,7 @@ localConfig.schema = {
 		"/kubernetes/item/latestVersion": {
 			"_apiInfo": {
 				"l": "This API fetches the latest version deployed of an item.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"itemName": {
@@ -241,7 +643,7 @@ localConfig.schema = {
 		"/kubernetes/pod/log": {
 			"_apiInfo": {
 				"l": "This API fetches the container Logs and capable to tail the log if follow is set to true.",
-				"group": "Kubernetes"
+				"group": "Kubernetes workload"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -273,7 +675,7 @@ localConfig.schema = {
 		"/kubernetes/item/inspect": {
 			"_apiInfo": {
 				"l": "This API returns the item information meshed (Service, Deployment, DaemonSet, CronJob, and Pod).",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"item": {
@@ -601,10 +1003,11 @@ localConfig.schema = {
 				}
 			}
 		},
+		
 		"/kubernetes/plugin": {
 			"_apiInfo": {
 				"l": "This API deploys a plugin along with all its resources.",
-				"group": "Kubernetes"
+				"group": "Kubernetes plugin"
 			},
 			"commonFields": ["configuration"],
 			"plugin": {
@@ -616,10 +1019,11 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/resource/:mode": {
+		
+		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
-				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC, Secret, PV, StorageClass, ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
-				"group": "Kubernetes"
+				"l": "This API creates a resource of mode (Deployment, DaemonSet, CronJob, HPA).",
+				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
 			"mode": {
@@ -627,7 +1031,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC", "Secret", "PV", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
+					"enum": ["Deployment", "DaemonSet", "CronJob", "HPA"]
 				}
 			},
 			"body": {
@@ -639,7 +1043,123 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim", "Secret", "PersistentVolume", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
+							"enum": ["Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/service/:mode": {
+			"_apiInfo": {
+				"l": "This API creates a resource of mode (Service).",
+				"group": "Kubernetes services"
+			},
+			"commonFields": ["configuration"],
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Service"]
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"required": true,
+							"type": "string",
+							"enum": ["Service"]
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/storage/:mode": {
+			"_apiInfo": {
+				"l": "This API creates a resource of mode (PVC, PV, StorageClass).",
+				"group": "Kubernetes storage"
+			},
+			"commonFields": ["configuration"],
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["PVC", "PV", "StorageClass"]
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"required": true,
+							"type": "string",
+							"enum": ["PersistentVolumeClaim", "PersistentVolume", "StorageClass"]
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/configuration/:mode": {
+			"_apiInfo": {
+				"l": "This API creates a resource of mode (Secret).",
+				"group": "Kubernetes configuration"
+			},
+			"commonFields": ["configuration"],
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Secret"]
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"required": true,
+							"type": "string",
+							"enum": ["Secret"]
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/rbac/:mode": {
+			"_apiInfo": {
+				"l": "This API creates a resource of mode (ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
+				"group": "Kubernetes RBAC"
+			},
+			"commonFields": ["configuration"],
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"required": true,
+							"type": "string",
+							"enum": ["ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 						}
 					}
 				}
@@ -649,7 +1169,7 @@ localConfig.schema = {
 		"/kubernetes/namespace": {
 			"_apiInfo": {
 				"l": "This API creates a namespace.",
-				"group": "Kubernetes"
+				"group": "Kubernetes environment"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -660,10 +1180,11 @@ localConfig.schema = {
 				}
 			}
 		},
+		
 		"/kubernetes/hpa": {
 			"_apiInfo": {
 				"l": "This API creates an HPA.",
-				"group": "Kubernetes"
+				"group": "Kubernetes workload wizard"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -785,7 +1306,7 @@ localConfig.schema = {
 		"/kubernetes/secret": {
 			"_apiInfo": {
 				"l": "This API creates a secret.",
-				"group": "Kubernetes"
+				"group": "Kubernetes configuration wizard"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -820,7 +1341,7 @@ localConfig.schema = {
 		"/kubernetes/secret/registry": {
 			"_apiInfo": {
 				"l": "This API creates a secret for private image registry.",
-				"group": "Kubernetes"
+				"group": "Kubernetes configuration wizard"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -859,7 +1380,7 @@ localConfig.schema = {
 		"/kubernetes/pvc": {
 			"_apiInfo": {
 				"l": "This API creates a PVC.",
-				"group": "Kubernetes"
+				"group": "Kubernetes storage wizard"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -905,10 +1426,11 @@ localConfig.schema = {
 				}
 			}
 		},
+		
 		"/kubernetes/item/deploy/soajs": {
 			"_apiInfo": {
 				"l": "This API deploys an item from the catalog using soajs recipe of type Deployment or DaemonSet.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
@@ -920,7 +1442,7 @@ localConfig.schema = {
 		"/kubernetes/item/deploy/soajs/conjob": {
 			"_apiInfo": {
 				"l": "This API deploys an item from the catalog using soajs recipe of type CronJob.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
@@ -932,7 +1454,7 @@ localConfig.schema = {
 		"/kubernetes/item/deploy/native": {
 			"_apiInfo": {
 				"l": "This API deploys an item from the catalog using kubernetes native recipe of type Deployment or DaemonSet.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
@@ -944,7 +1466,7 @@ localConfig.schema = {
 		"/kubernetes/item/deploy/native/cronjob": {
 			"_apiInfo": {
 				"l": "This API deploys an item from the catalog using kubernetes native recipe of type CronJob.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"recipe": {
@@ -956,7 +1478,7 @@ localConfig.schema = {
 		"/kubernetes/deploy/native": {
 			"_apiInfo": {
 				"l": "This API creates the service and the related Deployment, DaemonSet or CronJob.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"service": {
@@ -1000,7 +1522,7 @@ localConfig.schema = {
 		"/kubernetes/plugin": {
 			"_apiInfo": {
 				"l": "This API deletes a plugin along with all its resources.",
-				"group": "Kubernetes"
+				"group": "Kubernetes plugin"
 			},
 			"commonFields": ["configuration"],
 			"plugin": {
@@ -1012,10 +1534,11 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/resource/:mode": {
+		
+		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
-				"l": "This API deletes a resource of type (Service, Deployment, DaemonSet, CronJob, HPA) as well as the related HPA of a deployment.",
-				"group": "Kubernetes"
+				"l": "This API deletes a resource of mode (Deployment, DaemonSet, CronJob, Pod, HPA).",
+				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -1030,7 +1553,95 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA"]
+					"enum": ["Deployment", "DaemonSet", "CronJob", "Pod", "HPA"]
+				}
+			}
+		},
+		"/kubernetes/service/:mode": {
+			"_apiInfo": {
+				"l": "This API deletes a resource of mode (Service).",
+				"group": "Kubernetes services"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Service"]
+				}
+			}
+		},
+		"/kubernetes/storage/:mode": {
+			"_apiInfo": {
+				"l": "This API deletes a resource of mode (PVC, PV, StorageClass).",
+				"group": "Kubernetes storage"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["PVC", "PV", "StorageClass"]
+				}
+			}
+		},
+		"/kubernetes/configuration/:mode": {
+			"_apiInfo": {
+				"l": "This API deletes a resource of mode (Secret).",
+				"group": "Kubernetes configuration"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Secret"]
+				}
+			}
+		},
+		"/kubernetes/rbac/:mode": {
+			"_apiInfo": {
+				"l": "This API deletes a resource of mode (ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
+				"group": "Kubernetes RBAC"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 				}
 			}
 		},
@@ -1038,7 +1649,7 @@ localConfig.schema = {
 		"/kubernetes/pods": {
 			"_apiInfo": {
 				"l": "This API deletes pods.",
-				"group": "Kubernetes"
+				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
 			"filter": {
@@ -1061,71 +1672,14 @@ localConfig.schema = {
 				}
 			}
 		},
-		
-		"/kubernetes/pv": {
-			"_apiInfo": {
-				"l": "This API deletes a PV.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ["query.name"],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/storageclass": {
-			"_apiInfo": {
-				"l": "This API deletes a StorageClass.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ["body.name"],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
 		"/kubernetes/namespace": {
 			"_apiInfo": {
 				"l": "This API deletes a namespace.",
-				"group": "Kubernetes"
+				"group": "Kubernetes environment"
 			},
 			"commonFields": ["configuration"],
 			"name": {
 				"source": ["body.name"],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/secret": {
-			"_apiInfo": {
-				"l": "This API deletes a secret.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ["query.name"],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			}
-		},
-		"/kubernetes/pvc": {
-			"_apiInfo": {
-				"l": "This API deletes a PVC.",
-				"group": "Kubernetes"
-			},
-			"commonFields": ["configuration"],
-			"name": {
-				"source": ["query.name"],
 				"required": true,
 				"validation": {
 					"type": "string"
@@ -1135,7 +1689,7 @@ localConfig.schema = {
 		"/kubernetes/item": {
 			"_apiInfo": {
 				"l": "This API deletes an item of type (Deployment, DaemonSet  or CronJob) as well as the related HPA with the related service.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"name": {

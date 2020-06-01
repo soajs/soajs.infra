@@ -95,7 +95,7 @@ describe("Unit test for: BL - kubernetes delete ...", () => {
 		});
 	});
 	
-	it("Delete secret", function (done) {
+	it.skip("Delete secret", function (done) {
 		function DRIVER() {
 			console.log("Kubernetes driver");
 		}
@@ -149,7 +149,7 @@ describe("Unit test for: BL - kubernetes delete ...", () => {
 		});
 	});
 	
-	it("Delete PVC", function (done) {
+	it.skip("Delete PVC", function (done) {
 		function DRIVER() {
 			console.log("Kubernetes driver");
 		}
@@ -394,7 +394,7 @@ describe("Unit test for: BL - kubernetes delete ...", () => {
 		});
 	});
 	
-	it("Delete PV", function (done) {
+	it.skip("Delete PV", function (done) {
 		function DRIVER() {
 			console.log("Kubernetes driver");
 		}
@@ -448,7 +448,7 @@ describe("Unit test for: BL - kubernetes delete ...", () => {
 		});
 	});
 	
-	it("Delete StorageClass", function (done) {
+	it.skip("Delete StorageClass", function (done) {
 		function DRIVER() {
 			console.log("Kubernetes driver");
 		}

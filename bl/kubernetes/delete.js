@@ -14,22 +14,7 @@ let bl = {
 	"handleConnect": null,
 	"driver": null,
 	
-	"namespace": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			bl.driver.delete.namespace(client, {"name": inputmaskData.name}, (error) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, {"deleted": true});
-			});
-		});
-	},
+	/*
 	"secret": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
@@ -61,6 +46,81 @@ let bl = {
 				"namespace": config.namespace,
 				"name": inputmaskData.name
 			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"deleted": true});
+			});
+		});
+	},
+	"storageclass": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			bl.driver.delete.storageclass(client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"deleted": true});
+			});
+		});
+	},
+	"pv": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			bl.driver.delete.pv(client, {
+				"namespace": config.namespace,
+				"name": inputmaskData.name
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"deleted": true});
+			});
+		});
+	},
+	*/
+	
+	"pods": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			bl.driver.delete.pods(client, {
+				"namespace": config.namespace,
+				"filter": inputmaskData.filter
+			}, (error) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				return cb(null, {"deleted": true});
+			});
+		});
+	},
+	"namespace": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		bl.handleConnect(soajs, inputmaskData.configuration, (error, client) => {
+			if (error) {
+				return cb(bl.handleError(soajs, 702, error));
+			}
+			bl.driver.delete.namespace(client, {"name": inputmaskData.name}, (error) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
@@ -118,66 +178,6 @@ let bl = {
 						return cb(null, {"deleted": true});
 					});
 				});
-			});
-		});
-	},
-	
-	"pods": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			bl.driver.delete.pods(client, {
-				"namespace": config.namespace,
-				"filter": inputmaskData.filter
-			}, (error) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, {"deleted": true});
-			});
-		});
-	},
-	
-	"pv": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			bl.driver.delete.pv(client, {
-				"namespace": config.namespace,
-				"name": inputmaskData.name
-			}, (error) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, {"deleted": true});
-			});
-		});
-	},
-	
-	"storageclass": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
-			if (error) {
-				return cb(bl.handleError(soajs, 702, error));
-			}
-			bl.driver.delete.storageclass(client, {
-				"namespace": config.namespace,
-				"name": inputmaskData.name
-			}, (error) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
-				return cb(null, {"deleted": true});
 			});
 		});
 	},

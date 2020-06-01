@@ -36,16 +36,33 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.delete("/kubernetes/resource/:mode", function (req, res) {
+			
+			service.delete("/kubernetes/workload/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.delete("/kubernetes/namespace", function (req, res) {
-				bl.kubernetes.delete.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.delete("/kubernetes/service/:mode", function (req, res) {
+				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.delete("/kubernetes/storage/:mode", function (req, res) {
+				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/configuration/:mode", function (req, res) {
+				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/rbac/:mode", function (req, res) {
+				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			/*
 			service.delete("/kubernetes/pv", function (req, res) {
 				bl.kubernetes.delete.pv(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -66,13 +83,19 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.delete("/kubernetes/item", function (req, res) {
-				bl.kubernetes.delete.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			*/
+			service.delete("/kubernetes/pods", function (req, res) {
+				bl.kubernetes.delete.pods(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.delete("/kubernetes/pods", function (req, res) {
-				bl.kubernetes.delete.pods(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+			service.delete("/kubernetes/namespace", function (req, res) {
+				bl.kubernetes.delete.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.delete("/kubernetes/item", function (req, res) {
+				bl.kubernetes.delete.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
@@ -139,16 +162,69 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.get("/kubernetes/resource/:mode", function (req, res) {
+			
+			service.get("/kubernetes/cluster/:mode", function (req, res) {
 				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.get("/kubernetes/resources/:mode", function (req, res) {
+			service.get("/kubernetes/workload/:mode", function (req, res) {
+				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/service/:mode", function (req, res) {
+				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/storage/:mode", function (req, res) {
+				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/configuration/:mode", function (req, res) {
+				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/rbac/:mode", function (req, res) {
+				bl.kubernetes.get.one(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
+			service.get("/kubernetes/clusters/:mode", function (req, res) {
 				bl.kubernetes.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.get("/kubernetes/workloads/:mode", function (req, res) {
+				bl.kubernetes.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/services/:mode", function (req, res) {
+				bl.kubernetes.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/storages/:mode", function (req, res) {
+				bl.kubernetes.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/configurations/:mode", function (req, res) {
+				bl.kubernetes.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/rbacs/:mode", function (req, res) {
+				bl.kubernetes.get.all(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			service.get("/kubernetes/item/latestVersion", function (req, res) {
 				bl.kubernetes.get.item_latestVersion(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -255,11 +331,33 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.post("/kubernetes/resource/:mode", function (req, res) {
+			
+			service.post("/kubernetes/workload/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.post("/kubernetes/service/:mode", function (req, res) {
+				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/storage/:mode", function (req, res) {
+				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/configuration/:mode", function (req, res) {
+				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.post("/kubernetes/rbac/:mode", function (req, res) {
+				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			service.post("/kubernetes/namespace", function (req, res) {
 				bl.kubernetes.create.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
