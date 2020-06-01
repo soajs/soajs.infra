@@ -15,8 +15,10 @@ const metrics = {
 	 */
 	getPods(deployer, opts, cb) {
 		async function main() {
-			if (opts.name) {
+			if (opts.namespace && opts.name) {
 				return await deployer.apis["metrics.k8s.io"].v1beta1.namespaces(opts.namespace).pods(opts.name).get();
+			} else if (opts.namespace) {
+				return await deployer.apis["metrics.k8s.io"].v1beta1.namespaces(opts.namespace).pods.get();
 			} else {
 				return await deployer.apis["metrics.k8s.io"].v1beta1.pods.get();
 			}

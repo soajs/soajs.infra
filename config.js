@@ -618,7 +618,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/resource/:mode": {
 			"_apiInfo": {
-				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC, Secret, PV, StorageClass).",
+				"l": "This API creates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PVC, Secret, PV, StorageClass, ClusterRole, ClusterRoleBinding, RoleBinding, APIService, ServiceAccount).",
 				"group": "Kubernetes"
 			},
 			"commonFields": ["configuration"],
@@ -627,7 +627,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC", "Secret", "PV", "StorageClass"]
+					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PVC", "Secret", "PV", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 				}
 			},
 			"body": {
@@ -639,7 +639,7 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim", "Secret", "PersistentVolume", "StorageClass"]
+							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolumeClaim", "Secret", "PersistentVolume", "StorageClass", "ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 						}
 					}
 				}
