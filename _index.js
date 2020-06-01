@@ -62,28 +62,7 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			/*
-			service.delete("/kubernetes/pv", function (req, res) {
-				bl.kubernetes.delete.pv(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.delete("/kubernetes/storageclass", function (req, res) {
-				bl.kubernetes.delete.storageclass(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.delete("/kubernetes/secret", function (req, res) {
-				bl.kubernetes.delete.secret(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			service.delete("/kubernetes/pvc", function (req, res) {
-				bl.kubernetes.delete.pvc(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			*/
+
 			service.delete("/kubernetes/pods", function (req, res) {
 				bl.kubernetes.delete.pods(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -138,7 +117,18 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
-			service.put("/kubernetes/resource/:mode", function (req, res) {
+			
+			service.put("/kubernetes/workload/:mode", function (req, res) {
+				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.put("/kubernetes/service/:mode", function (req, res) {
+				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.put("/kubernetes/storage/:mode", function (req, res) {
 				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});

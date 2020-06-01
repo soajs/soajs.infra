@@ -643,7 +643,7 @@ localConfig.schema = {
 		"/kubernetes/pod/log": {
 			"_apiInfo": {
 				"l": "This API fetches the container Logs and capable to tail the log if follow is set to true.",
-				"group": "Kubernetes workload"
+				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -735,7 +735,7 @@ localConfig.schema = {
 		"/kubernetes/deployment/scale": {
 			"_apiInfo": {
 				"l": "This API scales a resource of type deployment only.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -758,7 +758,7 @@ localConfig.schema = {
 		"/kubernetes/item/redeploy": {
 			"_apiInfo": {
 				"l": "This API redeploys an item.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -839,7 +839,7 @@ localConfig.schema = {
 		"/kubernetes/resource/restart": {
 			"_apiInfo": {
 				"l": "This API restarts a resource of type (Deployment, DaemonSet, or CronJob) and all its pod.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -861,7 +861,7 @@ localConfig.schema = {
 		"/kubernetes/item/maintenance": {
 			"_apiInfo": {
 				"l": "This API trigger maintenance operation on a deployed item.",
-				"group": "Kubernetes"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -898,10 +898,11 @@ localConfig.schema = {
 				
 			}
 		},
+		
 		"/kubernetes/pods/exec": {
 			"_apiInfo": {
 				"l": "This API triggers maintenance operation in all the pods.",
-				"group": "Kubernetes"
+				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
 			"filter": {
@@ -926,7 +927,7 @@ localConfig.schema = {
 		"/kubernetes/pod/exec": {
 			"_apiInfo": {
 				"l": "This API triggers maintenance operation in a pod.",
-				"group": "Kubernetes"
+				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -948,10 +949,11 @@ localConfig.schema = {
 				}
 			}
 		},
-		"/kubernetes/resource/:mode": {
+		
+		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
-				"l": "This API updates a resource of mode (Service, Deployment, DaemonSet, CronJob, HPA, PV, StorageClass).",
-				"group": "Kubernetes"
+				"l": "This API updates a resource of mode (Deployment, DaemonSet, CronJob, HPA).",
+				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
 			"mode": {
@@ -959,7 +961,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HPA", "PV", "StorageClass"]
+					"enum": ["Deployment", "DaemonSet", "CronJob", "HPA"]
 				}
 			},
 			"body": {
@@ -971,7 +973,85 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Service", "Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "PersistentVolume", "StorageClass"]
+							"enum": ["Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
+						},
+						"metadata": {
+							"required": true,
+							"type": "object",
+							"properties": {
+								"name": {
+									"required": true,
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/service/:mode": {
+			"_apiInfo": {
+				"l": "This API updates a resource of mode (Service).",
+				"group": "Kubernetes services"
+			},
+			"commonFields": ["configuration"],
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["Service"]
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"required": true,
+							"type": "string",
+							"enum": ["Service"]
+						},
+						"metadata": {
+							"required": true,
+							"type": "object",
+							"properties": {
+								"name": {
+									"required": true,
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/storage/:mode": {
+			"_apiInfo": {
+				"l": "This API updates a resource of mode (PV, StorageClass).",
+				"group": "Kubernetes storage"
+			},
+			"commonFields": ["configuration"],
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["PV", "StorageClass"]
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"required": true,
+							"type": "string",
+							"enum": ["PersistentVolume", "StorageClass"]
 						},
 						"metadata": {
 							"required": true,
@@ -1184,7 +1264,7 @@ localConfig.schema = {
 		"/kubernetes/hpa": {
 			"_apiInfo": {
 				"l": "This API creates an HPA.",
-				"group": "Kubernetes workload wizard"
+				"group": "Kubernetes workloads wizard"
 			},
 			"commonFields": ["configuration"],
 			"name": {
