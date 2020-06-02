@@ -68,6 +68,8 @@ let bl = {
 	
 	"get": {},
 	
+	"metrics": {},
+	
 	"plugin": {
 		"deploy": (soajs, inputmaskData, options, cb) => {
 			if (!options) {

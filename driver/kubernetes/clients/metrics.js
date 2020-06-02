@@ -13,7 +13,7 @@ const metrics = {
 	/**
 	 * metrics Wrapper
 	 */
-	getPods(deployer, opts, cb) {
+	pods(deployer, opts, cb) {
 		async function main() {
 			if (opts.namespace && opts.name) {
 				return await deployer.apis["metrics.k8s.io"].v1beta1.namespaces(opts.namespace).pods(opts.name).get({qs: opts.qs});
@@ -30,7 +30,7 @@ const metrics = {
 			return cb(err);
 		});
 	},
-	getNodes(deployer, opts, cb) {
+	nodes(deployer, opts, cb) {
 		async function main() {
 			if (opts.name) {
 				return await deployer.apis["metrics.k8s.io"].v1beta1.nodes(opts.name).get({qs: opts.qs});

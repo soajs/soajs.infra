@@ -18,6 +18,24 @@ const lib = require("../../bl/kubernetes/lib.js");
 
 let bl = {
 	
+	"metrics": (client, options, cb) => {
+		if (!options || !options.namespace) {
+			return cb(new Error("pod metrics: options is required with {namespace}"));
+		}
+		
+		let data = {
+			namespace: options.namespace
+		};
+		if (options.filter) {
+			data.qs = options.filter;
+		}
+		if (options.name) {
+			data.name = options.name;
+		}
+		wrapper.metrics.pods(client, data, (error, item) => {
+			return cb(error, item);
+		});
+	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
 			return cb(new Error("pod getOne: options is required with {name, and namespace}"));
@@ -36,7 +54,7 @@ let bl = {
 	},
 	"delete": (client, options, cb) => {
 		if (!options || !options.filter) {
-			return cb(new Error("pods delete: options is required with {namespace, and filter}"));
+			return cb(new Error("pod delete: options is required with {namespace, and filter}"));
 		}
 		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, pods) => {
 			if (error) {
@@ -220,6 +238,13 @@ let bl = {
 				return cb(new Error("Unable to find any matching container to run the maintenance cmd"));
 			}
 		});
-	}
+	},
+	
+	"apply": (client, options, cb) => {
+		if (!options || !options.body || !options.namespace) {
+			return cb(new Error("pod apply: options is required with {body, and namespace}"));
+		}
+		return wrapper.pod.post(client, {namespace: options.namespace, body: options.body}, cb);
+	},
 };
 module.exports = bl;

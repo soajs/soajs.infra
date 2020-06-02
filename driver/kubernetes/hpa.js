@@ -150,6 +150,6 @@ let bl = {
 		wrapper.autoscale.get(client, {namespace: options.namespace, qs: options.filter || null}, (error, items) => {
 			return cb(error, items);
 		});
-	},
+	}
 };
 module.exports = bl;

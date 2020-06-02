@@ -11,6 +11,18 @@
 const wrapper = require('./wrapper.js');
 
 let bl = {
+	"metrics": (client, options, cb) => {
+		let data = {};
+		if (options.filter) {
+			data.qs = options.filter;
+		}
+		if (options.name) {
+			data.name = options.name;
+		}
+		wrapper.metrics.nodes(client, data, (error, item) => {
+			return cb(error, item);
+		});
+	},
 	"update": (client, options, cb) => {
 		if (!options || !options.name || !options.body) {
 			return cb(new Error("node update: options is required with {name, and body}"));

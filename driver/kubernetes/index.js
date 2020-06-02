@@ -58,6 +58,11 @@ let driver = {
 		}
 	},
 	
+	"metrics": {
+		"pods": _pod.metrics,
+		"nodes": _node.metrics
+	},
+	
 	"update": {
 		"service": _service.update,
 		"deployment": _deployment.update,
@@ -95,6 +100,7 @@ let driver = {
 		"deployment": _deployment.create,
 		"daemonset": _daemonset.create,
 		"cronjob": _cronjob.create,
+		"pod": _pod.apply,
 		"hpa": _hpa.apply,
 		"secret": _secret.apply,
 		"pvc": _pvc.apply,

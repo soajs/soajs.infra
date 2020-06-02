@@ -706,6 +706,75 @@ localConfig.schema = {
 					}
 				}
 			}
+		},
+		
+		"/kubernetes/item/metrics": {
+			"_apiInfo": {
+				"l": "This API fetches the item metrics.",
+				"group": "Kubernetes item"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		"/kubernetes/pods/metrics": {
+			"_apiInfo": {
+				"l": "This API fetches the container metrics.",
+				"group": "Kubernetes workloads"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"filter": {
+				"source": ["query.filter"],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": true,
+					"properties": {
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"/kubernetes/nodes/metrics": {
+			"_apiInfo": {
+				"l": "This API fetches the node metrics.",
+				"group": "Kubernetes cluster"
+			},
+			"commonFields": ["configuration"],
+			"name": {
+				"source": ["query.name"],
+				"required": false,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"filter": {
+				"source": ["query.filter"],
+				"required": false,
+				"validation": {
+					"type": "object",
+					"additionalProperties": true,
+					"properties": {
+						"labelSelector": {
+							"type": "string"
+						}
+					}
+				}
+			}
 		}
 	},
 	
@@ -1102,7 +1171,7 @@ localConfig.schema = {
 		
 		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
-				"l": "This API creates a resource of mode (Deployment, DaemonSet, CronJob, HPA).",
+				"l": "This API creates a resource of mode (Deployment, DaemonSet, CronJob, HPA. Pod).",
 				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
@@ -1111,7 +1180,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Deployment", "DaemonSet", "CronJob", "HPA"]
+					"enum": ["Deployment", "DaemonSet", "CronJob", "HPA", "Pod"]
 				}
 			},
 			"body": {
@@ -1123,7 +1192,7 @@ localConfig.schema = {
 						"kind": {
 							"required": true,
 							"type": "string",
-							"enum": ["Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
+							"enum": ["Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "Pod"]
 						}
 					}
 				}
@@ -1261,10 +1330,10 @@ localConfig.schema = {
 			}
 		},
 		
-		"/kubernetes/hpa": {
+		"/kubernetes/item/hpa": {
 			"_apiInfo": {
 				"l": "This API creates an HPA.",
-				"group": "Kubernetes workloads wizard"
+				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
 			"name": {
@@ -1617,7 +1686,7 @@ localConfig.schema = {
 		
 		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
-				"l": "This API deletes a resource of mode (Deployment, DaemonSet, CronJob, Pod, HPA).",
+				"l": "This API deletes a resource of mode (Deployment, DaemonSet, CronJob, HPA).",
 				"group": "Kubernetes workloads"
 			},
 			"commonFields": ["configuration"],
@@ -1633,7 +1702,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Deployment", "DaemonSet", "CronJob", "Pod", "HPA"]
+					"enum": ["Deployment", "DaemonSet", "CronJob", "HPA"]
 				}
 			}
 		},

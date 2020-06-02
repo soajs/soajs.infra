@@ -75,6 +75,13 @@ function init(service, localConfig, cb) {
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.get = temp;
 	
+	temp = require("./kubernetes/metrics.js");
+	temp.localConfig = localConfig;
+	temp.driver = driver;
+	temp.handleError = BL.kubernetes.handleError;
+	temp.handleConnect = BL.kubernetes.handleConnect;
+	BL.kubernetes.metrics = temp;
+	
 	return cb(null);
 }
 
