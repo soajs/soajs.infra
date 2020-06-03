@@ -14,6 +14,7 @@ let config = require('./config.js');
 config.packagejson = require("./package.json");
 
 const bl = require("./bl/index.js");
+const sdk = require("./lib/sdk.js");
 
 const service = new soajs.server.service(config);
 
@@ -33,49 +34,220 @@ function run(serviceStartCb) {
 			
 			service.delete("/kubernetes/plugin", function (req, res) {
 				bl.kubernetes.plugin.delete(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["Plugin"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			
 			service.delete("/kubernetes/workload/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["workload"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			service.delete("/kubernetes/service/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["service"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			service.delete("/kubernetes/storage/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["storage"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			service.delete("/kubernetes/configuration/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["configuration"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			service.delete("/kubernetes/rbac/:mode", function (req, res) {
 				bl.kubernetes.delete.resource(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["RBAC"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			
 			service.delete("/kubernetes/pods", function (req, res) {
 				bl.kubernetes.delete.pods(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["pods"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			service.delete("/kubernetes/namespace", function (req, res) {
 				bl.kubernetes.delete.namespace(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["namespace"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			service.delete("/kubernetes/item", function (req, res) {
 				bl.kubernetes.delete.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["item"],
+						"action": "deleted",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			
@@ -333,7 +505,26 @@ function run(serviceStartCb) {
 			
 			service.post("/kubernetes/plugin", function (req, res) {
 				bl.kubernetes.plugin.deploy(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					
+					let status = "succeeded";
+					if (response.result) {
+						status = "succeeded";
+					} else {
+						status = "failed";
+					}
+					let doc = {
+						"type": "Deployment",
+						"section": "Cloud and deployment",
+						"locator": ["Plugin"],
+						"action": "added",
+						"status": status,
+						"input": req.soajs.inputmaskData,
+						"output": {data}
+					};
+					sdk.ledger(req.soajs, doc, () => {
+					});
 				});
 			});
 			

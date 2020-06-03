@@ -17,9 +17,9 @@ let localConfig = {
 	"type": 'service',
 	'subType': 'soajs',
 	"description": "This service handles everything related to soajs multi cloud Api and more",
-	prerequisites: {
-		cpu: '',
-		memory: ''
+	"prerequisites": {
+		"cpu": '',
+		"memory": ''
 	},
 	"serviceVersion": 1,
 	"serviceName": "infra",
@@ -37,7 +37,10 @@ let localConfig = {
 			{"label": "Reload Registry", "path": "/reloadRegistry", "icon": "fas fa-undo"},
 			{"label": "Resource Info", "path": "/resourceInfo", "icon": "fas fa-info"}
 		]
-	},
+	}, "interConnect": [{
+		"name": "console",
+		"version": "1"
+	}],
 	
 	//-------------------------------------
 	"maxAllowed": 15
