@@ -95,7 +95,7 @@ module.exports = (grunt) => {
 				}
 			},
 			files: {
-				src: ['index.js', '_index.js', 'config.js', 'Gruntfile.js', 'schemas/**/*.js', 'bl/**/*.js', 'driver/kubernetes/*.js', 'bl/*.js', 'model/**/*.js', 'test/helper.js', 'test/unit/**/*.js', 'test/integration/**/*.js']
+				src: ['index.js', '_index.js', 'config.js', 'Gruntfile.js', 'schemas/**/*.js', 'bl/**/*.js', 'driver/kubernetes/*.js', 'lib/*.js', 'model/**/*.js', 'test/helper.js', 'test/unit/**/*.js', 'test/integration/**/*.js']
 			},
 			gruntfile: {
 				src: 'Gruntfile.js'
@@ -162,7 +162,7 @@ module.exports = (grunt) => {
 		
 		
 		instrument: {
-			src: ['index.js', '_index.js', 'config.js', 'Gruntfile.js', 'schemas/**/*.js', 'bl/**/*.js', 'driver/kubernetes/*.js', 'bl/*.js', 'model/**/*.js',],
+			src: ['index.js', '_index.js', 'config.js', 'Gruntfile.js', 'schemas/**/*.js', 'bl/**/*.js', 'driver/kubernetes/*.js', 'lib/*.js', 'model/**/*.js',],
 			options: {
 				lazy: false,
 				basePath: 'test/coverage/instrument/'
