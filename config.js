@@ -113,7 +113,7 @@ localConfig.schema = {
 	"get": {
 		"/cd/token": {
 			"_apiInfo": {
-				"l": "This API returns a deployment auth token.",
+				"l": "This API returns a deployment cd token.",
 				"group": "Token"
 			},
 			"token": {
@@ -126,7 +126,7 @@ localConfig.schema = {
 		},
 		"/cd/tokens": {
 			"_apiInfo": {
-				"l": "This API returns all the available deployment auth tokens.",
+				"l": "This API returns all the available deployment cd tokens.",
 				"group": "Token"
 			}
 		},
@@ -784,7 +784,7 @@ localConfig.schema = {
 	"put": {
 		"/cd/token/status": {
 			"_apiInfo": {
-				"l": "This API updates the status of a deployment auth token.",
+				"l": "This API updates the status of a deployment cd token.",
 				"group": "Token"
 			},
 			"token": {
@@ -1144,7 +1144,7 @@ localConfig.schema = {
 	"post": {
 		"/cd/token": {
 			"_apiInfo": {
-				"l": "This API adds a deployment auth token.",
+				"l": "This API adds a deployment cd token.",
 				"group": "Token"
 			},
 			"label": {
@@ -1660,7 +1660,7 @@ localConfig.schema = {
 	"delete": {
 		"/cd/token": {
 			"_apiInfo": {
-				"l": "This API deletes a deployment auth token.",
+				"l": "This API deletes a deployment cd token.",
 				"group": "Token"
 			},
 			"token": {
