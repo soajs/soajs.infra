@@ -38,8 +38,8 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
-						"locator": ["Plugin"],
+						"section": "Kubernetes",
+						"locator": ["Plugin", req.soajs.inputmaskData.plugin],
 						"action": "deleted"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -53,8 +53,8 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
-						"locator": ["workload"],
+						"section": "Kubernetes",
+						"locator": ["workload", req.soajs.inputmaskData.mode],
 						"action": "deleted"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -67,8 +67,8 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
-						"locator": ["service"],
+						"section": "Kubernetes",
+						"locator": ["service", req.soajs.inputmaskData.mode],
 						"action": "deleted"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -81,8 +81,8 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
-						"locator": ["storage"],
+						"section": "Kubernetes",
+						"locator": ["storage", req.soajs.inputmaskData.mode],
 						"action": "deleted"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -95,8 +95,8 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
-						"locator": ["configuration"],
+						"section": "Kubernetes",
+						"locator": ["configuration", req.soajs.inputmaskData.mode],
 						"action": "deleted"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -109,8 +109,8 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
-						"locator": ["RBAC"],
+						"section": "Kubernetes",
+						"locator": ["RBAC", req.soajs.inputmaskData.mode],
 						"action": "deleted"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -124,7 +124,7 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
+						"section": "Kubernetes",
 						"locator": ["pods"],
 						"action": "deleted"
 					};
@@ -138,7 +138,7 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
+						"section": "Kubernetes",
 						"locator": ["namespace"],
 						"action": "deleted"
 					};
@@ -152,7 +152,7 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
+						"section": "Kubernetes",
 						"locator": ["item"],
 						"action": "deleted"
 					};
@@ -171,48 +171,129 @@ function run(serviceStartCb) {
 			
 			service.put("/kubernetes/deployment/scale", function (req, res) {
 				bl.kubernetes.scale(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["scale", req.soajs.inputmaskData.name],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.put("/kubernetes/item/redeploy", function (req, res) {
 				bl.kubernetes.redeploy.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["redeploy", req.soajs.inputmaskData.name],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.put("/kubernetes/resource/restart", function (req, res) {
 				bl.kubernetes.resource_restart(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["restart", req.soajs.inputmaskData.name],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.put("/kubernetes/item/maintenance", function (req, res) {
 				bl.kubernetes.exec.maintenance(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["maintenance", req.soajs.inputmaskData.name],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.put("/kubernetes/pods/exec", function (req, res) {
 				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["pods", "exec"],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.put("/kubernetes/pod/exec", function (req, res) {
 				bl.kubernetes.exec.custom(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["pod", "exec", req.soajs.inputmaskData.name],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			
 			service.put("/kubernetes/workload/:mode", function (req, res) {
 				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["workload", req.soajs.inputmaskData.mode],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.put("/kubernetes/service/:mode", function (req, res) {
 				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["service", req.soajs.inputmaskData.mode],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.put("/kubernetes/storage/:mode", function (req, res) {
 				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["storage", req.soajs.inputmaskData.mode],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			
@@ -419,8 +500,8 @@ function run(serviceStartCb) {
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
-						"section": "Cloud and deployment",
-						"locator": ["Plugin"],
+						"section": "Kubernetes",
+						"locator": ["Plugin", req.soajs.inputmaskData.plugin],
 						"action": "added"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -430,27 +511,72 @@ function run(serviceStartCb) {
 			
 			service.post("/kubernetes/workload/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["workload", req.soajs.inputmaskData.mode],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/service/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["service", req.soajs.inputmaskData.mode],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/storage/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["storage", req.soajs.inputmaskData.mode],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/configuration/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["configuration", req.soajs.inputmaskData.mode],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/rbac/:mode", function (req, res) {
 				bl.kubernetes.apply(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["rbac", req.soajs.inputmaskData.mode],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			
@@ -482,27 +608,72 @@ function run(serviceStartCb) {
 			
 			service.post("/kubernetes/deploy/native", function (req, res) {
 				bl.kubernetes.deploy.native(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["deploy", "native"],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/item/deploy/soajs", function (req, res) {
 				bl.kubernetes.deploy.item_soajs_deployment_or_daemonset(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["item", "deploy", "soajs recipe"],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/item/deploy/native", function (req, res) {
 				bl.kubernetes.deploy.item_native_deployment_or_daemonset(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["item", "deploy", "native recipe"],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/item/deploy/soajs/cronjob", function (req, res) {
 				bl.kubernetes.deploy.item_soajs_conjob(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["item", "deploy", "soajs recipe", "cronjob"],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			service.post("/kubernetes/item/deploy/native/cronjob", function (req, res) {
 				bl.kubernetes.deploy.item_native_cronjob(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["item", "deploy", "native recipe", "cronjob"],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
 				});
 			});
 			
