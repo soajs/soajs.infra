@@ -10,185 +10,164 @@
 
 let config = {
 	"type": "object",
-	"required": true,
 	"properties": {
 		"catalog": {
-			"required": true,
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
 				"id": {
-					"required": true,
 					"type": "string"
 				},
 				"version": {
-					"required": true,
 					"type": "string"
 				},
 				"shell": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(shell\/)([A-Za-z0-9\/_.]*)$/
 				}
-			}
+			},
+			"required": ["id", "version", "shell"]
 		},
 		"item": {
-			"required": true,
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
 				"env": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"name": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"group": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"type": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"subtype": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"version": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				}
-			}
+			},
+			"required": ["env", "name", "group", "type", "subtype", "version"]
 		},
 		"src": {
-			"required": false,
 			"type": "object",
 			"properties": {
 				"from": {
-					"required": true,
 					"type": "object",
 					"properties": {
-						"oneOf": [
-							{
-								"tag": {
-									"required": true,
-									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-									"minLength": 1
-								}
-							},
-							{
-								"branch": {
-									"required": true,
-									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-									"minLength": 1
-								},
-								"commit": {
-									"required": true,
-									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-									"minLength": 1
-								}
-							}
-						]
-					}
+						"tag": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						},
+						"branch": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						},
+						"commit": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						}
+					},
+					"oneOf": [
+						{
+							"required": ["tag"]
+						},
+						{
+							"required": ["branch", "commit"]
+						}
+					]
 				},
 				"repo": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"owner": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				}
-			}
+			},
+			"required": ["from", "repo", "owner"]
 		},
 		
 		"deployment": {
-			"required": true,
 			"type": "object",
 			"properties": {
 				"apiVersion": {
-					"required": true,
 					"type": "string"
 				},
 				"kind": {
-					"required": true,
 					"type": "string",
 					"enum": ["Deployment", "DaemonSet"]
 				},
 				"metadata": {
-					"required": true,
 					"type": "object"
 				},
 				"spec": {
-					"required": true,
 					"type": "object",
 					"properties": {
 						"template": {
-							"required": true,
 							"type": "object",
 							"properties": {
 								"metadata": {
-									"required": true,
 									"type": "string"
 								}
-							}
+							},
+							"required": ["metadata"]
 						}
-					}
+					},
+					"required": ["template"]
 				}
-			}
+			},
+			"required": ["apiVersion", "kind", "metadata", "spec"]
 		},
 		"service": {
-			"required": false,
 			"type": "object",
 			"properties": {
 				"apiVersion": {
-					"required": true,
 					"type": "string"
 				},
 				"kind": {
-					"required": true,
 					"type": "string",
 					"enum": ["Service"]
 				},
 				"metadata": {
-					"required": true,
 					"type": "object"
 				},
 				"spec": {
-					"required": true,
 					"type": "object",
 					"properties": {
 						"selector": {
-							"required": true,
 							"type": "object"
 						}
-					}
+					},
+					"required": ["selector"]
 				}
-			}
+			},
+			"required": ["apiVersion", "kind", "metadata", "spec"]
 		}
-	}
+	},
+	"required": ["catalog", "item", "deployment"]
 };
 
 module.exports = config;

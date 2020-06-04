@@ -10,220 +10,185 @@
 
 let config = {
 	"type": "object",
-	"required": true,
 	"properties": {
 		"labels": {
-			"type": "object",
-			"required": false
+			"type": "object"
 		},
 		"catalog": {
-			"required": true,
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
 				"id": {
-					"required": true,
 					"type": "string"
 				},
 				"version": {
-					"required": true,
 					"type": "string"
 				},
 				"shell": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(shell\/)([A-Za-z0-9\/_.]*)$/
 				},
-				"schedule": {
-					"required": true,
-					"type": "string"
-				},
 				"concurrencyPolicy": {
-					"required": true,
 					"type": "string"
 				}
-			}
+			},
+			"required": ["id", "version", "shell", "concurrencyPolicy"]
 		},
 		"item": {
-			"required": true,
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
 				"env": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"name": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"group": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"type": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"subtype": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"version": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				}
-			}
+			},
+			"required": ["env", "name", "group", "type", "subtype", "version"]
 		},
 		"image": {
-			"required": true,
 			"type": "object",
 			"properties": {
 				"name": {
-					"required": true,
 					"type": "string"
 				},
 				"imagePullPolicy": {
-					"required": true,
 					"type": "string"
 				}
-			}
+			},
+			"required": ["name", "imagePullPolicy"]
 		},
 		"src": {
-			"required": false,
 			"type": "object",
 			"properties": {
 				"from": {
-					"required": true,
 					"type": "object",
 					"properties": {
-						"oneOf": [
-							{
-								"tag": {
-									"required": true,
-									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-									"minLength": 1
-								}
-							},
-							{
-								"branch": {
-									"required": true,
-									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-									"minLength": 1
-								},
-								"commit": {
-									"required": true,
-									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-									"minLength": 1
-								}
-							}
-						]
-					}
+						"tag": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						},
+						"branch": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						},
+						"commit": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						}
+					},
+					"oneOf": [
+						{
+							"required": ["tag"]
+						},
+						{
+							"required": ["branch", "commit"]
+						}
+					]
 				},
 				"repo": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				},
 				"owner": {
-					"required": true,
 					"type": "string",
 					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					"minLength": 1
 				}
-			}
+			},
+			"required": ["from", "repo", "owner"]
 		},
 		"mode": {
-			"required": true,
 			"type": "string",
 			"enum": ["CronJob"]
 		},
 		"ports": {
 			"type": "array",
-			"required": false,
 			"items": {
 				"type": "object",
 				"additionalProperties": false,
 				"properties": {
 					"name": {
-						"required": true,
 						"type": "string"
 					},
 					"containerPort": {
-						"required": true,
 						"type": "integer"
 					}
-				}
+				},
+				"required": ["name", "containerPort"]
 			}
 		},
 		"workingDir": {
-			"required": false,
 			"type": "string"
 		},
 		"command": {
-			"type": "array",
-			"required": false
+			"type": "array"
 		},
 		"args": {
-			"type": "array",
-			"required": false
+			"type": "array"
 		},
 		"readinessProbe": {
-			"type": "object",
-			"required": true
+			"type": "object"
 		},
 		"livenessProbe": {
-			"type": "object",
-			"required": false
+			"type": "object"
 		},
 		"env": {
 			"type": "array",
-			"required": false,
 			"items": {
 				"type": "object",
 				"properties": {
 					"name": {
-						"required": true,
 						"type": "string"
 					},
 					"value": {
-						"required": true,
 						"type": "string"
 					}
-				}
+				},
+				"required": ["name", "value"]
 			}
 		},
 		"volume": {
-			"required": false,
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
 				"volumeMounts": {
 					"type": "array",
-					"required": false,
 					"items": {
 						"type": "object"
 					}
 				},
 				"volumes": {
 					"type": "array",
-					"required": false,
 					"items": {
 						"type": "object"
 					}
@@ -232,52 +197,45 @@ let config = {
 		},
 		"replicas": {
 			"type": "integer",
-			"required": false,
 			"default": 1
 		},
 		"revisionHistoryLimit": {
 			"type": "integer",
-			"required": false,
 			"default": 1
 		},
 		"restartPolicy": {
-			"type": "string",
-			"required": false
+			"type": "string"
 		},
 		"service": {
-			"required": false,
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
 				"ports": {
 					"type": "array",
-					"required": false,
 					"items": {
 						"type": "object",
 						"additionalProperties": true,
 						"properties": {
 							"name": {
-								"required": true,
 								"type": "string"
 							},
 							"port": {
-								"required": true,
 								"type": "integer"
 							}
-						}
+						},
+						"required": ["name", "port"]
 					}
 				},
 				"type": {
-					"required": false,
 					"type": "string"
 				},
 				"externalTrafficPolicy": {
-					"required": false,
 					"type": "string"
 				}
 			}
 		}
-	}
+	},
+	"required": ["catalog", "item", "image", "mode", "readinessProbe"]
 };
 
 module.exports = config;

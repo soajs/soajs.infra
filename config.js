@@ -78,34 +78,31 @@ localConfig.schema = {
 			"validation": {
 				"type": "object",
 				"properties": {
-					"oneOf": [
-						{
-							"env": {
-								"type": "string",
-								"required": true
-							}
-						},
-						{
-							"namespace": {
-								"type": "string",
-								"required": true
-							},
-							"type": {
-								"type": "string",
-								"required": true,
-								"enum": ["secret"]
-							},
-							"token": {
-								"type": "string",
-								"required": true
-							},
-							"url": {
-								"type": "string",
-								"required": true
-							}
-						}
-					]
-				}
+					"env": {
+						"type": "string"
+					},
+					"namespace": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": ["secret"]
+					},
+					"token": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					}
+				},
+				"oneOf": [
+					{
+						"required": ["env"]
+					},
+					{
+						"required": ["namespace", "type", "token", "url"]
+					}
+				]
 			}
 		}
 	},
@@ -689,24 +686,22 @@ localConfig.schema = {
 					"additionalProperties": false,
 					"properties": {
 						"env": {
-							"required": true,
 							"type": "string",
 							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 							"minLength": 1
 						},
 						"name": {
-							"required": true,
 							"type": "string",
 							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 							"minLength": 1
 						},
 						"version": {
-							"required": true,
 							"type": "string",
 							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 							"minLength": 1
 						}
-					}
+					},
+					"required": ["env", "name", "version"]
 				}
 			}
 		},
@@ -862,10 +857,10 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"name": {
-							"required": true,
 							"type": "string"
 						}
-					}
+					},
+					"required": ["name"]
 				}
 			},
 			"src": {
@@ -875,36 +870,35 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"from": {
-							"required": true,
 							"type": "object",
 							"properties": {
-								"oneOf": [
-									{
-										"tag": {
-											"required": true,
-											"type": "string",
-											"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-											"minLength": 1
-										}
-									},
-									{
-										"branch": {
-											"required": true,
-											"type": "string",
-											"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-											"minLength": 1
-										},
-										"commit": {
-											"required": true,
-											"type": "string",
-											"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
-											"minLength": 1
-										}
-									}
-								]
-							}
+								"tag": {
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								},
+								"branch": {
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								},
+								"commit": {
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								}
+							},
+							"oneOf": [
+								{
+									"required": ["tag"]
+								},
+								{
+									"required": ["branch", "commit"]
+								}
+							]
 						}
-					}
+					},
+					"required": ["from"]
 				}
 			}
 		},
@@ -958,16 +952,14 @@ localConfig.schema = {
 					"additionalProperties": false,
 					"properties": {
 						"route": {
-							"required": true,
 							"type": "string"
 						},
 						"qs": {
-							"required": false,
 							"type": "string"
 						}
-					}
+					},
+					"required": ["route"]
 				}
-				
 			}
 		},
 		
@@ -1043,21 +1035,20 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler"]
 						},
 						"metadata": {
-							"required": true,
 							"type": "object",
 							"properties": {
 								"name": {
-									"required": true,
 									"type": "string"
 								}
-							}
+							},
+							"required": ["name"]
 						}
-					}
+					},
+					"required": ["kind", "metadata"]
 				}
 			}
 		},
@@ -1082,21 +1073,20 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["Service"]
 						},
 						"metadata": {
-							"required": true,
 							"type": "object",
 							"properties": {
 								"name": {
-									"required": true,
 									"type": "string"
 								}
-							}
+							},
+							"required": ["name"]
 						}
-					}
+					},
+					"required": ["kind", "metadata"]
 				}
 			}
 		},
@@ -1121,21 +1111,20 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["PersistentVolume", "StorageClass"]
 						},
 						"metadata": {
-							"required": true,
 							"type": "object",
 							"properties": {
 								"name": {
-									"required": true,
 									"type": "string"
 								}
-							}
+							},
+							"required": ["name"]
 						}
-					}
+					},
+					"required": ["kind", "metadata"]
 				}
 			}
 		}
@@ -1193,11 +1182,11 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["Deployment", "DaemonSet", "CronJob", "HorizontalPodAutoscaler", "Pod"]
 						}
-					}
+					},
+					"required": ["kind"]
 				}
 			}
 		},
@@ -1222,11 +1211,11 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["Service"]
 						}
-					}
+					},
+					"required": ["kind"]
 				}
 			}
 		},
@@ -1251,11 +1240,11 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["PersistentVolumeClaim", "PersistentVolume", "StorageClass"]
 						}
-					}
+					},
+					"required": ["kind"]
 				}
 			}
 		},
@@ -1280,11 +1269,11 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["Secret"]
 						}
-					}
+					},
+					"required": ["kind"]
 				}
 			}
 		},
@@ -1309,11 +1298,11 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["ClusterRole", "ClusterRoleBinding", "RoleBinding", "APIService", "ServiceAccount"]
 						}
-					}
+					},
+					"required": ["kind"]
 				}
 			}
 		},
@@ -1353,17 +1342,16 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"min": {
-							"required": true,
 							"type": "integer",
 							"minimum": 1
 							
 						},
 						"max": {
-							"required": true,
 							"type": "integer",
 							"minimum": 1
 						}
-					}
+					},
+					"required": ["min", "max"]
 				}
 			},
 			"metrics": {
@@ -1378,77 +1366,68 @@ localConfig.schema = {
 							"additionalProperties": false,
 							"properties": {
 								"type": {
-									"required": true,
 									"type": "string",
 									"enum": ["Resource"]
 								},
 								"name": {
-									"required": true,
 									"type": "string",
 									"enum": ["cpu", "memory"]
 								},
 								"target": {
-									"required": true,
 									"type": "string",
 									"enum": ["AverageValue", "Utilization"]
 								},
 								"percentage": {
-									"required": true,
 									"type": "integer",
 									"minimum": 1,
 									"maximum": 100
 								}
-							}
+							},
+							"required": ["type", "name", "target", "percentage"]
 						},
 							{
 								"type": "object",
 								"additionalProperties": false,
 								"properties": {
 									"type": {
-										"required": true,
 										"type": "string",
 										"enum": ["Pods"]
 									},
 									"name": {
-										"required": true,
 										"type": "string",
 										"enum": ["packets-per-second"]
 									},
 									"target": {
-										"required": true,
 										"type": "string",
 										"enum": ["AverageValue"]
 									},
 									"value": {
-										"required": true,
 										"type": "string"
 									}
-								}
+								},
+								"required": ["type", "name", "target", "value"]
 							},
 							{
 								"type": "object",
 								"additionalProperties": false,
 								"properties": {
 									"type": {
-										"required": true,
 										"type": "string",
 										"enum": ["Object"]
 									},
 									"name": {
-										"required": true,
 										"type": "string",
 										"enum": ["requests-per-second"]
 									},
 									"target": {
-										"required": true,
 										"type": "string",
 										"enum": ["AverageValue", "Value"]
 									},
 									"value": {
-										"required": true,
 										"type": "string"
 									}
-								}
+								},
+								"required": ["type", "name", "target", "value"]
 							}
 						]
 					}
@@ -1478,14 +1457,13 @@ localConfig.schema = {
 						"type": "object",
 						"properties": {
 							"name": {
-								"required": true,
 								"type": "string"
 							},
 							"content": {
-								"required": true,
 								"type": "string"
 							}
-						}
+						},
+						"required": ["name", "content"]
 					}
 				}
 			}
@@ -1510,22 +1488,19 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"username": {
-							"required": true,
 							"type": "string"
 						},
 						"password": {
-							"required": true,
 							"type": "string"
 						},
 						"email": {
-							"required": true,
 							"type": "string"
 						},
 						"server": {
-							"required": true,
 							"type": "string"
 						}
-					}
+					},
+					"required": ["username", "password", "email", "server"]
 				}
 			}
 		},
@@ -1647,11 +1622,11 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"kind": {
-							"required": true,
 							"type": "string",
 							"enum": ["Deployment", "DaemonSet", "CronJob"]
 						}
-					}
+					},
+					"required": ["kind"]
 				}
 			}
 		}
