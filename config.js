@@ -986,6 +986,13 @@ localConfig.schema = {
 						"type": "string"
 					}
 				}
+			},
+			"processResult": {
+				"source": ["body.processResult"],
+				"required": false,
+				"validation": {
+					"type": "boolean"
+				}
 			}
 		},
 		"/kubernetes/pod/exec": {
@@ -1010,6 +1017,13 @@ localConfig.schema = {
 					"items": {
 						"type": "string"
 					}
+				}
+			},
+			"processResult": {
+				"source": ["body.processResult"],
+				"required": false,
+				"validation": {
+					"type": "boolean"
 				}
 			}
 		},

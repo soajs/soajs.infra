@@ -198,7 +198,7 @@ let bl = {
 								operationResponse.response = 'A ws error occurred: ' + wsError;
 								return callback(null, operationResponse);
 							}
-							if (response.indexOf('{') !== -1 && response.lastIndexOf('}') !== -1) {
+							if (options.processResult && response.indexOf('{') !== -1 && response.lastIndexOf('}') !== -1) {
 								response = response.substring(response.indexOf('{'), response.lastIndexOf('}') + 1);
 								
 								try {

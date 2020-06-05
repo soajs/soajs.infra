@@ -32,7 +32,8 @@ let bl = {
 				"namespace": config.namespace,
 				"config": config,
 				"filter": filter,
-				"commands": commands
+				"commands": commands,
+				"processResult": true
 			}, (error, response) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
@@ -54,7 +55,8 @@ let bl = {
 				"config": config,
 				"filter": inputmaskData.filter || null,
 				"name": inputmaskData.name || null,
-				"commands": inputmaskData.commands
+				"commands": inputmaskData.commands,
+				"processResult": inputmaskData.processResult || false
 			}, (error, response) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
