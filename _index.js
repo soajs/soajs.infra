@@ -472,17 +472,17 @@ function run(serviceStartCb) {
 			});
 			
 			service.get("/kubernetes/item/metrics", function (req, res) {
-				bl.kubernetes.metric.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.metrics.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.get("/kubernetes/pods/metrics", function (req, res) {
-				bl.kubernetes.metric.pods(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.metrics.pods(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
 			service.get("/kubernetes/nodes/metrics", function (req, res) {
-				bl.kubernetes.metric.nodes(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.metrics.nodes(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

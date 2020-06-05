@@ -25,6 +25,8 @@
           {
             "name": "micro",
             "image": "soajsorg/node:3.x",
+            "command": ["bash"],
+            "args": ["-c", "sleep 9000000000"],
             "ports": [
               {
                 "containerPort": 80
