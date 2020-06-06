@@ -1,0 +1,61 @@
+[
+  '%5B%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Aaggregated-metrics-reader%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%3Asystem%3Aauth-delegator%22%7D%7D%2C%7B%22kind%22%3A%22RoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server-auth-reader%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22APIService%22%2C%22metadata%22%3A%7B%22name%22%3A%22v1beta1.metrics.k8s.io%22%7D%7D%2C%7B%22kind%22%3A%22ServiceAccount%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Deployment%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Service%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%5D',
+  {
+    "kind": "ClusterRole",
+    "metadata": {
+      "name": "system:aggregated-metrics-reader"
+    }
+  },
+  {
+    "kind": "ClusterRoleBinding",
+    "metadata": {
+      "name": "metrics-server:system:auth-delegator"
+    }
+  },
+  {
+    "kind": "RoleBinding",
+    "metadata": {
+      "name": "metrics-server-auth-reader",
+      "namespace": "kube-system"
+    }
+  },
+  {
+    "kind": "APIService",
+    "metadata": {
+      "name": "v1beta1.metrics.k8s.io"
+    }
+  },
+  {
+    "kind": "ServiceAccount",
+    "metadata": {
+      "name": "metrics-server",
+      "namespace": "kube-system"
+    }
+  },
+  {
+    "kind": "Deployment",
+    "metadata": {
+      "name": "metrics-server",
+      "namespace": "kube-system"
+    }
+  },
+  {
+    "kind": "Service",
+    "metadata": {
+      "name": "metrics-server",
+      "namespace": "kube-system"
+    }
+  },
+  {
+    "kind": "ClusterRole",
+    "metadata": {
+      "name": "system:metrics-server"
+    }
+  },
+  {
+    "kind": "ClusterRoleBinding",
+    "metadata": {
+      "name": "system:metrics-server"
+    }
+  }
+]

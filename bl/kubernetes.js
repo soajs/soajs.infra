@@ -70,112 +70,120 @@ let bl = {
 	
 	"metrics": {},
 	
-	"plugin": {
+	"bundle": {
 		"deploy": (soajs, inputmaskData, options, cb) => {
 			if (!options) {
 				options = {};
 			}
 			options.action = "apply";
-			bl.plugin.execute(soajs, inputmaskData, options, cb);
+			bl.bundle.execute(soajs, inputmaskData, options, cb);
 		},
 		"delete": (soajs, inputmaskData, options, cb) => {
 			if (!options) {
 				options = {};
 			}
 			options.action = "delete";
-			bl.plugin.execute(soajs, inputmaskData, options, cb);
+			bl.bundle.execute(soajs, inputmaskData, options, cb);
 		},
 		"get": (soajs, inputmaskData, options, cb) => {
 			if (!options) {
 				options = {};
 			}
 			options.action = "get.one";
-			bl.plugin.execute(soajs, inputmaskData, options, cb);
+			bl.bundle.execute(soajs, inputmaskData, options, cb);
 		},
 		"execute": (soajs, inputmaskData, options, cb) => {
 			if (!inputmaskData) {
 				return cb(bl.handleError(soajs, 400, null));
 			}
-			let resourcePath = path.join(__dirname, '../driver/kubernetes/plugins/', inputmaskData.plugin, "server.json");
-			if (!fs.existsSync(resourcePath)) {
-				return cb(bl.handleError(soajs, 507, null));
+			
+			let bundle = null;
+			if (!inputmaskData.bundle && inputmaskData.plugin) {
+				let resourcePath = path.join(__dirname, '../driver/kubernetes/plugins/', inputmaskData.plugin, "server.json");
+				if (!fs.existsSync(resourcePath)) {
+					return cb(bl.handleError(soajs, 507, null));
+				}
+				bundle = require(resourcePath);
+			} else if (inputmaskData.bundle) {
+				bundle = inputmaskData.bundle;
 			}
-			bl.handleConnect(soajs, inputmaskData.configuration, (error, client) => {
+			if (!bundle || !Array.isArray(bundle) && bundle.length < 1) {
+				return cb(bl.handleError(soajs, 508, null));
+			}
+			
+			bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				let server = require(resourcePath);
-				if (server && Array.isArray(server) && server.length > 0) {
-					async.map(server, (oneResource, callback) => {
-						if (oneResource) {
-							let namespace = null;
-							if (oneResource.metadata && oneResource.metadata.namespace) {
-								namespace = oneResource.metadata.namespace;
-							}
-							let opts = {};
-							if (options.action === "apply") {
-								opts.body = oneResource;
-							}
-							if (namespace) {
-								opts.namespace = namespace;
-							}
-							if (oneResource.metadata && oneResource.metadata.name) {
-								opts.name = oneResource.metadata.name;
-							}
-							
-							let mode = oneResource.kind.toLowerCase();
-							if (mode === "horizontalpodautoscaler") {
-								mode = "hpa";
-							} else if (mode === "persistentvolumeclaim") {
-								mode = "pvc";
-							} else if (mode === "persistentvolume") {
-								mode = "pv";
-							}
-							let exec = bl.driver;
-							let action = options.action;
-							if (action === "get.one") {
-								exec = bl.driver.get;
-								action = "one";
-							}
-							if (!exec[action]) {
-								return callback(new Error("action [" + options.action + "] not supported."));
-							}
-							if (!exec[action][mode]) {
-								return callback(new Error("resource [" + mode + "] not supported."));
-							}
-							exec[action][mode](client, opts, (error, item) => {
-								let msg = "done";
-								if (error) {
-									if (options.action === "delete" && error.code === 404) {
-										msg = "not found";
-									} else if (options.action === "apply" && error.code === 409) {
-										msg = "already exist";
-									} else {
-										soajs.log.error("Error while executing [" + options.action + "] for resource [" + oneResource.kind + " - " + opts.name + "] for plugin [" + inputmaskData.plugin + "]");
-										return callback(error);
-									}
-								}
-								return callback(null, {
-									"mode": mode,
-									"name": opts.name,
-									"action": options.action,
-									"msg": msg,
-									"info": item
-								});
-							});
+				async.map(bundle, (oneResource, callback) => {
+					if (oneResource) {
+						let namespace = null;
+						if (oneResource.metadata && oneResource.metadata.namespace) {
+							namespace = oneResource.metadata.namespace;
+						}
+						let opts = {};
+						if (options.action === "apply") {
+							opts.body = oneResource;
+						}
+						if (namespace) {
+							opts.namespace = namespace;
 						} else {
-							return callback(new Error("Plugin resource is empty."));
+							opts.namespace = config.namespace;
 						}
-					}, (error, results) => {
-						if (error) {
-							soajs.log.error(error.message);
-							return cb(bl.handleError(soajs, 509, null));
+						if (oneResource.metadata && oneResource.metadata.name) {
+							opts.name = oneResource.metadata.name;
 						}
-						return cb(null, results);
-					});
-				} else {
-					return cb(bl.handleError(soajs, 508, null));
-				}
+						
+						let mode = oneResource.kind.toLowerCase();
+						if (mode === "horizontalpodautoscaler") {
+							mode = "hpa";
+						} else if (mode === "persistentvolumeclaim") {
+							mode = "pvc";
+						} else if (mode === "persistentvolume") {
+							mode = "pv";
+						}
+						let exec = bl.driver;
+						let action = options.action;
+						if (action === "get.one") {
+							exec = bl.driver.get;
+							action = "one";
+						}
+						if (!exec[action]) {
+							return callback(new Error("action [" + options.action + "] not supported."));
+						}
+						if (!exec[action][mode]) {
+							return callback(new Error("resource [" + mode + "] not supported."));
+						}
+						exec[action][mode](client, opts, (error, item) => {
+							let msg = "done";
+							if (error) {
+								if (error.code === 404) {
+									msg = "not found";
+								} else if (options.action === "apply" && error.code === 409) {
+									msg = "already exist";
+								} else {
+									soajs.log.error("Error while executing [" + options.action + "] for resource [" + oneResource.kind + " - " + opts.name + "]");
+									return callback(error);
+								}
+							}
+							return callback(null, {
+								"mode": mode,
+								"name": opts.name,
+								"action": options.action,
+								"msg": msg,
+								"info": item
+							});
+						});
+					} else {
+						return callback(new Error("Empty bundle resource detected."));
+					}
+				}, (error, results) => {
+					if (error) {
+						soajs.log.error(error.message);
+						return cb(bl.handleError(soajs, 509, null));
+					}
+					return cb(null, results);
+				});
 			});
 		}
 	},

@@ -56,8 +56,8 @@ localConfig.errors = {
 	505: "Unable to get latest version!",
 	506: "The resource kind must match the specified mode.",
 	507: "Unable to find plugin.",
-	508: "Plugin is empty.",
-	509: "Error executing plugin.",
+	508: "Empty bundle.",
+	509: "Error executing bundle.",
 	533: "No changes to update",
 	540: "You can no longer add cd Token, the max allowed is: " + localConfig.maxAllowed,
 	
@@ -140,6 +140,42 @@ localConfig.schema = {
 				"validation": {
 					"type": "string",
 					"enum": ["metric-server"]
+				}
+			}
+		},
+		"/kubernetes/bundle": {
+			"_apiInfo": {
+				"l": "This API fetches the information of a bundle deployment.",
+				"group": "Kubernetes bundle"
+			},
+			"commonFields": ["configuration"],
+			"bundle": {
+				"source": ["query.bundle"],
+				"required": true,
+				"validation": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"properties": {
+							"apiVersion": {
+								"type": "string"
+							},
+							"kind": {
+								"type": "string"
+							},
+							"metadata": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									}
+								},
+								"required": ["name"]
+							}
+						},
+						"required": ["kind", "metadata"]
+					}
 				}
 			}
 		},
@@ -1174,6 +1210,42 @@ localConfig.schema = {
 				}
 			}
 		},
+		"/kubernetes/bundle": {
+			"_apiInfo": {
+				"l": "This API deploys a bundle deployment of resources.",
+				"group": "Kubernetes bundle"
+			},
+			"commonFields": ["configuration"],
+			"bundle": {
+				"source": ["body.bundle"],
+				"required": true,
+				"validation": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"properties": {
+							"apiVersion": {
+								"type": "string"
+							},
+							"kind": {
+								"type": "string"
+							},
+							"metadata": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									}
+								},
+								"required": ["name"]
+							}
+						},
+						"required": ["apiVersion", "kind", "metadata"]
+					}
+				}
+			}
+		},
 		
 		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
@@ -1672,6 +1744,42 @@ localConfig.schema = {
 				"validation": {
 					"type": "string",
 					"enum": ["metric-server"]
+				}
+			}
+		},
+		"/kubernetes/bundle": {
+			"_apiInfo": {
+				"l": "This API removes all the resources of a deployed bundle.",
+				"group": "Kubernetes bundle"
+			},
+			"commonFields": ["configuration"],
+			"bundle": {
+				"source": ["body.bundle"],
+				"required": true,
+				"validation": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"properties": {
+							"apiVersion": {
+								"type": "string"
+							},
+							"kind": {
+								"type": "string"
+							},
+							"metadata": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									}
+								},
+								"required": ["name"]
+							}
+						},
+						"required": ["kind", "metadata"]
+					}
 				}
 			}
 		},

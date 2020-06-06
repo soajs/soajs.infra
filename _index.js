@@ -33,13 +33,27 @@ function run(serviceStartCb) {
 			});
 			
 			service.delete("/kubernetes/plugin", function (req, res) {
-				bl.kubernetes.plugin.delete(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.bundle.delete(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["Plugin", req.soajs.inputmaskData.plugin],
+						"action": "deleted"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
+				});
+			});
+			service.delete("/kubernetes/bundle", function (req, res) {
+				bl.kubernetes.bundle.delete(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["Bundle"],
 						"action": "deleted"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -311,7 +325,12 @@ function run(serviceStartCb) {
 			});
 			
 			service.get("/kubernetes/plugin", function (req, res) {
-				bl.kubernetes.plugin.get(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.bundle.get(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/kubernetes/bundle", function (req, res) {
+				bl.kubernetes.bundle.get(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
@@ -495,13 +514,27 @@ function run(serviceStartCb) {
 			});
 			
 			service.post("/kubernetes/plugin", function (req, res) {
-				bl.kubernetes.plugin.deploy(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.kubernetes.bundle.deploy(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["Plugin", req.soajs.inputmaskData.plugin],
+						"action": "added"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
+				});
+			});
+			service.post("/kubernetes/bundle", function (req, res) {
+				bl.kubernetes.bundle.deploy(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["Bundle"],
 						"action": "added"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
