@@ -118,23 +118,36 @@ let bl = {
 				async.map(bundle, (oneResource, callback) => {
 					if (oneResource) {
 						let namespace = null;
-						if (oneResource.metadata && oneResource.metadata.namespace) {
-							namespace = oneResource.metadata.namespace;
-						}
 						let opts = {};
+						let kind = null;
+						
 						if (options.action === "apply") {
-							opts.body = oneResource;
+							opts.body = oneResource.recipe;
+							if (oneResource.recipe.metadata && oneResource.recipe.metadata.namespace) {
+								namespace = oneResource.recipe.metadata.namespace;
+							}
+							if (oneResource.recipe.metadata && oneResource.recipe.metadata.name) {
+								opts.name = oneResource.recipe.metadata.name;
+							}
+							kind = oneResource.recipe.kind;
+						} else {
+							if (oneResource.metadata && oneResource.metadata.namespace) {
+								namespace = oneResource.metadata.namespace;
+							}
+							
+							if (oneResource.metadata && oneResource.metadata.name) {
+								opts.name = oneResource.metadata.name;
+							}
+							kind = oneResource.kind;
 						}
+						
 						if (namespace) {
 							opts.namespace = namespace;
 						} else {
 							opts.namespace = config.namespace;
 						}
-						if (oneResource.metadata && oneResource.metadata.name) {
-							opts.name = oneResource.metadata.name;
-						}
 						
-						let mode = oneResource.kind.toLowerCase();
+						let mode = kind.toLowerCase();
 						if (mode === "horizontalpodautoscaler") {
 							mode = "hpa";
 						} else if (mode === "persistentvolumeclaim") {
@@ -162,7 +175,7 @@ let bl = {
 								} else if (options.action === "apply" && error.code === 409) {
 									msg = "already exist";
 								} else {
-									soajs.log.error("Error while executing [" + options.action + "] for resource [" + oneResource.kind + " - " + opts.name + "]");
+									soajs.log.error("Error while executing [" + options.action + "] for resource [" + kind + " - " + opts.name + "]");
 									return callback(error);
 								}
 							}

@@ -1225,23 +1225,33 @@ localConfig.schema = {
 					"items": {
 						"type": "object",
 						"properties": {
-							"apiVersion": {
-								"type": "string"
+							"type": {
+								"type": "string",
+								"enum": ["native"]
 							},
-							"kind": {
-								"type": "string"
-							},
-							"metadata": {
+							"recipe": {
 								"type": "object",
 								"properties": {
-									"name": {
+									"apiVersion": {
 										"type": "string"
+									},
+									"kind": {
+										"type": "string"
+									},
+									"metadata": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											}
+										},
+										"required": ["name"]
 									}
 								},
-								"required": ["name"]
+								"required": ["apiVersion", "kind", "metadata"]
 							}
 						},
-						"required": ["apiVersion", "kind", "metadata"]
+						"required": ["type", "recipe"]
 					}
 				}
 			}

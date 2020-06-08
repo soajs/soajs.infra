@@ -1044,6 +1044,147 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:4000/infra/kubernetes/plugin?access_token=00317b4b32ccf06ad152d3c7776a24c3fc6363bb&plugin=metric-server",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"configuration\": {\"env\":\"LOCAL\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/infra/kubernetes/plugin?access_token=00317b4b32ccf06ad152d3c7776a24c3fc6363bb&plugin=metric-server",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"kubernetes",
+						"plugin"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "00317b4b32ccf06ad152d3c7776a24c3fc6363bb"
+						},
+						{
+							"key": "plugin",
+							"value": "metric-server"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bundle",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "key",
+						"type": "text",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"configuration\": {\n        \"env\": \"LOCAL\"\n    },\n    \"bundle\": [\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"rbac.authorization.k8s.io/v1\",\n                \"kind\": \"ClusterRole\",\n                \"metadata\": {\n                    \"name\": \"system:aggregated-metrics-reader\",\n                    \"labels\": {\n                        \"rbac.authorization.k8s.io/aggregate-to-view\": \"true\",\n                        \"rbac.authorization.k8s.io/aggregate-to-edit\": \"true\",\n                        \"rbac.authorization.k8s.io/aggregate-to-admin\": \"true\"\n                    }\n                },\n                \"rules\": [\n                    {\n                        \"apiGroups\": [\n                            \"metrics.k8s.io\"\n                        ],\n                        \"resources\": [\n                            \"pods\",\n                            \"nodes\"\n                        ],\n                        \"verbs\": [\n                            \"get\",\n                            \"list\",\n                            \"watch\"\n                        ]\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"rbac.authorization.k8s.io/v1\",\n                \"kind\": \"ClusterRoleBinding\",\n                \"metadata\": {\n                    \"name\": \"metrics-server:system:auth-delegator\"\n                },\n                \"roleRef\": {\n                    \"apiGroup\": \"rbac.authorization.k8s.io\",\n                    \"kind\": \"ClusterRole\",\n                    \"name\": \"system:auth-delegator\"\n                },\n                \"subjects\": [\n                    {\n                        \"kind\": \"ServiceAccount\",\n                        \"name\": \"metrics-server\",\n                        \"namespace\": \"kube-system\"\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"rbac.authorization.k8s.io/v1\",\n                \"kind\": \"RoleBinding\",\n                \"metadata\": {\n                    \"name\": \"metrics-server-auth-reader\",\n                    \"namespace\": \"kube-system\"\n                },\n                \"roleRef\": {\n                    \"apiGroup\": \"rbac.authorization.k8s.io\",\n                    \"kind\": \"Role\",\n                    \"name\": \"extension-apiserver-authentication-reader\"\n                },\n                \"subjects\": [\n                    {\n                        \"kind\": \"ServiceAccount\",\n                        \"name\": \"metrics-server\",\n                        \"namespace\": \"kube-system\"\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"apiregistration.k8s.io/v1\",\n                \"kind\": \"APIService\",\n                \"metadata\": {\n                    \"name\": \"v1beta1.metrics.k8s.io\"\n                },\n                \"spec\": {\n                    \"service\": {\n                        \"name\": \"metrics-server\",\n                        \"namespace\": \"kube-system\"\n                    },\n                    \"group\": \"metrics.k8s.io\",\n                    \"version\": \"v1beta1\",\n                    \"insecureSkipTLSVerify\": true,\n                    \"groupPriorityMinimum\": 100,\n                    \"versionPriority\": 100\n                }\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"v1\",\n                \"kind\": \"ServiceAccount\",\n                \"metadata\": {\n                    \"name\": \"metrics-server\",\n                    \"namespace\": \"kube-system\"\n                }\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"apps/v1\",\n                \"kind\": \"Deployment\",\n                \"metadata\": {\n                    \"name\": \"metrics-server\",\n                    \"namespace\": \"kube-system\",\n                    \"labels\": {\n                        \"k8s-app\": \"metrics-server\"\n                    }\n                },\n                \"spec\": {\n                    \"selector\": {\n                        \"matchLabels\": {\n                            \"k8s-app\": \"metrics-server\"\n                        }\n                    },\n                    \"template\": {\n                        \"metadata\": {\n                            \"name\": \"metrics-server\",\n                            \"labels\": {\n                                \"k8s-app\": \"metrics-server\"\n                            }\n                        },\n                        \"spec\": {\n                            \"serviceAccountName\": \"metrics-server\",\n                            \"volumes\": [\n                                {\n                                    \"name\": \"tmp-dir\",\n                                    \"emptyDir\": {}\n                                }\n                            ],\n                            \"containers\": [\n                                {\n                                    \"name\": \"metrics-server\",\n                                    \"image\": \"k8s.gcr.io/metrics-server-amd64:v0.3.6\",\n                                    \"imagePullPolicy\": \"IfNotPresent\",\n                                    \"args\": [\n                                        \"--cert-dir=/tmp\",\n                                        \"--secure-port=4443\"\n                                    ],\n                                    \"ports\": [\n                                        {\n                                            \"name\": \"main-port\",\n                                            \"containerPort\": 4443,\n                                            \"protocol\": \"TCP\"\n                                        }\n                                    ],\n                                    \"securityContext\": {\n                                        \"readOnlyRootFilesystem\": true,\n                                        \"runAsNonRoot\": true,\n                                        \"runAsUser\": 1000\n                                    },\n                                    \"volumeMounts\": [\n                                        {\n                                            \"name\": \"tmp-dir\",\n                                            \"mountPath\": \"/tmp\"\n                                        }\n                                    ]\n                                }\n                            ],\n                            \"nodeSelector\": {\n                                \"kubernetes.io/os\": \"linux\",\n                                \"kubernetes.io/arch\": \"amd64\"\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"v1\",\n                \"kind\": \"Service\",\n                \"metadata\": {\n                    \"name\": \"metrics-server\",\n                    \"namespace\": \"kube-system\",\n                    \"labels\": {\n                        \"kubernetes.io/name\": \"Metrics-server\",\n                        \"kubernetes.io/cluster-service\": \"true\"\n                    }\n                },\n                \"spec\": {\n                    \"selector\": {\n                        \"k8s-app\": \"metrics-server\"\n                    },\n                    \"ports\": [\n                        {\n                            \"port\": 443,\n                            \"protocol\": \"TCP\",\n                            \"targetPort\": \"main-port\"\n                        }\n                    ]\n                }\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"rbac.authorization.k8s.io/v1\",\n                \"kind\": \"ClusterRole\",\n                \"metadata\": {\n                    \"name\": \"system:metrics-server\"\n                },\n                \"rules\": [\n                    {\n                        \"apiGroups\": [\n                            \"\"\n                        ],\n                        \"resources\": [\n                            \"pods\",\n                            \"nodes\",\n                            \"nodes/stats\",\n                            \"namespaces\",\n                            \"configmaps\"\n                        ],\n                        \"verbs\": [\n                            \"get\",\n                            \"list\",\n                            \"watch\"\n                        ]\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"native\",\n            \"recipe\": {\n                \"apiVersion\": \"rbac.authorization.k8s.io/v1\",\n                \"kind\": \"ClusterRoleBinding\",\n                \"metadata\": {\n                    \"name\": \"system:metrics-server\"\n                },\n                \"roleRef\": {\n                    \"apiGroup\": \"rbac.authorization.k8s.io\",\n                    \"kind\": \"ClusterRole\",\n                    \"name\": \"system:metrics-server\"\n                },\n                \"subjects\": [\n                    {\n                        \"kind\": \"ServiceAccount\",\n                        \"name\": \"metrics-server\",\n                        \"namespace\": \"kube-system\"\n                    }\n                ]\n            }\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/infra/kubernetes/bundle?access_token=80863ebb36583225c243f14196df8135217d2902",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"kubernetes",
+						"bundle"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "80863ebb36583225c243f14196df8135217d2902"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/infra/kubernetes/bundle?access_token=00317b4b32ccf06ad152d3c7776a24c3fc6363bb&bundle=%5B%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Aaggregated-metrics-reader%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%3Asystem%3Aauth-delegator%22%7D%7D%2C%7B%22kind%22%3A%22RoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server-auth-reader%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22APIService%22%2C%22metadata%22%3A%7B%22name%22%3A%22v1beta1.metrics.k8s.io%22%7D%7D%2C%7B%22kind%22%3A%22ServiceAccount%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Deployment%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Service%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%5D&configuration=%7B%22env%22%3A%22local%22%7D",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "key",
+						"value": "3d90163cf9d6b3076ad26aa5ed58556348069258e5c6c941ee0f18448b570ad1c5c790e2d2a1989680c55f4904e2005ff5f8e71606e4aa641e67882f4210ebbc5460ff305dcb36e6ec2a2299cf0448ef60b9e38f41950ec251c1cf41f05f3ce9",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/infra/kubernetes/bundle?access_token=80863ebb36583225c243f14196df8135217d2902&bundle=%5B%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Aaggregated-metrics-reader%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%3Asystem%3Aauth-delegator%22%7D%7D%2C%7B%22kind%22%3A%22RoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server-auth-reader%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22APIService%22%2C%22metadata%22%3A%7B%22name%22%3A%22v1beta1.metrics.k8s.io%22%7D%7D%2C%7B%22kind%22%3A%22ServiceAccount%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Deployment%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Service%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%5D&configuration=%7B%22env%22%3A%22local%22%7D",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"infra",
+						"kubernetes",
+						"bundle"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "80863ebb36583225c243f14196df8135217d2902"
+						},
+						{
+							"key": "bundle",
+							"value": "%5B%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Aaggregated-metrics-reader%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%3Asystem%3Aauth-delegator%22%7D%7D%2C%7B%22kind%22%3A%22RoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server-auth-reader%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22APIService%22%2C%22metadata%22%3A%7B%22name%22%3A%22v1beta1.metrics.k8s.io%22%7D%7D%2C%7B%22kind%22%3A%22ServiceAccount%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Deployment%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22Service%22%2C%22metadata%22%3A%7B%22name%22%3A%22metrics-server%22%2C%22namespace%22%3A%22kube-system%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRole%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%2C%7B%22kind%22%3A%22ClusterRoleBinding%22%2C%22metadata%22%3A%7B%22name%22%3A%22system%3Ametrics-server%22%7D%7D%5D"
+						},
+						{
+							"key": "configuration",
+							"value": "%7B%22env%22%3A%22local%22%7D"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

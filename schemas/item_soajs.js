@@ -11,9 +11,6 @@
 let config = {
 	"type": "object",
 	"properties": {
-		"labels": {
-			"type": "object"
-		},
 		"catalog": {
 			"type": "object",
 			"additionalProperties": false,
@@ -31,7 +28,6 @@ let config = {
 			},
 			"required": ["id", "version", "shell"]
 		},
-		
 		"item": {
 			"type": "object",
 			"additionalProperties": false,
@@ -69,18 +65,7 @@ let config = {
 			},
 			"required": ["env", "name", "group", "type", "subtype", "version"]
 		},
-		"image": {
-			"type": "object",
-			"properties": {
-				"name": {
-					"type": "string"
-				},
-				"imagePullPolicy": {
-					"type": "string"
-				}
-			},
-			"required": ["name", "imagePullPolicy"]
-		},
+		
 		"src": {
 			"type": "object",
 			"properties": {
@@ -125,9 +110,25 @@ let config = {
 			},
 			"required": ["from", "repo", "owner"]
 		},
+		
 		"mode": {
 			"type": "string",
 			"enum": ["Deployment", "DaemonSet"]
+		},
+		"labels": {
+			"type": "object"
+		},
+		"image": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"imagePullPolicy": {
+					"type": "string"
+				}
+			},
+			"required": ["name", "imagePullPolicy"]
 		},
 		"ports": {
 			"type": "array",
