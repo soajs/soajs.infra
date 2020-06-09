@@ -1,7 +1,7 @@
 {
   "name": "soajs.infra",
   "description": "soajs Infrastructure service",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "soajs team",
     "email": "team@soajs.org"
@@ -29,10 +29,11 @@
     "grunt-mocha-test": "0.13.3",
     "mocha": "6.2.2",
     "request": "2.88.2",
-    "soajs.controller": "4.0.7"
+    "soajs.controller": "4.0.8"
   },
   "dependencies": {
     "async": "3.2.0",
-    "soajs": "4.0.9"
+    "kubernetes-client": "9.0.0",
+    "soajs": "4.0.10"
   }
 }
