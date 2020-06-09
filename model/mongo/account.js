@@ -162,7 +162,14 @@ Account.prototype.get = function (data, cb) {
 				_id: _id
 			};
 			condition = access.add_acl_2_condition(data, condition);
-			let options = {};
+			let options = {
+				"projection": {
+					"configuration.token": 0
+				}
+			};
+			if (data.keepToken) {
+				options = {};
+			}
 			__self.mongoCore.findOne(colName, condition, options, cb);
 		});
 	} else {
@@ -171,7 +178,11 @@ Account.prototype.get = function (data, cb) {
 			type: data.type
 		};
 		condition = access.add_acl_2_condition(data, condition);
-		let options = {};
+		let options = {
+			"projection": {
+				"configuration.token": 0
+			}
+		};
 		__self.mongoCore.find(colName, condition, options, cb);
 	}
 };

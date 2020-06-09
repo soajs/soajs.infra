@@ -45,6 +45,10 @@ describe("starting integration tests", () => {
 		require("./cdtoken/add_delete.js");
 		require("./cdtoken/add_update_get.js");
 		require("./cdtoken/add_getAll.js");
+		
+		require("./account/add.js");
+		require("./account/add_delete.js");
+		require("./account/add_getAll.js");
 		done();
 	});
 	
