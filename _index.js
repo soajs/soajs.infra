@@ -189,7 +189,7 @@ function run(serviceStartCb) {
 				});
 			});
 			service.put("/account/kubernetes/acl", function (req, res) {
-				bl.acount.update_acl(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+				bl.account.update_acl(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});

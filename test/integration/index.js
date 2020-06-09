@@ -49,6 +49,7 @@ describe("starting integration tests", () => {
 		require("./account/add.js");
 		require("./account/add_delete.js");
 		require("./account/add_getAll.js");
+		require("./account/add_update_acl_get.js");
 		done();
 	});
 	
