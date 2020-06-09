@@ -26,6 +26,12 @@ function run(serviceStartCb) {
 			}
 			
 			//DELETE methods
+			service.delete("/account/kubernetes", function (req, res) {
+				bl.account.delete(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			service.delete("/cd/token", function (req, res) {
 				bl.cdtoken.delete_token(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -177,6 +183,16 @@ function run(serviceStartCb) {
 			
 			
 			//PUT methods
+			service.put("/account/kubernetes/configuration", function (req, res) {
+				bl.account.update_configuration(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.put("/account/kubernetes/acl", function (req, res) {
+				bl.acount.update_acl(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.put("/cd/token/status", function (req, res) {
 				bl.cdtoken.update_token_status(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -313,6 +329,13 @@ function run(serviceStartCb) {
 			
 			
 			//GET methods
+			service.get("/account/kubernetes", function (req, res) {
+				req.soajs.inputmaskData.type = "kubernetes";
+				bl.account.get(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			
 			service.get("/cd/token", function (req, res) {
 				bl.cdtoken.get_token(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -507,6 +530,12 @@ function run(serviceStartCb) {
 			});
 			
 			//POST methods
+			service.post("/account/kubernetes", function (req, res) {
+				req.soajs.inputmaskData.type = "kubernetes";
+				bl.account.add(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.post("/cd/token", function (req, res) {
 				bl.cdtoken.add_token(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));

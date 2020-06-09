@@ -108,6 +108,19 @@ localConfig.schema = {
 	},
 	
 	"get": {
+		"/account/kubernetes": {
+			"_apiInfo": {
+				"l": "This API returns kubernetes account(s).",
+				"group": "Account"
+			},
+			"id": {
+				"source": ["query.id"],
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		
 		"/cd/token": {
 			"_apiInfo": {
 				"l": "This API returns a deployment cd token.",
@@ -813,6 +826,71 @@ localConfig.schema = {
 	},
 	
 	"put": {
+		"/account/kubernetes/configuration": {
+			"_apiInfo": {
+				"l": "This API updates kubernetes account configuration",
+				"group": "Account"
+			},
+			"id": {
+				"source": ["body.id"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"configuration": {
+				"source": ["body.configuration"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"enum": ["secret"]
+						},
+						"token": {
+							"type": "string"
+						},
+						"url": {
+							"type": "string"
+						},
+						"port": {
+							"type": "integer"
+						}
+					},
+					"required": ["type", "token", "url", "port"]
+				}
+			}
+		},
+		"/account/kubernetes/acl": {
+			"_apiInfo": {
+				"l": "This API returns kubernetes account acl",
+				"group": "Account"
+			},
+			"id": {
+				"source": ["body.id"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"type": {
+				"source": ['body.type'],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["blacklist", "whitelist"]
+				}
+			},
+			"groups": {
+				"source": ['body.groups'],
+				"required": true,
+				"validation": {
+					"type": "array",
+					"minItems": 1
+				}
+			}
+		},
 		"/cd/token/status": {
 			"_apiInfo": {
 				"l": "This API updates the status of a deployment cd token.",
@@ -1181,6 +1259,48 @@ localConfig.schema = {
 	},
 	
 	"post": {
+		"/account/kubernetes": {
+			"_apiInfo": {
+				"l": "This API adds a kubernetes account.",
+				"group": "Account"
+			},
+			"label": {
+				"source": ["body.label"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"description": {
+				"source": ["body.description"],
+				"validation": {
+					"type": "string"
+				}
+			},
+			"configuration": {
+				"source": ["body.configuration"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"enum": ["secret"]
+						},
+						"token": {
+							"type": "string"
+						},
+						"url": {
+							"type": "string"
+						},
+						"port": {
+							"type": "integer"
+						}
+					},
+					"required": ["type", "token", "url", "port"]
+				}
+			}
+		},
 		"/cd/token": {
 			"_apiInfo": {
 				"l": "This API adds a deployment cd token.",
@@ -1729,6 +1849,19 @@ localConfig.schema = {
 	},
 	
 	"delete": {
+		"/account/kubernetes": {
+			"_apiInfo": {
+				"l": "This API deletes a kubernetes account.",
+				"group": "Account"
+			},
+			"id": {
+				"source": ["body.id"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
 		"/cd/token": {
 			"_apiInfo": {
 				"l": "This API deletes a deployment cd token.",

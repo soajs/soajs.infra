@@ -10,14 +10,26 @@
 
 let model = process.env.SOAJS_SERVICE_MODEL || "mongo";
 let BL = {
-	init: init
+	init: init,
+	account: null,
+	cdtoken: null,
+	kubernetes: null
 };
 
 function init(service, localConfig, cb) {
 	
+	// Load account BL
+	let typeModel = __dirname + `/../model/${model}/account.js`;
+	let temp = require(`./account.js`);
+	temp.model = require(typeModel);
+	temp.modelObj = new temp.model(service, null, null);
+	temp.soajs_service = service;
+	temp.localConfig = localConfig;
+	BL.account = temp;
+	
 	// Load cdtoken BL
-	let typeModel = __dirname + `/../model/${model}/cdtoken.js`;
-	let temp = require(`./cdtoken.js`);
+	typeModel = __dirname + `/../model/${model}/cdtoken.js`;
+	temp = require(`./cdtoken.js`);
 	temp.model = require(typeModel);
 	temp.modelObj = new temp.model(service, null, null);
 	temp.soajs_service = service;
