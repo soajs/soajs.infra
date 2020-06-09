@@ -12,10 +12,10 @@ const assert = require('assert');
 const requester = require('../requester.js');
 
 
-describe("Testing add & delete account", () => {
+describe("Testing add & update acl and then get account", () => {
 	
 	
-	it("Success - add delete", (done) => {
+	it("Success - test acl behaviour", (done) => {
 		let params = {
 			body: {
 				"label": "mathieu",
@@ -52,12 +52,32 @@ describe("Testing add & delete account", () => {
 						"id": body.data[0]._id
 					}
 				};
-				requester('/account/kubernetes', 'get', params, (error, body) => {
-					console.log(body)
+				requester('/account/kubernetes', 'get', params, (error, body3) => {
 					assert.ifError(error);
-					assert.ok(body);
-					assert.deepEqual(body.data, null);
-					done();
+					assert.ok(body3);
+					assert.deepEqual(body3.data, null);
+					
+					let params = {
+						body: {
+							"id": body.data[0]._id,
+							"type": "blacklist",
+							"groups": ["owner"]
+						}
+					};
+					requester('/account/kubernetes/acl', 'put', params, (error, body2) => {
+						assert.ifError(error);
+						assert.ok(body2);
+						assert.deepEqual(body2.errors,
+							{
+								codes: [602],
+								details:
+									[{
+										code: 602,
+										message: 'Model error: Access restricted to this record.'
+									}]
+							});
+						done();
+					});
 				});
 			});
 		});

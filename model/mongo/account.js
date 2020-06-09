@@ -170,7 +170,6 @@ Account.prototype.get = function (data, cb) {
 			if (data.keepToken) {
 				options = {};
 			}
-			console.log(condition)
 			__self.mongoCore.findOne(colName, condition, options, cb);
 		});
 	} else {
