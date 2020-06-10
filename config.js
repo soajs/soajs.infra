@@ -910,7 +910,7 @@ localConfig.schema = {
 		},
 		"/account/kubernetes/acl": {
 			"_apiInfo": {
-				"l": "This API returns kubernetes account acl",
+				"l": "This API updates kubernetes account acl",
 				"group": "Account"
 			},
 			"id": {

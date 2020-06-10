@@ -32,7 +32,9 @@ function Account(service, options, mongoCore) {
 			__self.mongoCore = new Mongo(options.dbConfig);
 		} else {
 			let registry = service.registry.get();
-			__self.mongoCore = new Mongo(registry.coreDB.provision);
+			if (registry && registry.coreDB && registry.coreDB.provision) {
+				__self.mongoCore = new Mongo(registry.coreDB.provision);
+			}
 		}
 		
 		let index = "default";
@@ -41,11 +43,11 @@ function Account(service, options, mongoCore) {
 		}
 		if (indexing && !indexing[index]) {
 			indexing[index] = true;
-			
-			__self.mongoCore.createIndex(colName, {'type': 1}, {}, (err, index) => {
-				service.log.debug("Index: " + index + " created with error: " + err);
-			});
-			
+			if (__self.mongoCore) {
+				__self.mongoCore.createIndex(colName, {'type': 1}, {}, (err, index) => {
+					service.log.debug("Index: " + index + " created with error: " + err);
+				});
+			}
 			service.log.debug("Account: Indexes for " + index + " Updated!");
 		}
 	}

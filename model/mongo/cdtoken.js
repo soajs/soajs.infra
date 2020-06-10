@@ -43,10 +43,11 @@ function Cdtoken(service, options, mongoCore) {
 	if (indexing && !indexing[index]) {
 		indexing[index] = true;
 		
-		__self.mongoCore.createIndex(colName, {'type': 1, 'token': 1}, {}, (err, index) => {
-			service.log.debug("Index: " + index + " created with error: " + err);
-		});
-		
+		if (__self.mongoCore) {
+			__self.mongoCore.createIndex(colName, {'type': 1, 'token': 1}, {}, (err, index) => {
+				service.log.debug("Index: " + index + " created with error: " + err);
+			});
+		}
 		service.log.debug("cdToken: Indexes for " + index + " Updated!");
 	}
 }
