@@ -7,7 +7,7 @@
  */
 
 "use strict";
-const colName = "infra_account";
+const colName = "infra";
 const core = require("soajs");
 const access = require("./access");
 const Mongo = core.mongo;
