@@ -121,7 +121,7 @@ let bl = {
 			if (err) {
 				return cb(bl.handleError(soajs, 602, err));
 			}
-			return cb(null, response);
+			return cb(null, bl.handleUpdateResponse(response));
 		});
 	},
 	"update_configuration": (soajs, inputmaskData, options, cb) => {
@@ -136,7 +136,7 @@ let bl = {
 			if (err) {
 				return cb(bl.handleError(soajs, 602, err));
 			}
-			return cb(null, response);
+			return cb(null, bl.handleUpdateResponse(response));
 		});
 	},
 	"update_acl": (soajs, inputmaskData, options, cb) => {
@@ -151,7 +151,7 @@ let bl = {
 			if (err) {
 				return cb(bl.handleError(soajs, 602, err));
 			}
-			return cb(null, response);
+			return cb(null, bl.handleUpdateResponse(response));
 		});
 	}
 };

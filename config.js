@@ -868,6 +868,10 @@ localConfig.schema = {
 						"url": {
 							"type": "string"
 						},
+						"protocol": {
+							"type": "string",
+							"enum": ["http://", "https://"]
+						},
 						"port": {
 							"type": "integer"
 						}
