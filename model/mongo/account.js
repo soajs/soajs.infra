@@ -42,6 +42,10 @@ function Account(service, options, mongoCore) {
 		if (indexing && !indexing[index]) {
 			indexing[index] = true;
 			
+			__self.mongoCore.createIndex(colName, {'type': 1}, {}, (err, index) => {
+				service.log.debug("Index: " + index + " created with error: " + err);
+			});
+			
 			service.log.debug("Account: Indexes for " + index + " Updated!");
 		}
 	}
@@ -212,7 +216,6 @@ Account.prototype.get = function (data, cb) {
 			__self.mongoCore.findOne(colName, condition, options, cb);
 		});
 	} else {
-		let __self = this;
 		let condition = {
 			type: data.type
 		};
@@ -240,6 +243,7 @@ Account.prototype.delete = function (data, cb) {
 			_id: _id
 		};
 		let options = {};
+		condition = access.add_acl_2_condition(data, condition);
 		__self.mongoCore.deleteOne(colName, condition, options, cb);
 	});
 };

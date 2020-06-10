@@ -79,6 +79,7 @@ let bl = {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		let modelObj = bl.mp.getModel(soajs, options);
+		inputmaskData._groups = getGroups(soajs);
 		modelObj.delete(inputmaskData, (err, response) => {
 			bl.mp.closeModel(modelObj);
 			if (err) {
@@ -98,7 +99,6 @@ let bl = {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		let modelObj = bl.mp.getModel(soajs, options);
-		
 		inputmaskData._groups = getGroups(soajs);
 		modelObj.get(inputmaskData, (err, response) => {
 			bl.mp.closeModel(modelObj);

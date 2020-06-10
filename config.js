@@ -37,7 +37,8 @@ let localConfig = {
 			{"label": "Reload Registry", "path": "/reloadRegistry", "icon": "fas fa-undo"},
 			{"label": "Resource Info", "path": "/resourceInfo", "icon": "fas fa-info"}
 		]
-	}, "interConnect": [{
+	},
+	"interConnect": [{
 		"name": "console",
 		"version": "1"
 	}],
