@@ -22,8 +22,7 @@ describe("Testing add account", () => {
 				"description": "this is a description for my account",
 				"configuration": {
 					"type": "secret",
-					"namespace": "soajs",
-					"url": "https://kubernetes.docker.internal",
+					"url": "kubernetes.docker.internal",
 					"port": 6443,
 					"token": "wdhguywsbchxdsbchjsabdhbxashdbhasbdcxhasbvchjsavbhdxvashdgcxuasgdchsagb"
 				}

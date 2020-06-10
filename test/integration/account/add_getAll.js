@@ -22,8 +22,7 @@ describe("Testing add, and getAll account", () => {
 				"description": "this is a description for hage",
 				"configuration": {
 					"type": "secret",
-					"namespace": "soajs",
-					"url": "https://kubernetes.docker.internal",
+					"url": "kubernetes.docker.internal",
 					"port": 443,
 					"token": "weewew"
 				}
@@ -41,8 +40,7 @@ describe("Testing add, and getAll account", () => {
 					"description": "this is a description for hage2",
 					"configuration": {
 						"type": "secret",
-						"namespace": "soajs",
-						"url": "https://kubernetes.docker.internal",
+						"url": "kubernetes.docker.internal",
 						"port": 443,
 						"token": "weewsdsdsdsdsdsdsdsew"
 					}

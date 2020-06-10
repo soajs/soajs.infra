@@ -22,8 +22,7 @@ describe("Testing add & delete account", () => {
 				"description": "this is a description for tony",
 				"configuration": {
 					"type": "secret",
-					"namespace": "soajs",
-					"url": "https://kubernetes.docker.internal",
+					"url": "kubernetes.docker.internal",
 					"port": 6443,
 					"token": "wdhguywsbcewwewewewewewhasbvchjsavbhdxvashdgcxuasgdchsagb"
 				}

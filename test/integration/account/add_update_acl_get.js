@@ -22,8 +22,7 @@ describe("Testing add & update acl and then get account", () => {
 				"description": "this is a description for mathieu",
 				"configuration": {
 					"type": "secret",
-					"namespace": "soajs",
-					"url": "https://kubernetes.docker.internal",
+					"url": "kubernetes.docker.internal",
 					"port": 6443,
 					"token": "wdhguywsbcewwewewewewewhasbvchjsavbhdxvashdgcxuasgdchsagb"
 				}

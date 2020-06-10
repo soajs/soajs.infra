@@ -1327,6 +1327,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"type": {
 							"type": "string",
@@ -1337,6 +1338,10 @@ localConfig.schema = {
 						},
 						"url": {
 							"type": "string"
+						},
+						"protocol": {
+							"type": "string",
+							"enum": ["http://", "https://"]
 						},
 						"port": {
 							"type": "integer"
