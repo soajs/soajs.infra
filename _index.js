@@ -188,6 +188,11 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.put("/account/kubernetes/environment", function (req, res) {
+				bl.account.update_environment(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			service.put("/account/kubernetes/acl", function (req, res) {
 				bl.account.update_acl(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
@@ -331,6 +336,13 @@ function run(serviceStartCb) {
 			//GET methods
 			service.get("/account/kubernetes", function (req, res) {
 				req.soajs.inputmaskData.type = "kubernetes";
+				bl.account.get(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
+			service.get("/account/kubernetes/token", function (req, res) {
+				req.soajs.inputmaskData.type = "kubernetes";
+				req.soajs.inputmaskData.keepToken = true;
 				bl.account.get(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					return res.json(req.soajs.buildResponse(error, data));
 				});

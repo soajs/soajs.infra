@@ -68,6 +68,42 @@ Account.prototype.add = function (data, cb) {
 	__self.mongoCore.insertOne(colName, doc, options, versioning, cb);
 };
 
+Account.prototype.update_environment = function (data, cb) {
+	let __self = this;
+	if (!data || !data.id || !data.environment) {
+		let error = new Error("Account: id, environment are required.");
+		return cb(error, null);
+	}
+	__self.validateId(data.id, (error, _id) => {
+		if (error) {
+			return cb(error);
+		}
+		let condition = {
+			_id: _id
+		};
+		
+		let options = {};
+		let fields = {
+			'$push:': {environments: data.environment}
+		};
+		__self.check_if_can_access(data, condition, {}, (error) => {
+			if (error) {
+				return cb(error);
+			}
+			__self.mongoCore.updateOne(colName, condition, fields, options, (err, record) => {
+				if (err) {
+					return cb(err);
+				}
+				if (!record || (record && !record.nModified)) {
+					let error = new Error("Account: [" + data.id + "] was not updated.");
+					return cb(error);
+				}
+				return cb(null, record.nModified);
+			});
+		});
+	});
+};
+
 Account.prototype.update_configuration = function (data, cb) {
 	let __self = this;
 	if (!data || !data.id || !data.configuration) {
@@ -82,7 +118,7 @@ Account.prototype.update_configuration = function (data, cb) {
 			_id: _id
 		};
 		
-		let options = {'upsert': true, 'safe': true};
+		let options = {};
 		let fields = {
 			'$set': {configuration: data.configuration}
 		};

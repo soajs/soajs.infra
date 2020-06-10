@@ -120,6 +120,19 @@ localConfig.schema = {
 				}
 			}
 		},
+		"/account/kubernetes/token": {
+			"_apiInfo": {
+				"l": "This API returns kubernetes account with token.",
+				"group": "Internal"
+			},
+			"id": {
+				"source": ["query.id"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
 		
 		"/cd/token": {
 			"_apiInfo": {
@@ -859,6 +872,32 @@ localConfig.schema = {
 						}
 					},
 					"required": ["type", "token", "url", "port"]
+				}
+			}
+		},
+		"/account/kubernetes/environment": {
+			"_apiInfo": {
+				"l": "This API updates kubernetes environment usage.",
+				"group": "Account"
+			},
+			"id": {
+				"source": ["body.id"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"environment": {
+				"source": ["body.environment"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"env": {
+							"type": "string"
+						}
+					},
+					"required": ["env"]
 				}
 			}
 		},
