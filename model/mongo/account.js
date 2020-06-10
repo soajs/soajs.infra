@@ -86,6 +86,9 @@ Account.prototype.update_environment = function (data, cb) {
 		let fields = {
 			'$push:': {environments: data.environment}
 		};
+		if (data.delete) {
+			fields = {$pull: {environments: {env: data.environment.env}}}
+		}
 		__self.check_if_can_access(data, condition, {}, (error) => {
 			if (error) {
 				return cb(error);

@@ -899,6 +899,12 @@ localConfig.schema = {
 					},
 					"required": ["env"]
 				}
+			},
+			"delete": {
+				"source": ["body.delete"],
+				"validation": {
+					"type": "boolean"
+				}
 			}
 		},
 		"/account/kubernetes/acl": {
