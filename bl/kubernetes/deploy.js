@@ -403,10 +403,10 @@ let bl = {
 							});
 						} else {
 							inputmaskData.service.metadata.resourceVersion = serviceRec.metadata.resourceVersion;
-							if (!inputmaskData.service.spec.clusterIP) {
+							if (!inputmaskData.service.spec.clusterIP && serviceRec.spec && serviceRec.spec.clusterIP) {
 								inputmaskData.service.spec.clusterIP = serviceRec.spec.clusterIP;
 							}
-							if (serviceRec.spec.healthCheckNodePort) {
+							if (serviceRec.spec && serviceRec.spec.healthCheckNodePort) {
 								inputmaskData.service.spec.healthCheckNodePort = serviceRec.spec.healthCheckNodePort;
 							}
 							bl.driver.update.service(client, {
