@@ -127,7 +127,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"soajs\"\n}",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"tony\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -209,7 +209,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/item?",
+					"raw": "http://localhost:4008/kubernetes/item",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -290,7 +290,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/item?",
+					"raw": "http://localhost:4008/kubernetes/item",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -474,7 +474,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/item/maintenance?",
+					"raw": "http://localhost:4008/kubernetes/item/maintenance",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -518,7 +518,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/pods/exec?",
+					"raw": "http://localhost:4008/kubernetes/pods/exec",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -554,7 +554,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": \"dev-urac-v3\",\n    \"mode\": \"Deployment\",\n    \"src\": {\n        \"from\": {\n            \"branch\": \"feature_v3.2\",\n            \"commit\": \"eeeeeeeeeeeee\"\n        }\n    },\n    \"image\": {\n        \"name\": \"soajsorg/urac:latest\"\n    }\n}",
+					"raw": "{\n    \"configuration\": {\n        \"type\": \"secret\",\n        \"namespace\": \"soajs\",\n        \"url\": \"https://kubernetes.docker.internal:6443\",\n        \"token\": {{token}}\n    },\n    \"name\": {\"metaname\":\"dev-urac-v3\"},\n    \"mode\": \"Deployment\",\n    \"src\": {\n        \"from\": {\n            \"branch\": \"feature_v3.2\",\n            \"commit\": \"eeeeeeeeeeeee\"\n        }\n    },\n    \"image\": {\n        \"tag\": \"latest\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -562,7 +562,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/item/redeploy?",
+					"raw": "http://localhost:4008/kubernetes/item/redeploy",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -606,7 +606,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/pod/exec?",
+					"raw": "http://localhost:4008/kubernetes/pod/exec",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -650,7 +650,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/resource/restart?",
+					"raw": "http://localhost:4008/kubernetes/resource/restart",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1023,7 +1023,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:4008/kubernetes/resource/Service?",
+					"raw": "http://localhost:4008/kubernetes/resource/Service",
 					"protocol": "http",
 					"host": [
 						"localhost"
