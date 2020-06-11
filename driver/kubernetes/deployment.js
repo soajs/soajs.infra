@@ -106,7 +106,7 @@ let bl = {
 	},
 	"getOne": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
-			return cb(new Error("deploymentgetOne: options is required with {name, and namespace}"));
+			return cb(new Error("deployment getOne: options is required with {name, and namespace}"));
 		}
 		wrapper.deployment.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
 			return cb(error, item);

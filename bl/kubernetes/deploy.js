@@ -380,32 +380,70 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			
-			//TODO: check if already exist use put
-			
 			let kind = inputmaskData.deployment.kind.toLowerCase();
 			if (!bl.driver.create[kind]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			bl.driver.create[kind](client, {
-				"body": inputmaskData.deployment,
-				"namespace": config.namespace
-			}, (error) => {
-				if (error) {
-					return cb(bl.handleError(soajs, 702, error));
-				}
+			
+			let continue_service = () => {
 				if (inputmaskData.service) {
-					bl.driver.create.service(client, {
-						"body": inputmaskData.service,
+					bl.driver.get.one.service(client, {
+						"name": inputmaskData.service.metadata.name,
+						"namespace": config.namespace
+					}, (error, item) => {
+						if (!item) {
+							bl.driver.create.service(client, {
+								"body": inputmaskData.service,
+								"namespace": config.namespace
+							}, (error) => {
+								if (error) {
+									return cb(bl.handleError(soajs, 702, error));
+								}
+								return cb(null, {"deployed": true});
+							});
+						} else {
+							bl.driver.update.service(client, {
+								"name": inputmaskData.service.metadata.name,
+								"body": inputmaskData.service,
+								"namespace": config.namespace
+							}, (error) => {
+								if (error) {
+									return cb(bl.handleError(soajs, 702, error));
+								}
+								return cb(null, {"deployed": true});
+							});
+						}
+					});
+				} else {
+					return cb(null, {"deployed": true});
+				}
+			};
+			
+			bl.driver.get.one[kind](client, {
+				"name": inputmaskData.deployment.metadata.name,
+				"namespace": config.namespace
+			}, (error, item) => {
+				if (!item) {
+					bl.driver.create[kind](client, {
+						"body": inputmaskData.deployment,
 						"namespace": config.namespace
 					}, (error) => {
 						if (error) {
 							return cb(bl.handleError(soajs, 702, error));
 						}
-						return cb(null, {"created": true});
-						
+						continue_service();
 					});
 				} else {
-					return cb(null, {"created": true});
+					bl.driver.update[kind](client, {
+						"name": inputmaskData.deployment.metadata.name,
+						"body": inputmaskData.deployment,
+						"namespace": config.namespace
+					}, (error) => {
+						if (error) {
+							return cb(bl.handleError(soajs, 702, error));
+						}
+						continue_service();
+					});
 				}
 			});
 		});

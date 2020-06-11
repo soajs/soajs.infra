@@ -46,6 +46,17 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 			console.log("Kubernetes driver");
 		}
 		
+		DRIVER.get = {
+			"one": {
+				cronjob: (client, options, cb) => {
+					return cb(null);
+				},
+				service: (client, options, cb) => {
+					return cb(null);
+				}
+			}
+		};
+		
 		DRIVER.create = {
 			cronjob: (client, options, cb) => {
 				if (options && options.body && options.body.name === "error") {
@@ -68,7 +79,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 		
 		BL.item_soajs_conjob(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.item_soajs_conjob(soajs, {
 				"configuration": {
@@ -163,7 +174,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 				}
 			}, null, (error, response) => {
 				assert.ok(response);
-				assert.deepEqual(response, {created: true});
+				assert.deepStrictEqual(response, {"deployed": true});
 				done();
 			});
 		});
@@ -173,6 +184,16 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 			console.log("Kubernetes driver");
 		}
 		
+		DRIVER.get = {
+			"one": {
+				cronjob: (client, options, cb) => {
+					return cb(new Error("error about something"));
+				},
+				service: (client, options, cb) => {
+					return cb(null);
+				}
+			}
+		};
 		DRIVER.create = {
 			cronjob: (client, options, cb) => {
 				if (options && options.body && options.body.name === "error") {
@@ -195,7 +216,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 		
 		BL.item_native_cronjob(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.item_native_cronjob(soajs, {
 				"configuration": {
@@ -277,7 +298,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 				}
 			}, null, (error, response) => {
 				assert.ok(response);
-				assert.deepEqual(response, {created: true});
+				assert.deepStrictEqual(response, {"deployed": true});
 				done();
 			});
 		});
@@ -288,6 +309,24 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 			console.log("Kubernetes driver");
 		}
 		
+		DRIVER.get = {
+			"one": {
+				deployment: (client, options, cb) => {
+					return cb(null, {"metadata": {"name": options.name}});
+				},
+				service: (client, options, cb) => {
+					return cb(null, {"metadata": {"name": options.name}});
+				}
+			}
+		};
+		DRIVER.update = {
+			deployment: (client, options, cb) => {
+				return cb(null, options.body);
+			},
+			service: (client, options, cb) => {
+				return cb(null, options.body);
+			}
+		};
 		DRIVER.create = {
 			deployment: (client, options, cb) => {
 				if (options && options.body && options.body.name === "error") {
@@ -310,7 +349,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 		
 		BL.item_soajs_deployment_or_daemonset(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.item_soajs_deployment_or_daemonset(soajs, {
 				"configuration": {
@@ -404,7 +443,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 				}
 			}, null, (error, response) => {
 				assert.ok(response);
-				assert.deepEqual(response, {created: true});
+				assert.deepStrictEqual(response, {"deployed": true});
 				done();
 			});
 		});
@@ -414,6 +453,16 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 			console.log("Kubernetes driver");
 		}
 		
+		DRIVER.get = {
+			"one": {
+				deployment: (client, options, cb) => {
+					return cb(null);
+				},
+				service: (client, options, cb) => {
+					return cb(null);
+				}
+			}
+		};
 		DRIVER.create = {
 			deployment: (client, options, cb) => {
 				if (options && options.body && options.body.name === "error") {
@@ -436,7 +485,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 		
 		BL.item_native_deployment_or_daemonset(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.item_native_deployment_or_daemonset(soajs, {
 				"configuration": {
@@ -513,7 +562,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 				}
 			}, null, (error, response) => {
 				assert.ok(response);
-				assert.deepEqual(response, {created: true});
+				assert.deepStrictEqual(response, {"deployed": true});
 				done();
 			});
 		});
@@ -524,6 +573,16 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 			console.log("Kubernetes driver");
 		}
 		
+		DRIVER.get = {
+			"one": {
+				deployment: (client, options, cb) => {
+					return cb(null);
+				},
+				service: (client, options, cb) => {
+					return cb(null);
+				}
+			}
+		};
 		DRIVER.create = {
 			deployment: (client, options, cb) => {
 				if (options && options.body && options.body.name === "error") {
@@ -546,7 +605,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 		
 		BL.native(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.native(soajs, {
 				"configuration": {
@@ -555,11 +614,11 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 					"url": "https://kubernetes.docker.internal:6443",
 					"token": "TOKEN"
 				},
-				"deployment": {"kind": "Deployment", "name": "any"},
-				"service": {"kind": "Service", "name": "any"}
+				"deployment": {"kind": "Deployment", "name": "any", "metadata": {"name": "any"}},
+				"service": {"kind": "Service", "name": "any", "metadata": {"name": "any-service"}}
 			}, null, (error, response) => {
 				assert.ok(response);
-				assert.deepEqual(response, {created: true});
+				assert.deepStrictEqual(response, {"deployed": true});
 				done();
 			});
 		});
@@ -570,6 +629,16 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 			console.log("Kubernetes driver");
 		}
 		
+		DRIVER.get = {
+			"one": {
+				deployment: (client, options, cb) => {
+					return cb(null);
+				},
+				service: (client, options, cb) => {
+					return cb(null);
+				}
+			}
+		};
 		DRIVER.create = {
 			deployment: (client, options, cb) => {
 				if (options && options.body && options.body.name === "error") {
@@ -592,11 +661,11 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 		
 		BL.vanilla(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.vanilla(soajs, {"configuration": {}}, null, (error) => {
 				assert.ok(error);
-				assert.deepEqual(error.code, 702);
+				assert.strictEqual(error.code, 702);
 				
 				BL.vanilla(soajs, {
 					"configuration": {
@@ -604,20 +673,20 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 						"namespace": "soajs",
 						"url": "https://kubernetes.docker.internal:6443",
 						"token": "TOKEN"
-					}, "deployment": {"kind": "XXX"}
+					}, "deployment": {"kind": "XXX", "metadata": {"name": "any"}}
 				}, null, (error) => {
 					assert.ok(error);
-					assert.deepEqual(error.code, 504);
+					assert.strictEqual(error.code, 504);
 					BL.vanilla(soajs, {
 						"configuration": {
 							"type": "secret",
 							"namespace": "soajs",
 							"url": "https://kubernetes.docker.internal:6443",
 							"token": "TOKEN"
-						}, "deployment": {"kind": "Deployment", "name": "error"}
+						}, "deployment": {"kind": "Deployment", "name": "error", "metadata": {"name": "any"}}
 					}, null, (error) => {
 						assert.ok(error);
-						assert.deepEqual(error.code, 702);
+						assert.strictEqual(error.code, 702);
 						
 						BL.vanilla(soajs, {
 							"configuration": {
@@ -625,10 +694,10 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 								"namespace": "soajs",
 								"url": "https://kubernetes.docker.internal:6443",
 								"token": "TOKEN"
-							}, "deployment": {"kind": "Deployment", "name": "any"}
+							}, "deployment": {"kind": "Deployment", "name": "any", "metadata": {"name": "any"}}
 						}, null, (error, response) => {
 							assert.ok(response);
-							assert.deepEqual(response, {created: true});
+							assert.deepStrictEqual(response, {"deployed": true});
 							
 							BL.vanilla(soajs, {
 								"configuration": {
@@ -637,11 +706,11 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 									"url": "https://kubernetes.docker.internal:6443",
 									"token": "TOKEN"
 								},
-								"deployment": {"kind": "Deployment", "name": "any"},
-								"service": {"kind": "Service", "name": "error"}
+								"deployment": {"kind": "Deployment", "name": "any", "metadata": {"name": "any"}},
+								"service": {"kind": "Service", "name": "error", "metadata": {"name": "any-service"}}
 							}, null, (error) => {
 								assert.ok(error);
-								assert.deepEqual(error.code, 702);
+								assert.strictEqual(error.code, 702);
 								
 								BL.vanilla(soajs, {
 									"configuration": {
@@ -650,11 +719,11 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 										"url": "https://kubernetes.docker.internal:6443",
 										"token": "TOKEN"
 									},
-									"deployment": {"kind": "Deployment", "name": "any"},
-									"service": {"kind": "Service", "name": "any"}
+									"deployment": {"kind": "Deployment", "name": "any", "metadata": {"name": "any"}},
+									"service": {"kind": "Service", "name": "any", "metadata": {"name": "any-service"}}
 								}, null, (error, response) => {
 									assert.ok(response);
-									assert.deepEqual(response, {created: true});
+									assert.deepStrictEqual(response, {"deployed": true});
 									done();
 								});
 							});
