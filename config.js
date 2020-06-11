@@ -162,7 +162,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"plugin": {
-				"source ": ["query.plugin"],
+				"source": ["query.plugin"],
 				"required": true,
 				"validation": {
 					"type": "string",
