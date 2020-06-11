@@ -346,9 +346,8 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
-			let label_sanytized = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
-			let filter = {"labelSelector": "soajs.service.label=" + label_sanytized};
+			let label = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + inputmaskData.item.version;
+			let filter = {"labelSelector": "soajs.service.label=" + label};
 			
 			async.parallel({
 				services: function (callback) {
