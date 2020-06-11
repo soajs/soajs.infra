@@ -12,7 +12,6 @@ const async = require("async");
 const path = require('path');
 const fs = require('fs');
 const lib = require("./kubernetes/lib.js");
-const soajsCoreLibs = require("soajs.core.libs");
 
 function setRestartEnv(envArray) {
 	if (envArray && Array.isArray(envArray)) {
