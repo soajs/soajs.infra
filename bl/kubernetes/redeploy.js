@@ -44,8 +44,8 @@ let bl = {
 			
 			let metaname = inputmaskData.name.metaname;
 			if (inputmaskData.name.item) {
-				let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
-				metaname = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
+				let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.name.item.version);
+				metaname = inputmaskData.name.item.env + "-" + inputmaskData.name.item.name + "-v" + sanytized_version;
 			}
 			
 			bl.driver.get.one[mode](client, {
