@@ -63,7 +63,7 @@ let config = {
 					"minLength": 1
 				}
 			},
-			"required": ["env", "name", "group", "type", "subtype", "version"]
+			"required": ["env", "name", "group", "type", "version"]
 		},
 		"src": {
 			"type": "object",

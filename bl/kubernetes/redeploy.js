@@ -8,6 +8,8 @@
  * found in the LICENSE file at the root of this repository
  */
 
+const soajsCoreLibs = require("soajs.core.libs");
+
 function buildLabels(config) {
 	config.labels["service.image.ts"] = new Date().getTime().toString();
 	if (config.src && config.src.from) {
@@ -40,15 +42,27 @@ let bl = {
 				return cb(bl.handleError(soajs, 504, null));
 			}
 			
+			let metaname = inputmaskData.name.metaname;
+			if (inputmaskData.name.item) {
+				let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
+				metaname = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
+			}
+			
 			bl.driver.get.one[mode](client, {
 				"namespace": kubeConfig.namespace,
-				"name": inputmaskData.name
+				"name": metaname
 			}, (error, item) => {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
 				if (!item) {
 					return cb(bl.handleError(soajs, 501, null));
+				}
+				if (inputmaskData.image) {
+					let currentImage = item.spec.template.spec.containers[0].image;
+					currentImage = currentImage.substr(0, currentImage.lastIndexOf(":"));
+					currentImage = currentImage + ":" + inputmaskData.image.tag;
+					inputmaskData.image.name = currentImage;
 				}
 				let config = {"labels": {}, "src": inputmaskData.src || null, "image": inputmaskData.image || null};
 				buildLabels(config);
@@ -104,13 +118,13 @@ let bl = {
 				}
 				bl.driver.update[mode](client, {
 					"namespace": kubeConfig.namespace,
-					"name": inputmaskData.name,
+					"name": metaname,
 					"body": item
 				}, (error) => {
 					if (error) {
 						return cb(bl.handleError(soajs, 702, error));
 					}
-					let serviceName = inputmaskData.name + "-service";
+					let serviceName = metaname + "-service";
 					if (inputmaskData.serviceName) {
 						serviceName = inputmaskData.serviceName;
 					}

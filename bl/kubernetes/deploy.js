@@ -28,7 +28,7 @@ function buildLabels(config) {
 	config.labels["soajs.service.name"] = config.item.name;
 	config.labels["soajs.service.group"] = config.item.group;
 	config.labels["soajs.service.type"] = config.item.type;
-	config.labels["soajs.service.subtype"] = config.item.subtype;
+	config.labels["soajs.service.subtype"] = config.item.subtype || "";
 	config.labels["soajs.service.version"] = config.item.version;
 	config.labels["soajs.service.label"] = label;
 	config.labels["soajs.service.mode"] = config.mode.toLowerCase();
@@ -379,6 +379,8 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
+			
+			//TODO: check if already exist use put
 			
 			let kind = inputmaskData.deployment.kind.toLowerCase();
 			if (!bl.driver.create[kind]) {

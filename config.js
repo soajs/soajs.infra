@@ -1055,11 +1055,11 @@ localConfig.schema = {
 				"validation": {
 					"type": "object",
 					"properties": {
-						"name": {
+						"tag": {
 							"type": "string"
 						}
 					},
-					"required": ["name"]
+					"required": ["tag"]
 				}
 			},
 			"src": {
