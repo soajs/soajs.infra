@@ -87,6 +87,21 @@ let bl = {
 							item.spec.template.metadata.labels[l] = config.labels[l];
 						}
 					}
+					for (let i = 0; i < item.spec.template.spec.containers[0].env.length; i++) {
+						let oneEnv = item.spec.template.spec.containers[0].env[i];
+						if (config.src.from.branch) {
+							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+								item.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
+							}
+							if (oneEnv.name === "SOAJS_GIT_COMMIT") {
+								item.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
+							}
+						} else {
+							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+								item.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
+							}
+						}
+					}
 				}
 				//check if cronjob and set labels
 				if (item.spec && item.spec.jobTemplate && item.spec.jobTemplate.spec.template && item.spec.jobTemplate.spec.template.metadata) {
@@ -96,6 +111,21 @@ let bl = {
 					for (let l in config.labels) {
 						if (config.labels.hasOwnProperty(l)) {
 							item.spec.jobTemplate.spec.template.metadata.labels[l] = config.labels[l];
+						}
+					}
+					for (let i = 0; i < item.spec.jobTemplate.spec.template.spec.containers[0].env.length; i++) {
+						let oneEnv = item.spec.jobTemplate.spec.template.spec.containers[0].env[i];
+						if (config.src.from.branch) {
+							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+								item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
+							}
+							if (oneEnv.name === "SOAJS_GIT_COMMIT") {
+								item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
+							}
+						} else {
+							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+								item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
+							}
 						}
 					}
 				}
