@@ -9,10 +9,10 @@
  */
 
 
-/*
 process.env.SOAJS_SOLO = true;
 process.env.SOAJS_SRVIP = "localhost";
 
+/*
 process.env.SOAJS_ENV = "dashboard";
 process.env.SOAJS_SRVIP = "127.0.0.1";
 process.env.SOAJS_PROFILE = "/opt/demo/soajs.installer/soajs.installer.local/data/soajs_profile.js";

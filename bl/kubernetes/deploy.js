@@ -390,8 +390,8 @@ let bl = {
 					bl.driver.get.one.service(client, {
 						"name": inputmaskData.service.metadata.name,
 						"namespace": config.namespace
-					}, (error, item) => {
-						if (!item) {
+					}, (error, serviceRec) => {
+						if (!serviceRec) {
 							bl.driver.create.service(client, {
 								"body": inputmaskData.service,
 								"namespace": config.namespace
@@ -402,6 +402,13 @@ let bl = {
 								return cb(null, {"deployed": true});
 							});
 						} else {
+							inputmaskData.service.metadata.resourceVersion = serviceRec.metadata.resourceVersion;
+							if (!inputmaskData.service.spec.clusterIP) {
+								inputmaskData.service.spec.clusterIP = serviceRec.spec.clusterIP;
+							}
+							if (serviceRec.spec.healthCheckNodePort) {
+								inputmaskData.service.spec.healthCheckNodePort = serviceRec.spec.healthCheckNodePort;
+							}
 							bl.driver.update.service(client, {
 								"name": inputmaskData.service.metadata.name,
 								"body": inputmaskData.service,
@@ -422,8 +429,8 @@ let bl = {
 			bl.driver.get.one[kind](client, {
 				"name": inputmaskData.deployment.metadata.name,
 				"namespace": config.namespace
-			}, (error, item) => {
-				if (!item) {
+			}, (error, deploymentRec) => {
+				if (!deploymentRec) {
 					bl.driver.create[kind](client, {
 						"body": inputmaskData.deployment,
 						"namespace": config.namespace
@@ -434,6 +441,10 @@ let bl = {
 						continue_service();
 					});
 				} else {
+					inputmaskData.deployment.metadata.resourceVersion = deploymentRec.metadata.resourceVersion;
+					if (deploymentRec.spec && deploymentRec.spec.replicas) {
+						inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
+					}
 					bl.driver.update[kind](client, {
 						"name": inputmaskData.deployment.metadata.name,
 						"body": inputmaskData.deployment,
