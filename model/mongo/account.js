@@ -7,7 +7,7 @@
  */
 
 "use strict";
-const colName = "infra_account";
+const colName = "infra";
 const core = require("soajs");
 const access = require("./access");
 const Mongo = core.mongo;
@@ -32,7 +32,9 @@ function Account(service, options, mongoCore) {
 			__self.mongoCore = new Mongo(options.dbConfig);
 		} else {
 			let registry = service.registry.get();
-			__self.mongoCore = new Mongo(registry.coreDB.provision);
+			if (registry && registry.coreDB && registry.coreDB.provision) {
+				__self.mongoCore = new Mongo(registry.coreDB.provision);
+			}
 		}
 		
 		let index = "default";
@@ -41,7 +43,11 @@ function Account(service, options, mongoCore) {
 		}
 		if (indexing && !indexing[index]) {
 			indexing[index] = true;
-			
+			if (__self.mongoCore) {
+				__self.mongoCore.createIndex(colName, {'type': 1}, {}, (err, index) => {
+					service.log.debug("Index: " + index + " created with error: " + err);
+				});
+			}
 			service.log.debug("Account: Indexes for " + index + " Updated!");
 		}
 	}
@@ -83,11 +89,9 @@ Account.prototype.update_environment = function (data, cb) {
 		};
 		
 		let options = {};
-		let fields = {
-			'$push:': {environments: data.environment}
-		};
+		let fields = {'$push': {environments: data.environment}};
 		if (data.delete) {
-			fields = {$pull: {environments: {env: data.environment.env}}};
+			fields = {'$pull': {environments: {env: data.environment.env}}};
 		}
 		__self.check_if_can_access(data, condition, {}, (error) => {
 			if (error) {
@@ -212,7 +216,6 @@ Account.prototype.get = function (data, cb) {
 			__self.mongoCore.findOne(colName, condition, options, cb);
 		});
 	} else {
-		let __self = this;
 		let condition = {
 			type: data.type
 		};
@@ -240,6 +243,7 @@ Account.prototype.delete = function (data, cb) {
 			_id: _id
 		};
 		let options = {};
+		condition = access.add_acl_2_condition(data, condition);
 		__self.mongoCore.deleteOne(colName, condition, options, cb);
 	});
 };

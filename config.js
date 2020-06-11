@@ -37,7 +37,8 @@ let localConfig = {
 			{"label": "Reload Registry", "path": "/reloadRegistry", "icon": "fas fa-undo"},
 			{"label": "Resource Info", "path": "/resourceInfo", "icon": "fas fa-info"}
 		]
-	}, "interConnect": [{
+	},
+	"interConnect": [{
 		"name": "console",
 		"version": "1"
 	}],
@@ -867,6 +868,10 @@ localConfig.schema = {
 						"url": {
 							"type": "string"
 						},
+						"protocol": {
+							"type": "string",
+							"enum": ["http://", "https://"]
+						},
 						"port": {
 							"type": "integer"
 						}
@@ -909,7 +914,7 @@ localConfig.schema = {
 		},
 		"/account/kubernetes/acl": {
 			"_apiInfo": {
-				"l": "This API returns kubernetes account acl",
+				"l": "This API updates kubernetes account acl",
 				"group": "Account"
 			},
 			"id": {
@@ -1327,6 +1332,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"type": {
 							"type": "string",
@@ -1337,6 +1343,10 @@ localConfig.schema = {
 						},
 						"url": {
 							"type": "string"
+						},
+						"protocol": {
+							"type": "string",
+							"enum": ["http://", "https://"]
 						},
 						"port": {
 							"type": "integer"

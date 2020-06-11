@@ -43,6 +43,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["Plugin", req.soajs.inputmaskData.plugin],
@@ -57,6 +58,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["Bundle"],
@@ -72,6 +74,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["workload", req.soajs.inputmaskData.mode],
@@ -86,6 +89,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["service", req.soajs.inputmaskData.mode],
@@ -100,6 +104,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["storage", req.soajs.inputmaskData.mode],
@@ -114,6 +119,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["configuration", req.soajs.inputmaskData.mode],
@@ -128,6 +134,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["RBAC", req.soajs.inputmaskData.mode],
@@ -143,6 +150,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["pods"],
@@ -157,6 +165,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["namespace"],
@@ -171,6 +180,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["item"],
@@ -209,6 +219,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["scale", req.soajs.inputmaskData.name],
@@ -223,6 +234,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["redeploy", req.soajs.inputmaskData.name],
@@ -237,6 +249,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["restart", req.soajs.inputmaskData.name],
@@ -251,6 +264,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["maintenance", req.soajs.inputmaskData.name],
@@ -265,6 +279,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["pods", "exec"],
@@ -279,6 +294,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["pod", "exec", req.soajs.inputmaskData.name],
@@ -294,6 +310,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["workload", req.soajs.inputmaskData.mode],
@@ -308,6 +325,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["service", req.soajs.inputmaskData.mode],
@@ -322,6 +340,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["storage", req.soajs.inputmaskData.mode],
@@ -559,6 +578,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["Plugin", req.soajs.inputmaskData.plugin],
@@ -573,6 +593,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["Bundle"],
@@ -588,6 +609,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["workload", req.soajs.inputmaskData.mode],
@@ -602,6 +624,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["service", req.soajs.inputmaskData.mode],
@@ -616,6 +639,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["storage", req.soajs.inputmaskData.mode],
@@ -630,6 +654,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["configuration", req.soajs.inputmaskData.mode],
@@ -644,6 +669,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["rbac", req.soajs.inputmaskData.mode],
@@ -685,6 +711,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["deploy", "native"],
@@ -699,6 +726,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["item", "deploy", "soajs recipe"],
@@ -713,6 +741,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["item", "deploy", "native recipe"],
@@ -727,6 +756,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["item", "deploy", "soajs recipe", "cronjob"],
@@ -741,6 +771,7 @@ function run(serviceStartCb) {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
 					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
 						"locator": ["item", "deploy", "native recipe", "cronjob"],
