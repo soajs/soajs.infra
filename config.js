@@ -161,7 +161,7 @@ localConfig.schema = {
 			},
 			"commonFields": ["configuration"],
 			"plugin": {
-				"source": ["query.plugin"],
+				"source ": ["query.plugin"],
 				"required": true,
 				"validation": {
 					"type": "string",
@@ -1827,7 +1827,7 @@ localConfig.schema = {
 				"validation": item_soajs
 			}
 		},
-		"/kubernetes/item/deploy/soajs/conjob": {
+		"/kubernetes/item/deploy/soajs/cronjob": {
 			"_apiInfo": {
 				"l": "This API deploys an item from the catalog using soajs recipe of type CronJob.",
 				"group": "Kubernetes item"
