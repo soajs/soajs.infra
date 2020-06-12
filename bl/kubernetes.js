@@ -32,6 +32,7 @@ function setRestartEnv(envArray) {
 let bl = {
 	"localConfig": null,
 	"driver": null,
+	"sdk": {},
 	
 	"handleError": (soajs, errCode, err) => {
 		if (err) {
@@ -44,7 +45,7 @@ let bl = {
 	},
 	
 	"handleConnect": (soajs, configuration, cb) => {
-		lib.getDriverConfiguration(soajs, configuration, (error, config) => {
+		lib.getDriverConfiguration(soajs, configuration, bl.sdk, (error, config) => {
 			if (error) {
 				return cb(error);
 			} else {

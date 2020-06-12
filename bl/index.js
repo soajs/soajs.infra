@@ -43,6 +43,7 @@ function init(service, localConfig, cb) {
 	temp.localConfig = localConfig;
 	temp.driver = driver;
 	BL.kubernetes = temp;
+	BL.kubernetes.sdk.account = BL.account;
 	
 	temp = require("./kubernetes/deploy.js");
 	temp.localConfig = localConfig;

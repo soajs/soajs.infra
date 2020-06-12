@@ -12,7 +12,7 @@ const soajsCore = require('soajs');
 const get = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o);
 
 let lib = {
-	"getDriverConfiguration": (soajs, configuration, cb) => {
+	"getDriverConfiguration": (soajs, configuration, sdk, cb) => {
 		if (!configuration) {
 			return cb(new Error("Problem with the provided kubernetes configuration"));
 		}
@@ -28,24 +28,34 @@ let lib = {
 				}
 				let registry = envRecord;
 				let depType = get(["deployer", "type"], registry);
+				let regConf = null;
 				if (depType === "container") {
 					let depSeleted = get(["deployer", "selected"], registry);
 					if (depSeleted && depSeleted.includes("kubernetes")) {
-						let regConf = get(["deployer"].concat(depSeleted.split(".")), registry);
-						if (regConf) {
-							let protocol = regConf.apiProtocol || "https";
-							protocol += "://";
-							let port = regConf.apiPort ? ":" + regConf.apiPort : "";
-							let config = {
-								"namespace": regConf.namespace.default,
-								"token": regConf.auth.token,
-								"url": protocol + regConf.nodes + port
-							};
-							return cb(null, config);
-						}
+						regConf = get(["deployer"].concat(depSeleted.split(".")), registry);
 					}
 				}
-				return cb(new Error("Unable to find healthy configuration in registry"));
+				if (regConf) {
+					sdk.account.get(soajs, {
+						"id": regConf.id,
+						"type": "kubernetes",
+						"keepToken": true
+					}, null, (error, infra) => {
+						if (error) {
+							return cb(new Error("Unable to find healthy configuration in infra"));
+						}
+						let protocol = infra.configuration.protocol || "https";
+						let port = infra.configuration.port ? ":" + infra.configuration.port : "";
+						let config = {
+							"namespace": regConf.namespace,
+							"token": infra.configuration.token,
+							"url": protocol + "://" + infra.configuration.url + port
+						};
+						return cb(null, config);
+					});
+				} else {
+					return cb(new Error("Unable to find healthy configuration in registry"));
+				}
 			});
 		} else {
 			if (configuration.namespace && configuration.token && configuration.url) {

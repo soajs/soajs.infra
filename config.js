@@ -870,7 +870,7 @@ localConfig.schema = {
 						},
 						"protocol": {
 							"type": "string",
-							"enum": ["http://", "https://"]
+							"enum": ["http", "https"]
 						},
 						"port": {
 							"type": "integer"
