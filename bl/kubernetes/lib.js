@@ -33,7 +33,8 @@ let lib = {
 					if (depSeleted && depSeleted.includes("kubernetes")) {
 						let regConf = get(["deployer"].concat(depSeleted.split(".")), registry);
 						if (regConf) {
-							let protocol = regConf.apiProtocol || "https://";
+							let protocol = regConf.apiProtocol || "https";
+							protocol += "://";
 							let port = regConf.apiPort ? ":" + regConf.apiPort : "";
 							let config = {
 								"namespace": regConf.namespace.default,
