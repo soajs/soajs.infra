@@ -171,9 +171,36 @@ let config = {
 					},
 					"value": {
 						"type": "string"
+					},
+					"valueFrom": {
+						"type": "object",
+						"additionalProperties": false,
+						"properties": {
+							"secretKeyRef": {
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"key": {
+										"type": "string"
+									}
+								},
+								"require": ["name", "key"]
+							}
+						},
+						"required": ["secretKeyRef"]
 					}
 				},
-				"required": ["name", "value"]
+				"oneOf": [
+					{
+						"required": ["name", "valueFrom"]
+					},
+					{
+						"required": ["name", "value"]
+					}
+				]
 			}
 		},
 		"volume": {
