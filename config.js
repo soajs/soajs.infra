@@ -882,7 +882,7 @@ localConfig.schema = {
 		},
 		"/account/kubernetes/environment": {
 			"_apiInfo": {
-				"l": "This API updates kubernetes environment usage.",
+				"l": "This API updates kubernetes account environment usage.",
 				"group": "Account"
 			},
 			"id": {

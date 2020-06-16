@@ -35,13 +35,13 @@ let lib = {
 						regConf = get(["deployer"].concat(depSeleted.split(".")), registry);
 					}
 				}
-				if (regConf) {
+				if (regConf && regConf.id) {
 					sdk.account.get(soajs, {
 						"id": regConf.id,
 						"type": "kubernetes",
 						"keepToken": true
 					}, null, (error, infra) => {
-						if (error) {
+						if (error || !infra || !infra.configuration) {
 							return cb(new Error("Unable to find healthy configuration in infra"));
 						}
 						let protocol = infra.configuration.protocol || "https";
