@@ -209,7 +209,7 @@ localConfig.schema = {
 		
 		"/kubernetes/cluster/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the cluster information of a resource of mode (Node).",
+				"l": "This API returns the cluster information of a resource of mode (Node, Namespace).",
 				"group": "Kubernetes cluster"
 			},
 			"commonFields": ["configuration"],
@@ -225,7 +225,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Node"]
+					"enum": ["Node", "Namespace"]
 				}
 			}
 		},
@@ -342,7 +342,7 @@ localConfig.schema = {
 		
 		"/kubernetes/clusters/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the cluster information of all resources of mode (Node).",
+				"l": "This API returns the cluster information of all resources of mode (Node, Namespace).",
 				"group": "Kubernetes cluster"
 			},
 			"commonFields": ["configuration"],
@@ -386,7 +386,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Node"]
+					"enum": ["Node", "Namespace"]
 				}
 			},
 			"type": {
