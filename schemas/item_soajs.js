@@ -126,6 +126,9 @@ let config = {
 				},
 				"imagePullPolicy": {
 					"type": "string"
+				},
+				"secret": {
+					"type": "string"
 				}
 			},
 			"required": ["name", "imagePullPolicy"]

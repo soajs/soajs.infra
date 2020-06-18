@@ -116,6 +116,11 @@ function buildDeployment(config, labels) {
 			}
 		}
 	};
+	if (config.image.secret) {
+		deployment.spec.template.spec.containers[0].imagePullSecrets = [{
+			"name": config.image.secret
+		}];
+	}
 	if (config.volume) {
 		if (config.volume.volumeMounts) {
 			deployment.spec.template.spec.containers[0].volumeMounts = config.volume.volumeMounts;
@@ -190,6 +195,11 @@ function buildConjob(config, labels) {
 			}
 		}
 	};
+	if (config.image.secret) {
+		deployment.spec.jobTemplate.spec.template.spec.containers[0].imagePullSecrets = [{
+			"name": config.image.secret
+		}];
+	}
 	if (config.catalog.concurrencyPolicy) {
 		deployment.spec.concurrencyPolicy = config.catalog.concurrencyPolicy;
 	}

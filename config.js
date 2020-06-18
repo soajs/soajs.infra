@@ -367,7 +367,7 @@ localConfig.schema = {
 			},
 			"limit": {
 				"source": ["query.limit"],
-				"required": true,
+				"required": false,
 				"validation": {
 					"type": "integer",
 					"minimum": 100,
