@@ -16,7 +16,25 @@ let lib = {
 		if (!configuration) {
 			return cb(new Error("Problem with the provided kubernetes configuration"));
 		}
-		if (configuration.env) {
+		if (configuration.id) {
+			sdk.account.get(soajs, {
+				"id": configuration.id,
+				"type": "kubernetes",
+				"keepToken": true
+			}, null, (error, infra) => {
+				if (error || !infra || !infra.configuration) {
+					return cb(new Error("Unable to find healthy configuration in infra"));
+				}
+				let protocol = infra.configuration.protocol || "https";
+				let port = infra.configuration.port ? ":" + infra.configuration.port : "";
+				let config = {
+					"namespace": configuration.namespace,
+					"token": infra.configuration.token,
+					"url": protocol + "://" + infra.configuration.url + port
+				};
+				return cb(null, config);
+			});
+		} else if (configuration.env) {
 			//get env registry, this must loadByEnv
 			soajsCore.core.registry.loadByEnv({envCode: configuration.env}, (err, envRecord) => {
 				if (err) {

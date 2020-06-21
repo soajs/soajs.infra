@@ -79,6 +79,9 @@ localConfig.schema = {
 			"validation": {
 				"type": "object",
 				"properties": {
+					"id": {
+						"type": "string"
+					},
 					"env": {
 						"type": "string"
 					},
@@ -97,6 +100,9 @@ localConfig.schema = {
 					}
 				},
 				"oneOf": [
+					{
+						"required": ["id"]
+					},
 					{
 						"required": ["env"]
 					},
