@@ -13,7 +13,8 @@ let BL = {
 	init: init,
 	account: null,
 	cdtoken: null,
-	kubernetes: null
+	kubernetes: null,
+	manual: null
 };
 
 function init(service, localConfig, cb) {
@@ -94,6 +95,12 @@ function init(service, localConfig, cb) {
 	temp.handleError = BL.kubernetes.handleError;
 	temp.handleConnect = BL.kubernetes.handleConnect;
 	BL.kubernetes.metrics = temp;
+	
+	// Load manual BL
+	temp = require("./manual.js");
+	temp.localConfig = localConfig;
+	BL.manual = temp;
+	BL.manual.sdk.account = BL.account;
 	
 	return cb(null);
 }

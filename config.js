@@ -62,6 +62,9 @@ localConfig.errors = {
 	533: "No changes to update",
 	540: "You can no longer add cd Token, the max allowed is: " + localConfig.maxAllowed,
 	
+	550: "loadByEnv empty. Unable to find registry",
+	551: "This environment is not of type manual",
+	552: "Unable to connect to gateway!",
 	601: "Model not found",
 	602: "Model error: ",
 	
@@ -842,7 +845,74 @@ localConfig.schema = {
 					}
 				}
 			}
-		}
+		},
+		
+		"/manual/awareness" : {
+			"_apiInfo": {
+				"l": "This API Get Controller Hosts",
+				"group": "Manual item"
+			},
+			"env": {
+				"source": ["query.env"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
+		
+		"/manual/maintenance" : {
+			"_apiInfo": {
+				"l": "This API Get Controller Hosts",
+				"group": "Manual item"
+			},
+			"env": {
+				"source": ["query.env"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"type": {
+				"source": ['query.type'],
+				"required": false,
+				"default": 1,
+				"validation": {
+					"type": "string",
+					"enum": ['service', 'daemon']
+				}
+			},
+			"version": {
+				"source": ['query.version'],
+				"required": false,
+				"default": "1",
+				"validation": {
+					"type": "string"
+				}
+			},
+			"operation": {
+				"source": ['query.operation'],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"portType": {
+				"source": ['query.portType'],
+				"required": false,
+				"validation": {
+					"type": "string",
+					"enum": ["inherit", "custom", "maintenance"]
+				}
+			},
+			"portValue": {
+				"source": ['query.portValue'],
+				"required": false,
+				"validation": {
+					"type": "number"
+				}
+			},
+		},
 	},
 	
 	"put": {
