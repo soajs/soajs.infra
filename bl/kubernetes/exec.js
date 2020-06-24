@@ -8,6 +8,8 @@
  * found in the LICENSE file at the root of this repository
  */
 
+const soajsCoreLibs = require("soajs.core.libs");
+
 let bl = {
 	"localConfig": null,
 	"handleError": null,
@@ -18,7 +20,14 @@ let bl = {
 		if (!inputmaskData || !inputmaskData.operation) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		let filter = {labelSelector: 'soajs.service.label=' + inputmaskData.name};
+		
+		let metaname = inputmaskData.name.metaname;
+		if (inputmaskData.name.item) {
+			let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.name.item.version);
+			metaname = inputmaskData.name.item.env + "-" + inputmaskData.name.item.name + "-v" + sanytized_version;
+		}
+		
+		let filter = {labelSelector: 'soajs.service.label=' + metaname};
 		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));

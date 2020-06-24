@@ -1209,7 +1209,42 @@ localConfig.schema = {
 				"source": ["body.name"],
 				"required": true,
 				"validation": {
-					"type": "string"
+					"type": "object",
+					"properties": {
+						"metaname": {
+							"type": "string"
+						},
+						"item": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"env": {
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								},
+								"name": {
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								},
+								"version": {
+									"type": "string",
+									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"minLength": 1
+								}
+							},
+							"required": ["env", "name", "version"]
+						}
+					},
+					"oneOf": [
+						{
+							"required": ["metaname"]
+						},
+						{
+							"required": ["item"]
+						}
+					]
 				}
 			},
 			"maintenancePort": {
