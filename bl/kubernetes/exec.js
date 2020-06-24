@@ -17,7 +17,7 @@ let bl = {
 	"driver": null,
 	
 	"maintenance": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData || !inputmaskData.operation) {
+		if (!inputmaskData || !inputmaskData.operation || !inputmaskData.name) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		

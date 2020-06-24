@@ -60,11 +60,11 @@ describe("Unit test for: BL - kubernetes exec ...", () => {
 		
 		BL.maintenance(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.maintenance(soajs, {"configuration": {}, "operation": {"route": "/loadRegistry"}}, null, (error) => {
 				assert.ok(error);
-				assert.deepEqual(error.code, 702);
+				assert.strictEqual(error.code, 400);
 				
 				BL.maintenance(soajs, {
 					"configuration": {
@@ -72,10 +72,10 @@ describe("Unit test for: BL - kubernetes exec ...", () => {
 						"namespace": "soajs",
 						"url": "https://kubernetes.docker.internal:6443",
 						"token": "TOKEN"
-					}, "name": "error", "operation": {"route": "/loadRegistry"}
+					}, "name": {"metaname": "error"}, "operation": {"route": "/loadRegistry"}
 				}, null, (error) => {
 					assert.ok(error);
-					assert.deepEqual(error.code, 702);
+					assert.strictEqual(error.code, 702);
 					
 					BL.maintenance(soajs, {
 						"configuration": {
@@ -83,7 +83,7 @@ describe("Unit test for: BL - kubernetes exec ...", () => {
 							"namespace": "soajs",
 							"url": "https://kubernetes.docker.internal:6443",
 							"token": "TOKEN"
-						}, "name": "anyname", "operation": {"route": "/loadRegistry"}
+						}, "name": {"metaname": "anyname"}, "operation": {"route": "/loadRegistry"}
 					}, null, (error, response) => {
 						assert.ok(response);
 						done();
@@ -113,11 +113,11 @@ describe("Unit test for: BL - kubernetes exec ...", () => {
 		
 		BL.custom(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.custom(soajs, {"configuration": {}}, null, (error) => {
 				assert.ok(error);
-				assert.deepEqual(error.code, 702);
+				assert.strictEqual(error.code, 702);
 				
 				BL.custom(soajs, {
 					"configuration": {
@@ -128,7 +128,7 @@ describe("Unit test for: BL - kubernetes exec ...", () => {
 					}, "name": "error"
 				}, null, (error) => {
 					assert.ok(error);
-					assert.deepEqual(error.code, 702);
+					assert.strictEqual(error.code, 702);
 					
 					BL.custom(soajs, {
 						"configuration": {
