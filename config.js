@@ -86,7 +86,8 @@ localConfig.schema = {
 						"type": "string"
 					},
 					"env": {
-						"type": "string"
+						"type": "string",
+						"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
 					},
 					"namespace": {
 						"type": "string"
@@ -759,7 +760,7 @@ localConfig.schema = {
 					"properties": {
 						"env": {
 							"type": "string",
-							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
 							"minLength": 1
 						},
 						"name": {
@@ -856,7 +857,8 @@ localConfig.schema = {
 				"source": ["query.env"],
 				"required": true,
 				"validation": {
-					"type": "string"
+					"type": "string",
+					"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/
 				}
 			}
 		}
@@ -922,7 +924,8 @@ localConfig.schema = {
 					"type": "object",
 					"properties": {
 						"env": {
-							"type": "string"
+							"type": "string",
+							"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/
 						}
 					},
 					"required": ["env"]
@@ -1030,7 +1033,7 @@ localConfig.schema = {
 							"properties": {
 								"env": {
 									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
 									"minLength": 1
 								},
 								"name": {
@@ -1167,7 +1170,7 @@ localConfig.schema = {
 							"properties": {
 								"env": {
 									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
 									"minLength": 1
 								},
 								"name": {

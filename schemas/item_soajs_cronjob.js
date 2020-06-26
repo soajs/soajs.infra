@@ -40,7 +40,7 @@ let config = {
 			"properties": {
 				"env": {
 					"type": "string",
-					"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+					"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
 					"minLength": 1
 				},
 				"name": {
