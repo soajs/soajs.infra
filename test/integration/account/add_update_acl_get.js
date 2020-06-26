@@ -74,7 +74,7 @@ describe("Testing add & update acl and then get account", () => {
 						assert.ifError(error);
 						assert.ok(body3);
 						assert.strictEqual(body3.data.configuration.url, "aaaa");
-						assert.deepStrictEqual(body3.data.environments, [{env: 'stg'}]);
+						assert.deepStrictEqual(body3.data.deployments, [{env: 'stg'}]);
 						
 						let params = {
 							body: {
