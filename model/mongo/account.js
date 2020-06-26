@@ -89,23 +89,34 @@ Account.prototype.update_environment = function (data, cb) {
 		};
 		
 		let options = {};
-		let fields = {'$push': {environments: data.environment}};
-		if (data.delete) {
-			fields = {'$pull': {environments: {env: data.environment.env}}};
-		}
 		__self.check_if_can_access(data, condition, {}, (error) => {
 			if (error) {
 				return cb(error);
 			}
+			let fields = {'$pull': {deployments: {env: data.environment.env}}};
 			__self.mongoCore.updateOne(colName, condition, fields, options, (err, record) => {
 				if (err) {
 					return cb(err);
 				}
-				if (!record || (record && !record.nModified)) {
-					let error = new Error("Account: [" + data.id + "] was not updated.");
-					return cb(error);
+				if (data.delete) {
+					if (!record || (record && !record.nModified)) {
+						let error = new Error("Account: [" + data.id + "] was not updated.");
+						return cb(error);
+					}
+					return cb(null, record.nModified);
+				} else {
+					let fields = {'$push': {deployments: data.environment}};
+					__self.mongoCore.updateOne(colName, condition, fields, options, (err, record) => {
+						if (err) {
+							return cb(err);
+						}
+						if (!record || (record && !record.nModified)) {
+							let error = new Error("Account: [" + data.id + "] was not updated.");
+							return cb(error);
+						}
+						return cb(null, record.nModified);
+					});
 				}
-				return cb(null, record.nModified);
 			});
 		});
 	});

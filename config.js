@@ -848,7 +848,7 @@ localConfig.schema = {
 			}
 		},
 		
-		"/manual/awareness" : {
+		"/manual/awareness": {
 			"_apiInfo": {
 				"l": "This API Get Controller Hosts",
 				"group": "Manual item"
@@ -926,6 +926,9 @@ localConfig.schema = {
 						"env": {
 							"type": "string",
 							"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/
+						},
+						"namespace": {
+							"type": "string",
 						}
 					},
 					"required": ["env"]
