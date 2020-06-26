@@ -487,7 +487,7 @@ function run(serviceStartCb) {
 								res.write(`data: ${chunk}\n\n`);
 							});
 							data.on("error", (error) => {
-								req.soajs.log.error(error);
+								req.soajs.log.error(error.message);
 								keepConnectionAlive = false;
 								
 								res.write("event: error\n");
@@ -503,14 +503,14 @@ function run(serviceStartCb) {
 							});
 							
 							req.on("error", (error) => {
-								req.soajs.log.error(error);
+								req.soajs.log.error(error.message);
 								keepConnectionAlive = false;
 							});
 							req.on("timeout", () => {
 								keepConnectionAlive = false;
 							});
 							res.on("error", (error) => {
-								req.soajs.log.error(error);
+								req.soajs.log.error(error.message);
 								keepConnectionAlive = false;
 							});
 							res.on("close", () => {
