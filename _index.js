@@ -570,12 +570,6 @@ function run(serviceStartCb) {
 				});
 			});
 			
-			service.get("/manual/maintenance", function (req, res) {
-				bl.manual.maintenance(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
-					return res.json(req.soajs.buildResponse(error, data));
-				});
-			});
-			
 			//POST methods
 			service.post("/account/kubernetes", function (req, res) {
 				req.soajs.inputmaskData.type = "kubernetes";

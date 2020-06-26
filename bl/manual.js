@@ -51,8 +51,7 @@ let bl = {
 				uri: "http://" + controller.ip + ":" + controller.port + "/awarenessStat?update=true",
 				json: true
 			};
-			let apiResponse = {
-			};
+			let apiResponse = {};
 			request(requestOptions, (error, response, body) => {
 				if (error || !body || !body.result) {
 					return cb(bl.handleError(soajs, 552, err));
@@ -70,25 +69,6 @@ let bl = {
 			});
 		});
 	},
-	
-	"maintenance": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
-			return cb(bl.handleError(soajs, 400, null));
-		}
-		soajsCore.core.registry.loadByEnv({envCode: inputmaskData.env}, (err, envRecord) => {
-			if (err) {
-				soajs.log.error(err.message);
-				return cb(bl.handleError(soajs, 400, err));
-			}
-			if (!envRecord) {
-				return cb(bl.handleError(soajs, 550, null));
-			}
-			if (!envRecord.deployer && envRecord.deployer.type !== 'manual') {
-				return cb(bl.handleError(soajs, 551, null));
-			}
-			return cb(null, envRecord);
-		});
-	}
 };
 
 module.exports = bl;

@@ -859,60 +859,7 @@ localConfig.schema = {
 					"type": "string"
 				}
 			}
-		},
-		
-		"/manual/maintenance" : {
-			"_apiInfo": {
-				"l": "This API Get Controller Hosts",
-				"group": "Manual item"
-			},
-			"env": {
-				"source": ["query.env"],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			},
-			"type": {
-				"source": ['query.type'],
-				"required": false,
-				"default": 1,
-				"validation": {
-					"type": "string",
-					"enum": ['service', 'daemon']
-				}
-			},
-			"version": {
-				"source": ['query.version'],
-				"required": false,
-				"default": "1",
-				"validation": {
-					"type": "string"
-				}
-			},
-			"operation": {
-				"source": ['query.operation'],
-				"required": true,
-				"validation": {
-					"type": "string"
-				}
-			},
-			"portType": {
-				"source": ['query.portType'],
-				"required": false,
-				"validation": {
-					"type": "string",
-					"enum": ["inherit", "custom", "maintenance"]
-				}
-			},
-			"portValue": {
-				"source": ['query.portValue'],
-				"required": false,
-				"validation": {
-					"type": "number"
-				}
-			},
-		},
+		}
 	},
 	
 	"put": {
