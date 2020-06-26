@@ -87,7 +87,7 @@ localConfig.schema = {
 					},
 					"env": {
 						"type": "string",
-						"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
+						"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 					},
 					"namespace": {
 						"type": "string"
