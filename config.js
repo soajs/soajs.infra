@@ -850,8 +850,8 @@ localConfig.schema = {
 		
 		"/manual/awareness": {
 			"_apiInfo": {
-				"l": "This API Get Controller Hosts",
-				"group": "Manual item"
+				"l": "This API gets the controller microservices awareness",
+				"group": "Manual"
 			},
 			"env": {
 				"source": ["query.env"],
