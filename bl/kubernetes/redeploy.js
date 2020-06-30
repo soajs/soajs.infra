@@ -89,7 +89,7 @@ let bl = {
 					}
 					for (let i = 0; i < item.spec.template.spec.containers[0].env.length; i++) {
 						let oneEnv = item.spec.template.spec.containers[0].env[i];
-						if (config.src.from.branch) {
+						if (config.src && config.src.from.branch) {
 							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
 								item.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
 							}
@@ -115,7 +115,7 @@ let bl = {
 					}
 					for (let i = 0; i < item.spec.jobTemplate.spec.template.spec.containers[0].env.length; i++) {
 						let oneEnv = item.spec.jobTemplate.spec.template.spec.containers[0].env[i];
-						if (config.src.from.branch) {
+						if (config.src && config.src.from.branch) {
 							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
 								item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
 							}
