@@ -60,11 +60,11 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 		
 		BL.namespace(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.namespace(soajs, {"configuration": {}}, null, (error) => {
 				assert.ok(error);
-				assert.deepEqual(error.code, 702);
+				assert.strictEqual(error.code, 702);
 				
 				BL.namespace(soajs, {
 					"configuration": {
@@ -75,7 +75,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 					}, "name": "error"
 				}, null, (error) => {
 					assert.ok(error);
-					assert.deepEqual(error.code, 702);
+					assert.strictEqual(error.code, 702);
 					
 					BL.namespace(soajs, {
 						"configuration": {
@@ -86,7 +86,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 						}, "name": "anyname"
 					}, null, (error, response) => {
 						assert.ok(response);
-						assert.deepEqual(response, {created: true});
+						assert.deepStrictEqual(response, {created: true});
 						done();
 					});
 				});
@@ -102,7 +102,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 		
 		DRIVER.create = {
 			hpa: (client, options, cb) => {
-				if (options && options.name && options.name === "error") {
+				if (options && options.name && options.name === "dev-error-v1") {
 					let error = new Error("DRIVER error ...");
 					return cb(error, null);
 				} else {
@@ -114,11 +114,11 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 		
 		BL.hpa(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
-			BL.hpa(soajs, {"configuration": {}}, null, (error) => {
+			BL.hpa(soajs, {"configuration": {}, "item": {}}, null, (error) => {
 				assert.ok(error);
-				assert.deepEqual(error.code, 702);
+				assert.strictEqual(error.code, 702);
 				
 				BL.hpa(soajs, {
 					"configuration": {
@@ -126,10 +126,13 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 						"namespace": "soajs",
 						"url": "https://kubernetes.docker.internal:6443",
 						"token": "TOKEN"
-					}, "name": "error", "replica": 1, "metrics": {}
+					},
+					"item": {"name": "error", "env": "dev", "version": "1"},
+					"replica": 1,
+					"metrics": {}
 				}, null, (error) => {
 					assert.ok(error);
-					assert.deepEqual(error.code, 702);
+					assert.strictEqual(error.code, 702);
 					
 					BL.hpa(soajs, {
 						"configuration": {
@@ -137,10 +140,13 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 							"namespace": "soajs",
 							"url": "https://kubernetes.docker.internal:6443",
 							"token": "TOKEN"
-						}, "name": "anyname", "replica": 1, "metrics": {}
+						},
+						"item": {"name": "anyname", "env": "dev", "version": "1"},
+						"replica": 1,
+						"metrics": {}
 					}, null, (error, response) => {
 						assert.ok(response);
-						assert.deepEqual(response, {created: true});
+						assert.deepStrictEqual(response, {created: true});
 						done();
 					});
 				});
@@ -176,11 +182,11 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 		
 		BL.secret(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.secret(soajs, {"configuration": {}}, null, (error) => {
 				assert.ok(error);
-				assert.deepEqual(error.code, 702);
+				assert.strictEqual(error.code, 702);
 				
 				BL.secret(soajs, {
 					"configuration": {
@@ -191,7 +197,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 					}, "name": "error", "accessModes": "access"
 				}, {type: "dockercfg"}, (error) => {
 					assert.ok(error);
-					assert.deepEqual(error.code, 702);
+					assert.strictEqual(error.code, 702);
 					
 					BL.secret(soajs, {
 						"configuration": {
@@ -202,7 +208,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 						}, "name": "anyname", "accessModes": "access"
 					}, {type: "dockercfg"}, (error, response) => {
 						assert.ok(response);
-						assert.deepEqual(response, {created: true});
+						assert.deepStrictEqual(response, {created: true});
 						
 						BL.secret(soajs, {
 							"configuration": {
@@ -213,7 +219,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 							}, "name": "error", "accessModes": "access"
 						}, {type: "opaque"}, (error) => {
 							assert.ok(error);
-							assert.deepEqual(error.code, 702);
+							assert.strictEqual(error.code, 702);
 							
 							BL.secret(soajs, {
 								"configuration": {
@@ -224,7 +230,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 								}, "name": "anyname", "accessModes": "access"
 							}, {type: "opaque"}, (error, response) => {
 								assert.ok(response);
-								assert.deepEqual(response, {created: true});
+								assert.deepStrictEqual(response, {created: true});
 								done();
 							});
 						});
@@ -254,11 +260,11 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 		
 		BL.pvc(soajs, null, null, (error) => {
 			assert.ok(error);
-			assert.deepEqual(error.code, 400);
+			assert.strictEqual(error.code, 400);
 			
 			BL.pvc(soajs, {"configuration": {}}, null, (error) => {
 				assert.ok(error);
-				assert.deepEqual(error.code, 702);
+				assert.strictEqual(error.code, 702);
 				
 				BL.pvc(soajs, {
 					"configuration": {
@@ -269,7 +275,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 					}, "name": "error", "accessModes": "access"
 				}, null, (error) => {
 					assert.ok(error);
-					assert.deepEqual(error.code, 702);
+					assert.strictEqual(error.code, 702);
 					
 					BL.pvc(soajs, {
 						"configuration": {
@@ -280,7 +286,7 @@ describe("Unit test for: BL - kubernetes create ...", () => {
 						}, "name": "anyname", "accessModes": "access"
 					}, null, (error, response) => {
 						assert.ok(response);
-						assert.deepEqual(response, {created: true});
+						assert.deepStrictEqual(response, {created: true});
 						done();
 					});
 				});

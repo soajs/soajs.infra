@@ -1010,7 +1010,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "integer",
-					"minimum": 1
+					"minimum": 0
 					
 				}
 			}
@@ -1698,11 +1698,30 @@ localConfig.schema = {
 				"group": "Kubernetes item"
 			},
 			"commonFields": ["configuration"],
-			"name": {
-				"source": ["body.name"],
+			"item": {
+				"source": ["body.item"],
 				"required": true,
 				"validation": {
-					"type": "string"
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"env": {
+							"type": "string",
+							"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
+							"minLength": 1
+						},
+						"name": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						},
+						"version": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						}
+					},
+					"required": ["env", "name", "version"]
 				}
 			},
 			"replica": {

@@ -41,7 +41,8 @@ let bl = {
 			"apiVersion": "autoscaling/v2beta2",
 			"kind": "HorizontalPodAutoscaler",
 			"metadata": {
-				"name": options.name
+				"name": options.name,
+				"labels": options.labels
 			},
 			"spec": {
 				"minReplicas": options.replica.min,

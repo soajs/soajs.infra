@@ -8,6 +8,8 @@
  * found in the LICENSE file at the root of this repository
  */
 
+const soajsCoreLibs = require("soajs.core.libs");
+
 let bl = {
 	"localConfig": null,
 	"handleError": null,
@@ -31,16 +33,25 @@ let bl = {
 		});
 	},
 	"hpa": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData) {
+		if (!inputmaskData || !inputmaskData.item) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
+			let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
+			let metaname = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
+			let label = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + inputmaskData.item.version;
+			
+			let labels = {
+				"soajs.service.label": label,
+				"soajs.content": "true"
+			};
 			bl.driver.create.hpa(client, {
 				"namespace": config.namespace,
-				"name": inputmaskData.name,
+				"name": metaname,
+				"labels": labels,
 				"replica": inputmaskData.replica,
 				"metrics": inputmaskData.metrics
 			}, (error) => {

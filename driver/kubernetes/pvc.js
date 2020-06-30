@@ -69,6 +69,7 @@ let bl = {
 			"metadata": {
 				"name": options.name,
 				"labels": {
+					'soajs.content': 'true',
 					'soajs.persistentVolumeClaim.name': options.name
 				}
 			},

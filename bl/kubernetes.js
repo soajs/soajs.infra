@@ -362,6 +362,18 @@ let bl = {
 						}
 					});
 				},
+				hpas: function (callback) {
+					bl.driver.get.all.hpa(client, {
+						"namespace": config.namespace,
+						"filter": filter
+					}, (error, list) => {
+						if (error) {
+							callback(error);
+						} else {
+							callback(null, list);
+						}
+					});
+				},
 				deployments: function (callback) {
 					bl.driver.get.all.deployment(client, {
 						"namespace": config.namespace,
