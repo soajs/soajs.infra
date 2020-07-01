@@ -114,7 +114,7 @@ let bl = {
 				recipe.spec.metrics.push(metricObj);
 			}
 		}
-		
+		console.log(JSON.stringify(recipe))
 		return wrapper.autoscale.post(client, {body: recipe, namespace: options.namespace}, cb);
 	},
 	"delete": (client, options, cb) => {
