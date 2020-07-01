@@ -47,10 +47,6 @@ let bl = {
 				ip: envRecord.awareness.host,
 			};
 			soajs.log.debug("Checking API Gateway Awareness for Environment:", soajs.inputmaskData.env.toUpperCase());
-			// let requestOptions = {
-			// 	uri: "http://" + controller.ip + ":" + controller.port + "/awarenessStat?update=true",
-			// 	json: true
-			// };
 			let requestOptions = {
 				uri: "http://" + controller.ip + ":" + controller.port + "/awarenessStat",
 				json: true
@@ -65,6 +61,7 @@ let bl = {
 					apiResponse[key] = {
 						version: service.version,
 						healthy: service.awarenessStats && service.awarenessStats[controller.ip]? service.awarenessStats[controller.ip].healthy : false,
+						host: controller.ip
 					};
 					callback();
 				}, function () {
