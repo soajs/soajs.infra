@@ -308,6 +308,11 @@ function run(serviceStartCb) {
 					});
 				});
 			});
+			service.put("/kubernetes/item/hpa", function (req, res) {
+				bl.kubernetes.update.hpa(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			
 			service.put("/kubernetes/workload/:mode", function (req, res) {
 				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {

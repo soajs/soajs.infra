@@ -8,6 +8,8 @@
 
 'use strict';
 
+const soajsCoreLibs = require("soajs.core.libs");
+
 const async = require("async");
 const path = require('path');
 const fs = require('fs');
@@ -196,6 +198,44 @@ let bl = {
 						return cb(bl.handleError(soajs, 509, null));
 					}
 					return cb(null, results);
+				});
+			});
+		}
+	},
+	
+	"update": {
+		"hpa": (soajs, inputmaskData, options, cb) => {
+			if (!inputmaskData || !inputmaskData.item) {
+				return cb(bl.handleError(soajs, 400, null));
+			}
+			bl.handleConnect(soajs, inputmaskData.configuration, (error, client, config) => {
+				if (error) {
+					return cb(bl.handleError(soajs, 702, error));
+				}
+				let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.item.version);
+				let metaname = inputmaskData.item.env + "-" + inputmaskData.item.name + "-v" + sanytized_version;
+				
+				bl.driver.get.one.hpa(client, {
+					"namespace": config.namespace,
+					"name": metaname
+				}, (error, item) => {
+					if (error) {
+						return cb(bl.handleError(soajs, 702, error));
+					}
+					if (!item) {
+						return cb(bl.handleError(soajs, 501, null));
+					}
+					bl.driver.hpa.patch(client, {
+						"namespace": config.namespace,
+						"name": metaname,
+						"replica": inputmaskData.replica,
+						"metrics": inputmaskData.metrics
+					}, (error) => {
+						if (error) {
+							return cb(bl.handleError(soajs, 702, error));
+						}
+						return cb(null, {"updated": true});
+					});
 				});
 			});
 		}

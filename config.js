@@ -1290,6 +1290,137 @@ localConfig.schema = {
 				}
 			}
 		},
+		"/kubernetes/item/hpa": {
+			"_apiInfo": {
+				"l": "This API creates an HPA.",
+				"group": "Kubernetes item"
+			},
+			"commonFields": ["configuration"],
+			"item": {
+				"source": ["body.item"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"env": {
+							"type": "string",
+							"pattern": /^(([a-z0-9][-a-z0-9_.]*)?[a-z0-9])?$/,
+							"minLength": 1
+						},
+						"name": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						},
+						"version": {
+							"type": "string",
+							"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+							"minLength": 1
+						}
+					},
+					"required": ["env", "name", "version"]
+				}
+			},
+			"replica": {
+				"source": ["body.replica"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"min": {
+							"type": "integer",
+							"minimum": 1
+							
+						},
+						"max": {
+							"type": "integer",
+							"minimum": 1
+						}
+					},
+					"required": ["min", "max"]
+				}
+			},
+			"metrics": {
+				"source": ["body.metrics"],
+				"required": true,
+				"validation": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"anyOf": [{
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"type": {
+									"type": "string",
+									"enum": ["Resource"]
+								},
+								"name": {
+									"type": "string",
+									"enum": ["cpu", "memory"]
+								},
+								"target": {
+									"type": "string",
+									"enum": ["AverageValue", "Utilization"]
+								},
+								"percentage": {
+									"type": "integer",
+									"minimum": 1,
+									"maximum": 100
+								}
+							},
+							"required": ["type", "name", "target", "percentage"]
+						},
+							{
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"type": {
+										"type": "string",
+										"enum": ["Pods"]
+									},
+									"name": {
+										"type": "string",
+										"enum": ["packets-per-second"]
+									},
+									"target": {
+										"type": "string",
+										"enum": ["AverageValue"]
+									},
+									"value": {
+										"type": "string"
+									}
+								},
+								"required": ["type", "name", "target", "value"]
+							},
+							{
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"type": {
+										"type": "string",
+										"enum": ["Object"]
+									},
+									"name": {
+										"type": "string",
+										"enum": ["requests-per-second"]
+									},
+									"target": {
+										"type": "string",
+										"enum": ["AverageValue", "Value"]
+									},
+									"value": {
+										"type": "string"
+									}
+								},
+								"required": ["type", "name", "target", "value"]
+							}
+						]
+					}
+				}
+			}
+		},
 		
 		"/kubernetes/workload/:mode": {
 			"_apiInfo": {

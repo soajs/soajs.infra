@@ -50,6 +50,17 @@ const autoscale = {
 			return cb(err);
 		});
 	},
+	patch(deployer, opts, cb) {
+		async function main() {
+			return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).patch(opts.body);
+		}
+		
+		main().then((result) => {
+			return cb(null, result.body);
+		}).catch((err) => {
+			return cb(err);
+		});
+	},
 	delete(deployer, opts, cb) {
 		async function main() {
 			return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).delete();
