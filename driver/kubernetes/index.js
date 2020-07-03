@@ -181,6 +181,10 @@ let driver = {
 	
 	"deployment": {
 		"patch": _deployment.patch
+	},
+	
+	"hpa": {
+		"patch": _hpa.patch
 	}
 };
 
