@@ -250,7 +250,7 @@ let bl = {
 			config.labels = {};
 		}
 		let labels = buildLabels(config);
-		let service = buildService(config, labels.label_sanytized);
+		let service = buildService(config, labels);
 		let deployment = buildConjob(config, labels);
 		
 		bl.vanilla(soajs, {
