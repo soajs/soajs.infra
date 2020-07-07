@@ -237,7 +237,8 @@ let config = {
 			"default": 1
 		},
 		"restartPolicy": {
-			"type": "string"
+			"type": "string",
+			"enum": ["OnFailure", "Never"]
 		},
 		"service": {
 			"type": "object",
