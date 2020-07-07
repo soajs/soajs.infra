@@ -136,7 +136,16 @@ function buildDeployment(config, labels) {
 		deployment.spec.template.spec.containers[0].command = config.command;
 	}
 	if (config.args) {
-		deployment.spec.template.spec.containers[0].args = config.args;
+		let args = [];
+		if (config.args[0] && config.args[0].trim() === '-c') {
+			args.push("-c");
+			config.args.shift();
+		}
+		for (let i = 0; i < config.args.length - 1; i++) {
+			config.args[i] = config.args[i].trim();
+		}
+		args.push(config.args.join(" && "));
+		deployment.spec.template.spec.containers[0].args = args;
 	}
 	if (config.ports) {
 		deployment.spec.template.spec.containers[0].ports = config.ports;
@@ -218,8 +227,18 @@ function buildConjob(config, labels) {
 		deployment.spec.jobTemplate.spec.template.spec.containers[0].command = config.command;
 	}
 	if (config.args) {
-		deployment.spec.jobTemplate.spec.template.spec.containers[0].args = config.args;
+		let args = [];
+		if (config.args[0] && config.args[0].trim() === '-c') {
+			args.push("-c");
+			config.args.shift();
+		}
+		for (let i = 0; i < config.args.length - 1; i++) {
+			config.args[i] = config.args[i].trim();
+		}
+		args.push(config.args.join(" && "));
+		deployment.spec.jobTemplate.spec.template.spec.containers[0].args = args;
 	}
+	
 	if (config.ports) {
 		deployment.spec.jobTemplate.spec.template.spec.containers[0].ports = config.ports;
 	}
