@@ -28,11 +28,14 @@ let config = {
 					"type": "string",
 					"pattern": /^(shell\/)([A-Za-z0-9\/_.]*)$/
 				},
+				"schedule": {
+					"type": "string"
+				},
 				"concurrencyPolicy": {
 					"type": "string"
 				}
 			},
-			"required": ["id", "version", "shell", "concurrencyPolicy"]
+			"required": ["id", "version", "shell", "schedule", "concurrencyPolicy"]
 		},
 		"item": {
 			"type": "object",

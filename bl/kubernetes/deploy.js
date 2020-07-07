@@ -167,11 +167,11 @@ function buildConjob(config, labels) {
 				"spec": {
 					"revisionHistoryLimit": config.revisionHistoryLimit,
 					"replicas": config.replicas,
-					"selector": {
-						"matchLabels": {
-							"soajs.service.label": labels.label
-						}
-					},
+					// "selector": {
+					// 	"matchLabels": {
+					// 		"soajs.service.label": labels.label
+					// 	}
+					// },
 					"updateStrategy": {
 						"type": "RollingUpdate"
 					},
