@@ -33,9 +33,13 @@ let config = {
 				},
 				"concurrencyPolicy": {
 					"type": "string"
+				},
+				"restartPolicy": {
+					"type": "string",
+					"enum": ["OnFailure", "Never"]
 				}
 			},
-			"required": ["id", "version", "shell", "schedule", "concurrencyPolicy"]
+			"required": ["id", "version", "shell", "schedule", "concurrencyPolicy", "restartPolicy"]
 		},
 		"item": {
 			"type": "object",
@@ -235,10 +239,6 @@ let config = {
 		"revisionHistoryLimit": {
 			"type": "integer",
 			"default": 1
-		},
-		"restartPolicy": {
-			"type": "string",
-			"enum": ["OnFailure", "Never"]
 		},
 		"service": {
 			"type": "object",

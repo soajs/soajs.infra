@@ -24,7 +24,10 @@ let config = {
 				"shell": {
 					"type": "string",
 					"pattern": /^(shell\/)([A-Za-z0-9\/_.]*)$/
-				}
+				},
+				"restartPolicy": {
+					"type": "string"
+				},
 			},
 			"required": ["id", "version", "shell"]
 		},
@@ -231,9 +234,6 @@ let config = {
 		"revisionHistoryLimit": {
 			"type": "integer",
 			"default": 1
-		},
-		"restartPolicy": {
-			"type": "string"
 		},
 		"service": {
 			"type": "object",
