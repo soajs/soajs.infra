@@ -148,7 +148,7 @@ function buildDeployment(config, labels) {
 		deployment.spec.template.spec.containers[0].livenessProbe = config.livenessProbe;
 	}
 	if (config.catalog.restartPolicy) {
-		deployment.spec.template.spec.containers[0].restartPolicy = config.catalog.restartPolicy;
+		deployment.spec.template.spec.restartPolicy = config.catalog.restartPolicy;
 	}
 	return deployment;
 }
@@ -230,7 +230,7 @@ function buildConjob(config, labels) {
 		deployment.spec.jobTemplate.spec.template.spec.containers[0].livenessProbe = config.livenessProbe;
 	}
 	if (config.catalog.restartPolicy) {
-		deployment.spec.jobTemplate.spec.template.spec.containers[0].restartPolicy = config.catalog.restartPolicy;
+		deployment.spec.jobTemplate.spec.template.spec.restartPolicy = config.catalog.restartPolicy;
 	}
 	return deployment;
 }
