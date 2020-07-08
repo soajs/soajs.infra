@@ -1436,6 +1436,13 @@ localConfig.schema = {
 					"enum": ["Deployment", "DaemonSet", "CronJob", "HPA"]
 				}
 			},
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
 			"body": {
 				"source": ["body.body"],
 				"required": true,
@@ -1474,6 +1481,13 @@ localConfig.schema = {
 					"enum": ["Service"]
 				}
 			},
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
 			"body": {
 				"source": ["body.body"],
 				"required": true,
@@ -1510,6 +1524,13 @@ localConfig.schema = {
 				"validation": {
 					"type": "string",
 					"enum": ["PV", "StorageClass"]
+				}
+			},
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
 				}
 			},
 			"body": {

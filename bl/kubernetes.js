@@ -280,7 +280,7 @@ let bl = {
 			}
 			bl.driver.update[mode](client, {
 				"namespace": config.namespace,
-				"name": inputmaskData.body.metadata.name,
+				"name": inputmaskData.name,
 				"body": inputmaskData.body
 			}, (error) => {
 				if (error) {
