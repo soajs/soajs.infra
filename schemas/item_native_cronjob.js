@@ -139,7 +139,7 @@ let config = {
 											"type": "object",
 											"properties": {
 												"metadata": {
-													"type": "string"
+													"type": "object"
 												}
 											},
 											"required": ["metadata"]
