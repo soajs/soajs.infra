@@ -2187,6 +2187,19 @@ localConfig.schema = {
 				}
 			}
 		},
+		"/account/kubernetes/acl": {
+			"_apiInfo": {
+				"l": "This API deletes kubernetes account acl",
+				"group": "Account"
+			},
+			"id": {
+				"source": ["body.id"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			}
+		},
 		"/cd/token": {
 			"_apiInfo": {
 				"l": "This API deletes a deployment cd token.",

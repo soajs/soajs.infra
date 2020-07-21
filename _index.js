@@ -31,6 +31,11 @@ function run(serviceStartCb) {
 					return res.json(req.soajs.buildResponse(error, data));
 				});
 			});
+			service.delete("/account/kubernetes/acl", function (req, res) {
+				bl.account.delete_acl(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					return res.json(req.soajs.buildResponse(error, data));
+				});
+			});
 			
 			service.delete("/cd/token", function (req, res) {
 				bl.cdtoken.delete_token(req.soajs, req.soajs.inputmaskData, null, (error, data) => {

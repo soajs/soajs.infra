@@ -153,6 +153,21 @@ let bl = {
 			}
 			return cb(null, bl.handleUpdateResponse(response));
 		});
+	},
+	"delete_acl": (soajs, inputmaskData, options, cb) => {
+		if (!inputmaskData) {
+			return cb(bl.handleError(soajs, 400, null));
+		}
+		let modelObj = bl.mp.getModel(soajs, options);
+		
+		inputmaskData._groups = getGroups(soajs);
+		modelObj.delete_acl(inputmaskData, (err, response) => {
+			bl.mp.closeModel(modelObj);
+			if (err) {
+				return cb(bl.handleError(soajs, 602, err));
+			}
+			return cb(null, bl.handleUpdateResponse(response));
+		});
 	}
 };
 
