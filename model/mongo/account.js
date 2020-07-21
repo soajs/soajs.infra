@@ -208,7 +208,7 @@ Account.prototype.update_acl = function (data, cb) {
 Account.prototype.delete_acl = function (data, cb) {
 	let __self = this;
 	if (!data || !data.id) {
-		let error = new Error("Account: code is required.");
+		let error = new Error("Account: id is required.");
 		return cb(error, null);
 	}
 	
