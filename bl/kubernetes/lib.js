@@ -60,7 +60,7 @@ let lib = {
 						"keepToken": true
 					}, null, (error, infra) => {
 						if (error || !infra || !infra.configuration) {
-							return cb(new Error("Unable to find healthy configuration in infra"));
+							return cb(new Error("Unable to find healthy configuration in infra or you do nto have access to the infra"));
 						}
 						let protocol = infra.configuration.protocol || "https";
 						let port = infra.configuration.port ? ":" + infra.configuration.port : "";
