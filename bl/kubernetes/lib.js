@@ -8,7 +8,8 @@
  * found in the LICENSE file at the root of this repository
  */
 
-const soajsCore = require('soajs');
+// const soajsCore = require('soajs');
+const i_sdk = require('../../lib/sdk.js');
 const get = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o);
 
 let lib = {
@@ -35,16 +36,14 @@ let lib = {
 				return cb(null, config);
 			});
 		} else if (configuration.env) {
-			//get env registry, this must loadByEnv
-			soajsCore.core.registry.loadByEnv({envCode: configuration.env}, (err, envRecord) => {
+			i_sdk.get_env_registry(soajs, {env: configuration.env}, (err, registry) => {
 				if (err) {
 					soajs.log.error(err.message);
 					return cb(new Error("loadByEnv error. Unable to find healthy configuration in registry"));
 				}
-				if (!envRecord) {
+				if (!registry) {
 					return cb(new Error("loadByEnv empty. Unable to find healthy configuration in registry"));
 				}
-				let registry = envRecord;
 				let depType = get(["deployer", "type"], registry);
 				let regConf = null;
 				if (depType === "container") {
