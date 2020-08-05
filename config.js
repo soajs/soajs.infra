@@ -43,6 +43,17 @@ let localConfig = {
 		"version": "1"
 	}],
 	
+	"tags": ["gateway", "awareness", "interconnect", "multitennant"],
+	"attributes": {
+		"multitennant": ["authentication", "authorization"],
+		"registry": ["throttling", "custom", "database"]
+	},
+	"program": ["soajs"],
+	"documentation": {
+		"readme": "/README.md",
+		"release": "/RELEASE.md"
+	},
+	
 	//-------------------------------------
 	"maxAllowed": 15
 };
