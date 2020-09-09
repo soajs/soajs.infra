@@ -159,6 +159,14 @@ function buildDeployment(config, labels) {
 	if (config.catalog.restartPolicy) {
 		deployment.spec.template.spec.restartPolicy = config.catalog.restartPolicy;
 	}
+	if (config.securityContext) {
+		if (config.securityContext.pod) {
+			deployment.spec.template.spec.securityContext = config.securityContext.pod;
+		}
+		if (config.securityContext.container) {
+			deployment.spec.template.spec.containers[0].securityContext = config.securityContext.container;
+		}
+	}
 	return deployment;
 }
 
@@ -250,6 +258,14 @@ function buildConjob(config, labels) {
 	}
 	if (config.catalog.restartPolicy) {
 		deployment.spec.jobTemplate.spec.template.spec.restartPolicy = config.catalog.restartPolicy;
+	}
+	if (config.securityContext) {
+		if (config.securityContext.pod) {
+			deployment.spec.jobTemplate.spec.template.spec.securityContext = config.securityContext.pod;
+		}
+		if (config.securityContext.container) {
+			deployment.spec.jobTemplate.spec.template.spec.containers[0].securityContext = config.securityContext.container;
+		}
 	}
 	return deployment;
 }

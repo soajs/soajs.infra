@@ -240,6 +240,18 @@ let config = {
 			"type": "integer",
 			"default": 1
 		},
+		"securityContext": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"pod": {
+					"type": "object"
+				},
+				"container": {
+					"type": "object"
+				}
+			}
+		},
 		"service": {
 			"type": "object",
 			"additionalProperties": false,
