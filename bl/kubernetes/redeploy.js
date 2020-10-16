@@ -9,15 +9,16 @@
  */
 
 const soajsCoreLibs = require("soajs.core.libs");
+const lib = require("./lib.js");
 
 function buildLabels(config) {
 	config.labels["service.image.ts"] = new Date().getTime().toString();
 	if (config.src && config.src.from) {
 		if (config.src.from.branch) {
-			config.labels["service.branch"] = config.src.from.branch;
-			config.labels["service.commit"] = config.src.from.commit;
+			config.labels["service.branch"] = lib.cleanLabel(config.src.from.branch);
+			config.labels["service.commit"] = lib.cleanLabel(config.src.from.commit);
 		} else {
-			config.labels["service.tag"] = config.src.from.tag;
+			config.labels["service.tag"] = lib.cleanLabel(config.src.from.tag);
 		}
 	}
 }

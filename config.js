@@ -1113,17 +1113,17 @@ localConfig.schema = {
 							"properties": {
 								"tag": {
 									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									//"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 									"minLength": 1
 								},
 								"branch": {
 									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									//"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 									"minLength": 1
 								},
 								"commit": {
 									"type": "string",
-									"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
+									//"pattern": /^(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])?$/,
 									"minLength": 1
 								}
 							},
