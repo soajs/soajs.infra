@@ -167,7 +167,7 @@ let config = {
 			"required": ["apiVersion", "kind", "metadata", "spec"]
 		}
 	},
-	"required": ["catalog", "item", "deployment"]
+	"required": ["item", "deployment"]
 };
 
 module.exports = config;

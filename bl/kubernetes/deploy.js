@@ -21,8 +21,6 @@ function buildLabels(config) {
 		config.labels = {};
 	}
 	config.labels["service.image.ts"] = new Date().getTime().toString();
-	config.labels["soajs.catalog.id"] = config.catalog.id;
-	config.labels["soajs.catalog.v"] = config.catalog.version;
 	config.labels["soajs.content"] = "true";
 	config.labels["soajs.env.code"] = config.item.env.toLowerCase();
 	config.labels["soajs.service.name"] = config.item.name;
@@ -33,10 +31,13 @@ function buildLabels(config) {
 	config.labels["soajs.service.label"] = label;
 	config.labels["soajs.service.mode"] = config.mode.toLowerCase();
 	
-	if (config.catalog.shell) {
-		config.labels["soajs.shell"] = lib.cleanLabel(config.catalog.shell);
+	if (config.catalog) {
+		config.labels["soajs.catalog.id"] = config.catalog.id;
+		config.labels["soajs.catalog.v"] = config.catalog.version;
+		if (config.catalog.shell) {
+			config.labels["soajs.shell"] = lib.cleanLabel(config.catalog.shell);
+		}
 	}
-	
 	if (config.src) {
 		config.labels["service.owner"] = config.src.owner;
 		config.labels["service.repo"] = config.src.repo;
@@ -295,12 +296,12 @@ let bl = {
 		}, options, cb);
 	},
 	"item_native_cronjob": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData || !inputmaskData.deployment || !inputmaskData.catalog || !inputmaskData.item) {
+		if (!inputmaskData || !inputmaskData.deployment || !inputmaskData.item) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		
 		let config = {
-			"catalog": inputmaskData.catalog,
+			"catalog": inputmaskData.catalog || null,
 			"item": inputmaskData.item,
 			"labels": {},
 			"mode": inputmaskData.deployment.kind
@@ -327,7 +328,7 @@ let bl = {
 				deployment.metadata.labels[l] = config.labels[l];
 				deployment.spec.jobTemplate.spec.template.metadata.labels[l] = config.labels[l];
 				if (service) {
-					service.metadata.labels = config.labels[l];
+					service.metadata.labels[l] = config.labels[l];
 					service.metadata.name = labels.label_sanytized + "-service";
 				}
 			}
@@ -358,12 +359,12 @@ let bl = {
 		}, options, cb);
 	},
 	"item_native_deployment_or_daemonset": (soajs, inputmaskData, options, cb) => {
-		if (!inputmaskData || !inputmaskData.deployment || !inputmaskData.catalog || !inputmaskData.item) {
+		if (!inputmaskData || !inputmaskData.deployment || !inputmaskData.item) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
 		
 		let config = {
-			"catalog": inputmaskData.catalog,
+			"catalog": inputmaskData.catalog || null,
 			"item": inputmaskData.item,
 			"labels": {},
 			"mode": inputmaskData.deployment.kind
@@ -390,7 +391,7 @@ let bl = {
 				deployment.metadata.labels[l] = config.labels[l];
 				deployment.spec.template.metadata.labels[l] = config.labels[l];
 				if (service) {
-					service.metadata.labels = config.labels[l];
+					service.metadata.labels[l] = config.labels[l];
 					service.metadata.name = labels.label_sanytized + "-service";
 				}
 			}
