@@ -238,11 +238,15 @@ function run(serviceStartCb) {
 				bl.kubernetes.redeploy.item(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
+					let name = req.soajs.inputmaskData.name.metaname || null;
+					if (!name) {
+						name = req.soajs.inputmaskData.name.item.name;
+					}
 					let doc = {
 						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
-						"locator": ["redeploy", req.soajs.inputmaskData.name],
+						"locator": ["redeploy", name],
 						"action": "updated"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
@@ -253,11 +257,15 @@ function run(serviceStartCb) {
 				bl.kubernetes.resource_restart(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
+					let name = req.soajs.inputmaskData.name.metaname || null;
+					if (!name) {
+						name = req.soajs.inputmaskData.name.item.name;
+					}
 					let doc = {
 						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
-						"locator": ["restart", req.soajs.inputmaskData.name],
+						"locator": ["restart", name],
 						"action": "updated"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
