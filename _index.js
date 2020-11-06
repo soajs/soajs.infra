@@ -257,15 +257,11 @@ function run(serviceStartCb) {
 				bl.kubernetes.resource_restart(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
 					let response = req.soajs.buildResponse(error, data);
 					res.json(response);
-					let name = req.soajs.inputmaskData.name.metaname || null;
-					if (!name) {
-						name = req.soajs.inputmaskData.name.item.name;
-					}
 					let doc = {
 						"env": req.soajs.inputmaskData.configuration.env,
 						"type": "Deployment",
 						"section": "Kubernetes",
-						"locator": ["restart", name],
+						"locator": ["restart", req.soajs.inputmaskData.name],
 						"action": "updated"
 					};
 					sdk.ledger(req.soajs, doc, response, () => {
