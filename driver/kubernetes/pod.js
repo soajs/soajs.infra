@@ -151,9 +151,7 @@ let bl = {
 			}
 			
 			if (podList) {
-				// turn off node TLS
-				process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-				let iteratee = (onePod, callback) => {
+				let iteratee_without_ca = (onePod, callback) => {
 					let shell = '/bin/bash';
 					if (onePod.metadata.labels['soajs.shell']) {
 						shell = onePod.metadata.labels['soajs.shell'].substr(5);
@@ -224,7 +222,62 @@ let bl = {
 						return callback(null, operationResponse);
 					}
 				};
-				
+				let iteratee_with_ca = (onePod, callback) => {
+					let shell = '/bin/bash';
+					if (onePod.metadata.labels['soajs.shell']) {
+						shell = onePod.metadata.labels['soajs.shell'].substr(5);
+						shell = lib.clearLabel(shell);
+					}
+					let cmd = [shell, '-c'];
+					cmd = cmd.concat(options.commands);
+					let params = {
+						stdout: 1,
+						stdin: 1,
+						stderr: 1,
+						command: cmd
+					};
+					wrapper.pod.podExec(client, {
+						qs: params,
+						namespace: options.namespace,
+						name: options.name
+					}, (error, response) => {
+						let operationResponse = {
+							id: onePod.metadata.name,
+							response: {}
+						};
+						if (error) {
+							operationResponse.response = 'Exec error occurred: ' + error;
+							return callback(null, operationResponse);
+						} else {
+							if (options.processResult && response.indexOf('{') !== -1 && response.lastIndexOf('}') !== -1) {
+								response = response.substring(response.indexOf('{'), response.lastIndexOf('}') + 1);
+								try {
+									parse(response.toString(), maxChunkSize).then(({val, rest}) => {
+										if (rest) {
+											operationResponse.response = "Maintenance operation failed.";
+											return callback(null, operationResponse);
+										}
+										operationResponse.response = val;
+										return callback(null, operationResponse);
+									});
+								} catch (e) {
+									operationResponse.response = "Maintenance operation failed.";
+									return callback(null, operationResponse);
+								}
+							} else {
+								operationResponse.response = response;
+								return callback(null, operationResponse);
+							}
+						}
+					});
+				};
+				let iteratee = iteratee_without_ca;
+				if (options.ca) {
+					iteratee = iteratee_with_ca;
+				} else {
+					// turn off node TLS for iteratee_without_ca to work without cert problem
+					process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+				}
 				if (podList.items && Array.isArray(podList.items)) {
 					async.map(podList.items, iteratee, (err, results) => {
 						return cb(err, results);

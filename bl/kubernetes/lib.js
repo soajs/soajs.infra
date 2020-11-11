@@ -31,7 +31,8 @@ let lib = {
 				let config = {
 					"namespace": configuration.namespace,
 					"token": infra.configuration.token,
-					"url": protocol + "://" + infra.configuration.url + port
+					"url": protocol + "://" + infra.configuration.url + port,
+					"ca": infra.configuration.ca || null
 				};
 				return cb(null, config);
 			});
@@ -66,7 +67,8 @@ let lib = {
 						let config = {
 							"namespace": regConf.namespace,
 							"token": infra.configuration.token,
-							"url": protocol + "://" + infra.configuration.url + port
+							"url": protocol + "://" + infra.configuration.url + port,
+							"ca": infra.configuration.ca || null
 						};
 						return cb(null, config);
 					});
@@ -79,7 +81,8 @@ let lib = {
 				let config = {
 					"namespace": configuration.namespace,
 					"token": configuration.token,
-					"url": configuration.url
+					"url": configuration.url,
+					"ca": configuration.ca || null
 				};
 				return cb(null, config);
 			}

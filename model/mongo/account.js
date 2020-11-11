@@ -256,7 +256,8 @@ Account.prototype.get = function (data, cb) {
 			condition = access.add_acl_2_condition(data, condition);
 			let options = {
 				"projection": {
-					"configuration.token": 0
+					"configuration.token": 0,
+					"configuration.ca": 0
 				}
 			};
 			if (data.keepToken) {
@@ -271,7 +272,8 @@ Account.prototype.get = function (data, cb) {
 		condition = access.add_acl_2_condition(data, condition);
 		let options = {
 			"projection": {
-				"configuration.token": 0
+				"configuration.token": 0,
+				"configuration.ca": 0
 			}
 		};
 		__self.mongoCore.find(colName, condition, options, cb);

@@ -112,6 +112,27 @@ localConfig.schema = {
 					},
 					"url": {
 						"type": "string"
+					},
+					"ca": {
+						"type": "object",
+						"properties": {
+							"requestOptions": {
+								"type": "object",
+								"properties": {
+									"baseUrl": {
+										"type": "string"
+									},
+									"ca": {
+										"type": "string"
+									}
+								},
+								"required": ["baseUrl", "ca"]
+							},
+							"authProvider": {
+								"type": "object"
+							}
+						},
+						"required": ["requestOptions", "authProvider"]
 					}
 				},
 				"oneOf": [
@@ -910,6 +931,27 @@ localConfig.schema = {
 						},
 						"port": {
 							"type": "integer"
+						},
+						"ca": {
+							"type": "object",
+							"properties": {
+								"requestOptions": {
+									"type": "object",
+									"properties": {
+										"baseUrl": {
+											"type": "string"
+										},
+										"ca": {
+											"type": "string"
+										}
+									},
+									"required": ["baseUrl", "ca"]
+								},
+								"authProvider": {
+									"type": "object"
+								}
+							},
+							"required": ["requestOptions", "authProvider"]
 						}
 					},
 					"required": ["type", "token", "url", "port"]
@@ -1612,6 +1654,27 @@ localConfig.schema = {
 						},
 						"port": {
 							"type": "integer"
+						},
+						"ca": {
+							"type": "object",
+							"properties": {
+								"requestOptions": {
+									"type": "object",
+									"properties": {
+										"baseUrl": {
+											"type": "string"
+										},
+										"ca": {
+											"type": "string"
+										}
+									},
+									"required": ["baseUrl", "ca"]
+								},
+								"authProvider": {
+									"type": "object"
+								}
+							},
+							"required": ["requestOptions", "authProvider"]
 						}
 					},
 					"required": ["type", "token", "url", "port"]

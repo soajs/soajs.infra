@@ -38,6 +38,7 @@ let bl = {
 			}
 			let commands = [`curl -s -X GET http://localhost:${inputmaskData.maintenancePort}/${inputmaskData.operation.route}`];
 			bl.driver.pod.exec(client, {
+				"ca": !!config.ca,
 				"namespace": config.namespace,
 				"config": config,
 				"filter": filter,
@@ -60,6 +61,7 @@ let bl = {
 				return cb(bl.handleError(soajs, 702, error));
 			}
 			bl.driver.pod.exec(client, {
+				"ca": !!config.ca,
 				"namespace": config.namespace,
 				"config": config,
 				"filter": inputmaskData.filter || null,
