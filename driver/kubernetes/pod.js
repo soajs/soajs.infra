@@ -239,7 +239,7 @@ let bl = {
 					wrapper.pod.podExec(client, {
 						qs: params,
 						namespace: options.namespace,
-						name: options.name
+						name: onePod.metadata.name
 					}, (error, response) => {
 						let operationResponse = {
 							id: onePod.metadata.name,
