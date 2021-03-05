@@ -140,6 +140,12 @@ Account.prototype.update_configuration = function (data, cb) {
 		let fields = {
 			'$set': {configuration: data.configuration}
 		};
+		if (data.label) {
+			fields.$set.label = data.label;
+		}
+		if (data.description) {
+			fields.$set.description = data.description;
+		}
 		__self.check_if_can_access(data, condition, {}, (error) => {
 			if (error) {
 				return cb(error);

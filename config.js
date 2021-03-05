@@ -909,6 +909,18 @@ localConfig.schema = {
 					"type": "string"
 				}
 			},
+			"label": {
+				"source": ["body.label"],
+				"validation": {
+					"type": "string"
+				}
+			},
+			"description": {
+				"source": ["body.description"],
+				"validation": {
+					"type": "string"
+				}
+			},
 			"configuration": {
 				"source": ["body.configuration"],
 				"required": true,
