@@ -144,6 +144,7 @@ Cdtoken.prototype.getAll = function (data, cb) {
 		type: "cdtoken"
 	};
 	let options = {};
+	options.sort = {"_id": -1};
 	__self.mongoCore.find(colName, condition, options, cb);
 };
 
