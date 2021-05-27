@@ -2523,6 +2523,13 @@ localConfig.schema = {
 					"enum": ["Deployment", "DaemonSet", "CronJob"]
 				}
 			},
+			"keepService": {
+				"source": ["body.keepService"],
+				"required": false,
+				"validation": {
+					"type": "boolean"
+				}
+			},
 			"serviceName": {
 				"source": ["body.serviceName"],
 				"required": false,

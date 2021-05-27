@@ -75,6 +75,10 @@ let bl = {
 					return cb(bl.handleError(soajs, 501, null));
 				}
 				
+				if (inputmaskData.keepService) {
+					return cb(null, {"deleted": true});
+				}
+				
 				let serviceName = inputmaskData.name + "-service";
 				if (inputmaskData.serviceName) {
 					serviceName = inputmaskData.serviceName;
