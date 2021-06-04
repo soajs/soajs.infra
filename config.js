@@ -2104,7 +2104,7 @@ localConfig.schema = {
 			"type": {
 				"source": ["body.type"],
 				"default": "dockercfg",
-				"validation,": {
+				"validation": {
 					"type": "string",
 					"enum": ["dockercfg", "dockerconfigjson"]
 				}
