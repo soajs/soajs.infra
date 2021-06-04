@@ -30,6 +30,7 @@ const context = {
 
 const _secret_opaque = require("./secret_opaque.js");
 const _secret_dockercfg = require("./secret_dockercfg.js");
+const _secret_dockerconfigjson = require("./secret_dockerconfigjson.js");
 const _secret = require("./secret.js");
 const _hpa = require("./hpa.js");
 const _namespace = require("./namespace.js");
@@ -156,6 +157,7 @@ let driver = {
 		"hpa": _hpa.create,
 		"secret_opaque": _secret_opaque.create,
 		"secret_dockercfg": _secret_dockercfg.create,
+		"secret_dockerconfigjson": _secret_dockerconfigjson.create,
 		"pvc": _pvc.create,
 		
 		"service": _service.create,

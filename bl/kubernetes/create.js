@@ -70,8 +70,25 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
+			if (inputmaskData.type) {
+				if (!options) {
+					options = {};
+				}
+				options.type = inputmaskData.type;
+			}
 			if (options && options.type === "dockercfg") {
 				bl.driver.create.secret_dockercfg(client, {
+					"namespace": config.namespace,
+					"name": inputmaskData.name,
+					"content": inputmaskData.content
+				}, (error) => {
+					if (error) {
+						return cb(bl.handleError(soajs, 702, error));
+					}
+					return cb(null, {"created": true});
+				});
+			} else if (options && options.type === "dockerconfigjson") {
+				bl.driver.create.secret_dockerconfigjson(client, {
 					"namespace": config.namespace,
 					"name": inputmaskData.name,
 					"content": inputmaskData.content

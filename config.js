@@ -2101,6 +2101,14 @@ localConfig.schema = {
 				"group": "Kubernetes configuration wizard"
 			},
 			"commonFields": ["configuration"],
+			"type": {
+				"source": ["body.type"],
+				"default": "dockercfg",
+				"validation,": {
+					"type": "string",
+					"enum": ["dockercfg", "dockerconfigjson"]
+				}
+			},
 			"name": {
 				"source": ["body.name"],
 				"required": true,

@@ -488,7 +488,7 @@ let bl = {
 					});
 				} else {
 					inputmaskData.deployment.metadata.resourceVersion = deploymentRec.metadata.resourceVersion;
-					if (deploymentRec.spec && deploymentRec.spec.replicas) {
+					if (!inputmaskData.deployment.spec.replicas && deploymentRec.spec && deploymentRec.spec.replicas) {
 						inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
 					}
 					bl.driver.update[kind](client, {
