@@ -36,6 +36,6 @@
     "kubernetes-client": "9.0.0",
     "parse-large-json": "1.2.0",
     "soajs": "4.0.24",
-    "ws": "7.4.3"
+    "ws": "7.4.6"
   }
 }
