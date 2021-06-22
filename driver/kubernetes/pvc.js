@@ -52,6 +52,17 @@ let bl = {
 			return cb(error, items);
 		});
 	},
+	"update": (client, options, cb) => {
+		if (!options || !options.name || !options.body) {
+			return cb(new Error("PVC update: options is required with {name, body}"));
+		}
+		wrapper.pvc.put(client, {body: options.body, name: options.name}, (error, item) => {
+			if (error) {
+				return cb(error);
+			}
+			return cb(null, item);
+		});
+	},
 	"apply": (client, options, cb) => {
 		if (!options || !options.body || !options.namespace) {
 			return cb(new Error("PVC apply: options is required with {body, and namespace}"));

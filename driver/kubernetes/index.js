@@ -108,6 +108,7 @@ let driver = {
 		"cronjob": _cronjob.update,
 		"hpa": _hpa.update,
 		"pv": _pv.update,
+		"pvc": _pvc.update,
 		"storageclass": _storageclass.update
 	},
 	

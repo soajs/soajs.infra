@@ -1588,7 +1588,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["PV", "StorageClass"]
+					"enum": ["PVC", "PV", "StorageClass"]
 				}
 			},
 			"name": {
@@ -1606,7 +1606,7 @@ localConfig.schema = {
 					"properties": {
 						"kind": {
 							"type": "string",
-							"enum": ["PersistentVolume", "StorageClass"]
+							"enum": ["PersistentVolumeClaim", "PersistentVolume", "StorageClass"]
 						},
 						"metadata": {
 							"type": "object",
