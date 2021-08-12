@@ -118,7 +118,7 @@ function buildDeployment(config, labels) {
 		}
 	};
 	if (config.image.secret) {
-		deployment.spec.template.spec.containers[0].imagePullSecrets = [{
+		deployment.spec.template.spec.imagePullSecrets = [{
 			"name": config.image.secret
 		}];
 	}
