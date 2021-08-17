@@ -214,7 +214,7 @@ function buildConjob(config, labels) {
 		}
 	};
 	if (config.image.secret) {
-		deployment.spec.jobTemplate.spec.template.spec.containers[0].imagePullSecrets = [{
+		deployment.spec.jobTemplate.spec.template.spec.imagePullSecrets = [{
 			"name": config.image.secret
 		}];
 	}
