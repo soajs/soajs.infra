@@ -25,11 +25,11 @@ describe("Testing add, update and get cdtoken", () => {
 			assert.ifError(error);
 			assert.ok(abody);
 			assert.ok(abody.data);
-			assert.ok(abody.data[0].hasOwnProperty('token'));
+			assert.ok(abody.data.hasOwnProperty('token'));
 			
 			let params = {
 				body: {
-					"token": abody.data[0].token,
+					"token": abody.data.token,
 					"status": "inactive"
 				}
 			};
@@ -40,7 +40,7 @@ describe("Testing add, update and get cdtoken", () => {
 				assert.deepEqual(body.data, true);
 				let params = {
 					qs: {
-						"token": abody.data[0].token
+						"token": abody.data.token
 					}
 				};
 				requester('/cd/token', 'get', params, (error, body) => {

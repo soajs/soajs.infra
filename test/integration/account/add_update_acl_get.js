@@ -32,11 +32,11 @@ describe("Testing add & update acl and then get account", () => {
 			assert.ifError(error);
 			assert.ok(body);
 			assert.ok(body.data);
-			assert.ok(body.data[0].hasOwnProperty('type'));
+			assert.ok(body.data.hasOwnProperty('type'));
 			
 			let params = {
 				body: {
-					"id": body.data[0]._id,
+					"id": body.data._id,
 					"configuration": {
 						"type": "secret",
 						"url": "aaaa",
@@ -53,7 +53,7 @@ describe("Testing add & update acl and then get account", () => {
 				
 				let params = {
 					body: {
-						"id": body.data[0]._id,
+						"id": body.data._id,
 						"environment": {
 							"env": "stg"
 						}
@@ -67,7 +67,7 @@ describe("Testing add & update acl and then get account", () => {
 					
 					let params = {
 						qs: {
-							"id": body.data[0]._id
+							"id": body.data._id
 						}
 					};
 					requester('/account/kubernetes', 'get', params, (error, body3) => {
@@ -78,7 +78,7 @@ describe("Testing add & update acl and then get account", () => {
 						
 						let params = {
 							body: {
-								"id": body.data[0]._id,
+								"id": body.data._id,
 								"type": "blacklist",
 								"groups": ["owner"]
 							}
@@ -91,7 +91,7 @@ describe("Testing add & update acl and then get account", () => {
 							
 							let params = {
 								qs: {
-									"id": body.data[0]._id
+									"id": body.data._id
 								}
 							};
 							requester('/account/kubernetes', 'get', params, (error, body3) => {
@@ -101,7 +101,7 @@ describe("Testing add & update acl and then get account", () => {
 								
 								let params = {
 									body: {
-										"id": body.data[0]._id,
+										"id": body.data._id,
 										"type": "blacklist",
 										"groups": ["owner"]
 									}

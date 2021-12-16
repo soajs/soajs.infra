@@ -74,7 +74,7 @@ describe("Unit test for: model - user", function () {
 			
 			modelObj.add(data, (err, response) => {
 				assert.ok(response);
-				assert.deepEqual(response[0].type, "cdtoken");
+				assert.deepEqual(response.type, "cdtoken");
 				done();
 			});
 		});
@@ -132,7 +132,7 @@ describe("Unit test for: model - user", function () {
 		};
 		modelObj.add(data, (err, response) => {
 			assert.ok(response);
-			assert.deepEqual(response[0].type, "cdtoken");
+			assert.deepEqual(response.type, "cdtoken");
 			
 			let data = {
 				"token": token2,
@@ -145,7 +145,7 @@ describe("Unit test for: model - user", function () {
 			};
 			modelObj.add(data, (err, response) => {
 				assert.ok(response);
-				assert.deepEqual(response[0].type, "cdtoken");
+				assert.deepEqual(response.type, "cdtoken");
 				
 				let data = {
 					"token": token3,
@@ -158,7 +158,7 @@ describe("Unit test for: model - user", function () {
 				};
 				modelObj.add(data, (err, response) => {
 					assert.ok(response);
-					assert.deepEqual(response[0].type, "cdtoken");
+					assert.deepEqual(response.type, "cdtoken");
 					
 					modelObj.getAll(data, (err, response) => {
 						assert.ok(response);

@@ -32,7 +32,7 @@ describe("Testing add, and getAll account", () => {
 			assert.ifError(error);
 			assert.ok(body);
 			assert.ok(body.data);
-			assert.ok(body.data[0].hasOwnProperty('type'));
+			assert.ok(body.data.hasOwnProperty('type'));
 			
 			let params = {
 				body: {
@@ -50,7 +50,7 @@ describe("Testing add, and getAll account", () => {
 				assert.ifError(error);
 				assert.ok(body);
 				assert.ok(body.data);
-				assert.ok(body.data[0].hasOwnProperty('type'));
+				assert.ok(body.data.hasOwnProperty('type'));
 				
 				let params = {};
 				requester('/account/kubernetes', 'get', params, (error, body) => {

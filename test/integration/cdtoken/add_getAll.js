@@ -25,7 +25,7 @@ describe("Testing add, and getAll cdtoken", () => {
 			assert.ifError(error);
 			assert.ok(body);
 			assert.ok(body.data);
-			assert.ok(body.data[0].hasOwnProperty('token'));
+			assert.ok(body.data.hasOwnProperty('token'));
 			
 			let params = {
 				body: {
@@ -36,7 +36,7 @@ describe("Testing add, and getAll cdtoken", () => {
 				assert.ifError(error);
 				assert.ok(body);
 				assert.ok(body.data);
-				assert.ok(body.data[0].hasOwnProperty('token'));
+				assert.ok(body.data.hasOwnProperty('token'));
 				
 				let params = {};
 				requester('/cd/tokens', 'get', params, (error, body) => {

@@ -25,11 +25,11 @@ describe("Testing add & delete cdtoken", () => {
 			assert.ifError(error);
 			assert.ok(body);
 			assert.ok(body.data);
-			assert.ok(body.data[0].hasOwnProperty('token'));
+			assert.ok(body.data.hasOwnProperty('token'));
 			
 			let params = {
 				body: {
-					"token": body.data[0].token
+					"token": body.data.token
 				}
 			};
 			requester('/cd/token', 'delete', params, (error, body) => {

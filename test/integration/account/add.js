@@ -32,7 +32,7 @@ describe("Testing add account", () => {
 			assert.ifError(error);
 			assert.ok(body);
 			assert.ok(body.data);
-			assert.ok(body.data[0].hasOwnProperty('type'));
+			assert.ok(body.data.hasOwnProperty('type'));
 			done();
 		});
 	});

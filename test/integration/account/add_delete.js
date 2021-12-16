@@ -32,10 +32,10 @@ describe("Testing add & delete account", () => {
 			assert.ifError(error);
 			assert.ok(body);
 			assert.ok(body.data);
-			assert.ok(body.data[0].hasOwnProperty('type'));
+			assert.ok(body.data.hasOwnProperty('type'));
 			let params = {
 				body: {
-					"id": body.data[0]._id
+					"id": body.data._id
 				}
 			};
 			requester('/account/kubernetes', 'delete', params, (error, body) => {
