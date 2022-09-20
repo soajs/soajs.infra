@@ -2548,9 +2548,9 @@ localConfig.schema = {
 			"cleanup": {
 				"source": ["body.cleanup"],
 				"required": false,
+				"default": false,
 				"validation": {
-					"type": "boolean",
-					"default": false
+					"type": "boolean"
 				}
 			}
 		}

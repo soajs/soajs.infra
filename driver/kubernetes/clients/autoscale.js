@@ -16,9 +16,9 @@ const autoscale = {
 	get(deployer, opts, cb) {
 		async function main() {
 			if (opts.name) {
-				return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).get({qs: opts.qs});
+				return await deployer.apis.autoscaling.v1.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).get({qs: opts.qs});
 			} else {
-				return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers.get({qs: opts.qs});
+				return await deployer.apis.autoscaling.v1.namespaces(opts.namespace).horizontalpodautoscalers.get({qs: opts.qs});
 			}
 		}
 		
@@ -30,7 +30,7 @@ const autoscale = {
 	},
 	post(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers.post(opts.body);
+			return await deployer.apis.autoscaling.v1.namespaces(opts.namespace).horizontalpodautoscalers.post(opts.body);
 		}
 		
 		main().then((result) => {
@@ -41,7 +41,7 @@ const autoscale = {
 	},
 	put(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).put(opts.body);
+			return await deployer.apis.autoscaling.v1.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).put(opts.body);
 		}
 		
 		main().then((result) => {
@@ -52,7 +52,7 @@ const autoscale = {
 	},
 	patch(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).patch(opts.body);
+			return await deployer.apis.autoscaling.v1.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).patch(opts.body);
 		}
 		
 		main().then((result) => {
@@ -63,7 +63,7 @@ const autoscale = {
 	},
 	delete(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.autoscaling.v2beta2.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).delete();
+			return await deployer.apis.autoscaling.v1.namespaces(opts.namespace).horizontalpodautoscalers(opts.name).delete();
 		}
 		
 		main().then((result) => {

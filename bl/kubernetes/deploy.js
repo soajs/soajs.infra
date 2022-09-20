@@ -173,7 +173,7 @@ function buildDeployment(config, labels) {
 
 function buildConjob(config, labels) {
 	let deployment = {
-		"apiVersion": "batch/v1beta1",
+		"apiVersion": "batch/v1",
 		"kind": config.mode,
 		"metadata": {
 			"name": labels.label_sanytized,

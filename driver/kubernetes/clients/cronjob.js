@@ -16,9 +16,9 @@ const cronJob = {
 	get(deployer, opts, cb) {
 		async function main() {
 			if (opts.name) {
-				return await deployer.apis.batch.v1beta1.namespaces(opts.namespace).cronjobs(opts.name).get({qs: opts.qs});
+				return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs(opts.name).get({qs: opts.qs});
 			} else {
-				return await deployer.apis.batch.v1beta1.namespaces(opts.namespace).cronjobs.get({qs: opts.qs});
+				return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs.get({qs: opts.qs});
 			}
 		}
 		
@@ -30,7 +30,7 @@ const cronJob = {
 	},
 	post(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.batch.v1beta1.namespaces(opts.namespace).cronjobs.post({body: opts.body});
+			return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs.post({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -41,7 +41,7 @@ const cronJob = {
 	},
 	put(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.batch.v1beta1.namespaces(opts.namespace).cronjobs(opts.name).put({body: opts.body});
+			return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs(opts.name).put({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -52,7 +52,7 @@ const cronJob = {
 	},
 	delete(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.batch.v1beta1.namespaces(opts.namespace).cronjobs(opts.name).delete({qs: opts.qs});
+			return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs(opts.name).delete({qs: opts.qs});
 		}
 		
 		main().then((result) => {

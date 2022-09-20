@@ -247,7 +247,7 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 					"owner": "soajsorg"
 				},
 				"deployment": {
-					"apiVersion": "batch/v1beta1",
+					"apiVersion": "batch/v1",
 					"kind": "CronJob",
 					"metadata": {},
 					"spec": {

@@ -16,11 +16,11 @@ const metrics = {
 	pods(deployer, opts, cb) {
 		async function main() {
 			if (opts.namespace && opts.name) {
-				return await deployer.apis["metrics.k8s.io"].v1beta1.namespaces(opts.namespace).pods(opts.name).get({qs: opts.qs});
+				return await deployer.apis["metrics.k8s.io"].v1.namespaces(opts.namespace).pods(opts.name).get({qs: opts.qs});
 			} else if (opts.namespace) {
-				return await deployer.apis["metrics.k8s.io"].v1beta1.namespaces(opts.namespace).pods.get({qs: opts.qs});
+				return await deployer.apis["metrics.k8s.io"].v1.namespaces(opts.namespace).pods.get({qs: opts.qs});
 			} else {
-				return await deployer.apis["metrics.k8s.io"].v1beta1.pods.get({qs: opts.qs});
+				return await deployer.apis["metrics.k8s.io"].v1.pods.get({qs: opts.qs});
 			}
 		}
 		
@@ -33,9 +33,9 @@ const metrics = {
 	nodes(deployer, opts, cb) {
 		async function main() {
 			if (opts.name) {
-				return await deployer.apis["metrics.k8s.io"].v1beta1.nodes(opts.name).get({qs: opts.qs});
+				return await deployer.apis["metrics.k8s.io"].v1.nodes(opts.name).get({qs: opts.qs});
 			} else {
-				return await deployer.apis["metrics.k8s.io"].v1beta1.nodes.get({qs: opts.qs});
+				return await deployer.apis["metrics.k8s.io"].v1.nodes.get({qs: opts.qs});
 			}
 		}
 		
@@ -47,9 +47,9 @@ const metrics = {
 	}
 };
 
-//http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/nodes
-// http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/nodes/<node-name>
-// http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/pods
-// http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/namespace/<namespace-name>/pods/<pod-name>
+//http://127.0.0.1:8001/apis/metrics.k8s.io/v1/nodes
+// http://127.0.0.1:8001/apis/metrics.k8s.io/v1/nodes/<node-name>
+// http://127.0.0.1:8001/apis/metrics.k8s.io/v1/pods
+// http://127.0.0.1:8001/apis/metrics.k8s.io/v1/namespace/<namespace-name>/pods/<pod-name>
 
 module.exports = metrics;

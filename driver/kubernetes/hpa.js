@@ -57,7 +57,7 @@ let buildMetrics = (metrics) => {
 				"object": {
 					"name": m.name,
 					"describedObject": {
-						"apiVersion": "networking.k8s.io/v1beta1",
+						"apiVersion": "networking.k8s.io/v1",
 						"kind": "Ingress",
 						"name": "main-route"
 					},
@@ -130,7 +130,7 @@ let bl = {
 		}
 		//The name of Deployment will be the same name of autoscaling
 		let recipe = {
-			"apiVersion": "autoscaling/v2beta2",
+			"apiVersion": "autoscaling/v1",
 			"kind": "HorizontalPodAutoscaler",
 			"metadata": {
 				"name": options.name,
@@ -194,7 +194,7 @@ let bl = {
 		// 			"object": {
 		// 				"name": m.name,
 		// 				"describedObject": {
-		// 					"apiVersion": "networking.k8s.io/v1beta1",
+		// 					"apiVersion": "networking.k8s.io/v1",
 		// 					"kind": "Ingress",
 		// 					"name": "main-route"
 		// 				},

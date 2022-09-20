@@ -13,7 +13,7 @@ const storageclass = {
 	
 	post(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses.post({body: opts.body});
+			return await deployer.apis["storage.k8s.io"].v1.storageclasses.post({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -25,7 +25,7 @@ const storageclass = {
 	
 	put(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses(opts.name).put({body: opts.body});
+			return await deployer.apis["storage.k8s.io"].v1.storageclasses(opts.name).put({body: opts.body});
 		}
 		
 		main().then((result) => {
@@ -38,9 +38,9 @@ const storageclass = {
 	get(deployer, opts, cb) {
 		async function main() {
 			if (opts.name) {
-				return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses(opts.name).get({qs: opts.qs});
+				return await deployer.apis["storage.k8s.io"].v1.storageclasses(opts.name).get({qs: opts.qs});
 			} else {
-				return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses.get({qs: opts.qs});
+				return await deployer.apis["storage.k8s.io"].v1.storageclasses.get({qs: opts.qs});
 			}
 		}
 		
@@ -53,7 +53,7 @@ const storageclass = {
 	
 	delete(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis["storage.k8s.io"].v1beta1.storageclasses(opts.name).delete({qs: opts.qs});
+			return await deployer.apis["storage.k8s.io"].v1.storageclasses(opts.name).delete({qs: opts.qs});
 		}
 		
 		main().then((result) => {

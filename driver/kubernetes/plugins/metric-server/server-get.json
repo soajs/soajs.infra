@@ -22,7 +22,7 @@
   {
     "kind": "APIService",
     "metadata": {
-      "name": "v1beta1.metrics.k8s.io"
+      "name": "v1.metrics.k8s.io"
     }
   },
   {

@@ -10,7 +10,7 @@
 
 const {KubeConfig, Client} = require('kubernetes-client');
 const Request = require('kubernetes-client/backends/request');
-const swagger = require('./swagger/swagger.json');
+const swagger = require('./swagger/swagger-1.22.json');
 
 const cluster = {
 	name: 'my-server',
