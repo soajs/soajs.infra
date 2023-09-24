@@ -29,13 +29,13 @@
     "grunt-mocha-test": "0.13.3",
     "mocha": "6.2.2",
     "request": "2.88.2",
-    "soajs.controller": "4.2.0"
+    "soajs.controller": "4.2.3"
   },
   "dependencies": {
     "async": "3.2.4",
     "kubernetes-client": "9.0.0",
     "parse-large-json": "1.2.0",
-    "soajs": "4.1.2",
+    "soajs": "4.1.4",
     "ws": "7.4.6"
   }
 }
