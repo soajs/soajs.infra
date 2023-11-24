@@ -368,6 +368,21 @@ function run(serviceStartCb) {
 					});
 				});
 			});
+			service.put("/kubernetes/configuration/:mode", function (req, res) {
+				bl.kubernetes.resource_update(req.soajs, req.soajs.inputmaskData, null, (error, data) => {
+					let response = req.soajs.buildResponse(error, data);
+					res.json(response);
+					let doc = {
+						"env": req.soajs.inputmaskData.configuration.env,
+						"type": "Deployment",
+						"section": "Kubernetes",
+						"locator": ["configuration", req.soajs.inputmaskData.mode],
+						"action": "updated"
+					};
+					sdk.ledger(req.soajs, doc, response, () => {
+					});
+				});
+			});
 			
 			
 			//GET methods

@@ -53,10 +53,10 @@ let bl = {
 		});
 	},
 	"update": (client, options, cb) => {
-		if (!options || !options.name || !options.body) {
-			return cb(new Error("PVC update: options is required with {name, body}"));
+		if (!options || !options.name || !options.body || !options.namespace) {
+			return cb(new Error("PVC update: options is required with {name, body and namespace}"));
 		}
-		wrapper.pvc.put(client, {body: options.body, name: options.name}, (error, item) => {
+		wrapper.pvc.put(client, {body: options.body, name: options.name,  namespace: options.namespace}, (error, item) => {
 			if (error) {
 				return cb(error);
 			}

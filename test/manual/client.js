@@ -4,7 +4,7 @@
 //
 const Client = require('kubernetes-client').Client;
 const Request = require('kubernetes-client/backends/request');
-const swagger = require('../../driver/kubernetes/swagger/swagger.json');
+const swagger = require('../../driver/kubernetes/swagger/swagger-1.22.json');
 const client = new Client({
 	backend: new Request({
 		// local

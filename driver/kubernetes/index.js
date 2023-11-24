@@ -43,6 +43,7 @@ const _pod = require("./pod.js");
 const _pvc = require("./pvc.js");
 const _pv = require("./pv.js");
 const _storageclass = require("./storageclass.js");
+const _configmap = require("./configmap.js");
 
 const _clusterrole = require("./clusterrole.js");
 const _clusterrolebinding = require("./clusterrolebinding.js");
@@ -109,7 +110,8 @@ let driver = {
 		"hpa": _hpa.update,
 		"pv": _pv.update,
 		"pvc": _pvc.update,
-		"storageclass": _storageclass.update
+		"storageclass": _storageclass.update,
+		"configmap": _configmap.update
 	},
 	
 	"delete": {
@@ -119,6 +121,7 @@ let driver = {
 		"cronjob": _cronjob.delete,
 		"pv": _pv.delete,
 		"storageclass": _storageclass.delete,
+		"configmap": _configmap.delete,
 		
 		"hpa": _hpa.delete,
 		"namespace": _namespace.delete,
@@ -145,6 +148,7 @@ let driver = {
 		"pvc": _pvc.apply,
 		"pv": _pv.apply,
 		"storageclass": _storageclass.apply,
+		"configmap": _configmap.apply,
 		
 		"clusterrole": _clusterrole.apply,
 		"clusterrolebinding": _clusterrolebinding.apply,
@@ -180,6 +184,7 @@ let driver = {
 			"hpa": _hpa.get,
 			"pv": _pv.get,
 			"storageclass": _storageclass.get,
+			"configmap": _configmap.get,
 			
 			"namespace": _namespace.get,
 			
@@ -201,6 +206,7 @@ let driver = {
 			"hpa": _hpa.getOne,
 			"pv": _pv.getOne,
 			"storageclass": _storageclass.getOne,
+			"configmap": _configmap.getOne,
 			
 			"namespace": _namespace.getOne,
 			

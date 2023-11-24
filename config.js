@@ -339,7 +339,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/configuration/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the storage information of a resource of mode (Secret).",
+				"l": "This API returns the storage information of a resource of mode (Secret, ConfigMap).",
 				"group": "Kubernetes configuration"
 			},
 			"commonFields": ["configuration"],
@@ -355,7 +355,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Secret"]
+					"enum": ["Secret", "ConfigMap"]
 				}
 			}
 		},
@@ -616,7 +616,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/configurations/:mode": {
 			"_apiInfo": {
-				"l": "This API returns the storage information of all resources of mode (Secret).",
+				"l": "This API returns the storage information of all resources of mode (Secret, ConfigMap).",
 				"group": "Kubernetes configuration"
 			},
 			"commonFields": ["configuration"],
@@ -660,7 +660,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Secret"]
+					"enum": ["Secret", "ConfigMap"]
 				}
 			},
 			"type": {
@@ -1621,6 +1621,51 @@ localConfig.schema = {
 					"required": ["kind", "metadata"]
 				}
 			}
+		},
+		"/kubernetes/configuration/:mode": {
+			"_apiInfo": {
+				"l": "This API updates a resource of mode (ConfigMap).",
+				"group": "Kubernetes configuration"
+			},
+			"commonFields": ["configuration"],
+			"mode": {
+				"source": ["params.mode"],
+				"required": true,
+				"validation": {
+					"type": "string",
+					"enum": ["ConfigMap"]
+				}
+			},
+			"name": {
+				"source": ["body.name"],
+				"required": true,
+				"validation": {
+					"type": "string"
+				}
+			},
+			"body": {
+				"source": ["body.body"],
+				"required": true,
+				"validation": {
+					"type": "object",
+					"properties": {
+						"kind": {
+							"type": "string",
+							"enum": ["ConfigMap"]
+						},
+						"metadata": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"type": "string"
+								}
+							},
+							"required": ["name"]
+						}
+					},
+					"required": ["kind", "metadata"]
+				}
+			}
 		}
 	},
 	
@@ -1858,7 +1903,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/configuration/:mode": {
 			"_apiInfo": {
-				"l": "This API creates a resource of mode (Secret).",
+				"l": "This API creates a resource of mode (Secret, ConfigMap).",
 				"group": "Kubernetes configuration"
 			},
 			"commonFields": ["configuration"],
@@ -1867,7 +1912,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Secret"]
+					"enum": ["Secret", "ConfigMap"]
 				}
 			},
 			"body": {
@@ -1878,7 +1923,7 @@ localConfig.schema = {
 					"properties": {
 						"kind": {
 							"type": "string",
-							"enum": ["Secret"]
+							"enum": ["Secret", "ConfigMap"]
 						}
 					},
 					"required": ["kind"]
@@ -2427,7 +2472,7 @@ localConfig.schema = {
 		},
 		"/kubernetes/configuration/:mode": {
 			"_apiInfo": {
-				"l": "This API deletes a resource of mode (Secret).",
+				"l": "This API deletes a resource of mode (Secret, ConfigMap).",
 				"group": "Kubernetes configuration"
 			},
 			"commonFields": ["configuration"],
@@ -2443,7 +2488,7 @@ localConfig.schema = {
 				"required": true,
 				"validation": {
 					"type": "string",
-					"enum": ["Secret"]
+					"enum": ["Secret", "ConfigMap"]
 				}
 			}
 		},

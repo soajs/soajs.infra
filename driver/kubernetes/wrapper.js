@@ -28,6 +28,7 @@ const cronjob = require('./clients/cronjob.js');
 const persistentvolumeclaim = require('./clients/persistentvolumeclaim.js');
 const persistentvolume = require('./clients/persistentvolume.js');
 const storageclass = require('./clients/storageclass.js');
+const configmap = require('./clients/configmap.js');
 
 const wrapper = {
 	/**
@@ -129,6 +130,8 @@ const wrapper = {
 	 * storage classes Wrapper
 	 */
 	storageclass: storageclass,
+
+	configmap: configmap,
 };
 
 module.exports = wrapper;
