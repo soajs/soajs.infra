@@ -14,7 +14,6 @@ const configmaps = {
 	 * configmap Wrapper
 	 */
 	get(deployer, opts, cb) {
-		console.log(opts)
 		async function main() {
 			if (opts.name) {
 				return await deployer.api.v1.namespaces(opts.namespace).configmaps(opts.name).get({qs: opts.qs});
