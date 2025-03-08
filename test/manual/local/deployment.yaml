@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-v1
+  labels:
+    soajs.service.label: test-v1
+spec:
+  selector:
+    matchLabels:
+      soajs.service.label: test-v1
+  template:
+    metadata:
+      labels:
+        soajs.service.label: test-v1
+      name: test-v1
+    spec:
+      containers:
+        - image: soajsorg/gateway
+          name: test-v1
+          args:
+            - /bin/bash
+            - -c
+            - sleep 4d
+          livenessProbe:
+            exec:
+              command:
+                - ls
+            initialDelaySeconds: 5
+            periodSeconds: 5
