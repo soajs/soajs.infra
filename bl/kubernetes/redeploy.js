@@ -28,7 +28,7 @@ let bl = {
 	"handleError": null,
 	"handleConnect": null,
 	"driver": null,
-	
+
 	"item": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
@@ -37,18 +37,18 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			
+
 			let mode = inputmaskData.mode.toLowerCase();
 			if (!bl.driver.delete[mode]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			
+
 			let metaname = inputmaskData.name.metaname;
 			if (inputmaskData.name.item) {
 				let sanytized_version = soajsCoreLibs.version.sanitize(inputmaskData.name.item.version);
 				metaname = inputmaskData.name.item.env + "-" + inputmaskData.name.item.name + "-v" + sanytized_version;
 			}
-			
+
 			bl.driver.get.one[mode](client, {
 				"namespace": kubeConfig.namespace,
 				"name": metaname
@@ -65,9 +65,9 @@ let bl = {
 					currentImage = currentImage + ":" + inputmaskData.image.tag;
 					inputmaskData.image.name = currentImage;
 				}
-				let config = {"labels": {}, "src": inputmaskData.src || null, "image": inputmaskData.image || null};
+				let config = { "labels": {}, "src": inputmaskData.src || null, "image": inputmaskData.image || null };
 				buildLabels(config);
-				
+
 				if (item.metadata) {
 					if (!item.metadata.labels) {
 						item.metadata.labels = {};
@@ -88,18 +88,20 @@ let bl = {
 							item.spec.template.metadata.labels[l] = config.labels[l];
 						}
 					}
-					for (let i = 0; i < item.spec.template.spec.containers[0].env.length; i++) {
-						let oneEnv = item.spec.template.spec.containers[0].env[i];
-						if (config.src && config.src.from.branch) {
-							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-								item.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
-							}
-							if (oneEnv.name === "SOAJS_GIT_COMMIT") {
-								item.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
-							}
-						} else {
-							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-								item.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
+					if (item.spec.template.spec.containers[0].env) {
+						for (let i = 0; i < item.spec.template.spec.containers[0].env.length; i++) {
+							let oneEnv = item.spec.template.spec.containers[0].env[i];
+							if (config.src && config.src.from.branch) {
+								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+									item.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
+								}
+								if (oneEnv.name === "SOAJS_GIT_COMMIT") {
+									item.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
+								}
+							} else {
+								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+									item.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
+								}
 							}
 						}
 					}
@@ -114,18 +116,20 @@ let bl = {
 							item.spec.jobTemplate.spec.template.metadata.labels[l] = config.labels[l];
 						}
 					}
-					for (let i = 0; i < item.spec.jobTemplate.spec.template.spec.containers[0].env.length; i++) {
-						let oneEnv = item.spec.jobTemplate.spec.template.spec.containers[0].env[i];
-						if (config.src && config.src.from.branch) {
-							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-								item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
-							}
-							if (oneEnv.name === "SOAJS_GIT_COMMIT") {
-								item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
-							}
-						} else {
-							if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-								item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
+					if (item.spec.jobTemplate.spec.template.spec.containers[0].env) {
+						for (let i = 0; i < item.spec.jobTemplate.spec.template.spec.containers[0].env.length; i++) {
+							let oneEnv = item.spec.jobTemplate.spec.template.spec.containers[0].env[i];
+							if (config.src && config.src.from.branch) {
+								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
+								}
+								if (oneEnv.name === "SOAJS_GIT_COMMIT") {
+									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
+								}
+							} else {
+								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
+									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
+								}
 							}
 						}
 					}
@@ -164,7 +168,7 @@ let bl = {
 						"name": serviceName
 					}, (error, item) => {
 						if (error && error.code === 404) {
-							return cb(null, {"redeploy": true});
+							return cb(null, { "redeploy": true });
 						}
 						if (error) {
 							return cb(bl.handleError(soajs, 702, error));
@@ -187,7 +191,7 @@ let bl = {
 							if (error) {
 								return cb(bl.handleError(soajs, 702, error));
 							}
-							return cb(null, {"redeploy": true});
+							return cb(null, { "redeploy": true });
 						});
 					});
 				});
