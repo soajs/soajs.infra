@@ -27,15 +27,15 @@
     "grunt-istanbul": "0.8.0",
     "grunt-jsdoc": "2.4.1",
     "grunt-mocha-test": "0.13.3",
-    "mocha": "11.0.1",
+    "mocha": "11.1.0",
     "request": "2.88.2",
-    "soajs.controller": "4.2.17"
+    "soajs.controller": "4.2.31"
   },
   "dependencies": {
     "async": "3.2.6",
     "kubernetes-client": "9.0.0",
     "parse-large-json": "1.2.0",
-    "soajs": "4.1.11",
+    "soajs": "4.1.13",
     "ws": "7.5.10"
   }
 }

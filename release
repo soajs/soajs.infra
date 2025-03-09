@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-IMAGE="urac"
+IMAGE="infra"
 DFILE="Dockerfile"
 
 echo "Release ${IMAGE} from ${DFILE}"
