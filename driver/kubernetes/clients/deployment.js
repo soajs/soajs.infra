@@ -16,9 +16,9 @@ const deployments = {
 	get(deployer, opts, cb) {
 		async function main() {
 			if (opts.name) {
-				return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).get({qs: opts.qs});
+				return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).get({ qs: opts.qs });
 			} else {
-				return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments.get({qs: opts.qs});
+				return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments.get({ qs: opts.qs });
 			}
 		}
 		main().then((result) => {
@@ -34,7 +34,7 @@ const deployments = {
 				qs: opts.qs
 			});
 		}
-		
+
 		main().then((result) => {
 			return cb(null, result.body);
 		}).catch((err) => {
@@ -43,9 +43,9 @@ const deployments = {
 	},
 	put(deployer, opts, cb) {
 		async function main() {
-			return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).put({body: opts.body});
+			return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).put({ body: opts.body });
 		}
-		
+
 		main().then((result) => {
 			return cb(null, result.body);
 		}).catch((err) => {
@@ -53,13 +53,15 @@ const deployments = {
 		});
 	},
 	patch(deployer, opts, cb) {
+		console.log(opts);
 		async function main() {
-			return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).patch({body: opts.body});
+			return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).patch({ body: opts.body });
 		}
-		
+
 		main().then((result) => {
 			return cb(null, result.body);
 		}).catch((err) => {
+			console.log(err);
 			return cb(err);
 		});
 	},
@@ -67,7 +69,7 @@ const deployments = {
 		async function main() {
 			return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).delete();
 		}
-		
+
 		main().then((result) => {
 			return cb(null, result.body);
 		}).catch((err) => {
