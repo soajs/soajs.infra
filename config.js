@@ -32,17 +32,17 @@ let localConfig = {
 	"urac": true,
 	"maintenance": {
 		"readiness": "/heartbeat",
-		"port": {"type": "maintenance"},
+		"port": { "type": "maintenance" },
 		"commands": [
-			{"label": "Reload Registry", "path": "/reloadRegistry", "icon": "fas fa-undo"},
-			{"label": "Resource Info", "path": "/resourceInfo", "icon": "fas fa-info"}
+			{ "label": "Reload Registry", "path": "/reloadRegistry", "icon": "fas fa-undo" },
+			{ "label": "Resource Info", "path": "/resourceInfo", "icon": "fas fa-info" }
 		]
 	},
 	"interConnect": [{
 		"name": "console",
 		"version": "1"
 	}],
-	
+
 	"tags": ["gateway", "awareness", "interconnect", "multitennant"],
 	"attributes": {
 		"multitennant": ["authentication", "authorization"],
@@ -53,13 +53,13 @@ let localConfig = {
 		"readme": "/README.md",
 		"release": "/RELEASE.md"
 	},
-	
+
 	//-------------------------------------
 	"maxAllowed": 15
 };
 localConfig.errors = {
 	400: "Business logic required data are missing",
-	
+
 	500: "Nothing to Update!",
 	501: "Item not found!",
 	502: "Item is locked!",
@@ -72,17 +72,17 @@ localConfig.errors = {
 	509: "Error executing bundle.",
 	533: "No changes to update",
 	540: "You can no longer add cd Token, the max allowed is: " + localConfig.maxAllowed,
-	
+
 	550: "loadByEnv empty. Unable to find registry",
 	551: "This environment is not of type manual",
 	552: "Unable to connect to gateway!",
 	601: "Model not found",
 	602: "Model error: ",
-	
+
 	700: "Driver configuration not found",
 	701: "Driver not found",
 	702: "Driver error: "
-	
+
 };
 
 localConfig.schema = {
@@ -149,7 +149,7 @@ localConfig.schema = {
 			}
 		}
 	},
-	
+
 	"get": {
 		"/account/kubernetes": {
 			"_apiInfo": {
@@ -176,7 +176,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/cd/token": {
 			"_apiInfo": {
 				"l": "This API returns a deployment cd token.",
@@ -196,7 +196,7 @@ localConfig.schema = {
 				"group": "Token"
 			}
 		},
-		
+
 		"/kubernetes/plugin": {
 			"_apiInfo": {
 				"l": "This API fetches the information of a plugin along with all its resources.",
@@ -248,7 +248,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/cluster/:mode": {
 			"_apiInfo": {
 				"l": "This API returns the cluster information of a resource of mode (Node, Namespace).",
@@ -381,7 +381,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/clusters/:mode": {
 			"_apiInfo": {
 				"l": "This API returns the cluster information of all resources of mode (Node, Namespace).",
@@ -730,7 +730,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/item/latestVersion": {
 			"_apiInfo": {
 				"l": "This API fetches the latest version deployed of an item.",
@@ -810,7 +810,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/item/metrics": {
 			"_apiInfo": {
 				"l": "This API fetches the item metrics.",
@@ -879,7 +879,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/manual/awareness": {
 			"_apiInfo": {
 				"l": "This API gets the controller microservices awareness",
@@ -895,7 +895,7 @@ localConfig.schema = {
 			}
 		}
 	},
-	
+
 	"put": {
 		"/account/kubernetes/configuration": {
 			"_apiInfo": {
@@ -1056,7 +1056,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/deployment/scale": {
 			"_apiInfo": {
 				"l": "This API scales a resource of type deployment only.",
@@ -1076,7 +1076,7 @@ localConfig.schema = {
 				"validation": {
 					"type": "integer",
 					"minimum": 0
-					
+
 				}
 			}
 		},
@@ -1290,7 +1290,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/pods/exec": {
 			"_apiInfo": {
 				"l": "This API triggers maintenance operation in all the pods.",
@@ -1396,7 +1396,7 @@ localConfig.schema = {
 						"min": {
 							"type": "integer",
 							"minimum": 1
-							
+
 						},
 						"max": {
 							"type": "integer",
@@ -1437,56 +1437,56 @@ localConfig.schema = {
 							},
 							"required": ["type", "name", "target", "percentage"]
 						},
-							{
-								"type": "object",
-								"additionalProperties": false,
-								"properties": {
-									"type": {
-										"type": "string",
-										"enum": ["Pods"]
-									},
-									"name": {
-										"type": "string",
-										"enum": ["packets-per-second"]
-									},
-									"target": {
-										"type": "string",
-										"enum": ["AverageValue"]
-									},
-									"value": {
-										"type": "string"
-									}
+						{
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"type": {
+									"type": "string",
+									"enum": ["Pods"]
 								},
-								"required": ["type", "name", "target", "value"]
+								"name": {
+									"type": "string",
+									"enum": ["packets-per-second"]
+								},
+								"target": {
+									"type": "string",
+									"enum": ["AverageValue"]
+								},
+								"value": {
+									"type": "string"
+								}
 							},
-							{
-								"type": "object",
-								"additionalProperties": false,
-								"properties": {
-									"type": {
-										"type": "string",
-										"enum": ["Object"]
-									},
-									"name": {
-										"type": "string",
-										"enum": ["requests-per-second"]
-									},
-									"target": {
-										"type": "string",
-										"enum": ["AverageValue", "Value"]
-									},
-									"value": {
-										"type": "string"
-									}
+							"required": ["type", "name", "target", "value"]
+						},
+						{
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"type": {
+									"type": "string",
+									"enum": ["Object"]
 								},
-								"required": ["type", "name", "target", "value"]
-							}
+								"name": {
+									"type": "string",
+									"enum": ["requests-per-second"]
+								},
+								"target": {
+									"type": "string",
+									"enum": ["AverageValue", "Value"]
+								},
+								"value": {
+									"type": "string"
+								}
+							},
+							"required": ["type", "name", "target", "value"]
+						}
 						]
 					}
 				}
 			}
 		},
-		
+
 		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
 				"l": "This API updates a resource of mode (Deployment, DaemonSet, CronJob, HPA).",
@@ -1668,7 +1668,7 @@ localConfig.schema = {
 			}
 		}
 	},
-	
+
 	"post": {
 		"/account/kubernetes": {
 			"_apiInfo": {
@@ -1751,7 +1751,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/plugin": {
 			"_apiInfo": {
 				"l": "This API deploys a plugin along with all its resources.",
@@ -1813,7 +1813,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
 				"l": "This API creates a resource of mode (Deployment, DaemonSet, CronJob, HPA. Pod).",
@@ -1959,7 +1959,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/namespace": {
 			"_apiInfo": {
 				"l": "This API creates a namespace.",
@@ -1974,7 +1974,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/item/hpa": {
 			"_apiInfo": {
 				"l": "This API creates an HPA.",
@@ -2016,7 +2016,7 @@ localConfig.schema = {
 						"min": {
 							"type": "integer",
 							"minimum": 1
-							
+
 						},
 						"max": {
 							"type": "integer",
@@ -2057,50 +2057,50 @@ localConfig.schema = {
 							},
 							"required": ["type", "name", "target", "percentage"]
 						},
-							{
-								"type": "object",
-								"additionalProperties": false,
-								"properties": {
-									"type": {
-										"type": "string",
-										"enum": ["Pods"]
-									},
-									"name": {
-										"type": "string",
-										"enum": ["packets-per-second"]
-									},
-									"target": {
-										"type": "string",
-										"enum": ["AverageValue"]
-									},
-									"value": {
-										"type": "string"
-									}
+						{
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"type": {
+									"type": "string",
+									"enum": ["Pods"]
 								},
-								"required": ["type", "name", "target", "value"]
+								"name": {
+									"type": "string",
+									"enum": ["packets-per-second"]
+								},
+								"target": {
+									"type": "string",
+									"enum": ["AverageValue"]
+								},
+								"value": {
+									"type": "string"
+								}
 							},
-							{
-								"type": "object",
-								"additionalProperties": false,
-								"properties": {
-									"type": {
-										"type": "string",
-										"enum": ["Object"]
-									},
-									"name": {
-										"type": "string",
-										"enum": ["requests-per-second"]
-									},
-									"target": {
-										"type": "string",
-										"enum": ["AverageValue", "Value"]
-									},
-									"value": {
-										"type": "string"
-									}
+							"required": ["type", "name", "target", "value"]
+						},
+						{
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"type": {
+									"type": "string",
+									"enum": ["Object"]
 								},
-								"required": ["type", "name", "target", "value"]
-							}
+								"name": {
+									"type": "string",
+									"enum": ["requests-per-second"]
+								},
+								"target": {
+									"type": "string",
+									"enum": ["AverageValue", "Value"]
+								},
+								"value": {
+									"type": "string"
+								}
+							},
+							"required": ["type", "name", "target", "value"]
+						}
 						]
 					}
 				}
@@ -2233,7 +2233,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/item/deploy/soajs": {
 			"_apiInfo": {
 				"l": "This API deploys an item from the catalog using soajs recipe of type Deployment or DaemonSet.",
@@ -2244,6 +2244,13 @@ localConfig.schema = {
 				"source": ["body.recipe"],
 				"required": true,
 				"validation": item_soajs
+			},
+			"force": {
+				"source": ["body.force"],
+				"default": false,
+				"validation": {
+					"type": "boolean"
+				}
 			}
 		},
 		"/kubernetes/item/deploy/soajs/cronjob": {
@@ -2311,7 +2318,7 @@ localConfig.schema = {
 			}
 		}
 	},
-	
+
 	"delete": {
 		"/account/kubernetes": {
 			"_apiInfo": {
@@ -2403,7 +2410,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/workload/:mode": {
 			"_apiInfo": {
 				"l": "This API deletes a resource of mode (Deployment, DaemonSet, CronJob, HPA).",
@@ -2514,7 +2521,7 @@ localConfig.schema = {
 				}
 			}
 		},
-		
+
 		"/kubernetes/pods": {
 			"_apiInfo": {
 				"l": "This API deletes pods.",

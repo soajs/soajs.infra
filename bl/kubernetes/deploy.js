@@ -369,7 +369,11 @@ let bl = {
 		let labels = buildLabels(config);
 		let service = buildService(config, labels);
 		let deployment = buildDeployment(config, labels);
-		let deployment_patch = buildDeployment_patch(config, labels);
+		
+		let deployment_patch = null;
+		if (!inputmaskData.force) {
+			deployment_patch = buildDeployment_patch(config, labels);
+		}
 
 		bl.vanilla(soajs, {
 			"configuration": inputmaskData.configuration,
