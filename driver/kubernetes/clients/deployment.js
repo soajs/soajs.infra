@@ -53,7 +53,6 @@ const deployments = {
 		});
 	},
 	patch(deployer, opts, cb) {
-		console.log(opts);
 		async function main() {
 			return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).patch({ body: opts.body });
 		}
@@ -61,7 +60,6 @@ const deployments = {
 		main().then((result) => {
 			return cb(null, result.body);
 		}).catch((err) => {
-			console.log(err);
 			return cb(err);
 		});
 	},
