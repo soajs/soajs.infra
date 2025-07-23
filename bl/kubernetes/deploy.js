@@ -80,12 +80,13 @@ function buildService(config, labels) {
 	return service;
 }
 
-function buildDeployment_patch(config) {
+function buildDeployment_patch(config, labels) {
 	let deployment = {
 		"spec": {
 			"template": {
 				"spec": {
 					"containers": [{
+						"name": labels.label_sanytized,
 						"image": config.image.name
 					}]
 				}
@@ -368,7 +369,7 @@ let bl = {
 		let labels = buildLabels(config);
 		let service = buildService(config, labels);
 		let deployment = buildDeployment(config, labels);
-		let deployment_patch = buildDeployment_patch(config);
+		let deployment_patch = buildDeployment_patch(config, labels);
 
 		bl.vanilla(soajs, {
 			"configuration": inputmaskData.configuration,
