@@ -11,6 +11,21 @@
 const wrapper = require('./wrapper.js');
 
 let bl = {
+	"patch": (client, options, cb) => {
+		if (!options || !options.name || !options.body || !options.namespace) {
+			return cb(new Error("daemonset patch: options is required with {name, body, and namespace}"));
+		}
+		wrapper.daemonset.patch(client, {
+			namespace: options.namespace,
+			body: options.body,
+			name: options.name
+		}, (error, item) => {
+			if (error) {
+				return cb(error);
+			}
+			return cb(null, item);
+		});
+	},
 	"update": (client, options, cb) => {
 		if (!options || !options.name || !options.body || !options.namespace) {
 			return cb(new Error("daemonset update: options is required with {name, body, and namespace}"));

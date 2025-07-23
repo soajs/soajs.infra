@@ -16,7 +16,7 @@ function buildLabels(config) {
 	let sanytized_version = soajsCoreLibs.version.sanitize(config.item.version);
 	let label = config.item.env + "-" + config.item.name + "-v" + config.item.version;
 	let label_sanytized = config.item.env + "-" + config.item.name + "-v" + sanytized_version;
-	
+
 	if (!config.labels) {
 		config.labels = {};
 	}
@@ -30,7 +30,7 @@ function buildLabels(config) {
 	config.labels["soajs.service.version"] = config.item.version;
 	config.labels["soajs.service.label"] = label;
 	config.labels["soajs.service.mode"] = config.mode.toLowerCase();
-	
+
 	if (config.catalog) {
 		config.labels["soajs.catalog.id"] = config.catalog.id;
 		config.labels["soajs.catalog.v"] = config.catalog.version;
@@ -50,7 +50,7 @@ function buildLabels(config) {
 			}
 		}
 	}
-	return ({label, label_sanytized});
+	return ({ label, label_sanytized });
 }
 
 function buildService(config, labels) {
@@ -80,6 +80,23 @@ function buildService(config, labels) {
 	return service;
 }
 
+function buildDeployment_patch(config) {
+	let deployment = {
+		"spec": {
+			"template": {
+				"spec": {
+					"containers": [{
+						"image": config.image.name
+					}]
+				}
+			}
+		}
+	};
+	if (config.env) {
+		deployment.spec.template.spec.containers[0].env = config.env;
+	}
+	return deployment;
+}
 function buildDeployment(config, labels) {
 	let deployment = {
 		"apiVersion": "apps/v1",
@@ -247,7 +264,7 @@ function buildConjob(config, labels) {
 		args.push(config.args.join(" && "));
 		deployment.spec.jobTemplate.spec.template.spec.containers[0].args = args;
 	}
-	
+
 	if (config.ports) {
 		deployment.spec.jobTemplate.spec.template.spec.containers[0].ports = config.ports;
 	}
@@ -276,7 +293,7 @@ let bl = {
 	"handleError": null,
 	"handleConnect": null,
 	"driver": null,
-	
+
 	"item_soajs_conjob": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData || !inputmaskData.recipe) {
 			return cb(bl.handleError(soajs, 400, null));
@@ -288,7 +305,7 @@ let bl = {
 		let labels = buildLabels(config);
 		let service = buildService(config, labels);
 		let deployment = buildConjob(config, labels);
-		
+
 		bl.vanilla(soajs, {
 			"configuration": inputmaskData.configuration,
 			"deployment": deployment,
@@ -299,19 +316,19 @@ let bl = {
 		if (!inputmaskData || !inputmaskData.deployment || !inputmaskData.item) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		
+
 		let config = {
 			"catalog": inputmaskData.catalog || null,
 			"item": inputmaskData.item,
 			"labels": {},
 			"mode": inputmaskData.deployment.kind
 		};
-		
+
 		let labels = buildLabels(config);
-		
+
 		let service = inputmaskData.service || null;
 		let deployment = inputmaskData.deployment;
-		
+
 		if (!deployment.metadata.labels) {
 			deployment.metadata.labels = {};
 		}
@@ -333,7 +350,7 @@ let bl = {
 				}
 			}
 		}
-		
+
 		bl.vanilla(soajs, {
 			"configuration": inputmaskData.configuration,
 			"deployment": deployment,
@@ -351,10 +368,12 @@ let bl = {
 		let labels = buildLabels(config);
 		let service = buildService(config, labels);
 		let deployment = buildDeployment(config, labels);
-		
+		let deployment_patch = buildDeployment_patch(config);
+
 		bl.vanilla(soajs, {
 			"configuration": inputmaskData.configuration,
 			"deployment": deployment,
+			"deployment_patch": deployment_patch,
 			"service": service
 		}, options, cb);
 	},
@@ -362,19 +381,19 @@ let bl = {
 		if (!inputmaskData || !inputmaskData.deployment || !inputmaskData.item) {
 			return cb(bl.handleError(soajs, 400, null));
 		}
-		
+
 		let config = {
 			"catalog": inputmaskData.catalog || null,
 			"item": inputmaskData.item,
 			"labels": {},
 			"mode": inputmaskData.deployment.kind
 		};
-		
+
 		let labels = buildLabels(config);
-		
+
 		let service = inputmaskData.service || null;
 		let deployment = inputmaskData.deployment;
-		
+
 		if (!deployment.metadata.labels) {
 			deployment.metadata.labels = {};
 		}
@@ -396,7 +415,7 @@ let bl = {
 				}
 			}
 		}
-		
+
 		bl.vanilla(soajs, {
 			"configuration": inputmaskData.configuration,
 			"deployment": deployment,
@@ -409,14 +428,14 @@ let bl = {
 		}
 		let deployment = inputmaskData.deployment;
 		let service = inputmaskData.service || null;
-		
+
 		bl.vanilla(soajs, {
 			"configuration": inputmaskData.configuration,
 			"deployment": deployment,
 			"service": service
 		}, options, cb);
 	},
-	
+
 	"vanilla": (soajs, inputmaskData, options, cb) => {
 		if (!inputmaskData) {
 			return cb(bl.handleError(soajs, 400, null));
@@ -425,12 +444,12 @@ let bl = {
 			if (error) {
 				return cb(bl.handleError(soajs, 702, error));
 			}
-			
+
 			let kind = inputmaskData.deployment.kind.toLowerCase();
 			if (!bl.driver.create[kind]) {
 				return cb(bl.handleError(soajs, 504, null));
 			}
-			
+
 			let continue_service = () => {
 				if (inputmaskData.service) {
 					bl.driver.get.one.service(client, {
@@ -445,33 +464,38 @@ let bl = {
 								if (error) {
 									return cb(bl.handleError(soajs, 702, error));
 								}
-								return cb(null, {"deployed": true});
+								return cb(null, { "deployed": true });
 							});
 						} else {
-							inputmaskData.service.metadata.resourceVersion = serviceRec.metadata.resourceVersion;
-							if (!inputmaskData.service.spec.clusterIP && serviceRec.spec && serviceRec.spec.clusterIP) {
-								inputmaskData.service.spec.clusterIP = serviceRec.spec.clusterIP;
-							}
-							if (serviceRec.spec && serviceRec.spec.healthCheckNodePort) {
-								inputmaskData.service.spec.healthCheckNodePort = serviceRec.spec.healthCheckNodePort;
-							}
-							bl.driver.update.service(client, {
-								"name": inputmaskData.service.metadata.name,
-								"body": inputmaskData.service,
-								"namespace": config.namespace
-							}, (error) => {
-								if (error) {
-									return cb(bl.handleError(soajs, 702, error));
-								}
-								return cb(null, {"deployed": true});
-							});
+
+							return cb(null, { "deployed": true });
+
+							//NOTE: if the service is there we should not change it
+
+							// inputmaskData.service.metadata.resourceVersion = serviceRec.metadata.resourceVersion;
+							// if (!inputmaskData.service.spec.clusterIP && serviceRec.spec && serviceRec.spec.clusterIP) {
+							// 	inputmaskData.service.spec.clusterIP = serviceRec.spec.clusterIP;
+							// }
+							// if (serviceRec.spec && serviceRec.spec.healthCheckNodePort) {
+							// 	inputmaskData.service.spec.healthCheckNodePort = serviceRec.spec.healthCheckNodePort;
+							// }
+							// bl.driver.update.service(client, {
+							// 	"name": inputmaskData.service.metadata.name,
+							// 	"body": inputmaskData.service,
+							// 	"namespace": config.namespace
+							// }, (error) => {
+							// 	if (error) {
+							// 		return cb(bl.handleError(soajs, 702, error));
+							// 	}
+							// 	return cb(null, { "deployed": true });
+							// });
 						}
 					});
 				} else {
-					return cb(null, {"deployed": true});
+					return cb(null, { "deployed": true });
 				}
 			};
-			
+
 			bl.driver.get.one[kind](client, {
 				"name": inputmaskData.deployment.metadata.name,
 				"namespace": config.namespace
@@ -487,20 +511,36 @@ let bl = {
 						continue_service();
 					});
 				} else {
-					inputmaskData.deployment.metadata.resourceVersion = deploymentRec.metadata.resourceVersion;
-					if (!inputmaskData.deployment.spec.replicas && deploymentRec.spec && deploymentRec.spec.replicas) {
-						inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
-					}
-					bl.driver.update[kind](client, {
-						"name": inputmaskData.deployment.metadata.name,
-						"body": inputmaskData.deployment,
-						"namespace": config.namespace
-					}, (error) => {
-						if (error) {
-							return cb(bl.handleError(soajs, 702, error));
+
+					//NOTE: if deployment is there just patch env and image
+
+					if (inputmaskData.deployment_patch) {
+						bl.driver.patch[kind](client, {
+							"name": inputmaskData.deployment.metadata.name,
+							"body": inputmaskData.deployment_patch,
+							"namespace": config.namespace
+						}, (error) => {
+							if (error) {
+								return cb(bl.handleError(soajs, 702, error));
+							}
+							continue_service();
+						});
+					} else {
+						inputmaskData.deployment.metadata.resourceVersion = deploymentRec.metadata.resourceVersion;
+						if (!inputmaskData.deployment.spec.replicas && deploymentRec.spec && deploymentRec.spec.replicas) {
+							inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
 						}
-						continue_service();
-					});
+						bl.driver.update[kind](client, {
+							"name": inputmaskData.deployment.metadata.name,
+							"body": inputmaskData.deployment,
+							"namespace": config.namespace
+						}, (error) => {
+							if (error) {
+								return cb(bl.handleError(soajs, 702, error));
+							}
+							continue_service();
+						});
+					}
 				}
 			});
 		});

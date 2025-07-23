@@ -8,7 +8,7 @@
 
 'use strict';
 
-const {KubeConfig, Client} = require('kubernetes-client');
+const { KubeConfig, Client } = require('kubernetes-client');
 const Request = require('kubernetes-client/backends/request');
 const swagger = require('./swagger/swagger-1.22.json');
 
@@ -59,7 +59,7 @@ let driver = {
 		if (!config.url) {
 			return cb(new Error('Connect error: No valid url found for the kubernetes cluster'));
 		}
-		
+
 		let backend = null;
 		if (config.ca) {
 			let kubeconfig = new KubeConfig();
@@ -69,7 +69,7 @@ let driver = {
 				contexts: [context],
 				currentContext: context.name,
 			});
-			backend = new Request({kubeconfig});
+			backend = new Request({ kubeconfig });
 			backend.requestOptions = config.ca.requestOptions;
 			backend.authProvider = config.ca.authProvider;
 			if (!backend.requestOptions.auth) {
@@ -96,12 +96,17 @@ let driver = {
 			return cb(e);
 		}
 	},
-	
+
 	"metrics": {
 		"pods": _pod.metrics,
 		"nodes": _node.metrics
 	},
-	
+
+	"patch": {
+		"deployment": _deployment.patch,
+		"daemonset": _daemonset.patch,
+	},
+
 	"update": {
 		"service": _service.update,
 		"deployment": _deployment.update,
@@ -113,7 +118,7 @@ let driver = {
 		"storageclass": _storageclass.update,
 		"configmap": _configmap.update
 	},
-	
+
 	"delete": {
 		"service": _service.delete,
 		"deployment": _deployment.delete,
@@ -122,21 +127,21 @@ let driver = {
 		"pv": _pv.delete,
 		"storageclass": _storageclass.delete,
 		"configmap": _configmap.delete,
-		
+
 		"hpa": _hpa.delete,
 		"namespace": _namespace.delete,
 		"secret": _secret.delete,
 		"pvc": _pvc.delete,
-		
+
 		"pods": _pod.delete,
-		
+
 		"clusterrole": _clusterrole.delete,
 		"clusterrolebinding": _clusterrolebinding.delete,
 		"rolebinding": _rolebinding.delete,
 		"apiservice": _apiservice.delete,
 		"serviceaccount": _serviceaccount.delete
 	},
-	
+
 	"apply": {
 		"service": _service.create,
 		"deployment": _deployment.create,
@@ -149,14 +154,14 @@ let driver = {
 		"pv": _pv.apply,
 		"storageclass": _storageclass.apply,
 		"configmap": _configmap.apply,
-		
+
 		"clusterrole": _clusterrole.apply,
 		"clusterrolebinding": _clusterrolebinding.apply,
 		"rolebinding": _rolebinding.apply,
 		"apiservice": _apiservice.apply,
 		"serviceaccount": _serviceaccount.apply
 	},
-	
+
 	"create": {
 		"namespace": _namespace.create,
 		"hpa": _hpa.create,
@@ -164,13 +169,13 @@ let driver = {
 		"secret_dockercfg": _secret_dockercfg.create,
 		"secret_dockerconfigjson": _secret_dockerconfigjson.create,
 		"pvc": _pvc.create,
-		
+
 		"service": _service.create,
 		"deployment": _deployment.create,
 		"daemonset": _daemonset.create,
 		"cronjob": _cronjob.create
 	},
-	
+
 	"get": {
 		"all": {
 			"node": _node.get,
@@ -185,9 +190,9 @@ let driver = {
 			"pv": _pv.get,
 			"storageclass": _storageclass.get,
 			"configmap": _configmap.get,
-			
+
 			"namespace": _namespace.get,
-			
+
 			"clusterrole": _clusterrole.get,
 			"clusterrolebinding": _clusterrolebinding.get,
 			"rolebinding": _rolebinding.get,
@@ -207,9 +212,9 @@ let driver = {
 			"pv": _pv.getOne,
 			"storageclass": _storageclass.getOne,
 			"configmap": _configmap.getOne,
-			
+
 			"namespace": _namespace.getOne,
-			
+
 			"clusterrole": _clusterrole.getOne,
 			"clusterrolebinding": _clusterrolebinding.getOne,
 			"rolebinding": _rolebinding.getOne,
@@ -219,16 +224,16 @@ let driver = {
 		"serviceIps": _service.getIps,
 		"podIps": _pod.getIps
 	},
-	
+
 	"pod": {
 		"exec": _pod.exec,
 		"log": _pod.getLog
 	},
-	
+
 	"deployment": {
 		"patch": _deployment.patch
 	},
-	
+
 	"hpa": {
 		"patch": _hpa.patch
 	}
