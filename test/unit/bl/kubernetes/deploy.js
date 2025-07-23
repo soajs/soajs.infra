@@ -319,6 +319,12 @@ describe("Unit test for: BL - kubernetes deploy ...", () => {
 				}
 			}
 		};
+		DRIVER.patch = {
+			deployment: (client, options, cb) => {
+				return cb(null, options.body);
+			}
+		};
+
 		DRIVER.update = {
 			deployment: (client, options, cb) => {
 				return cb(null, options.body);
