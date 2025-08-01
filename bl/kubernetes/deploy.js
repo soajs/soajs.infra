@@ -122,7 +122,7 @@ function buildDeployment_patch(config, labels) {
 	if (config.args) {
 		let args = [];
 		let args2 = [];
-		for (let i = 0; i < config.args.length - 1; i++) {
+		for (let i = 0; i < config.args.length; i++) {
 			if (i === 0 && config.args[0] && config.args[0].trim() === '-c') {
 				args.push("-c");
 			} else {
@@ -196,7 +196,7 @@ function buildDeployment(config, labels) {
 	if (config.args) {
 		let args = [];
 		let args2 = [];
-		for (let i = 0; i < config.args.length - 1; i++) {
+		for (let i = 0; i < config.args.length; i++) {
 			if (i === 0 && config.args[0] && config.args[0].trim() === '-c') {
 				args.push("-c");
 			} else {
