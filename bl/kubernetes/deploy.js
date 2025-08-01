@@ -107,17 +107,29 @@ function buildDeployment_patch(config, labels) {
 	if (config.command) {
 		deployment.spec.template.spec.containers[0].command = config.command;
 	}
+	// if (config.args) {
+	// 	let args = [];
+	// 	if (config.args[0] && config.args[0].trim() === '-c') {
+	// 		args.push("-c");
+	// 		config.args.shift();
+	// 	}
+	// 	for (let i = 0; i < config.args.length - 1; i++) {
+	// 		config.args[i] = config.args[i].trim();
+	// 	}
+	// 	args.push(config.args.join(" && "));
+	// 	deployment.spec.template.spec.containers[0].args = args;
+	// }
 	if (config.args) {
-		console.log(config.args);
 		let args = [];
-		if (config.args[0] && config.args[0].trim() === '-c') {
-			args.push("-c");
-			config.args.shift();
-		}
+		let args2 = [];
 		for (let i = 0; i < config.args.length - 1; i++) {
-			config.args[i] = config.args[i].trim();
+			if (i == 0 && config.args[0] && config.args[0].trim() === '-c') {
+				args.push("-c");
+			} else {
+				args2.push(config.args[i].trim());
+			}
 		}
-		args.push(config.args.join(" && "));
+		args.push(args2.join(" && "));
 		deployment.spec.template.spec.containers[0].args = args;
 	}
 	if (config.env) {
@@ -183,14 +195,15 @@ function buildDeployment(config, labels) {
 	}
 	if (config.args) {
 		let args = [];
-		if (config.args[0] && config.args[0].trim() === '-c') {
-			args.push("-c");
-			config.args.shift();
-		}
+		let args2 = [];
 		for (let i = 0; i < config.args.length - 1; i++) {
-			config.args[i] = config.args[i].trim();
+			if (i == 0 && config.args[0] && config.args[0].trim() === '-c') {
+				args.push("-c");
+			} else {
+				args2.push(config.args[i].trim());
+			}
 		}
-		args.push(config.args.join(" && "));
+		args.push(args2.join(" && "));
 		deployment.spec.template.spec.containers[0].args = args;
 	}
 	if (config.ports) {
