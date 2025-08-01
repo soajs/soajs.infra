@@ -120,7 +120,6 @@ function buildDeployment_patch(config, labels) {
 	// 	deployment.spec.template.spec.containers[0].args = args;
 	// }
 	if (config.args) {
-		console.log(config.args);
 		let args = [];
 		let args2 = [];
 		for (let i = 0; i < config.args.length; i++) {
@@ -131,7 +130,6 @@ function buildDeployment_patch(config, labels) {
 			}
 		}
 		args.push(args2.join(" && "));
-		console.log(args);
 		deployment.spec.template.spec.containers[0].args = args;
 	}
 	if (config.env) {
@@ -196,7 +194,6 @@ function buildDeployment(config, labels) {
 		deployment.spec.template.spec.containers[0].command = config.command;
 	}
 	if (config.args) {
-		console.log(config.args);
 		let args = [];
 		let args2 = [];
 		for (let i = 0; i < config.args.length; i++) {
@@ -207,7 +204,6 @@ function buildDeployment(config, labels) {
 			}
 		}
 		args.push(args2.join(" && "));
-		console.log(args);
 		deployment.spec.template.spec.containers[0].args = args;
 	}
 	if (config.ports) {
@@ -562,6 +558,10 @@ let bl = {
 				} else {
 
 					//NOTE: if deployment is there just patch env and image
+
+					if (deploymentRec.spec.template.spec.containers[0].resources) {
+						console.log(deploymentRec.spec.template.spec.containers[0]);
+					}
 
 					if (inputmaskData.deployment_patch) {
 						bl.driver.patch[kind](client, {
