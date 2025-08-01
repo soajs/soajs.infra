@@ -571,7 +571,7 @@ let bl = {
 						});
 					} else {
 						inputmaskData.deployment.metadata.resourceVersion = deploymentRec.metadata.resourceVersion;
-						if (!inputmaskData.deployment.spec.replicas && deploymentRec.spec && deploymentRec.spec.replicas) {
+						if (inputmaskData.deployment.spec.replicas < deploymentRec.spec.replicas) {
 							inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
 						}
 						if (deploymentRec.spec.template.spec.containers[0].resources) {
