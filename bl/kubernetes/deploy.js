@@ -558,11 +558,6 @@ let bl = {
 				} else {
 
 					//NOTE: if deployment is there just patch env and image
-
-					if (deploymentRec.spec.template.spec.containers[0].resources) {
-						console.log(deploymentRec.spec.template.spec.containers[0]);
-					}
-
 					if (inputmaskData.deployment_patch) {
 						bl.driver.patch[kind](client, {
 							"name": inputmaskData.deployment.metadata.name,
@@ -580,7 +575,7 @@ let bl = {
 							inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
 						}
 						if (deploymentRec.spec.template.spec.containers[0].resources) {
-							console.log(deploymentRec.spec.template.spec.containers[0]);
+							inputmaskData.deployment.spec.template.spec.containers[0].resources = deploymentRec.spec.template.spec.containers[0].resources;
 						}
 						bl.driver.update[kind](client, {
 							"name": inputmaskData.deployment.metadata.name,
