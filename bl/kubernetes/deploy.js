@@ -108,6 +108,7 @@ function buildDeployment_patch(config, labels) {
 		deployment.spec.template.spec.containers[0].command = config.command;
 	}
 	if (config.args) {
+		console.log(config.args);
 		let args = [];
 		if (config.args[0] && config.args[0].trim() === '-c') {
 			args.push("-c");
