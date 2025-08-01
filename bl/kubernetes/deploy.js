@@ -82,8 +82,16 @@ function buildService(config, labels) {
 
 function buildDeployment_patch(config, labels) {
 	let deployment = {
+		"metadata": {
+			"name": labels.label_sanytized,
+			"labels": config.labels
+		},
 		"spec": {
 			"template": {
+				"metadata": {
+					"name": labels.label_sanytized,
+					"labels": config.labels
+				},
 				"spec": {
 					"containers": [{
 						"name": labels.label_sanytized,
@@ -93,6 +101,24 @@ function buildDeployment_patch(config, labels) {
 			}
 		}
 	};
+	if (config.workingDir) {
+		deployment.spec.template.spec.containers[0].workingDir = config.workingDir;
+	}
+	if (config.command) {
+		deployment.spec.template.spec.containers[0].command = config.command;
+	}
+	if (config.args) {
+		let args = [];
+		if (config.args[0] && config.args[0].trim() === '-c') {
+			args.push("-c");
+			config.args.shift();
+		}
+		for (let i = 0; i < config.args.length - 1; i++) {
+			config.args[i] = config.args[i].trim();
+		}
+		args.push(config.args.join(" && "));
+		deployment.spec.template.spec.containers[0].args = args;
+	}
 	if (config.env) {
 		deployment.spec.template.spec.containers[0].env = config.env;
 	}
@@ -369,7 +395,7 @@ let bl = {
 		let labels = buildLabels(config);
 		let service = buildService(config, labels);
 		let deployment = buildDeployment(config, labels);
-		
+
 		let deployment_patch = null;
 		if (!inputmaskData.force) {
 			deployment_patch = buildDeployment_patch(config, labels);
@@ -534,6 +560,9 @@ let bl = {
 						inputmaskData.deployment.metadata.resourceVersion = deploymentRec.metadata.resourceVersion;
 						if (!inputmaskData.deployment.spec.replicas && deploymentRec.spec && deploymentRec.spec.replicas) {
 							inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
+						}
+						if (deploymentRec.spec.template.spec.containers[0].resources) {
+							console.log(deploymentRec.spec.template.spec.containers[0]);
 						}
 						bl.driver.update[kind](client, {
 							"name": inputmaskData.deployment.metadata.name,
