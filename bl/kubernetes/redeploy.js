@@ -59,7 +59,10 @@ let bl = {
 				if (!item) {
 					return cb(bl.handleError(soajs, 501, null));
 				}
-				if (inputmaskData.image) {
+				if (inputmaskData.image &&
+				    item.spec.template.spec.containers &&
+				    Array.isArray(item.spec.template.spec.containers) &&
+				    item.spec.template.spec.containers.length > 0) {
 					let currentImage = item.spec.template.spec.containers[0].image;
 					currentImage = currentImage.substr(0, currentImage.lastIndexOf(":"));
 					currentImage = currentImage + ":" + inputmaskData.image.tag;
@@ -88,17 +91,20 @@ let bl = {
 							item.spec.template.metadata.labels[l] = config.labels[l];
 						}
 					}
-					if (item.spec.template.spec.containers[0].env) {
+					if (item.spec.template.spec.containers &&
+					    Array.isArray(item.spec.template.spec.containers) &&
+					    item.spec.template.spec.containers.length > 0 &&
+					    item.spec.template.spec.containers[0].env) {
 						for (let i = 0; i < item.spec.template.spec.containers[0].env.length; i++) {
 							let oneEnv = item.spec.template.spec.containers[0].env[i];
-							if (config.src && config.src.from.branch) {
+							if (config.src && config.src.from && config.src.from.branch) {
 								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
 									item.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
 								}
 								if (oneEnv.name === "SOAJS_GIT_COMMIT") {
 									item.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
 								}
-							} else {
+							} else if (config.src && config.src.from && config.src.from.tag) {
 								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
 									item.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
 								}
@@ -116,17 +122,20 @@ let bl = {
 							item.spec.jobTemplate.spec.template.metadata.labels[l] = config.labels[l];
 						}
 					}
-					if (item.spec.jobTemplate.spec.template.spec.containers[0].env) {
+					if (item.spec.jobTemplate.spec.template.spec.containers &&
+					    Array.isArray(item.spec.jobTemplate.spec.template.spec.containers) &&
+					    item.spec.jobTemplate.spec.template.spec.containers.length > 0 &&
+					    item.spec.jobTemplate.spec.template.spec.containers[0].env) {
 						for (let i = 0; i < item.spec.jobTemplate.spec.template.spec.containers[0].env.length; i++) {
 							let oneEnv = item.spec.jobTemplate.spec.template.spec.containers[0].env[i];
-							if (config.src && config.src.from.branch) {
+							if (config.src && config.src.from && config.src.from.branch) {
 								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
 									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
 								}
 								if (oneEnv.name === "SOAJS_GIT_COMMIT") {
 									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
 								}
-							} else {
+							} else if (config.src && config.src.from && config.src.from.tag) {
 								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
 									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
 								}

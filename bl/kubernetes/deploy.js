@@ -299,7 +299,7 @@ function buildConjob(config, labels) {
 			args.push("-c");
 			config.args.shift();
 		}
-		for (let i = 0; i < config.args.length - 1; i++) {
+		for (let i = 0; i < config.args.length; i++) {
 			config.args[i] = config.args[i].trim();
 		}
 		args.push(config.args.join(" && "));
@@ -574,7 +574,13 @@ let bl = {
 						if (inputmaskData.deployment.spec.replicas < deploymentRec.spec.replicas) {
 							inputmaskData.deployment.spec.replicas = deploymentRec.spec.replicas;
 						}
-						if (deploymentRec.spec.template.spec.containers[0].resources) {
+						if (deploymentRec.spec.template.spec.containers &&
+						    Array.isArray(deploymentRec.spec.template.spec.containers) &&
+						    deploymentRec.spec.template.spec.containers.length > 0 &&
+						    deploymentRec.spec.template.spec.containers[0].resources &&
+						    inputmaskData.deployment.spec.template.spec.containers &&
+						    Array.isArray(inputmaskData.deployment.spec.template.spec.containers) &&
+						    inputmaskData.deployment.spec.template.spec.containers.length > 0) {
 							inputmaskData.deployment.spec.template.spec.containers[0].resources = deploymentRec.spec.template.spec.containers[0].resources;
 						}
 						bl.driver.update[kind](client, {

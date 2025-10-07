@@ -27,7 +27,7 @@ let bl = {
 			},
 			data: null
 		};
-		let auth = new Buffer(`${options.content.username}:${options.content.password}`);
+		let auth = Buffer.from(`${options.content.username}:${options.content.password}`);
 		let data = {
 			"auths": {
 				[options.content.server]: {
@@ -38,7 +38,7 @@ let bl = {
 				}
 			}
 		};
-		let buff = new Buffer(JSON.stringify(data));
+		let buff = Buffer.from(JSON.stringify(data));
 		let base64data = buff.toString("base64");
 		
 		recipe.data = {[".dockerconfigjson"]: base64data};

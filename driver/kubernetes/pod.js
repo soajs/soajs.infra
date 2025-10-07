@@ -17,12 +17,12 @@ const wrapper = require('./wrapper.js');
 const lib = require("../../bl/kubernetes/lib.js");
 
 let bl = {
-	
+
 	"metrics": (client, options, cb) => {
 		if (!options || !options.namespace) {
 			return cb(new Error("pod metrics: options is required with {namespace}"));
 		}
-		
+
 		let data = {
 			namespace: options.namespace
 		};
@@ -40,7 +40,7 @@ let bl = {
 		if (!options || !options.name || !options.namespace) {
 			return cb(new Error("pod getOne: options is required with {name, and namespace}"));
 		}
-		wrapper.pod.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
+		wrapper.pod.get(client, { namespace: options.namespace, name: options.name }, (error, item) => {
 			return cb(error, item);
 		});
 	},
@@ -48,22 +48,22 @@ let bl = {
 		if (!options || !options.namespace) {
 			return cb(new Error("pod get: options is required with {namespace}"));
 		}
-		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter || null}, (error, items) => {
+		wrapper.pod.get(client, { namespace: options.namespace, qs: options.filter || null }, (error, items) => {
 			return cb(error, items);
 		});
 	},
 	"delete": (client, options, cb) => {
-		if (!options || !options.filter) {
+		if (!options || !options.namespace || !options.filter) {
 			return cb(new Error("pod delete: options is required with {namespace, and filter}"));
 		}
-		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, pods) => {
+		wrapper.pod.get(client, { namespace: options.namespace, qs: options.filter }, (error, pods) => {
 			if (error) {
 				return cb(error);
 			}
 			if (!pods || !Array.isArray(pods.items) || pods.items.length <= 0) {
 				return cb(new Error("Unable to find the any pod to delete."));
 			}
-			wrapper.pod.delete(client, {namespace: options.namespace, qs: options.filter}, (error) => {
+			wrapper.pod.delete(client, { namespace: options.namespace, qs: options.filter }, (error) => {
 				if (error) {
 					return cb(error);
 				}
@@ -71,13 +71,13 @@ let bl = {
 			});
 		});
 	},
-	
+
 	"getIps": (client, options, cb) => {
 		if (!options || !options.namespace || !options.filter) {
 			return cb(new Error("pod getIps: options is required with {namespace, and filter}"));
 		}
 		let ips = [];
-		wrapper.pod.get(client, {namespace: options.namespace, qs: options.filter}, (error, podList) => {
+		wrapper.pod.get(client, { namespace: options.namespace, qs: options.filter }, (error, podList) => {
 			if (error) {
 				return cb(error);
 			}
@@ -109,12 +109,12 @@ let bl = {
 			}
 		});
 	},
-	
+
 	"getLog": (client, options, cb) => {
 		if (!options || !options.name || !options.namespace) {
 			return cb(new Error("pod getLog: options is required with {name, and namespace}"));
 		}
-		wrapper.pod.get(client, {namespace: options.namespace, name: options.name}, (error, item) => {
+		wrapper.pod.get(client, { namespace: options.namespace, name: options.name }, (error, item) => {
 			if (error) {
 				return cb(error);
 			}
@@ -134,22 +134,22 @@ let bl = {
 			});
 		});
 	},
-	
+
 	"exec": (client, options, cb) => {
 		if (!options || !options.namespace || !options.config || !(options.filter || options.name) || !options.commands || !Array.isArray(options.commands)) {
-			return cb(new Error("pod getIps: options is required with {namespace, config, (filter or name), and commands[as Array]}"));
+			return cb(new Error("pod exec: options is required with {namespace, config, (filter or name), and commands[as Array]}"));
 		}
 		let args = {};
 		if (options.filter) {
-			args = {namespace: options.namespace, qs: options.filter};
+			args = { namespace: options.namespace, qs: options.filter };
 		} else {
-			args = {namespace: options.namespace, name: options.name};
+			args = { namespace: options.namespace, name: options.name };
 		}
 		wrapper.pod.get(client, args, (error, podList) => {
 			if (error) {
 				return cb(error);
 			}
-			
+
 			if (podList) {
 				let iteratee_without_ca = (onePod, callback) => {
 					let shell = '/bin/bash';
@@ -157,17 +157,28 @@ let bl = {
 						shell = onePod.metadata.labels['soajs.shell'].substr(5);
 						shell = lib.clearLabel(shell);
 					}
-					
+
+					let operationResponse = {
+						id: onePod.metadata.name,
+						response: {}
+					};
+
 					let uri = "";
 					if (options.config && options.config.url) {
-						uri = `wss://${options.config.url.split('//')[1]}`;
+						let parts = options.config.url.split('//');
+						if (parts.length > 1) {
+							uri = `wss://${parts[1]}`;
+						} else {
+							operationResponse.response = 'Invalid URL format: missing protocol separator';
+							return callback(null, operationResponse);
+						}
 					}
 					uri += `/api/v1/namespaces/${options.namespace}/pods/${onePod.metadata.name}/exec?`;
 					uri += 'stdout=1&stdin=1&stderr=1';
 					let cmd = [shell, '-c'];
 					cmd = cmd.concat(options.commands);
 					cmd.forEach(subCmd => uri += `&command=${encodeURIComponent(subCmd)}`);
-					
+
 					let wsOptions = {};
 					wsOptions.payload = 1024;
 					if (options.config && options.config.token) {
@@ -176,15 +187,12 @@ let bl = {
 						};
 					}
 					let response = '';
-					let operationResponse = {
-						id: onePod.metadata.name,
-						response: {}
-					};
 					let wsError = null;
 					try {
 						let ws = new WebSocket(uri, "base64.channel.k8s.io", wsOptions);
 						ws.on('message', (data) => {
-							if (data[0].match(/^[0-3]$/)) {
+							let firstChar = Buffer.isBuffer(data) ? String.fromCharCode(data[0]) : data[0];
+							if (firstChar.match(/^[0-3]$/)) {
 								response += Buffer.from(data.slice(1), 'base64').toString();
 							}
 						});
@@ -198,20 +206,18 @@ let bl = {
 							}
 							if (options.processResult && response.indexOf('{') !== -1 && response.lastIndexOf('}') !== -1) {
 								response = response.substring(response.indexOf('{'), response.lastIndexOf('}') + 1);
-								
-								try {
-									parse(response.toString(), maxChunkSize).then(({val, rest}) => {
-										if (rest) {
-											operationResponse.response = "Maintenance operation failed.";
-											return callback(null, operationResponse);
-										}
-										operationResponse.response = val;
+
+								parse(response, maxChunkSize).then(({ val, rest }) => {
+									if (rest) {
+										operationResponse.response = "Maintenance operation failed.";
 										return callback(null, operationResponse);
-									});
-								} catch (e) {
-									operationResponse.response = "Maintenance operation failed.";
+									}
+									operationResponse.response = val;
 									return callback(null, operationResponse);
-								}
+								}).catch((e) => {
+									operationResponse.response = "Maintenance operation failed. " + e.message;
+									return callback(null, operationResponse);
+								});
 							} else {
 								operationResponse.response = response;
 								return callback(null, operationResponse);
@@ -251,19 +257,18 @@ let bl = {
 						} else {
 							if (options.processResult && response.indexOf('{') !== -1 && response.lastIndexOf('}') !== -1) {
 								response = response.substring(response.indexOf('{'), response.lastIndexOf('}') + 1);
-								try {
-									parse(response.toString(), maxChunkSize).then(({val, rest}) => {
-										if (rest) {
-											operationResponse.response = "Maintenance operation failed.";
-											return callback(null, operationResponse);
-										}
-										operationResponse.response = val;
+
+								parse(response, maxChunkSize).then(({ val, rest }) => {
+									if (rest) {
+										operationResponse.response = "Maintenance operation failed.";
 										return callback(null, operationResponse);
-									});
-								} catch (e) {
-									operationResponse.response = "Maintenance operation failed.";
+									}
+									operationResponse.response = val;
 									return callback(null, operationResponse);
-								}
+								}).catch((e) => {
+									operationResponse.response = "Maintenance operation failed. " + e.message;
+									return callback(null, operationResponse);
+								});
 							} else {
 								operationResponse.response = response;
 								return callback(null, operationResponse);
@@ -292,12 +297,12 @@ let bl = {
 			}
 		});
 	},
-	
+
 	"apply": (client, options, cb) => {
 		if (!options || !options.body || !options.namespace) {
 			return cb(new Error("pod apply: options is required with {body, and namespace}"));
 		}
-		return wrapper.pod.post(client, {namespace: options.namespace, body: options.body}, cb);
+		return wrapper.pod.post(client, { namespace: options.namespace, body: options.body }, cb);
 	},
 };
 module.exports = bl;

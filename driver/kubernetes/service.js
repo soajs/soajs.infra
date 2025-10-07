@@ -78,7 +78,12 @@ let bl = {
 					"ip": item.spec.clusterIP,
 					"ports": item.spec.ports
 				};
-				if (item.spec.type === "LoadBalancer") {
+				if (item.spec.type === "LoadBalancer" &&
+				    item.status &&
+				    item.status.loadBalancer &&
+				    item.status.loadBalancer.ingress &&
+				    Array.isArray(item.status.loadBalancer.ingress) &&
+				    item.status.loadBalancer.ingress.length > 0) {
 					response.extIp = item.status.loadBalancer.ingress[0].ip;
 				}
 				return cb(null, response);

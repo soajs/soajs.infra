@@ -27,7 +27,7 @@ let bl = {
 			},
 			stringData: null
 		};
-		let auth = new Buffer(`${options.content.username}:${options.content.password}`);
+		let auth = Buffer.from(`${options.content.username}:${options.content.password}`);
 		let data = {
 			[options.content.server]: {
 				username: options.content.username,
