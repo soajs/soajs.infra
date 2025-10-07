@@ -191,9 +191,23 @@ let bl = {
 					try {
 						let ws = new WebSocket(uri, "base64.channel.k8s.io", wsOptions);
 						ws.on('message', (data) => {
-							let firstChar = Buffer.isBuffer(data) ? String.fromCharCode(data[0]) : data[0];
-							if (firstChar.match(/^[0-3]$/)) {
-								response += Buffer.from(data.slice(1), 'base64').toString();
+							// 1. Channel Check (MUST be 49 or 50, which are ASCII '1' and '2')
+							const channel = data[0];
+							// 2. Slice the Buffer to get ONLY the Base64 payload
+							const base64Data = data.slice(1);
+
+							if (channel === 49 || channel === 50) {
+								const base64String = base64Data.toString('utf-8');
+								let decodedChunk = Buffer.from(base64String, 'base64').toString('utf-8');
+								response += decodedChunk;
+							} else {
+								// Log non-output channels
+								try {
+									const statusMessage = base64Data.toString('utf-8');
+									console.log(`Received non-output message on channel ${channel}: ${statusMessage}`);
+								} catch (e) {
+									console.log(`Received raw non-output message on channel ${channel}`);
+								}
 							}
 						});
 						ws.on('error', (error) => {
