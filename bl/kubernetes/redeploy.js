@@ -23,6 +23,26 @@ function buildLabels(config) {
 	}
 }
 
+function updateEnvVars(envArray, config) {
+	if (!envArray || !Array.isArray(envArray)) {
+		return;
+	}
+	const updates = {};
+	if (config.src && config.src.from && config.src.from.branch) {
+		updates.SOAJS_GIT_BRANCH = config.src.from.branch;
+		updates.SOAJS_GIT_COMMIT = config.src.from.commit;
+	} else if (config.src && config.src.from && config.src.from.tag) {
+		updates.SOAJS_GIT_BRANCH = config.src.from.tag;
+	}
+
+	// Single pass update
+	for (let i = 0; i < envArray.length; i++) {
+		if (updates[envArray[i].name]) {
+			envArray[i].value = updates[envArray[i].name];
+		}
+	}
+}
+
 let bl = {
 	"localConfig": null,
 	"handleError": null,
@@ -60,9 +80,9 @@ let bl = {
 					return cb(bl.handleError(soajs, 501, null));
 				}
 				if (inputmaskData.image &&
-				    item.spec.template.spec.containers &&
-				    Array.isArray(item.spec.template.spec.containers) &&
-				    item.spec.template.spec.containers.length > 0) {
+					item.spec.template.spec.containers &&
+					Array.isArray(item.spec.template.spec.containers) &&
+					item.spec.template.spec.containers.length > 0) {
 					let currentImage = item.spec.template.spec.containers[0].image;
 					currentImage = currentImage.substr(0, currentImage.lastIndexOf(":"));
 					currentImage = currentImage + ":" + inputmaskData.image.tag;
@@ -92,24 +112,10 @@ let bl = {
 						}
 					}
 					if (item.spec.template.spec.containers &&
-					    Array.isArray(item.spec.template.spec.containers) &&
-					    item.spec.template.spec.containers.length > 0 &&
-					    item.spec.template.spec.containers[0].env) {
-						for (let i = 0; i < item.spec.template.spec.containers[0].env.length; i++) {
-							let oneEnv = item.spec.template.spec.containers[0].env[i];
-							if (config.src && config.src.from && config.src.from.branch) {
-								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-									item.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
-								}
-								if (oneEnv.name === "SOAJS_GIT_COMMIT") {
-									item.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
-								}
-							} else if (config.src && config.src.from && config.src.from.tag) {
-								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-									item.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
-								}
-							}
-						}
+						Array.isArray(item.spec.template.spec.containers) &&
+						item.spec.template.spec.containers.length > 0 &&
+						item.spec.template.spec.containers[0].env) {
+						updateEnvVars(item.spec.template.spec.containers[0].env, config);
 					}
 				}
 				//check if cronjob and set labels
@@ -123,24 +129,10 @@ let bl = {
 						}
 					}
 					if (item.spec.jobTemplate.spec.template.spec.containers &&
-					    Array.isArray(item.spec.jobTemplate.spec.template.spec.containers) &&
-					    item.spec.jobTemplate.spec.template.spec.containers.length > 0 &&
-					    item.spec.jobTemplate.spec.template.spec.containers[0].env) {
-						for (let i = 0; i < item.spec.jobTemplate.spec.template.spec.containers[0].env.length; i++) {
-							let oneEnv = item.spec.jobTemplate.spec.template.spec.containers[0].env[i];
-							if (config.src && config.src.from && config.src.from.branch) {
-								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.branch;
-								}
-								if (oneEnv.name === "SOAJS_GIT_COMMIT") {
-									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.commit;
-								}
-							} else if (config.src && config.src.from && config.src.from.tag) {
-								if (oneEnv.name === "SOAJS_GIT_BRANCH") {
-									item.spec.jobTemplate.spec.template.spec.containers[0].env[i].value = config.src.from.tag;
-								}
-							}
-						}
+						Array.isArray(item.spec.jobTemplate.spec.template.spec.containers) &&
+						item.spec.jobTemplate.spec.template.spec.containers.length > 0 &&
+						item.spec.jobTemplate.spec.template.spec.containers[0].env) {
+						updateEnvVars(item.spec.jobTemplate.spec.template.spec.containers[0].env, config);
 					}
 				}
 				if (config.image && config.image.name) {

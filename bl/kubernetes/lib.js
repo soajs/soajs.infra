@@ -12,6 +12,10 @@
 const i_sdk = require('../../lib/sdk.js');
 const get = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o);
 
+// Cache regex patterns for performance
+const SLASH_REGEX = /\//g;
+const SLASH_PLACEHOLDER_REGEX = /__slash__/g;
+
 let lib = {
 	"getDriverConfiguration": (soajs, configuration, sdk, cb) => {
 		if (!configuration) {
@@ -90,16 +94,10 @@ let lib = {
 		}
 	},
 	"cleanLabel": (label) => {
-		if (!label) {
-			return '';
-		}
-		return label.replace(/\//g, "__slash__");
+		return label ? label.replace(SLASH_REGEX, "__slash__") : '';
 	},
 	"clearLabel": (label) => {
-		if (!label) {
-			return '';
-		}
-		return label.replace(/__slash__/g, "/");
+		return label ? label.replace(SLASH_PLACEHOLDER_REGEX, "/") : '';
 	}
 };
 

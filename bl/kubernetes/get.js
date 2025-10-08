@@ -184,39 +184,31 @@ let bl = {
 				if (error) {
 					return cb(bl.handleError(soajs, 702, error));
 				}
-				let items = [];
-				if (results.deployment && results.deployment.items) {
-					items = items.concat(results.deployment.items);
-				}
-				if (results.daemonset && results.daemonset.items) {
-					items = items.concat(results.daemonset.items);
-				}
-				if (results.cronjob && results.cronjob.items) {
-					items = items.concat(results.cronjob.items);
-				}
+				// Efficient array concatenation using spread operator
+				let items = [
+					...((results.deployment && results.deployment.items) || []),
+					...((results.daemonset && results.daemonset.items) || []),
+					...((results.cronjob && results.cronjob.items) || [])
+				];
 				
 				let latestVersion = null;
 				
 				if (items && Array.isArray(items) && items.length > 0) {
-					
-					let checkVersion = (item, callback) => {
+
+					// Synchronous version checking - no need for async
+					for (let i = 0; i < items.length; i++) {
+						let item = items[i];
 						if (item.metadata && item.metadata.labels && item.metadata.labels['soajs.service.version']) {
 							let itemVersion = soajsCoreLibs.version.unsanitize(item.metadata.labels['soajs.service.version']);
 							latestVersion = soajsCoreLibs.version.getLatest(itemVersion, latestVersion);
 						}
-						callback(null);
-					};
-					//async
-					async.eachSeries(items, checkVersion, function (error) {
-						if (error) {
-							return cb(bl.handleError(soajs, 702, error));
-						}
-						if (latestVersion !== null) {
-							return cb(null, latestVersion);
-						} else {
-							return cb(bl.handleError(soajs, 505, null));
-						}
-					});
+					}
+
+					if (latestVersion !== null) {
+						return cb(null, latestVersion);
+					} else {
+						return cb(bl.handleError(soajs, 505, null));
+					}
 				} else {
 					return cb(bl.handleError(soajs, 501, null));
 				}

@@ -387,9 +387,11 @@ let bl = {
 				deployment.spec.jobTemplate.spec.template.metadata.labels[l] = config.labels[l];
 				if (service) {
 					service.metadata.labels[l] = config.labels[l];
-					service.metadata.name = labels.label_sanytized + "-service";
 				}
 			}
+		}
+		if (service) {
+			service.metadata.name = labels.label_sanytized + "-service";
 		}
 
 		bl.vanilla(soajs, {
@@ -456,9 +458,11 @@ let bl = {
 				deployment.spec.template.metadata.labels[l] = config.labels[l];
 				if (service) {
 					service.metadata.labels[l] = config.labels[l];
-					service.metadata.name = labels.label_sanytized + "-service";
 				}
 			}
+		}
+		if (service) {
+			service.metadata.name = labels.label_sanytized + "-service";
 		}
 
 		bl.vanilla(soajs, {

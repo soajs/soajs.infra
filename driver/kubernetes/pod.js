@@ -82,28 +82,33 @@ let bl = {
 				return cb(error);
 			}
 			if (podList && podList.items && Array.isArray(podList.items)) {
-				let iteratee = (onePod, callback) => {
+				// Synchronous pod processing - no async needed
+				const results = podList.items.map(onePod => {
 					let podInfo = {
 						name: onePod.metadata.name
 					};
-					if (onePod.status.phase === 'Running' && onePod.metadata.namespace === options.namespace && onePod.status.conditions && Array.isArray(onePod.status.conditions)) {
+
+					if (onePod.status.phase === 'Running' &&
+						onePod.metadata.namespace === options.namespace &&
+						onePod.status.conditions &&
+						Array.isArray(onePod.status.conditions)) {
+
 						if (options.onlyReady) {
-							for (let i = 0; i < onePod.status.conditions.length; i++) {
-								let oneCond = onePod.status.conditions[i];
-								if (oneCond.type === 'Ready' && oneCond.status === 'True') {
-									podInfo.ip = onePod.status.podIP;
-									break;
-								}
+							const readyCondition = onePod.status.conditions.find(
+								cond => cond.type === 'Ready' && cond.status === 'True'
+							);
+							if (readyCondition) {
+								podInfo.ip = onePod.status.podIP;
 							}
 						} else {
 							podInfo.ip = onePod.status.podIP;
 						}
 					}
-					return callback(null, podInfo);
-				};
-				async.map(podList.items, iteratee, (err, results) => {
-					return cb(err, results);
+
+					return podInfo;
 				});
+
+				return cb(null, results);
 			} else {
 				return cb(null, ips);
 			}
@@ -186,10 +191,21 @@ let bl = {
 							'Authorization': `Bearer ${options.config.token}`
 						};
 					}
-					let response = '';
+					let responseChunks = [];
 					let wsError = null;
+					let timeout = null;
+					let maxResponseSize = 10 * 1024 * 1024; // 10MB limit
+					let currentSize = 0;
+
 					try {
 						let ws = new WebSocket(uri, "base64.channel.k8s.io", wsOptions);
+
+						// Add timeout
+						timeout = setTimeout(() => {
+							wsError = 'Operation timeout';
+							ws.close();
+						}, options.timeout || 30000); // 30 second default
+
 						ws.on('message', (data) => {
 							// 1. Channel Check (MUST be 49 or 50, which are ASCII '1' and '2')
 							const channel = data[0];
@@ -199,7 +215,15 @@ let bl = {
 							if (channel === 49 || channel === 50) {
 								const base64String = base64Data.toString('utf-8');
 								let decodedChunk = Buffer.from(base64String, 'base64').toString('utf-8');
-								response += decodedChunk;
+
+								currentSize += decodedChunk.length;
+								if (currentSize > maxResponseSize) {
+									wsError = 'Response size exceeded maximum limit';
+									ws.close();
+									return;
+								}
+
+								responseChunks.push(decodedChunk);
 							} else {
 								// Log non-output channels
 								try {
@@ -212,12 +236,21 @@ let bl = {
 						});
 						ws.on('error', (error) => {
 							wsError = error.message;
+							if (timeout) {
+								clearTimeout(timeout);
+							}
 						});
 						ws.on('close', () => {
+							if (timeout) {
+								clearTimeout(timeout);
+							}
 							if (wsError) {
 								operationResponse.response = 'A ws error occurred: ' + wsError;
 								return callback(null, operationResponse);
 							}
+
+							let response = responseChunks.join('');
+
 							if (options.processResult && response.indexOf('{') !== -1 && response.lastIndexOf('}') !== -1) {
 								response = response.substring(response.indexOf('{'), response.lastIndexOf('}') + 1);
 
