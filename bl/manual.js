@@ -9,8 +9,9 @@
 'use strict';
 
 const soajsCore = require('soajs');
-const request = require('request');
+const axios = require('axios');
 const async = require('async');
+const commonResponse = require('../lib/commonResponse.js');
 
 let bl = {
 	"localConfig": null,
@@ -47,27 +48,31 @@ let bl = {
 				ip: envRecord.awareness.host,
 			};
 			soajs.log.debug("Checking API Gateway Awareness for Environment:", soajs.inputmaskData.env.toUpperCase());
-			let requestOptions = {
-				uri: "http://" + controller.ip + ":" + controller.port + "/awarenessStat",
-				json: true
-			};
 			let apiResponse = {};
-			request(requestOptions, (error, response, body) => {
-				if (error || !body || !body.result) {
-					return cb(bl.handleError(soajs, 552, err));
-				}
-				
-				async.forEachOf(body.data.services, function (service, key, callback) {
-					apiResponse[key] = {
-						version: service.version,
-						healthy: service.awarenessStats && service.awarenessStats[controller.ip]? service.awarenessStats[controller.ip].healthy : false,
-						host: controller.ip
-					};
-					callback();
-				}, function () {
-					return cb(null, apiResponse);
+			axios.get("http://" + controller.ip + ":" + controller.port + "/awarenessStat")
+				.then((result) => {
+					return commonResponse(soajs, result.data, null, (error, data) => {
+						if (error) {
+							return cb(bl.handleError(soajs, 552, error));
+						}
+
+						async.forEachOf(data.services, function (service, key, callback) {
+							apiResponse[key] = {
+								version: service.version,
+								healthy: service.awarenessStats && service.awarenessStats[controller.ip]? service.awarenessStats[controller.ip].healthy : false,
+								host: controller.ip
+							};
+							callback();
+						}, function () {
+							return cb(null, apiResponse);
+						});
+					});
+				})
+				.catch((error) => {
+					return commonResponse(soajs, null, error, (err) => {
+						return cb(bl.handleError(soajs, 552, err));
+					});
 				});
-			});
 		});
 	},
 };
