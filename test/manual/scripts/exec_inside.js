@@ -1,6 +1,5 @@
-//kubectl exec -n soajs -it dashboard-infra-v1-5b96c5868b-9gttv -- /bin/bash
+//kubectl exec -n soajs -it dashboard-infra-v1-998569c86-fjg7h -- /bin/bash
 const WebSocket = require('ws');
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 let cmd = ['/bin/bash', '-c', 'pwd'];
 
@@ -18,10 +17,12 @@ uri += 'stdout=1&stdin=1&stderr=1';
 options.cmd.forEach(subCmd => uri += `&command=${encodeURIComponent(subCmd)}`);
 
 
-let wsOptions = {};
-wsOptions.payload = 1024;
-wsOptions.headers = {
-    'Authorization': `Bearer ${options.token}`
+let wsOptions = {
+    "payload": 1024,
+    "headers": {
+        "Authorization": `Bearer ${options.token}`
+    },
+    "rejectUnauthorized": false
 };
 
 let ws = new WebSocket(uri, "base64.channel.k8s.io", wsOptions);
