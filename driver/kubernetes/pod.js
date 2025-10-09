@@ -184,8 +184,10 @@ let bl = {
 					cmd = cmd.concat(options.commands);
 					cmd.forEach(subCmd => uri += `&command=${encodeURIComponent(subCmd)}`);
 
-					let wsOptions = {};
-					wsOptions.payload = 1024;
+					let wsOptions = {
+						payload: 1024,
+						rejectUnauthorized: false // Per-connection TLS setting when no CA provided
+					};
 					if (options.config && options.config.token) {
 						wsOptions.headers = {
 							'Authorization': `Bearer ${options.config.token}`
@@ -326,10 +328,9 @@ let bl = {
 				let iteratee = iteratee_without_ca;
 				if (options.ca) {
 					iteratee = iteratee_with_ca;
-				} else {
-					// turn off node TLS for iteratee_without_ca to work without cert problem
-					process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 				}
+				// Note: TLS verification is disabled per-connection in wsOptions (iteratee_without_ca)
+				// when no CA is provided, rather than globally disabling for entire process
 				if (podList.items && Array.isArray(podList.items)) {
 					async.map(podList.items, iteratee, (err, results) => {
 						return cb(err, results);

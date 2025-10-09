@@ -12,6 +12,24 @@ const soajsCoreLibs = require("soajs.core.libs");
 
 const lib = require("./lib.js");
 
+function processArgs(config) {
+	if (!config.args) {
+		return null;
+	}
+
+	let args = [];
+	let args2 = [];
+	for (let i = 0; i < config.args.length; i++) {
+		if (i === 0 && config.args[0] && config.args[0].trim() === '-c') {
+			args.push("-c");
+		} else {
+			args2.push(config.args[i].trim());
+		}
+	}
+	args.push(args2.join(" && "));
+	return args;
+}
+
 function buildLabels(config) {
 	let sanytized_version = soajsCoreLibs.version.sanitize(config.item.version);
 	let label = config.item.env + "-" + config.item.name + "-v" + config.item.version;
@@ -119,17 +137,8 @@ function buildDeployment_patch(config, labels) {
 	// 	args.push(config.args.join(" && "));
 	// 	deployment.spec.template.spec.containers[0].args = args;
 	// }
-	if (config.args) {
-		let args = [];
-		let args2 = [];
-		for (let i = 0; i < config.args.length; i++) {
-			if (i === 0 && config.args[0] && config.args[0].trim() === '-c') {
-				args.push("-c");
-			} else {
-				args2.push(config.args[i].trim());
-			}
-		}
-		args.push(args2.join(" && "));
+	let args = processArgs(config);
+	if (args) {
 		deployment.spec.template.spec.containers[0].args = args;
 	}
 	if (config.env) {
@@ -193,17 +202,8 @@ function buildDeployment(config, labels) {
 	if (config.command) {
 		deployment.spec.template.spec.containers[0].command = config.command;
 	}
-	if (config.args) {
-		let args = [];
-		let args2 = [];
-		for (let i = 0; i < config.args.length; i++) {
-			if (i === 0 && config.args[0] && config.args[0].trim() === '-c') {
-				args.push("-c");
-			} else {
-				args2.push(config.args[i].trim());
-			}
-		}
-		args.push(args2.join(" && "));
+	let args = processArgs(config);
+	if (args) {
 		deployment.spec.template.spec.containers[0].args = args;
 	}
 	if (config.ports) {
@@ -293,16 +293,8 @@ function buildConjob(config, labels) {
 	if (config.command) {
 		deployment.spec.jobTemplate.spec.template.spec.containers[0].command = config.command;
 	}
-	if (config.args) {
-		let args = [];
-		if (config.args[0] && config.args[0].trim() === '-c') {
-			args.push("-c");
-			config.args.shift();
-		}
-		for (let i = 0; i < config.args.length; i++) {
-			config.args[i] = config.args[i].trim();
-		}
-		args.push(config.args.join(" && "));
+	let args = processArgs(config);
+	if (args) {
 		deployment.spec.jobTemplate.spec.template.spec.containers[0].args = args;
 	}
 

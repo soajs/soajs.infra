@@ -15,7 +15,8 @@
     "node": "*"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "lint": "grunt jshint"
   },
   "devDependencies": {
     "grunt": "1.6.1",
@@ -27,7 +28,7 @@
     "grunt-istanbul": "0.8.0",
     "grunt-jsdoc": "2.4.1",
     "grunt-mocha-test": "0.13.3",
-    "mocha": "11.7.2",
+    "mocha": "11.7.4",
     "soajs.controller": "4.2.40"
   },
   "dependencies": {
