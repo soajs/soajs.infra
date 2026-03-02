@@ -29,15 +29,15 @@
     "grunt-jsdoc": "2.4.1",
     "grunt-mocha-test": "0.13.3",
     "mocha": "11.7.5",
-    "soajs.controller": "4.2.41"
+    "soajs.controller": "4.3.0"
   },
   "dependencies": {
     "async": "3.2.6",
-    "axios": "1.13.2",
+    "axios": "1.13.6",
     "kubernetes-client": "9.0.0",
     "parse-large-json": "1.2.0",
-    "soajs": "4.1.19",
-    "soajs.core.libs": "1.2.1",
-    "ws": "8.18.3"
+    "soajs": "4.1.21",
+    "soajs.core.libs": "1.2.2",
+    "ws": "8.19.0"
   }
 }
