@@ -8,58 +8,22 @@
 
 'use strict';
 
+const {request, segment} = require('./request.js');
+
+const base = (opts) => "/api/v1/namespaces/" + segment(opts.namespace) + "/persistentvolumeclaims";
 
 const pvc = {
-	/**
-	 * Secret Wrapper
-	 */
 	get(deployer, opts, cb) {
-		async function main() {
-			if (opts.name) {
-				return await deployer.api.v1.namespaces(opts.namespace).persistentvolumeclaims(opts.name).get({qs: opts.qs});
-			} else {
-				return await deployer.api.v1.namespaces(opts.namespace).persistentvolumeclaims.get({qs: opts.qs});
-			}
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "GET", opts.name ? base(opts) + "/" + segment(opts.name) : base(opts), {"qs": opts.qs}, cb);
 	},
 	put(deployer, opts, cb) {
-		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).persistentvolumeclaims(opts.name).put({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "PUT", base(opts) + "/" + segment(opts.name), {"body": opts.body}, cb);
 	},
 	post(deployer, opts, cb) {
-		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).persistentvolumeclaims.post({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "POST", base(opts), {"body": opts.body}, cb);
 	},
 	delete(deployer, opts, cb) {
-		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).persistentvolumeclaims(opts.name).delete({qs: opts.qs});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "DELETE", base(opts) + "/" + segment(opts.name), {"qs": opts.qs}, cb);
 	}
 };
 

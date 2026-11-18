@@ -8,59 +8,23 @@
 
 'use strict';
 
+const {request, segment} = require('./request.js');
+
+const base = (opts) => "/apis/batch/v1/namespaces/" + segment(opts.namespace) + "/cronjobs";
 
 const cronJob = {
-	/**
-	 * cronJob Wrapper
-	 */
 	get(deployer, opts, cb) {
-		async function main() {
-			if (opts.name) {
-				return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs(opts.name).get({qs: opts.qs});
-			} else {
-				return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs.get({qs: opts.qs});
-			}
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "GET", opts.name ? base(opts) + "/" + segment(opts.name) : base(opts), {"qs": opts.qs}, cb);
 	},
 	post(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs.post({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "POST", base(opts), {"body": opts.body}, cb);
 	},
 	put(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs(opts.name).put({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "PUT", base(opts) + "/" + segment(opts.name), {"body": opts.body}, cb);
 	},
 	delete(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis.batch.v1.namespaces(opts.namespace).cronjobs(opts.name).delete({qs: opts.qs});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
-	},
+		request(deployer, "DELETE", base(opts) + "/" + segment(opts.name), {"qs": opts.qs}, cb);
+	}
 };
 
 module.exports = cronJob;
