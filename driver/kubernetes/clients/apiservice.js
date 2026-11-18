@@ -8,47 +8,19 @@
 
 'use strict';
 
+const {request, segment} = require('./request.js');
+
+const base = () => "/apis/apiregistration.k8s.io/v1/apiservices";
 
 const autoscale = {
-	/**
-	 * autoscale Wrapper
-	 */
 	post(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis["apiregistration.k8s.io"].v1.apiservices.post({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "POST", base(opts), {"body": opts.body}, cb);
 	},
 	get(deployer, opts, cb) {
-		async function main() {
-			if (opts.name) {
-				return await deployer.apis["apiregistration.k8s.io"].v1.apiservices(opts.name).get({qs: opts.qs});
-			} else {
-				return await deployer.apis["apiregistration.k8s.io"].v1.apiservices.get({qs: opts.qs});
-			}
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "GET", opts.name ? base(opts) + "/" + segment(opts.name) : base(opts), {"qs": opts.qs}, cb);
 	},
 	delete(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis["apiregistration.k8s.io"].v1.apiservices(opts.name).delete();
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "DELETE", base(opts) + "/" + segment(opts.name), {}, cb);
 	}
 };
 

@@ -39,6 +39,11 @@ describe("Starting Unit test", () => {
 		done();
 	});
 	
+	it("Unit test for the Kubernetes driver", (done) => {
+		require("./driver/kubernetes.js");
+		done();
+	});
+	
 	after((done) => {
 		done();
 	});

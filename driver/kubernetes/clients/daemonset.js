@@ -8,58 +8,25 @@
 
 'use strict';
 
+const {request, segment} = require('./request.js');
+
+const base = (opts) => "/apis/apps/v1/namespaces/" + segment(opts.namespace) + "/daemonsets";
 
 const daemonsets = {
-	/**
-	 * daemonset Wrapper
-	 */
 	get(deployer, opts, cb) {
-		async function main() {
-			if (opts.name) {
-				return await deployer.apis.apps.v1.namespaces(opts.namespace).daemonsets(opts.name).get({qs: opts.qs});
-			} else {
-				return await deployer.apis.apps.v1.namespaces(opts.namespace).daemonsets.get({qs: opts.qs});
-			}
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "GET", opts.name ? base(opts) + "/" + segment(opts.name) : base(opts), {"qs": opts.qs}, cb);
 	},
 	post(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis.apps.v1.namespaces(opts.namespace).daemonsets.post({body: opts.body, qs: opts.qs});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "POST", base(opts), {"body": opts.body, "qs": opts.qs}, cb);
 	},
 	put(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis.apps.v1.namespaces(opts.namespace).daemonsets(opts.name).put({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "PUT", base(opts) + "/" + segment(opts.name), {"body": opts.body}, cb);
+	},
+	patch(deployer, opts, cb) {
+		request(deployer, "PATCH", base(opts) + "/" + segment(opts.name), {"body": opts.body}, cb);
 	},
 	delete(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis.apps.v1.namespaces(opts.namespace).daemonsets(opts.name).delete();
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "DELETE", base(opts) + "/" + segment(opts.name), {}, cb);
 	}
 };
 

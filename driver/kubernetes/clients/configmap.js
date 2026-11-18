@@ -8,71 +8,25 @@
 
 'use strict';
 
+const {request, segment} = require('./request.js');
+
+const base = (opts) => "/api/v1/namespaces/" + segment(opts.namespace) + "/configmaps";
 
 const configmaps = {
-	/**
-	 * configmap Wrapper
-	 */
 	get(deployer, opts, cb) {
-		async function main() {
-			if (opts.name) {
-				return await deployer.api.v1.namespaces(opts.namespace).configmaps(opts.name).get({qs: opts.qs});
-			} else {
-				return await deployer.api.v1.namespaces(opts.namespace).configmaps.get({qs: opts.qs});
-			}
-		}
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "GET", opts.name ? base(opts) + "/" + segment(opts.name) : base(opts), {"qs": opts.qs}, cb);
 	},
 	post(deployer, opts, cb) {
-		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).configmaps.post({
-				body: opts.body,
-				qs: opts.qs
-			});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "POST", base(opts), {"body": opts.body, "qs": opts.qs}, cb);
 	},
 	put(deployer, opts, cb) {
-		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).configmaps(opts.name).put({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "PUT", base(opts) + "/" + segment(opts.name), {"body": opts.body}, cb);
 	},
 	patch(deployer, opts, cb) {
-		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).configmaps(opts.name).patch({body: opts.body});
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "PATCH", base(opts) + "/" + segment(opts.name), {"body": opts.body}, cb);
 	},
 	delete(deployer, opts, cb) {
-		async function main() {
-			return await deployer.api.v1.namespaces(opts.namespace).configmaps(opts.name).delete();
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "DELETE", base(opts) + "/" + segment(opts.name), {}, cb);
 	}
 };
 

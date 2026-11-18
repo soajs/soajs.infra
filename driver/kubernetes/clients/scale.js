@@ -8,21 +8,11 @@
 
 'use strict';
 
+const {request, segment} = require('./request.js');
 
 const scale = {
-	/**
-	 * autoscale Wrapper
-	 */
 	put(deployer, opts, cb) {
-		async function main() {
-			return await deployer.apis.apps.v1.namespaces(opts.namespace).deployments(opts.name).scale.put(opts.body);
-		}
-		
-		main().then((result) => {
-			return cb(null, result.body);
-		}).catch((err) => {
-			return cb(err);
-		});
+		request(deployer, "PUT", "/apis/apps/v1/namespaces/" + segment(opts.namespace) + "/deployments/" + segment(opts.name) + "/scale", {"body": opts.body}, cb);
 	}
 };
 
