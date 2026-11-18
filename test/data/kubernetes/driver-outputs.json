@@ -1,0 +1,7053 @@
+{
+	"client apiService.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client apiService.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client apiService.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client apiService.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client apiService.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client apiService.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client autoscale.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client autoscale.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client autoscale.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client autoscale.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client autoscale.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client autoscale.patch": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PATCH",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {},
+			"contentType": "application/strategic-merge-patch+json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "PATCH",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": "application/strategic-merge-patch+json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client autoscale.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+			"query": {},
+			"contentType": "application/json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client autoscale.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRole.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRole.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRole.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRole.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRole.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRole.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client clusterRoleBinding.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRoleBinding.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRoleBinding.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRoleBinding.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRoleBinding.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client clusterRoleBinding.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client configmap.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/ns1/configmaps/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client configmap.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/configmaps/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client configmap.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/configmaps",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/configmaps",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client configmap.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/configmaps",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/configmaps",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client configmap.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/configmaps/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client configmap.patch": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PATCH",
+			"path": "/api/v1/namespaces/ns1/configmaps/n1",
+			"query": {},
+			"contentType": "application/strategic-merge-patch+json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PATCH",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {},
+				"contentType": "application/strategic-merge-patch+json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client configmap.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/configmaps",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/configmaps",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client configmap.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/namespaces/ns1/configmaps/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client cronjob.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client cronjob.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client cronjob.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client cronjob.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client cronjob.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client cronjob.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client cronjob.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client daemonset.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client daemonset.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client daemonset.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client daemonset.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client daemonset.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client daemonset.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client daemonset.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client deployment.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client deployment.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client deployment.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client deployment.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client deployment.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client deployment.patch": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PATCH",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": "application/strategic-merge-patch+json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PATCH",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": "application/strategic-merge-patch+json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client deployment.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client deployment.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client metrics.nodes one": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"client metrics.nodes all": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"client metrics.nodes no namespace": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"client metrics.pods one": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"client metrics.pods all": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"client metrics.pods no namespace": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"client namespace.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client namespace.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client namespace.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client namespace.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client namespace.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client namespace.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client node.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/nodes/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/nodes/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client node.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/nodes/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/nodes/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client node.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/nodes",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/nodes",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client node.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/nodes",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/nodes",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client node.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/nodes/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client node.put": {
+		"error": {
+			"message": "Cannot convert undefined or null to object",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"client pod.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/ns1/pods",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pod.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/pods/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pod.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/pods",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pod.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/pods",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pod.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pod.getLogs": {
+		"error": null,
+		"result": "line one\nline two é\n",
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/log",
+				"query": {
+					"tailLines": "400",
+					"follow": "false"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pod.getLogs follow": {
+		"error": null,
+		"result": "<stream>",
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/log",
+				"query": {
+					"tailLines": "400",
+					"follow": "true"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pod.podExec": {
+		"error": null,
+		"result": "out C) {\"a\":1}\nwarning\n{\"metadata\":{},\"status\":\"Success\"}",
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"/bin/sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"/bin/sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			}
+		],
+		"console": []
+	},
+	"client pod.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/pods",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client pv.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/persistentvolumes/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/persistentvolumes/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pv.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/persistentvolumes/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/persistentvolumes/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pv.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/persistentvolumes",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/persistentvolumes",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pv.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/persistentvolumes",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/persistentvolumes",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pv.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/persistentvolumes/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pv.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/persistentvolumes",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/persistentvolumes",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client pv.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/persistentvolumes/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/persistentvolumes/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client pvc.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pvc.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pvc.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pvc.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pvc.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client pvc.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client pvc.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client replicaset.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/apps/v1/namespaces/ns1/replicasets",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/apps/v1/namespaces/ns1/replicasets",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client roleBinding.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client roleBinding.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client roleBinding.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client roleBinding.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client roleBinding.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client roleBinding.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client scale.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1/scale",
+			"query": {},
+			"contentType": "application/json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1/scale",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client secret.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/ns1/secrets/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/secrets/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client secret.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/secrets/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/secrets/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client secret.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client secret.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client secret.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/secrets/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client secret.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client service.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/ns1/services/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client service.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/services/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client service.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/services",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client service.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/services",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client service.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client service.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/services",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/services",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client service.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/namespaces/ns1/services/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client serviceaccount.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client serviceaccount.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client serviceaccount.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client serviceaccount.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client serviceaccount.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client serviceaccount.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client storageclass.delete": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client storageclass.get": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client storageclass.get all": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/storage.k8s.io/v1/storageclasses",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/storage.k8s.io/v1/storageclasses",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client storageclass.get all without query": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/storage.k8s.io/v1/storageclasses",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/storage.k8s.io/v1/storageclasses",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client storageclass.get missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"client storageclass.post": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/storage.k8s.io/v1/storageclasses",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/storage.k8s.io/v1/storageclasses",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"client storageclass.put": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.apiservice": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.clusterrole": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.clusterrolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.configmap": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/configmaps",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/configmaps",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.cronjob": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.daemonset": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.deployment": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.hpa": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+			"query": {},
+			"contentType": "application/json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver apply.pod": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/pods",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.pv": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/persistentvolumes",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/persistentvolumes",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.pvc": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.rolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.secret": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.service": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/services",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/services",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.serviceaccount": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver apply.storageclass": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/storage.k8s.io/v1/storageclasses",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/storage.k8s.io/v1/storageclasses",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.cronjob": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.daemonset": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.deployment": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.hpa": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+			"query": {},
+			"contentType": "application/json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver create.namespace": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Namespace",
+				"apiVersion": "v1",
+				"metadata": {
+					"name": "n1",
+					"labels": {
+						"soajs.content": "true"
+					}
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Namespace",
+					"apiVersion": "v1",
+					"metadata": {
+						"name": "n1",
+						"labels": {
+							"soajs.content": "true"
+						}
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.pvc": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "PersistentVolumeClaim",
+				"apiVersion": "v1",
+				"metadata": {
+					"name": "n1",
+					"labels": {
+						"soajs.content": "true",
+						"soajs.persistentVolumeClaim.name": "n1"
+					}
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					},
+					"storageClassName": "standard",
+					"volumeMode": "Filesystem"
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "PersistentVolumeClaim",
+					"apiVersion": "v1",
+					"metadata": {
+						"name": "n1",
+						"labels": {
+							"soajs.content": "true",
+							"soajs.persistentVolumeClaim.name": "n1"
+						}
+					},
+					"spec": {
+						"accessModes": [
+							"ReadWriteOnce"
+						],
+						"resources": {
+							"requests": {
+								"storage": "1Gi"
+							}
+						},
+						"storageClassName": "standard",
+						"volumeMode": "Filesystem"
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.secret_dockercfg": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Secret",
+				"apiVersion": "v1",
+				"type": "kubernetes.io/dockercfg",
+				"metadata": {
+					"name": "n1",
+					"labels": {
+						"soajs.content": "true"
+					}
+				},
+				"stringData": {
+					".dockercfg": "{\"undefined\":{\"auth\":\"dW5kZWZpbmVkOnVuZGVmaW5lZA==\"}}"
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Secret",
+					"apiVersion": "v1",
+					"type": "kubernetes.io/dockercfg",
+					"metadata": {
+						"name": "n1",
+						"labels": {
+							"soajs.content": "true"
+						}
+					},
+					"stringData": {
+						".dockercfg": "{\"undefined\":{\"auth\":\"dW5kZWZpbmVkOnVuZGVmaW5lZA==\"}}"
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.secret_dockerconfigjson": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Secret",
+				"apiVersion": "v1",
+				"type": "kubernetes.io/dockerconfigjson",
+				"metadata": {
+					"name": "n1",
+					"labels": {
+						"soajs.content": "true"
+					}
+				},
+				"data": {
+					".dockerconfigjson": "eyJhdXRocyI6eyJ1bmRlZmluZWQiOnsiYXV0aCI6ImRXNWtaV1pwYm1Wa09uVnVaR1ZtYVc1bFpBPT0ifX19"
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Secret",
+					"apiVersion": "v1",
+					"type": "kubernetes.io/dockerconfigjson",
+					"metadata": {
+						"name": "n1",
+						"labels": {
+							"soajs.content": "true"
+						}
+					},
+					"data": {
+						".dockerconfigjson": "eyJhdXRocyI6eyJ1bmRlZmluZWQiOnsiYXV0aCI6ImRXNWtaV1pwYm1Wa09uVnVaR1ZtYVc1bFpBPT0ifX19"
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.secret_opaque": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Secret",
+				"apiVersion": "v1",
+				"type": "Opaque",
+				"metadata": {
+					"name": "n1",
+					"labels": {
+						"soajs.content": "true"
+					}
+				},
+				"stringData": {
+					"a": "b"
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Secret",
+					"apiVersion": "v1",
+					"type": "Opaque",
+					"metadata": {
+						"name": "n1",
+						"labels": {
+							"soajs.content": "true"
+						}
+					},
+					"stringData": {
+						"a": "b"
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.service": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/services",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/services",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver delete.apiservice": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.clusterrole": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.clusterrolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.configmap": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/configmaps/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.cronjob": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.daemonset": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.deployment": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.hpa": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.namespace": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "DELETE",
+			"path": "/api/v1/namespaces/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.pods": {
+		"error": null,
+		"result": {
+			"kind": "PodList",
+			"items": [
+				{
+					"metadata": {
+						"name": "p1",
+						"namespace": "ns1",
+						"labels": {
+							"soajs.shell": "shell-sh"
+						}
+					},
+					"status": {
+						"phase": "Running",
+						"podIP": "10.0.0.1",
+						"conditions": [
+							{
+								"type": "Ready",
+								"status": "True"
+							}
+						]
+					}
+				},
+				{
+					"metadata": {
+						"name": "p2",
+						"namespace": "ns1",
+						"labels": {
+							"soajs.shell": "shell-sh"
+						}
+					},
+					"status": {
+						"phase": "Pending"
+					}
+				}
+			]
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.pv": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/persistentvolumes/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/persistentvolumes/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/api/v1/persistentvolumes/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.pvc": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.rolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.secret": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/secrets/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/secrets/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/secrets/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.service": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/services/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.serviceaccount": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.storageclass": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver deployment.patch": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PATCH",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": "application/strategic-merge-patch+json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PATCH",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": "application/strategic-merge-patch+json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver get.all.apiservice": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.clusterrole": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.clusterrolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.configmap": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/configmaps",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/configmaps",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.cronjob": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.daemonset": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.deployment": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.hpa": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.namespace": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.node": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/nodes",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/nodes",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.pod": {
+		"error": null,
+		"result": {
+			"kind": "PodList",
+			"items": [
+				{
+					"metadata": {
+						"name": "p1",
+						"namespace": "ns1",
+						"labels": {
+							"soajs.shell": "shell-sh"
+						}
+					},
+					"status": {
+						"phase": "Running",
+						"podIP": "10.0.0.1",
+						"conditions": [
+							{
+								"type": "Ready",
+								"status": "True"
+							}
+						]
+					}
+				},
+				{
+					"metadata": {
+						"name": "p2",
+						"namespace": "ns1",
+						"labels": {
+							"soajs.shell": "shell-sh"
+						}
+					},
+					"status": {
+						"phase": "Pending"
+					}
+				}
+			]
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.pv": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/persistentvolumes",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/persistentvolumes",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.pvc": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.rolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.secret": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.service": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/services",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.serviceaccount": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.all.storageclass": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/storage.k8s.io/v1/storageclasses",
+			"query": {
+				"labelSelector": "app=x"
+			},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/storage.k8s.io/v1/storageclasses",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.apiservice": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apiregistration.k8s.io/v1/apiservices/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.clusterrole": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterroles/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.clusterrolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/clusterrolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.configmap": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/configmaps/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.cronjob": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.daemonset": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.deployment": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.hpa": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.namespace": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.node": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/nodes/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/nodes/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.pod": {
+		"error": null,
+		"result": {
+			"metadata": {
+				"name": "n1",
+				"namespace": "ns1",
+				"labels": {
+					"soajs.shell": "shell-sh"
+				}
+			},
+			"status": {
+				"phase": "Running",
+				"podIP": "10.0.0.1",
+				"conditions": [
+					{
+						"type": "Ready",
+						"status": "True"
+					}
+				]
+			}
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.pv": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/persistentvolumes/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/persistentvolumes/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.pvc": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.rolebinding": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/rbac.authorization.k8s.io/v1/namespaces/ns1/rolebindings/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.secret": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/secrets/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/secrets/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.service": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/services/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.serviceaccount": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/serviceaccounts/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.one.storageclass": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.podIps": {
+		"error": null,
+		"result": [
+			{
+				"name": "p1",
+				"ip": "10.0.0.1"
+			},
+			{
+				"name": "p2"
+			}
+		],
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver get.serviceIps": {
+		"error": null,
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver hpa.patch": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PATCH",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {},
+			"contentType": "application/strategic-merge-patch+json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "PATCH",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": "application/strategic-merge-patch+json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver metrics.nodes": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"driver metrics.pods": {
+		"error": {
+			"message": "Cannot read properties of undefined (reading 'v1')",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"driver patch.daemonset": {
+		"error": {
+			"message": "thrown: wrapper.daemonset.patch is not a function",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"driver patch.deployment": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PATCH",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": "application/strategic-merge-patch+json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PATCH",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": "application/strategic-merge-patch+json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.configmap": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/namespaces/ns1/configmaps/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/namespaces/ns1/configmaps/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.cronjob": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/batch/v1/namespaces/ns1/cronjobs/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.daemonset": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/apps/v1/namespaces/ns1/daemonsets/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.deployment": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.hpa": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver update.pv": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/persistentvolumes/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/persistentvolumes/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.pvc": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/namespaces/ns1/persistentvolumeclaims/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.service": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/api/v1/namespaces/ns1/services/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/api/v1/namespaces/ns1/services/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver update.storageclass": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "PUT",
+			"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Thing",
+				"metadata": {
+					"name": "n1"
+				},
+				"spec": {
+					"replicas": 2
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "PUT",
+				"path": "/apis/storage.k8s.io/v1/storageclasses/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Thing",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 2
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.secret_dockercfg with content": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Secret",
+				"apiVersion": "v1",
+				"type": "kubernetes.io/dockercfg",
+				"metadata": {
+					"name": "n1",
+					"labels": {
+						"soajs.content": "true"
+					}
+				},
+				"stringData": {
+					".dockercfg": "{\"registry.example.invalid\":{\"username\":\"u\",\"password\":\"p\",\"email\":\"e@example.invalid\",\"auth\":\"dTpw\"}}"
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Secret",
+					"apiVersion": "v1",
+					"type": "kubernetes.io/dockercfg",
+					"metadata": {
+						"name": "n1",
+						"labels": {
+							"soajs.content": "true"
+						}
+					},
+					"stringData": {
+						".dockercfg": "{\"registry.example.invalid\":{\"username\":\"u\",\"password\":\"p\",\"email\":\"e@example.invalid\",\"auth\":\"dTpw\"}}"
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver create.secret_dockerconfigjson with content": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "POST",
+			"path": "/api/v1/namespaces/ns1/secrets",
+			"query": {},
+			"contentType": "application/json",
+			"body": {
+				"kind": "Secret",
+				"apiVersion": "v1",
+				"type": "kubernetes.io/dockerconfigjson",
+				"metadata": {
+					"name": "n1",
+					"labels": {
+						"soajs.content": "true"
+					}
+				},
+				"data": {
+					".dockerconfigjson": "eyJhdXRocyI6eyJyZWdpc3RyeS5leGFtcGxlLmludmFsaWQiOnsidXNlcm5hbWUiOiJ1IiwicGFzc3dvcmQiOiJwIiwiZW1haWwiOiJlQGV4YW1wbGUuaW52YWxpZCIsImF1dGgiOiJkVHB3In19fQ=="
+				}
+			}
+		},
+		"requests": [
+			{
+				"method": "POST",
+				"path": "/api/v1/namespaces/ns1/secrets",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Secret",
+					"apiVersion": "v1",
+					"type": "kubernetes.io/dockerconfigjson",
+					"metadata": {
+						"name": "n1",
+						"labels": {
+							"soajs.content": "true"
+						}
+					},
+					"data": {
+						".dockerconfigjson": "eyJhdXRocyI6eyJyZWdpc3RyeS5leGFtcGxlLmludmFsaWQiOnsidXNlcm5hbWUiOiJ1IiwicGFzc3dvcmQiOiJwIiwiZW1haWwiOiJlQGV4YW1wbGUuaW52YWxpZCIsImF1dGgiOiJkVHB3In19fQ=="
+					}
+				}
+			}
+		],
+		"console": []
+	},
+	"driver get.podIps only ready": {
+		"error": null,
+		"result": [
+			{
+				"name": "p1",
+				"ip": "10.0.0.1"
+			},
+			{
+				"name": "p2"
+			}
+		],
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver getOne missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.deployment cleanup without autoscaler": {
+		"error": null,
+		"result": {
+			"kind": "Deployment",
+			"metadata": {
+				"name": "n1"
+			},
+			"spec": {
+				"replicas": 0
+			}
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "PUT",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Deployment",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 0
+					}
+				}
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver delete.deployment cleanup with autoscaler": {
+		"error": null,
+		"result": {
+			"kind": "Deployment",
+			"metadata": {
+				"name": "n1"
+			},
+			"spec": {
+				"replicas": 0
+			}
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "PUT",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": "application/json",
+				"authorization": "Bearer test-token",
+				"body": {
+					"kind": "Deployment",
+					"metadata": {
+						"name": "n1"
+					},
+					"spec": {
+						"replicas": 0
+					}
+				}
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/apps/v1/namespaces/ns1/deployments/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "GET",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "DELETE",
+				"path": "/apis/autoscaling/v1/namespaces/ns1/horizontalpodautoscalers/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver pod.log": {
+		"error": null,
+		"result": "line one\nline two é\n",
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/log",
+				"query": {
+					"tailLines": "10",
+					"follow": "false"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver pod.log follow": {
+		"error": null,
+		"result": "<stream>",
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/log",
+				"query": {
+					"tailLines": "400",
+					"follow": "true"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver pod.log missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"driver pod.exec one pod": {
+		"error": null,
+		"result": {
+			"id": "p1",
+			"response": "out é {\"a\":1}\nwarning\n"
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"-sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			}
+		],
+		"console": [
+			"Received non-output message on channel 51: eyJtZXRhZGF0YSI6e30sInN0YXR1cyI6IlN1Y2Nlc3MifQ=="
+		]
+	},
+	"driver pod.exec by filter": {
+		"error": null,
+		"result": [
+			{
+				"id": "p1",
+				"response": "out é {\"a\":1}\nwarning\n"
+			},
+			{
+				"id": "p2",
+				"response": "out é {\"a\":1}\nwarning\n"
+			}
+		],
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"-sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p2/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"-sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			}
+		],
+		"console": [
+			"Received non-output message on channel 51: eyJtZXRhZGF0YSI6e30sInN0YXR1cyI6IlN1Y2Nlc3MifQ==",
+			"Received non-output message on channel 51: eyJtZXRhZGF0YSI6e30sInN0YXR1cyI6IlN1Y2Nlc3MifQ=="
+		]
+	},
+	"driver pod.exec processResult": {
+		"error": null,
+		"result": {
+			"id": "p1",
+			"response": {
+				"a": 1
+			}
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"-sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			}
+		],
+		"console": [
+			"Received non-output message on channel 51: eyJtZXRhZGF0YSI6e30sInN0YXR1cyI6IlN1Y2Nlc3MifQ=="
+		]
+	},
+	"driver pod.exec with ca": {
+		"error": null,
+		"result": {
+			"id": "p1",
+			"response": "out C) {\"a\":1}\nwarning\n{\"metadata\":{},\"status\":\"Success\"}"
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command[0]": "-sh",
+					"command[1]": "-c",
+					"command[2]": "echo hi"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"-sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			}
+		],
+		"console": []
+	},
+	"driver pod.exec with ca processResult": {
+		"error": null,
+		"result": [
+			{
+				"id": "p1",
+				"response": "Maintenance operation failed."
+			},
+			{
+				"id": "p2",
+				"response": "Maintenance operation failed."
+			}
+		],
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods",
+				"query": {
+					"labelSelector": "app=x"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command[0]": "-sh",
+					"command[1]": "-c",
+					"command[2]": "echo hi"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/p2/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command[0]": "-sh",
+					"command[1]": "-c",
+					"command[2]": "echo hi"
+				},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p1/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"-sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			},
+			{
+				"method": "WEBSOCKET",
+				"path": "/api/v1/namespaces/ns1/pods/p2/exec",
+				"query": {
+					"stdout": "1",
+					"stdin": "1",
+					"stderr": "1",
+					"command": [
+						"-sh",
+						"-c",
+						"echo hi"
+					]
+				},
+				"protocol": "base64.channel.k8s.io",
+				"authorization": "Bearer test-token"
+			}
+		],
+		"console": []
+	},
+	"driver pod.exec missing": {
+		"error": {
+			"message": "the thing \"missing\" was not found",
+			"code": 404,
+			"statusCode": 404
+		},
+		"result": null,
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/ns1/pods/missing",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"connect without token": {
+		"error": {
+			"message": "Connect error: No valid access token found for the kubernetes cluster",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"connect without url": {
+		"error": {
+			"message": "Connect error: No valid url found for the kubernetes cluster",
+			"code": null,
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"connect url and token": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"connect https url, certificate not verified": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"connect ca": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"connect ca with its own bearer": {
+		"error": null,
+		"result": {
+			"kind": "Echo",
+			"method": "GET",
+			"path": "/api/v1/namespaces/n1",
+			"query": {},
+			"contentType": null,
+			"body": null
+		},
+		"requests": [
+			{
+				"method": "GET",
+				"path": "/api/v1/namespaces/n1",
+				"query": {},
+				"contentType": null,
+				"authorization": "Bearer other-test-token",
+				"body": null
+			}
+		],
+		"console": []
+	},
+	"connect ca, another server's certificate": {
+		"error": {
+			"message": "self-signed certificate; if the root CA is installed locally, try running Node.js with --use-system-ca",
+			"code": "DEPTH_ZERO_SELF_SIGNED_CERT",
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	},
+	"connect, server down": {
+		"error": {
+			"message": "connect ECONNREFUSED 127.0.0.1:<port>",
+			"code": "ECONNREFUSED",
+			"statusCode": null
+		},
+		"result": null,
+		"requests": [],
+		"console": []
+	}
+}
