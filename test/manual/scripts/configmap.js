@@ -1,17 +1,9 @@
+const client = require("../client");
 
-let client = require("soajs.infra/test/manual/client").client;
-//
-// Fetch all the pods
-async function main() {
-	return await client.api.v1.namespaces("chirpstack").configmaps("config-gateway-bridge").get();
-}
-//get namespaces
-main().then((service) => {
-	
-	console.log(JSON.stringify(service));
-	
-	
-}).catch((err) => {
-	console.log(err)
+// one config map
+client.connect((error, deployer) => {
+	if (error) {
+		return console.log(error);
+	}
+	client.driver.get.one.configmap(deployer, {"namespace": "chirpstack", "name": "config-gateway-bridge"}, (error, item) => console.log(error || JSON.stringify(item)));
 });
-

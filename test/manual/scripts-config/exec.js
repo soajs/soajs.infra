@@ -1,24 +1,9 @@
-let client = require("../client-config").client;
+const client = require("../client-config");
 
-let cmd = ['/bin/bash', '-c', 'cat package.json'];
-
-// Fetch all the pods
-async function main() {
-	
-	return await client.api.v1.namespaces("mathieu").pods("mathieu-oauth-v1-6f76874964-8qj57").exec.get({ //local
-		qs: {
-			stdout: 1,
-			stdin: 1,
-			stderr: 1,
-			command: cmd
-		}
-	});
-}
-
-main().then((result) => {
-	
-	console.log(JSON.stringify(result));
-	
-}).catch((err) => {
-	console.log(err)
+// a command in a pod, through the client (with ca)
+client.connect((error, deployer) => {
+	if (error) {
+		return console.log(error);
+	}
+	client.driver.pod.exec(deployer, {"namespace": "mathieu", "name": "mathieu-oauth-v1-6f76874964-8qj57", "config": {}, "ca": true, "commands": ["cat package.json"]}, (error, result) => console.log(error || JSON.stringify(result)));
 });
